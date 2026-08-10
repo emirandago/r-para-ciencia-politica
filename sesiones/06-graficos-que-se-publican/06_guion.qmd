@@ -1,0 +1,178 @@
+---
+title: "Sesión 6 · Gráficos que se publican"
+subtitle: "¿Cómo hago una figura de paper?"
+---
+
+::: {.gancho}
+El gráfico de la sesión pasada convence en la pantalla de tu laptop. Pero un
+trabajo final no se entrega en la pantalla de tu laptop: se entrega como un
+PDF, con paneles que comparan varias cosas a la vez, y con cada decisión de
+color defendible frente a alguien que va a mirarlo con calma. Hoy conviertes
+un gráfico en una figura.
+:::
+
+## Qué vas a poder hacer al salir
+
+Vas a saber partir un gráfico saturado en varios paneles con `facet_wrap()`,
+elegir entre una escala de color secuencial, divergente o por umbrales según
+lo que tu variable realmente signifique, y aplicar el tema visual del curso,
+`theme_lab()`, para que tus gráficos combinen con todo lo demás que produzcas
+en el laboratorio. Vas a guardar una figura como PDF, con dimensiones
+explícitas, que se pega directo en un documento. Y vas a poder explicar, con
+un ejemplo y no solo con una regla, por qué una barra tiene que arrancar en
+cero y un punto no.
+
+Lo que no vas a entender del todo todavía es *tidy evaluation* —el mecanismo
+que le permite a una función recibir el nombre de una columna como
+argumento—, que aparece asomado en algunas funciones de hoy. No hace falta:
+lo vas a usar por receta, y si te interesa a fondo está en el extra de
+funciones e iteración.
+
+## Antes de venir
+
+Haber corrido la sesión 5, La gramática de los gráficos. Usamos `ggplot()`,
+`aes()`, `geom_col()` y `labs()` sin volver a explicarlos. También suponemos,
+apenas de pasada, el `pivot_longer()` que viste en la sesión 4: hoy es la
+primera vez que de verdad te hace falta.
+
+## Los archivos de la sesión
+
+::: {.descargas}
+[06_script.R — el guion de clase](https://raw.githubusercontent.com/emirandago/r-para-politologos/main/sesiones/06-graficos-que-se-publican/06_script.R){.btn-descarga}
+[06_ejercicio.R — para llevar](https://raw.githubusercontent.com/emirandago/r-para-politologos/main/sesiones/06-graficos-que-se-publican/06_ejercicio.R){.btn-descarga}
+[06_slides.pdf — las láminas](https://raw.githubusercontent.com/emirandago/r-para-politologos/main/sesiones/06-graficos-que-se-publican/06_slides.pdf){.btn-descarga .secundario}
+[06_script_completo.R — resuelto](https://raw.githubusercontent.com/emirandago/r-para-politologos/main/sesiones/06-graficos-que-se-publican/06_script_completo.R){.btn-descarga .secundario}
+[06_solucion.R — solución del ejercicio](https://raw.githubusercontent.com/emirandago/r-para-politologos/main/sesiones/06-graficos-que-se-publican/06_solucion.R){.btn-descarga .secundario}
+:::
+
+El archivo `06_script.R` tiene huecos y **no corre de corrido**: está hecho
+para llenarse en clase. Los dos archivos grises se publican al terminar la
+sesión.
+
+## El contenido, en prosa
+
+### El problema que resuelven las facetas
+
+Tienes tres coaliciones y treinta y dos entidades: noventa y seis números. La
+tentación es meterlos todos en un solo panel, con una barra junto a otra por
+cada entidad, distinguidas por color. El resultado se puede leer, a duras
+penas, pero se satura rápido: el ojo tiene que separar dos cosas a la vez, la
+posición y el color, para entender de qué coalición es cada barra.
+
+`facet_wrap()` propone otra cosa: en vez de pedirle a un solo panel que
+cargue con las tres coaliciones, le pides a R que te dé tres paneles, uno por
+coalición, con el mismo eje en los tres para que se puedan comparar entre sí.
+Es el mismo dato, exactamente los mismos noventa y seis números. Lo único que
+cambia es la gramática: un canal —el panel— en vez de dos —el panel y el
+color— para decir de qué coalición es cada barra. Para llegar a esa forma
+larga necesitas `pivot_longer()`, que viste apenas de pasada en la sesión 4 y
+hoy por fin usas para algo que no podrías hacer de otro modo.
+
+### Una escala de color no es un adorno
+
+Un color que representa un número —no una categoría— tiene que elegirse
+según lo que ese número signifique, no según qué tan bonito se vea. Si solo
+importa la magnitud, de menos a más, la escala es **secuencial**
+(`scale_fill_gradient()`, o `scale_fill_viridis_c()`). Si hay un cero real
+—un empate, ningún cambio, ninguna ventaja— y dos direcciones posibles a
+partir de él, la escala es **divergente** (`scale_fill_gradient2()`, con su
+`midpoint`). Y si en vez de un degradado continuo prefieres tramos con un
+color sólido cada uno —para que la lectura sea "esto es una goleada" en vez
+de "esto es 34.2 puntos"—, existen `scale_fill_steps()` para cortes
+automáticos y `scale_fill_stepsn()` para cortes que tú decides con un
+criterio sustantivo, como el veinte por ciento que ya usaste en la sesión 1
+para hablar de goleadas.
+
+`viridis` aparece en las cuatro variantes en algún momento, porque es la
+familia de paletas diseñada para leerse igual bajo las formas comunes de
+daltonismo y en escala de grises, y está integrada en `ggplot2` desde su
+versión 3.0: no necesita un `library()` aparte.
+
+### `theme_lab()`: el tema visual del curso entra hoy
+
+Hasta ahora usaste `theme_minimal()`. Hoy conoces `theme_lab()`, definido en
+`estilo/tema_lab.R`, que aplica la misma paleta verde de las láminas a tus
+gráficos de `ggplot2`. Trae también `scale_fill_lab_d()`, la escala
+discreta del curso, con una advertencia que vale la pena tomarse en serio:
+una paleta monocromática como esta distingue bien hasta tres categorías. Con
+más, los tonos se vuelven indistinguibles y el gráfico empieza a mentir por
+omisión —la función te avisa sola con un `warning` si te pasas de tres, y
+te sugiere `scale_fill_viridis_d()` en su lugar.
+
+### `ggsave()`: por fin el gráfico sale de R
+
+Todo lo que has hecho hasta hoy vive únicamente adentro de RStudio. Para que
+una figura entre a un documento —un trabajo final, una tesis— tiene que
+salir como archivo, con dimensiones explícitas, no como una captura de
+pantalla. `ggsave()` hace eso, y la decisión de formato importa: un PDF es
+vectorial, guarda instrucciones de dibujo en vez de una cuadrícula de
+píxeles, así que se puede ampliar o imprimir sin que se pixele ni una letra.
+Un PNG es raster, con una resolución fija, y se ve borroso si el documento lo
+estira más de lo que mide esa cuadrícula. Para una figura de barras o de
+paneles como la de hoy, destinada a un documento impreso, el PDF gana casi
+siempre —la excepción son los gráficos con decenas de miles de puntos
+traslapados, donde un PDF vectorial puede pesar más que un PNG equivalente.
+
+### Ética visual: la barra promete algo que el punto no
+
+Una barra codifica una magnitud en su longitud, y una longitud solo se lee
+bien si arranca en cero. Un punto codifica esa misma magnitud en su
+posición, y una posición no necesita el cero para leerse con honestidad. Esa
+diferencia —que ya se asomó en el ejercicio de la sesión 1— es el argumento
+completo de por qué este curso prohíbe, sin excepción, los gráficos en 3D,
+los gráficos de pastel, los ejes duales y las barras que no arrancan en
+cero: los cuatro le piden al ojo que compare magnitudes que el gráfico ya
+dejó de medir de forma proporcional. Hoy lo ves con un ejemplo: los mismos
+seis números de participación electoral, en dos versiones del mismo
+gráfico, una con el eje completo y otra con el eje recortado. La diferencia
+entre las dos no es de gusto: es una decisión de diseño que puede hacer que
+una relación se vea más fuerte de lo que es, y eso es un problema de
+honestidad, no de estética. Puedes leer más sobre esta discusión en Kieran
+Healy, *Data Visualization: A Practical Introduction* (Princeton University
+Press, 2018).
+
+::: {.si-algo-falla}
+### Si algo falla
+
+**`Error in source(...) : cannot open file '.../estilo/tema_lab.R'`**
+R no está parado en la carpeta del proyecto. Cierra RStudio, ábrelo de nuevo
+con doble clic sobre `r-para-politologos.Rproj` y corre `here()` para
+confirmar que la ruta termina en `/r-para-politologos`.
+
+**`Error in ggsave(...) : cannot open file '.../figuras/...' : No such file or directory`**
+La carpeta `figuras` todavía no existe dentro de la carpeta de la sesión.
+Corre primero la línea de `dir.create(..., showWarnings = FALSE)` que crea
+esa carpeta, y después vuelve a intentar `ggsave()`.
+
+**`Warning: Removed 2 rows containing missing values`**
+No es un error, no detiene el script: te avisa que dos municipios con
+`ventaja_shh` en `NA` se cayeron del gráfico. Son Reforma y Capulálpam de
+Méndez, en Oaxaca, donde ninguna casilla se instaló en 2024 — está
+documentado en `datos/README.md`. Si el mensaje te sorprende, revisa que
+filtraste los `NA` a propósito y no por accidente.
+
+**`theme_lab: pediste 4 categorias y la paleta del curso solo distingue bien 3`**
+No es un error: es `scale_fill_lab_d()` avisándote que le pasaste una
+variable con más de tres categorías. Cambia a `scale_fill_viridis_d()`, que
+sí está diseñada para eso.
+
+Hay más, con su traducción y su arreglo, en [Errores comunes](../../recursos/errores-comunes.qmd).
+:::
+
+::: {.ya-sabes}
+### Lo que ya sabes hacer
+
+- Partir un gráfico saturado en paneles con `facet_wrap()`, y elegir entre
+  una escala secuencial, divergente o por umbrales según lo que tu variable
+  signifique.
+- Aplicar `theme_lab()` y guardar una figura como PDF con `ggsave()`, con
+  dimensiones explícitas y una razón para elegir ese formato.
+- Explicar, con un ejemplo propio, por qué una barra tiene que arrancar en
+  cero y un punto no.
+:::
+
+## La semana que viene
+
+**El mapa de México.** Vas a convertir esa misma lógica de escalas de color
+en un mapa coroplético de los 2,469 municipios del país. Es la sesión donde
+por fin se ve el territorio.

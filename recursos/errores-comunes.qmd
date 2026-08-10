@@ -1,0 +1,790 @@
+---
+title: "Errores comunes"
+subtitle: "Cómo leer un mensaje de error en R, y qué hacer con cada uno"
+---
+
+::: {.gancho}
+Un error de R no es una falla del laboratorio: es el temario. Nadie que programe
+—ni quien lleva veinte años haciéndolo— escribe código que corre a la primera.
+La diferencia entre alguien que se queda y alguien que abandona no es que a
+quien se queda le truene menos código. Es que sabe leer lo que R le está
+diciendo. Este documento enseña eso.
+:::
+
+Cada entrada de este catálogo trae el mensaje **literal en inglés** —porque
+así lo vas a ver casi siempre, y buscarlo así en internet es lo que funciona—,
+su traducción, qué lo causa de verdad y el arreglo concreto. Una nota sobre el
+idioma: si tu computadora está configurada en español, es posible que R ya te
+muestre algunos de estos mensajes traducidos de fábrica (por ejemplo, "no se
+pudo encontrar la función" en vez de `could not find function`). El contenido
+es el mismo; usa la traducción de este documento para reconocer el mensaje sin
+importar en qué idioma te salga.
+
+## Antes que nada: cómo leer un mensaje de error
+
+R te da tres piezas de información cada vez que algo truena, y las tres valen
+la pena aunque el mensaje se vea intimidante:
+
+**Dónde.** Casi todo error empieza con `Error in algo(...) :`. Ese `algo(...)`
+es la función o la expresión que R estaba evaluando cuando se topó con el
+problema —no necesariamente la línea completa que escribiste, y casi nunca el
+motivo real del problema.
+
+**Qué es ruido y qué no.** Después de los dos puntos viene la descripción del
+problema. Ignora, por ahora, cualquier mención a funciones internas que nunca
+escribiste tú (`eval`, `doTryCatch`, `withCallingHandlers`): son la maquinaria
+interna de R haciendo su trabajo, no el lugar donde tú te equivocaste. Lo que
+importa es la última línea con signo de `$`, `::`, o un nombre de objeto que
+reconoces del script.
+
+**Por qué el error casi siempre está arriba de donde R lo reporta.** Esta es
+la idea más importante de todo el documento. R avisa el problema en el momento
+en que **lo descubre**, no en el momento en que **se originó**. Si un objeto
+no existe, es casi siempre porque una línea de arriba no se corrió, o se corrió
+con un error que pasó inadvertido. La primera pregunta ante cualquier error no
+es "¿qué tiene mal esta línea?": es "¿corrí, en orden, todo lo que esta línea
+necesita?". Antes de leer una sola palabra del mensaje, revisa el panel de
+*Environment* (arriba a la derecha en RStudio): si el objeto que buscas no
+está ahí, ya sabes dónde empezar a mirar.
+
+Una distinción que te va a ahorrar pánico: R usa dos palabras distintas para
+avisarte cosas, y no significan lo mismo. Un **`Error`** detiene la ejecución:
+nada de lo que sigue corrió. Un **`Warning`** (aviso) no detiene nada: R hizo
+lo que le pediste, pero quiere que sepas que algo en el camino no fue del todo
+limpio —un dato que se volvió `NA`, una relación rara en un cruce de bases—.
+Ignorar un `Warning` porque "no truena" es, en este curso, casi tan grave como
+no leer un `Error`: buena parte de la sección final de este documento son
+precisamente avisos, o silencios, que conviene tratar como si fueran errores.
+
+---
+
+## Al instalar y cargar paquetes (sesión 1-2)
+
+### `there is no package called`
+
+```
+Error in library(tidyverse) : there is no package called 'tidyverse'
+```
+
+**Traducción.** No existe ningún paquete con ese nombre.
+
+**Qué lo causa de verdad.** `library()` carga un paquete que ya está
+instalado en tu computadora; no lo instala. Este mensaje significa,
+prácticamente siempre, que nunca corriste `install.packages("tidyverse")`, o
+que lo corriste y algo interrumpió la instalación a la mitad.
+
+**El arreglo.** Copia `install.packages("tidyverse")` en la **consola** —nunca
+dentro de un script que otra persona vaya a correr—, espera a que termine
+(pueden ser varios minutos la primera vez) y vuelve a correr `library()`.
+
+### `could not find function`
+
+```
+Error in read_dta(...) : could not find function "read_dta"
+```
+
+**Traducción.** No encuentro ninguna función con ese nombre.
+
+**Qué lo causa de verdad.** Casi nunca es que la función no existe: es que
+existe en un paquete que no cargaste con `library()` en esta sesión. `R`
+olvida qué paquetes cargaste apenas cierras RStudio; tienes que volver a
+cargarlos cada vez que abres el proyecto. `read_dta()` vive en `haven`;
+`read_excel()`, en `readxl`; `feols()`, en `fixest`.
+
+**El arreglo.** Agrega `library(el_paquete_correspondiente)` antes de la línea
+que falló, y corre las dos en orden. Si de plano no sabes en qué paquete vive
+una función, `??nombre_de_la_función` busca en la ayuda instalada, y una
+búsqueda como `"nombre_de_la_función" r package` casi siempre resuelve la duda
+en el primer resultado.
+
+### Los conflictos de nombres al cargar `dplyr`
+
+Cuando corres `library(tidyverse)` por primera vez en una sesión, R imprime
+algo parecido a esto —no es un error, es información:
+
+```
+── Conflicts ─────────────────────────────────────── tidyverse_conflicts() ──
+✖ dplyr::filter() masks stats::filter()
+✖ dplyr::lag()    masks stats::lag()
+```
+
+**Traducción.** `dplyr::filter()` tapa a `stats::filter()`.
+
+**Qué significa de verdad.** R tiene, instalado desde siempre, un paquete
+llamado `stats` con una función `filter()` propia —sirve para suavizar series
+de tiempo, no tiene nada que ver con filtrar una tabla—. Cuando cargas
+`dplyr`, su `filter()` (el que vas a usar todo el curso) toma el lugar de
+`stats::filter()` mientras dure la sesión. Eso es lo que quiere decir *masks*
+("tapa", "enmascara"): si escribes `filter()` a secas, R usa la versión más
+reciente en cargarse, que después de `library(tidyverse)` siempre es la de
+`dplyr`.
+
+**Por qué importa.** Si alguna vez **no** cargaste `tidyverse` y usas
+`filter()` de todos modos —por ejemplo, porque ya lo habías cargado en otra
+sesión y se te olvidó que RStudio no se acuerda entre sesiones—, R usa
+`stats::filter()` sin avisarte que cambió de función, y el resultado es un
+error que en la superficie no tiene nada que ver con paquetes:
+
+```
+Error in filter(resultados, entidad == "Jalisco") :
+  object 'entidad' not found
+```
+
+`stats::filter()` no sabe leer nombres de columna sueltos como hace `dplyr`;
+busca `entidad` como si fuera un objeto independiente en tu entorno, no lo
+encuentra, y trunea con un mensaje que parece de objeto faltante. **El
+arreglo** es siempre el mismo: confirma que corriste `library(tidyverse)` en
+esta sesión, no en una sesión pasada.
+
+---
+
+## Cuando R todavía no terminó de leerte: errores de sintaxis (sesión 1)
+
+### El `+` que parpadea y no pasa nada
+
+En la consola, en vez de un mensaje, ves esto y el cursor no avanza:
+
+```
+> resultados |> filter(participacion > 60
++
+```
+
+**No es un error.** Es R diciéndote, sin palabras, "todavía no terminas de
+escribir la instrucción y estoy esperando". Casi siempre falta cerrar un
+paréntesis, una comilla o un corchete que abriste antes.
+
+**El arreglo.** Aprieta `Esc` para cancelar, y revisa la línea contando
+paréntesis: cada `(` necesita su `)`. RStudio resalta en gris el paréntesis
+pareja cuando pones el cursor junto a uno; úsalo para contar.
+
+### `unexpected symbol`
+
+```
+> x <- 5 y <- 10
+Error: unexpected symbol in "x <- 5 y"
+```
+
+**Traducción.** Símbolo inesperado.
+
+**Qué lo causa de verdad.** R terminó de leer una instrucción completa (`x <-
+5`) y, en la misma línea, encontró el principio de otra (`y`) sin nada que las
+separe —ni un salto de línea, ni un `;`—. R no sabe qué hacer con dos
+instrucciones pegadas así.
+
+**El arreglo.** Separa las dos instrucciones en dos líneas. Esto pasa mucho
+al copiar código de una página web o de un PDF, donde un salto de línea se
+perdió en el camino.
+
+### `unexpected ')'`
+
+```
+> mean(resultados$participacion))
+Error: unexpected ')' in "mean(resultados$participacion))"
+```
+
+**Traducción.** Cierre de paréntesis inesperado.
+
+**Qué lo causa de verdad.** Sobra un paréntesis de cierre: hay más `)` que
+`(` en la expresión. Es el error opuesto y complementario al `+` colgado —ahí
+faltaba un paréntesis; aquí sobra uno.
+
+**El arreglo.** Cuenta los paréntesis de la expresión completa, de afuera
+hacia adentro, y quita el que sobra.
+
+---
+
+## Cuando R no encuentra lo que buscas: `object ... not found`
+
+Este es, con diferencia, el error más frecuente de todo el curso, y tiene
+cuatro causas distintas que producen exactamente el mismo mensaje. Diagnosticar
+cuál de las cuatro te tocó es más importante que memorizar el arreglo de
+ninguna.
+
+```
+Error: object 'resultados' not found
+```
+
+**Traducción.** No encuentro ningún objeto con ese nombre.
+
+**Causa 1 — no corriste la línea de arriba.** Es la más común, sobre todo
+cuando saltas líneas al aprender. Revisa el panel *Environment*: si el objeto
+no aparece ahí, no existe todavía para R, sin importar que la línea que lo
+crea esté justo arriba de la que falló, en el script.
+
+**Causa 2 — lo escribiste con una letra distinta.** R distingue mayúsculas de
+minúsculas: `Resultados` y `resultados` son dos objetos diferentes para él, no
+el mismo con un descuido de tipeo perdonado. Lo mismo con acentos y con
+guiones bajos de más o de menos.
+
+**Causa 3 — te faltaron las comillas.**
+
+```
+Error: object 'Jalisco' not found
+```
+
+Esto pasa cuando escribes `filter(entidad == Jalisco)` en vez de
+`filter(entidad == "Jalisco")`. Sin comillas, R interpreta `Jalisco` como el
+nombre de un objeto que debería existir en tu entorno —no como el texto
+"Jalisco"—, no lo encuentra, y truena. Dentro de `filter()` y de cualquier
+comparación, todo valor de texto lleva comillas.
+
+**Causa 4 — `mutate()` (o `case_when()` dentro de él) no modificó tu tabla,
+porque nunca reasignaste el resultado.**
+
+```
+resultados |> mutate(ventaja = pct_shh - pct_segundo)
+ventaja
+Error: object 'ventaja' not found
+```
+
+En R, casi ninguna función modifica un objeto por sí sola: `mutate()` calcula
+la columna nueva y la muestra en pantalla, pero `resultados` se queda exactamente
+igual que antes a menos que reasignes el resultado con la flecha:
+
+```r
+resultados <- resultados |> mutate(ventaja = pct_shh - pct_segundo)
+```
+
+Si ves este error después de un `mutate()` que "sí corrió" sin marcar nada en
+rojo, la pregunta no es qué falló en el cálculo: es si la línea de arriba
+tenía la flecha de asignación al principio.
+
+---
+
+## Cuando abres un archivo que R no encuentra
+
+```
+Error in file(file, "rt") : cannot open the connection
+In addition: Warning message:
+In file(file, "rt") :
+  cannot open file 'datos/limpios/presidencial_2024_entidad.csv': No such file or directory
+```
+
+**Traducción.** No se puede abrir la conexión / no se puede abrir el archivo:
+no existe ese archivo o ese directorio.
+
+Con `readr::read_csv()` —la función que vas a usar casi siempre en este
+curso— el mensaje es más corto y más claro, porque `readr` no delega en el
+sistema de conexiones de R base:
+
+```
+Error: 'datos/limpios/presidencial_2024_entidad.csv' does not exist in current working directory ('/Users/tu-nombre/Documents/otra-carpeta').
+```
+
+Fíjate que esa segunda línea te dice, literalmente, dónde está parado R en
+ese momento —y casi seguro no es donde tú crees.
+
+**Qué lo causa de verdad, casi siempre.** No es que el archivo no exista: es
+que R está buscando a partir de una carpeta distinta de la que tú tienes en
+la cabeza. Esto pasa por tres razones, de más a menos común:
+
+1. Abriste RStudio desde el ícono del programa y no desde el archivo
+   `.Rproj` —con doble clic sobre el ícono de la aplicación en vez de sobre
+   el archivo del proyecto—, así que R nunca quedó parado en la carpeta del
+   repositorio.
+2. Cerraste RStudio, lo volviste a abrir, y el proyecto no se restauró solo.
+3. El nombre del archivo tiene una letra, un acento o una mayúscula distinta
+   de la que escribiste en el código.
+
+**El arreglo.** Corre `here::here()` sola, sin argumentos, en la consola. Te
+va a devolver la ruta completa donde R está parado ahora mismo; si esa ruta no
+termina en el nombre de la carpeta del repositorio, cierra RStudio por
+completo y ábrelo otra vez con doble clic sobre el archivo `.Rproj`, no sobre
+el ícono de la aplicación. Después, revisa el nombre exacto del archivo en
+`datos/README.md`.
+
+Esta misma familia de error aparece con `source()` —cuando un script intenta
+cargar `estilo/tema_lab.R` y no está parado donde debería— y con `ggsave()`
+—cuando intentas guardar una figura en una carpeta que todavía no existe—:
+
+```
+Error in ggsave("figuras/mapa.pdf", ...) :
+  cannot open file 'figuras/mapa.pdf': No such file or directory
+```
+
+Ahí el arreglo no es `here()`: es crear la carpeta primero, con
+`dir.create("figuras", showWarnings = FALSE)`, antes de guardar nada dentro
+de ella.
+
+---
+
+## Cuando el tipo de dato no es el que creías (sesión 2, 8)
+
+### `argument is not numeric or logical`
+
+```
+Warning message:
+In mean.default(municipios$entidad) :
+  argument is not numeric or logical: returning NA
+```
+
+**Traducción.** El argumento no es numérico ni lógico: se devuelve `NA`.
+
+**Qué lo causa de verdad.** Le pediste una operación aritmética —`mean()`,
+`sum()`, `sd()`— a una columna de texto o de otro tipo que no admite
+promedios. No es un `Error`: es un `Warning`, así que R sigue corriendo y te
+entrega un `NA` en vez de un número, lo cual puede ser tan engañoso como un
+error si no te fijas.
+
+**El arreglo.** Corre `glimpse()` sobre la tabla antes de resumir cualquier
+columna, y confirma que el tipo sea `<dbl>` o `<int>`, no `<chr>`. Si la
+columna debería ser numérica y no lo es —por ejemplo, porque el archivo
+original traía separadores de miles—, conviértela explícitamente antes de
+resumir. Lo cual lleva directo al siguiente error.
+
+### `NAs introduced by coercion`
+
+```
+> as.numeric(c("39,700", "10,400", "1,200,000"))
+Warning message:
+NAs introduced by coercion
+[1] NA NA NA
+```
+
+**Traducción.** Se introdujeron valores `NA` al forzar el tipo de dato.
+
+**Qué lo causa de verdad.** `as.numeric()` intenta leer cada valor de texto
+como un número, y donde no puede —una coma de miles, una letra, un espacio—
+devuelve `NA` en vez de tronar. La lista nominal de un municipio escrita como
+`"39,700"` no es un número para R: la coma la vuelve texto no interpretable.
+
+**El arreglo.** Nunca conviertas a número sin revisar primero por qué el
+texto no se ve como un número. Si el problema es la coma de miles, quítala
+antes de convertir: `as.numeric(gsub(",", "", columna))`. Después de
+convertir, siempre corre `sum(is.na(columna_nueva))` para confirmar que no se
+te perdió nada en el camino.
+
+---
+
+## Cuando confundes qué tipo de objeto tienes entre manos
+
+Estos tres errores parecen avanzados, y en cierto sentido lo son: rara vez
+aparecen en el código que se escribe en clase. Pero son exactamente los que
+salen cuando el error de verdad —un objeto que no es lo que creías que era—
+ocurrió varias líneas antes, y vale la pena reconocerlos para no perder media
+hora buscando en el lugar equivocado.
+
+### `object of type 'closure' is not subsettable`
+
+```
+> pct_ponderado[1]
+Error in pct_ponderado[1] : object of type 'closure' is not subsettable
+```
+
+**Traducción.** No se puede indexar (sacar un pedazo de) un objeto de tipo
+*closure*. En este contexto, "closure" es el nombre técnico que R le da a una
+**función**.
+
+**Qué lo causa de verdad.** Estás tratando una función como si fuera un
+vector o una tabla —con corchetes `[ ]`—, casi siempre porque olvidaste los
+paréntesis que la invocan. `pct_ponderado` (la función que armaste en la
+sesión 10) es una receta, no un resultado; `pct_ponderado[1]` le pide a R el
+primer elemento de una receta, y una receta no tiene elementos para sacar.
+
+**El arreglo.** Revisa si te faltaron los paréntesis y los argumentos:
+`pct_ponderado(votos, total)` ejecuta la función; `pct_ponderado` sola, sin
+paréntesis, es solo el nombre de la receta.
+
+### `$ operator is invalid for atomic vectors`
+
+```
+> entidades <- resultados$entidad
+> entidades$entidad
+Error in entidades$entidad : $ operator is invalid for atomic vectors
+```
+
+**Traducción.** El operador `$` no es válido para vectores atómicos.
+
+**Qué lo causa de verdad.** El operador `$` sirve para sacar una columna de
+algo que tiene columnas —un `tibble`, una lista—. `resultados$entidad` extrae
+una sola columna de la tabla `resultados`, y lo que sale de esa extracción ya
+no es una tabla: es un vector simple de texto (un "vector atómico"). Volver a
+usar `$` sobre ese vector, como si todavía tuviera columnas, es el error.
+
+**El arreglo.** Recuerda qué te devolvió el último `$`: si acabas de sacar una
+columna, lo que tienes ahora es un vector, no una tabla, y los vectores se
+indexan con corchetes (`entidades[1]`), no con `$`.
+
+### `Error in UseMethod`
+
+```
+> coef(municipios)
+Error in UseMethod("coef") :
+  no applicable method for 'coef' applied to an object of class "c('tbl_df', 'tbl', 'data.frame')"
+```
+
+**Traducción.** No hay ningún método aplicable para `coef` en un objeto de esa
+clase.
+
+**Qué lo causa de verdad.** Varias funciones de R —`coef()`, `summary()`,
+`plot()`— no hacen una sola cosa: se comportan distinto según qué tipo de
+objeto les des (una tabla, un modelo de regresión, un objeto `sf`). A eso se
+le llama, técnicamente, un método `UseMethod`. Este error aparece cuando le
+pasas a una de esas funciones un objeto para el que no existe ningún
+comportamiento definido —aquí, pedirle los coeficientes a una tabla de datos
+en vez de al modelo que ajustaste con esa tabla—. Nótese que la clase exacta
+que aparece entre comillas en el mensaje depende del objeto que hayas pasado;
+lo estable es el patrón `no applicable method for '...' applied to an object
+of class ...`.
+
+**El arreglo.** Revisa qué objeto le estás pasando a la función. El caso más
+común en este curso: quisiste escribir `coef(modelo)` —donde `modelo` es lo
+que devolvió `lm()` o `feols()`— y por descuido escribiste el nombre de la
+tabla de datos en su lugar.
+
+---
+
+## Cuando gráficas con `ggplot2` (sesiones 1, 5, 6, 8)
+
+### El `+` al principio de la línea
+
+```r
+ggplot(resultados, aes(x = entidad, y = participacion))
+  + geom_col(fill = "#006847")
+```
+
+```
+Error in +geom_col(fill = "#006847") : invalid argument to unary operator
+```
+
+**Traducción.** Argumento inválido para un operador unario.
+
+**Qué lo causa de verdad.** En `ggplot2`, el `+` tiene que quedar al **final**
+de la línea anterior, nunca al principio de la siguiente. Si lo pones al
+principio de la línea de abajo, R lee la primera línea como una instrucción
+completa y ya cerrada —dibuja el `ggplot()` vacío, sin capas— y después lee
+`+ geom_col(...)` como una instrucción nueva y separada: un signo de más
+**unario**, aplicado a un solo objeto, como si escribieras `+5`. Un `geom_col()`
+no es un número al que se le pueda aplicar un signo de más suelto, y de ahí
+sale el error.
+
+**El arreglo.** Revisa que cada `+` quede pegado al final de la línea de
+arriba, nunca al principio de la de abajo:
+
+```r
+ggplot(resultados, aes(x = entidad, y = participacion)) +
+  geom_col(fill = "#006847")
+```
+
+### `Warning: Ignoring unknown aesthetics: fill`
+
+```
+Warning message:
+In geom_line(aes(fill = entidad)) : Ignoring unknown aesthetics: fill
+```
+
+**Traducción.** Se ignora un mapeo estético desconocido: `fill`.
+
+**Qué lo causa de verdad.** Mapeaste `fill` (relleno) en un geom que no tiene
+una región que rellenar, solo un trazo —típicamente `geom_line()` o
+`geom_point()`—. El argumento correcto para esos geoms es `colour`, no
+`fill`. El error simétrico y opuesto pasa en `geom_col()`, que sí tiene
+relleno: ahí `fill` es el correcto y `colour` solo pintaría el borde.
+
+**El arreglo.** Cambia `fill` por `colour` en geoms de trazo (línea, punto);
+usa `fill` en geoms de área (columnas, mapas).
+
+### `Insufficient values in manual scale`
+
+```
+Error in `scale_fill_manual()`:
+! Insufficient values in manual scale. 3 needed but only 2 provided.
+```
+
+**Traducción.** Faltan valores en la escala manual: se necesitan 3 pero solo
+se dieron 2.
+
+**Qué lo causa de verdad.** Le diste a `scale_fill_manual()` (o
+`scale_fill_brewer()`) menos colores de los que tiene categorías tu variable.
+
+**El arreglo.** Cuenta cuántos valores únicos tiene la columna que mapeaste a
+`fill` —`dplyr::n_distinct(datos$columna)`— y asegúrate de pasar exactamente
+esa cantidad de colores, o cambia a una escala que no te obligue a contar a
+mano, como `scale_fill_viridis_d()`.
+
+### `Continuous value supplied to discrete scale` y su recíproco
+
+```
+Error: Continuous value supplied to discrete scale
+```
+
+**Traducción.** Se le dio un valor continuo a una escala discreta.
+
+**Qué lo causa de verdad.** Mapeaste una variable numérica con decimales
+—`participacion`— a una escala pensada para categorías, como
+`scale_fill_manual()` o `scale_fill_brewer()`.
+
+El error recíproco es igual de real y va en la dirección contraria:
+
+```
+Error: Discrete value supplied to continuous scale
+```
+
+Aquí mapeaste una variable de categorías —el nombre de una entidad— a una
+escala pensada para números, como `scale_fill_gradient()`.
+
+**El arreglo.** En el primer caso, cambia a una escala continua
+(`scale_fill_gradient()`, `scale_fill_gradient2()`, `scale_fill_viridis_c()`);
+en el segundo, a una escala discreta (`scale_fill_manual()`,
+`scale_fill_viridis_d()`). El texto exacto de estos dos mensajes puede variar
+un poco entre versiones de `ggplot2`; la causa y el arreglo no cambian.
+
+### El gráfico de línea sale vacío, o solo puntos sueltos sin conectar
+
+No hay ningún mensaje en rojo ni en amarillo: el gráfico simplemente se ve
+mal. Esto pasa cuando el eje x es una categoría —el nombre de una entidad— y
+cada valor aparece una sola vez en los datos: `ggplot2` agrupa por categoría
+de forma automática, y un grupo de un solo punto no tiene nada consigo mismo
+que conectar.
+
+**El arreglo.** Agrega `group = 1` dentro de `aes()`, para decirle a
+`ggplot2` que trate todos los puntos como una sola serie:
+`aes(x = entidad, y = participacion, group = 1)`.
+
+### El gráfico sale sin línea de tendencia
+
+Otro caso sin mensaje visible: pediste `geom_smooth()` y la línea recta que
+esperabas no aparece, o el gráfico tarda varios segundos en dibujarse.
+
+**El arreglo.** Revisa que escribiste `geom_smooth(method = "lm")` y no solo
+`geom_smooth()`. Sin el argumento `method`, `ggplot2` puede elegir un
+suavizado curvo (`loess`) en vez de una recta, y con más de mil puntos ese
+suavizado es lento de calcular.
+
+---
+
+## Cuando agrupas o cruzas bases (sesiones 4 y 7)
+
+### `Warning: Detected an unexpected many-to-many relationship`
+
+```
+Warning message:
+In left_join(municipios, puente, by = "nombre_municipio") :
+  Detected an unexpected many-to-many relationship between `x` and `y`.
+```
+
+**Traducción.** Se detectó una relación de muchos a muchos, no anunciada,
+entre las dos tablas.
+
+**Qué lo causa de verdad.** Cruzaste dos tablas usando una columna que **no**
+identifica una sola fila de cada lado —un nombre de municipio, por ejemplo,
+que se repite en varias entidades del país—. `left_join()` no se detiene:
+empareja cada fila de un lado con **todas** las que coincidan del otro, y el
+número de filas de tu resultado crece donde debería haberse quedado igual.
+
+**El arreglo.** Nunca ignores este aviso. Cuenta cuántas veces se repite cada
+valor de la columna de cruce en ambos lados —`count(base, columna, sort =
+TRUE)`— y, si hay repetidos, cruza por una clave que sí sea única (casi
+siempre, un código numérico oficial en vez de un nombre de texto).
+
+Ver la sección "Los errores que no dan error", más abajo, para el caso
+completo con datos reales de este curso.
+
+---
+
+## Cuando mapeas con `sf` (sesión 7)
+
+### `Error in st_read(...) : Cannot open`
+
+```
+Error in CPL_read_ogr(...) : Cannot open "municipios/00mun.shp"; The file
+doesn't seem to exist.
+```
+
+**Traducción.** No se puede abrir; el archivo no parece existir.
+
+**Qué lo causa de verdad, casi siempre.** Un shapefile no es un solo archivo:
+son varios (`.shp`, `.dbf`, `.shx`, `.prj`, y a veces `.cpg`) que tienen que
+viajar juntos, en la misma carpeta, con el mismo nombre. Si copiaste o
+descargaste solo el `.shp`, `st_read()` puede fallar aunque el archivo que
+nombraste sí exista, porque le faltan sus archivos compañeros.
+
+**El arreglo.** Confirma que los cuatro (o cinco) archivos del shapefile
+están juntos en la misma carpeta. Si te falta alguno, vuelve a descargar el
+conjunto completo; no hay forma de reconstruir un shapefile con piezas
+faltantes.
+
+### El mapa se ve todo de un solo color
+
+Sin mensaje de error. Pediste un mapa coroplético y salió parejo, sin
+variación.
+
+**Qué lo causa de verdad, casi siempre.** Una de dos cosas: la columna que
+pusiste en `fill =` quedó **fuera** de `aes()` por descuido (y entonces es un
+color fijo, no un mapeo), o la columna se llenó de `NA` después de un
+`left_join()` que no encontró pareja para muchas filas.
+
+**El arreglo.** Revisa primero que `fill = tu_columna` esté dentro de
+`aes()`. Si ya está ahí, corre `sum(is.na(mapa$tu_columna))`: si el número es
+alto, el problema no es de `ggplot2`, es del cruce que hiciste antes.
+
+---
+
+## Cuando modelas (sesión 9)
+
+### `could not find function "feols"`
+
+```
+Error in feols(ventaja_shh ~ participacion, data = municipios) :
+  could not find function "feols"
+```
+
+Es el mismo error de "cuando cargas paquetes", aplicado a este caso puntual:
+falta `library(fixest)`, aunque ya hayas cargado `tidyverse`. `fixest` no es
+parte del metapaquete `tidyverse` y siempre se carga aparte.
+
+### `object 'participacion' not found` dentro de una fórmula
+
+```
+Error in eval(predvars, data, env) : object 'participacion' not found
+```
+
+**Traducción.** No se encuentra el objeto `participacion`.
+
+**Qué lo causa de verdad.** Escribiste la fórmula de `lm()` o `feols()` sin
+el argumento `data =`. Sin decirle en qué tabla buscar las columnas, R
+intenta encontrar `participacion` como un objeto suelto en tu entorno, no
+como una columna de `municipios`, y no lo encuentra.
+
+**El arreglo.** Revisa que tu llamada tenga `data = municipios` (o el nombre
+de tu tabla) explícito.
+
+### La tabla de `modelsummary()` se ve distinta a la de este documento
+
+No es un error ni un aviso: es un cambio de versión del paquete. Desde
+`modelsummary` 2.0, el motor que arma la tabla por defecto es `tinytable`, ya
+no `kableExtra`. Si tu tabla se ve distinta a la de un tutorial viejo, corre
+`packageVersion("modelsummary")` para confirmar cuál tienes instalada, y no
+asumas que algo está roto.
+
+---
+
+## Cuando publicas en Quarto y en GitHub (sesión 10)
+
+### El YAML marca error al renderizar
+
+Quarto se queja de la primera parte de tu documento, entre las dos líneas de
+tres guiones (`---`), antes de correr una sola línea de código.
+
+**Qué lo causa de verdad.** El formato YAML es sensible a los espacios: nunca
+uses la tecla `Tab`, solo espacios, y mantén exactamente la misma indentación
+en cada nivel. La causa más común es una línea que quedó con un espacio de
+más o de menos respecto a la de arriba.
+
+### La página de GitHub Pages muestra un 404
+
+Casi nunca es un error real: la primera vez que activas GitHub Pages, GitHub
+tarda uno o dos minutos en construir el sitio. Espera un momento y refresca.
+Si el 404 persiste después de varios minutos, revisa que el archivo que
+subiste se llame exactamente `index.html` —GitHub Pages busca ese nombre
+exacto en la raíz del repositorio— y no, por ejemplo, `mi_reporte.html`.
+
+### La página muestra el código en crudo en vez del reporte
+
+Subiste el archivo `.qmd` sin procesar, en vez del `.html` que produjo el
+botón *Render*. Renderiza primero, y sube el resultado.
+
+---
+
+## Los errores que NO dan error
+
+Esta es, en varios sentidos, la sección más importante del documento. Todo lo
+de arriba se anuncia solo, con letras rojas o amarillas. Lo que sigue no: R
+hace exactamente lo que le pediste, produce un resultado con apariencia
+perfectamente normal, y el error vive enteramente en la cabeza de quien lo
+interpreta. Ninguno de estos cuatro casos truena. Los cuatro pueden arruinar
+un trabajo final si nadie los nota.
+
+### `filter(codigo == 1 | 2)`
+
+Si una columna guarda un código —1 para una coalición, 2 para otra— y
+escribes esto pensando que te vas a quedar con ambas:
+
+```r
+resultados |> filter(codigo == 1 | 2)
+```
+
+R no avisa nada. Evalúa `codigo == 1` primero; después, por separado, evalúa
+el `2` suelto, y cualquier número distinto de cero se interpreta como
+lógico verdadero. El resultado del `|` completo es `TRUE` en **todas** las
+filas, así que el filtro no filtra nada: devuelve la tabla entera, y todo se
+ve razonable hasta que alguien cuenta las filas y no cuadran.
+
+**La forma correcta** es `%in%`, que sí pregunta "¿está en esta lista?":
+
+```r
+resultados |> filter(codigo %in% c(1, 2))
+```
+
+### Un `left_join()` que multiplica filas
+
+Cruzar dos bases por una columna que no identifica una sola fila de cada lado
+—casi siempre, un nombre de texto en vez de una clave numérica— no truena.
+R sí devuelve una tabla, con todas sus columnas en su lugar, y solo un
+`Warning` de relación *many-to-many* (visto arriba) delata que algo cambió.
+
+El caso real de este curso: cruzar una base electoral municipal con un puente
+de claves usando el **nombre** del municipio. México tiene 89 nombres de
+municipio que se repiten en más de una entidad —"Benito Juárez" es municipio
+en siete estados distintos, "Emiliano Zapata" en seis—. Un municipio con un
+nombre repetido hace pareja con **todas** las filas que comparten ese nombre
+del otro lado, y el número de filas del resultado crece donde debía quedarse
+igual. La corrección es cruzar por una clave numérica —la clave de INEGI, no
+el nombre— que sí identifica una sola fila de cada lado.
+
+**Cómo detectarlo aunque no truene:** compara `nrow()` de tu resultado contra
+`nrow()` de la tabla original antes del cruce. Si crecieron, algo se
+multiplicó.
+
+### Una columna que se llena de `NA` después de un `case_when()` incompleto
+
+```r
+resultados |>
+  mutate(region = case_when(
+    entidad %in% c("Sonora", "Chihuahua") ~ "Norte",
+    entidad %in% c("Oaxaca", "Chiapas")   ~ "Sur"
+    # y así con el resto de las entidades...
+  ))
+```
+
+Si alguna entidad no quedó dentro de ningún caso del `case_when()`, R no
+avisa: le asigna `NA` en silencio, sin marcar nada en rojo ni en amarillo. El
+resultado se ve como una tabla completa hasta que alguien intenta agrupar por
+`region` y una fracción de las filas desaparece de todos los resúmenes sin
+explicación aparente.
+
+**Cómo detectarlo:** después de cualquier `case_when()`, corre
+`resultados |> filter(is.na(region))` para ver cuáles filas quedaron fuera, y
+agrégalas al caso que les corresponde.
+
+### Un promedio de porcentajes que no es el porcentaje
+
+Esta trampa no es de sintaxis: es aritmética, y por eso es la más difícil de
+cazar. Calcular el promedio simple de 32 porcentajes estatales —uno por
+entidad— y llamarlo "la cifra nacional" es un error real, pero R lo calcula
+sin quejarse, porque `mean()` hizo exactamente lo que se le pidió.
+
+El problema es que un promedio simple le da el mismo peso a Colima, con
+poco más de medio millón de personas en su lista nominal, que al Estado de
+México, con más de doce millones. La cifra nacional correcta no es el
+promedio de 32 números: es el cociente de los votos totales de la coalición
+entre los votos totales emitidos en todo el país —una **media ponderada**,
+no una media simple. Las dos cuentas se parecen, ambas producen un número
+entre 0 y 100, y solo una de las dos es la que casi siempre hace falta.
+
+**Cómo detectarlo:** desconfía de cualquier promedio calculado sobre unidades
+de tamaño muy distinto (municipios, entidades, países) hasta que confirmes si
+la pregunta pedía un promedio simple entre unidades o una cifra agregada
+ponderada por su tamaño. La sesión 4 de este laboratorio construye la
+diferencia con datos reales de la elección de 2024, con la función
+`pct_ponderado()` que puedes usar de plantilla.
+
+---
+
+Si un error de este documento no te resuelve el problema, la siguiente parada
+es copiar el mensaje —completo, en inglés, con comillas incluidas— en un
+buscador. Casi cualquier error de R común ya lo tropezó alguien más antes que
+tú, y lo más probable es que la respuesta esté en Stack Overflow o en la
+documentación del paquete. Si el vocabulario en sí es lo que te detiene, el
+[glosario](glosario.qmd) de este mismo laboratorio traduce los términos
+técnicos que aparecen una y otra vez en estos mensajes.

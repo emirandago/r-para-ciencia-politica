@@ -1,0 +1,436 @@
+/*-- scss:defaults --*/
+// ══════════════════════════════════════════════════════════════════════════════
+// Laboratorio de R para Ciencia Política — ITAM
+// estilo/estilo.scss · El sitio Quarto, hermano web del deck de Beamer
+//
+// Los hexes NO se editan aquí. Viven en estilo/paleta-itam.tex, que es el
+// único archivo normativo. Si cambian allá, se copian acá y en tema_lab.R.
+//
+// La gramática visual de este archivo copia la de estilo/preambulo-lab.tex:
+// encabezado en verde con el logo del ITAM en su propia caja verde, títulos
+// en verde sin regla debajo, pie discreto con iniciales y licencia, cero
+// sombras, cero degradados, cero esquinas muy redondeadas. Si algo de aquí
+// contradice al preámbulo del deck, gana el preámbulo — este archivo se
+// ajusta a él, no al revés.
+// ══════════════════════════════════════════════════════════════════════════════
+
+// ── Los cinco colores del curso ──────────────────────────────────────────────
+$verde-itam:       #006847;   // acento principal — el verde de los títulos de frame
+$verde-profundo:   #00402C;   // el verde de \porquenosimporta y \lasiguiente: más grave
+$verde-claro:      #A8D5BE;   // fondos suaves, resaltados, subtítulo de portada
+$gris-texto:       #3D3D3D;   // cuerpo de texto
+$guinda:           #7B1113;   // acento secundario, uso escaso — errores y alertas
+
+// ── Derivados: diluciones sobre blanco, mismo criterio que en LaTeX y en R ──
+$verde-velo:  #E9F4EF;   // verde-claro diluido sobre blanco — fondo de bloque y de código
+$verde-tenue: #D3EADE;   // verde-claro menos diluido — resaltado dentro de un bloque
+$gris-velo:   #F3F3F3;   // gris-texto muy diluido — fondos tenues, reglas
+$gris-tenue:  #A5A5A5;   // gris-texto diluido — texto terciario, pies, folios
+
+// ── Variables de Bootstrap que Quarto consume ────────────────────────────────
+$body-bg:    #FFFFFF;
+$body-color: $gris-texto;
+$link-color: $verde-itam;
+$primary:    $verde-itam;
+
+// Tipografía sin serifas, igual que las láminas. La pila arranca con las
+// fuentes del sistema para que cargue instantáneo y no dependa de una CDN:
+// quien abre el sitio desde el celular en la cafetería, con datos móviles,
+// lo agradece.
+$font-family-sans-serif: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+                         "Helvetica Neue", Arial, sans-serif;
+$font-family-monospace:  "SFMono-Regular", Menlo, Consolas, "Liberation Mono",
+                         monospace;
+
+// Tipografía generosa: 18px de raíz y 1.65 de interlineado son más cómodos
+// que el estándar de Bootstrap (16px / 1.5) para prosa larga en pantalla —
+// los guiones de sesión son texto para leer antes o después de la clase, no
+// documentación de referencia para escanear en diagonal.
+$font-size-root: 18px;
+$line-height-base: 1.65;
+
+// 500 y no 600: en el deck el frametitle NO es bold (\usebeamerfont sube el
+// tamaño a \Large, no la serie a \bfseries). Un peso medio, no semibold,
+// mantiene esa misma ligereza en el sitio.
+$headings-font-weight: 500;
+$headings-color: $verde-itam;   // el verde de \setbeamercolor{frametitle}
+
+// Código
+$code-color: $verde-profundo;
+$code-bg: $verde-velo;
+$pre-bg: $gris-velo;
+$pre-border-color: $verde-claro;
+
+// Barra de navegación — verde profundo sólido, como el pie del deck y como
+// el verde de \porquenosimporta. El header del deck en sí es blanco con una
+// caja de logo verde; en el sitio, con una sola barra posible, se invierte:
+// toda la barra va en verde profundo y la caja del logo, más abajo, usa el
+// verde institucional más claro para diferenciarse — ver .navbar-logo.
+$navbar-bg: $verde-profundo;
+$navbar-fg: #FFFFFF;
+$navbar-hl: $verde-claro;
+
+// Barra lateral (tabla de contenidos de cada página)
+$sidebar-bg: #FFFFFF;
+$sidebar-fg: $gris-texto;
+$sidebar-hl: $verde-itam;
+
+$border-color: #E6E6E6;
+$table-border-color: #E6E6E6;
+
+// Esquinas: nunca "muy redondeadas". 4px en todo el sitio, el mismo criterio
+// discreto que "sharp corners" en las cajas de tcolorbox del deck.
+$border-radius: 4px;
+$btn-border-radius: 4px;
+
+
+/*-- scss:rules --*/
+// ══════════════════════════════════════════════════════════════════════════════
+// Reglas propias del laboratorio
+// ══════════════════════════════════════════════════════════════════════════════
+
+// ── Disciplina general: cero sombras, cero degradados, cero animación llamativa
+// El preámbulo del deck lo dice explícito para las cajas de error y de salto:
+// "no shadow, sharp corners" son deliberados. Se aplica el mismo criterio a
+// los componentes de Bootstrap que sí traen sombra por default.
+.navbar, .card, .dropdown-menu, .btn, pre, div.sourceCode,
+.tarjeta-sesion, .callout {
+  box-shadow: none !important;
+}
+
+.dropdown-menu {
+  border-radius: $border-radius;
+}
+
+// ── Encabezado: banda verde profundo con hairline, como el deck ─────────────
+// El deck tiene una regla gris tenue bajo el encabezado (grisTexto!22, ver
+// preambulo-lab.tex). Aquí se traduce en un filo sutil, no una sombra.
+.navbar {
+  border-bottom: 1px solid rgba(0, 0, 0, 0.18);
+}
+
+// El lettering del logo del ITAM es blanco sobre transparente: invisible
+// sobre la barra si la barra fuera clara, pero incluso sobre verde profundo
+// se lee mejor con su propia caja de verde institucional detrás — el mismo
+// truco que \setbeamercolor{cajalogo}{fg=white, bg=verdeITAM} en el deck.
+// Se cubren dos selectores posibles porque no hay manera de renderizar el
+// sitio en este entorno para confirmar cuál usa la plantilla de Quarto en
+// esta versión; ninguno de los dos estorba si el otro es el que aplica.
+.navbar-logo,
+.navbar-brand img {
+  background-color: $verde-itam;
+  padding: 0.3rem 0.55rem;
+  margin-right: 0.6rem;
+  border-radius: $border-radius;
+  max-height: 2.1rem;
+  object-fit: contain;
+}
+
+.navbar-title {
+  font-weight: 500;
+  color: #FFFFFF;
+}
+
+.navbar-dark .navbar-nav .nav-link {
+  color: rgba(255, 255, 255, 0.92);
+}
+
+.navbar-dark .navbar-nav .nav-link:hover,
+.navbar-dark .navbar-nav .nav-link:focus,
+.navbar-dark .navbar-nav .show > .nav-link {
+  color: $verde-claro;
+}
+
+// ── Medida de línea cómoda para prosa larga ──────────────────────────────────
+// Los guiones de sesión son texto para leer, no una referencia para escanear.
+// Se limita el ancho del cuerpo a algo cercano a 75-80 caracteres por línea,
+// sin forzar el layout de la tabla de contenidos lateral que ya trae Quarto.
+#quarto-document-content,
+.content {
+  max-width: 48rem;
+}
+
+p {
+  margin-bottom: 1.15rem;
+}
+
+// ── Títulos: en verde, sin regla debajo, alineados a la izquierda ───────────
+// Bootstrap y varios temas de Quarto añaden un border-bottom a los h2; se
+// anula explícitamente, porque la regla que sí existe en el deck es CERO
+// —\setbeamertemplate{frametitle} no dibuja ninguna— y el sitio debe copiar
+// exactamente esa ausencia, no reinterpretarla.
+h1, h2, h3, h4, h5, h6 {
+  border-bottom: none !important;
+  padding-bottom: 0 !important;
+  text-align: left;
+}
+
+// El título de página (H1, viene del YAML `title:` de cada .qmd) es el
+// momento más solemne de cada página — el equivalente web de las láminas
+// \porquenosimporta y \lasiguiente, que usan verdeProfundo y no verdeITAM.
+// Los subtítulos de sesión usan el mismo tono, en un peso menor.
+h1.title, h1 {
+  color: $verde-profundo;
+}
+
+.subtitle {
+  color: $gris-tenue;
+  font-weight: 400;
+}
+
+// ── El gancho de cada sesión ─────────────────────────────────────────────────
+// El párrafo que abre la página. Tiene que verse distinto del cuerpo, porque
+// es lo único que va a leer quien esté decidiendo si viene el martes.
+.gancho {
+  font-size: 1.18rem;
+  line-height: 1.55;
+  color: $verde-profundo;
+  border-left: 4px solid $verde-itam;
+  padding: 0.2rem 0 0.2rem 1.1rem;
+  margin: 1.6rem 0 2rem 0;
+}
+
+// ── La promesa del proyecto final ────────────────────────────────────────────
+// Traduce al sitio la lámina "Adónde vamos" del deck: una etiqueta sólida en
+// verde institucional, seguida de una caja clara con la pregunta del
+// proyecto final. Se usa una sola vez, en la portada, antes del temario —
+// igual que en la sesión 1, esta promesa se plantea antes que cualquier
+// función de R.
+.promesa .etiqueta {
+  display: inline-block;
+  background-color: $verde-itam;
+  color: #FFFFFF !important;
+  font-weight: 600;
+  font-size: 0.92rem;
+  letter-spacing: 0.02em;
+  padding: 0.55rem 1.1rem;
+  margin: 1.6rem 0 0 0;
+}
+
+.promesa .contenido {
+  background-color: $verde-velo;
+  color: $gris-texto;
+  padding: 1.1rem 1.3rem;
+  font-size: 1.05rem;
+  margin: 0 0 1.8rem 0;
+}
+
+// ── Botones de descarga ──────────────────────────────────────────────────────
+// Requisito del proyecto: bajar el material de una sesión en menos de tres
+// clics, sin entender la interfaz de GitHub. Por eso son botones grandes,
+// visibles y con el nombre del archivo escrito completo.
+.descargas {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+  margin: 1.5rem 0 2rem 0;
+}
+
+.descargas a,
+a.btn-descarga {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  background-color: $verde-itam;
+  color: #FFFFFF !important;
+  text-decoration: none;
+  font-size: 0.95rem;
+  font-weight: 500;
+  padding: 0.55rem 1.05rem;
+  border-radius: $border-radius;
+  border: 1px solid $verde-itam;
+  transition: background-color 0.15s ease;
+}
+
+.descargas a:hover,
+a.btn-descarga:hover {
+  background-color: $verde-profundo;
+  border-color: $verde-profundo;
+  color: #FFFFFF !important;
+}
+
+// Variante secundaria: para el script resuelto y la solución, que se publican
+// después de la sesión y no deben competir visualmente con el material de clase.
+.descargas a.secundario,
+a.btn-descarga.secundario {
+  background-color: #FFFFFF;
+  color: $verde-itam !important;
+}
+
+.descargas a.secundario:hover,
+a.btn-descarga.secundario:hover {
+  background-color: $verde-velo;
+  color: $verde-profundo !important;
+}
+
+// ── Bloque "si algo falla" ───────────────────────────────────────────────────
+// Los errores son parte del temario, no un anexo. Este bloque va al pie de
+// cada página de sesión con los tres errores más probables de esa hora.
+.si-algo-falla {
+  background-color: $gris-velo;
+  border-left: 4px solid $gris-tenue;
+  padding: 1rem 1.2rem;
+  border-radius: 0 $border-radius $border-radius 0;
+  margin: 2rem 0;
+}
+
+.si-algo-falla h3,
+.si-algo-falla h4 {
+  margin-top: 0;
+  color: $gris-texto;
+  font-size: 1.05rem;
+}
+
+.si-algo-falla code {
+  background-color: #FFFFFF;
+}
+
+// ── Traducción del inglés técnico ────────────────────────────────────────────
+// El vocabulario en inglés se traduce siempre la primera vez que aparece.
+// Se marca con esta clase para que el glosario pueda recogerlas después.
+.termino-en {
+  font-style: italic;
+  color: $verde-itam;
+}
+
+// ── Lo que ya sabes hacer ────────────────────────────────────────────────────
+// El cierre de cada sesión. Es la recompensa escrita: se lee en diez segundos
+// y se sale sintiendo que la hora sirvió de algo.
+.ya-sabes {
+  background-color: $verde-velo;
+  border-radius: $border-radius;
+  padding: 1rem 1.3rem;
+  margin: 2rem 0;
+}
+
+.ya-sabes h3,
+.ya-sabes h4 {
+  margin-top: 0;
+  color: $verde-profundo;
+  font-size: 1.05rem;
+}
+
+.ya-sabes ul {
+  margin-bottom: 0;
+}
+
+// ── Tarjetas del índice de sesiones (y de extras/ y recursos/) ──────────────
+// Se reutiliza esta misma clase en index.qmd, extras/index.qmd y
+// recursos/index.qmd: un solo componente de tarjeta para todo el sitio, en
+// vez de inventar una variante por sección.
+.tarjeta-sesion {
+  border: 1px solid $border-color;
+  border-left: 5px solid $verde-itam;
+  border-radius: $border-radius;
+  padding: 1rem 1.2rem;
+  margin-bottom: 0.9rem;
+  background-color: #FFFFFF;
+}
+
+.tarjeta-sesion h3 {
+  margin-top: 0;
+  margin-bottom: 0.35rem;
+  font-size: 1.1rem;
+}
+
+.tarjeta-sesion .pregunta {
+  color: $gris-texto;
+  font-size: 0.95rem;
+  margin-bottom: 0.35rem;
+}
+
+.tarjeta-sesion .entregable {
+  color: $verde-itam;
+  font-size: 0.9rem;
+  font-weight: 500;
+}
+
+// ── Bloques de código ────────────────────────────────────────────────────────
+div.sourceCode {
+  border-radius: $border-radius;
+  border: 1px solid $border-color;
+}
+
+// ── Tablas ───────────────────────────────────────────────────────────────────
+// Sin líneas verticales, encabezado en verde velo. Es la traducción web de
+// booktabs: lo mismo que hacemos en LaTeX.
+.table > thead {
+  background-color: $verde-velo;
+  color: $verde-profundo;
+}
+
+.table > :not(caption) > * > * {
+  border-bottom-color: $border-color;
+}
+
+// ── Callouts de Quarto, alineados a la paleta ────────────────────────────────
+div.callout-note {
+  border-left-color: $verde-itam !important;
+}
+
+div.callout-tip {
+  border-left-color: $verde-claro !important;
+}
+
+div.callout-warning {
+  border-left-color: $gris-tenue !important;
+}
+
+div.callout-important {
+  border-left-color: $guinda !important;
+}
+
+// ── Pie de página: discreto, con iniciales y folio ───────────────────────────
+// Calca al pie del deck: sección/página a la izquierda en un tono apagado,
+// "EMG" a la derecha. Sin sombra, con un filo tenue arriba en vez de un
+// bloque de color — es mobiliario de página, no contenido.
+.page-footer {
+  border-top: 1px solid $border-color;
+  padding-top: 1rem;
+  margin-top: 3rem;
+  color: $gris-tenue;
+  font-size: 0.85rem;
+}
+
+.page-footer a {
+  color: $gris-tenue;
+  text-decoration: underline;
+}
+
+.page-footer a:hover {
+  color: $verde-itam;
+}
+
+// ── Celular: la mitad del grupo abre el sitio desde el teléfono ─────────────
+@media (max-width: 767px) {
+  .gancho {
+    font-size: 1.08rem;
+    padding-left: 0.9rem;
+  }
+
+  .tarjeta-sesion,
+  .si-algo-falla,
+  .ya-sabes {
+    padding: 0.85rem 1rem;
+  }
+
+  .promesa .contenido {
+    padding: 0.9rem 1.05rem;
+  }
+
+  .descargas {
+    gap: 0.5rem;
+  }
+
+  .descargas a,
+  a.btn-descarga {
+    flex: 1 1 auto;
+    justify-content: center;
+    font-size: 0.9rem;
+  }
+
+  .navbar-logo,
+  .navbar-brand img {
+    max-height: 1.7rem;
+  }
+}

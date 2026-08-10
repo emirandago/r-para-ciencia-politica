@@ -1,0 +1,151 @@
+---
+title: "Sesión 2 · Los datos son tablas"
+subtitle: "¿Cómo se ve una base de datos por dentro?"
+---
+
+::: {.gancho}
+La sesión pasada sacamos un gráfico de una base electoral sin haber mirado nunca
+lo que había dentro. Funcionó, y ese era el punto. Hoy la abrimos. Toda base de
+datos es el resultado de decisiones que alguien tomó antes que nosotros —qué
+contar, qué dejar fuera, qué tratar como una sola cosa—, y esas decisiones viven
+enteras en la pregunta más aburrida y más importante que se le puede hacer a una
+tabla: ¿qué es, exactamente, una fila?
+:::
+
+## Qué vas a poder hacer al salir
+
+Al terminar la sesión vas a saber importar una base con `read_csv()` y leer,
+sin miedo, el mensaje que aparece en la consola apenas la abres. Vas a saber
+usar `glimpse()` para conocer una base nueva de un vistazo, distinguir los
+tipos de variable más comunes (texto, número, lógico, factor), y entender qué
+es un valor faltante —`NA`— y por qué tratarlo como cero sería mentir. Y vas a
+poder contestar, de cualquier base que te pongan enfrente, la pregunta que
+más importa: ¿qué representa una fila?
+
+No vas a memorizar hoy la lista completa de tipos de variable que existen en
+R, y está bien: lo que necesitas es reconocer los que vas a ver una y otra
+vez en este curso, y saber que cuando aparezca uno nuevo, `glimpse()` te lo va
+a decir. La lista completa vive en el acordeón del curso para cuando la
+necesites.
+
+## Antes de venir
+
+Haber corrido la sesión 1: que sepas abrir el proyecto, guardar cosas en
+objetos y usar `here()` para las rutas. Hoy no lo volvemos a explicar.
+
+## Los archivos de la sesión
+
+::: {.descargas}
+[02_script.R — el guion de clase](https://raw.githubusercontent.com/emirandago/r-para-politologos/main/sesiones/02-los-datos-son-tablas/02_script.R){.btn-descarga}
+[02_ejercicio.R — para llevar](https://raw.githubusercontent.com/emirandago/r-para-politologos/main/sesiones/02-los-datos-son-tablas/02_ejercicio.R){.btn-descarga}
+[02_slides.pdf — las láminas](https://raw.githubusercontent.com/emirandago/r-para-politologos/main/sesiones/02-los-datos-son-tablas/02_slides.pdf){.btn-descarga .secundario}
+[02_script_completo.R — resuelto](https://raw.githubusercontent.com/emirandago/r-para-politologos/main/sesiones/02-los-datos-son-tablas/02_script_completo.R){.btn-descarga .secundario}
+[02_solucion.R — solución del ejercicio](https://raw.githubusercontent.com/emirandago/r-para-politologos/main/sesiones/02-los-datos-son-tablas/02_solucion.R){.btn-descarga .secundario}
+:::
+
+El archivo `02_script.R` tiene huecos y **no corre de corrido**: está hecho
+para llenarse en clase. Los dos archivos grises se publican al terminar la
+sesión.
+
+## El contenido, en prosa
+
+### Una tabla no es una hoja de cálculo
+
+En una hoja de cálculo se puede escribir cualquier cosa en cualquier celda:
+un número aquí, una fecha allá, una nota a mano abajo. R no funciona así.
+Cuando R guarda una tabla, la guarda como un [tibble]{.termino-en}: una
+estructura donde cada fila es un caso —una observación— y cada columna es una
+variable, con el mismo tipo de dato de arriba a abajo dentro de esa columna.
+Esa restricción no es una limitación: es lo que permite pedirle a R "calcula
+el promedio de esta columna" con la confianza de que no se va a topar con un
+pedazo de texto a la mitad donde esperaba un número.
+
+### Traer una base de verdad, y leer lo que R contesta
+
+Vamos a abrir otra vez los resultados de la elección presidencial de 2024,
+agregados por entidad, esta vez para mirarlos por dentro con `read_csv()`.
+Apenas se importa una base, R contesta con la [especificación de
+columnas]{.termino-en} (*column specification*): un aviso, en un color
+distinto, que dice columna por columna qué tipo de dato detectó. No es un
+error: es R mostrando su trabajo, y conviene leerlo siempre antes de seguir.
+`glimpse()` hace lo mismo pero de un vistazo completo, girando la tabla de
+lado para que cada columna quepa en una línea con su tipo y sus primeros
+valores. Es lo primero que se corre al abrir cualquier base nueva.
+
+### Los tipos de variable, y por qué no es un detalle técnico
+
+Vas a ver sobre todo cuatro abreviaciones: `<chr>` para texto, `<dbl>` para
+números con decimales, `<int>` para números enteros y `<lgl>` para valores
+lógicos (`TRUE`/`FALSE`); más adelante en el curso vas a encontrar también
+`<fct>`, para texto con categorías fijas. El tipo de una columna no es
+cosmético: determina qué preguntas se le pueden hacer. No se puede sacar el
+promedio de una columna de texto, y pedírselo a R no truena —regresa un
+aviso y un `NA`—, que es exactamente el tipo de falla silenciosa que hay que
+aprender a cazar leyendo la consola.
+
+### `NA`: lo que falta, y por qué no es lo mismo que cero
+
+`NA` quiere decir "no disponible": R no sabe qué valor va ahí. No es lo mismo
+que un 0, que sí es un valor y dice algo, ni que una cadena vacía, que
+también es un valor. Cuando un solo elemento de un vector es `NA`, cualquier
+operación que dependa de todo el vector se vuelve `NA` también, y hay que
+decirle explícitamente a R que lo ignore con el argumento `na.rm = TRUE`. En
+la base de resultados por municipio de la elección de 2024 hay dos casos
+reales, no inventados: dos municipios de Oaxaca donde ninguna casilla se
+instaló ese día, y la base dice `NA` en vez de fingir un cero. Esa es la
+diferencia que separa un dato honesto de uno que miente por comodidad.
+
+### La pregunta que separa a quien manipula datos de quien los rompe
+
+Aquí es donde una intuición política se vuelve una pregunta que se le puede
+hacer a cualquier tabla: ¿qué representa una fila? En `resultados`, cada fila
+es una entidad federativa en un solo momento —la elección de 2024—, y eso la
+hace una base de corte transversal: una foto. Una tabla también puede ser una
+serie de tiempo (una sola unidad, varios momentos: la película de una), un
+corte transversal repetido o *pooled* (unidades distintas en cada momento,
+nadie se sigue a propósito), o un panel (las mismas unidades, momento tras
+momento: la película de varias). La misma elección de 2024, mirada por
+municipio en vez de por entidad, sigue siendo una foto, pero con una unidad
+de observación mucho más fina —2,477 filas en vez de 32—. Antes de escribir
+una sola línea de `dplyr` sobre una base nueva, la pregunta que hay que
+hacerse siempre es esta.
+
+::: {.si-algo-falla}
+### Si algo falla
+
+**`argument is not numeric or logical: returning NA`**
+No es exactamente un error —R sigue corriendo—, pero el resultado es tan
+malo como uno. Le pediste una función numérica, como `mean()`, a una columna
+de texto. Confirma el tipo de la columna con `glimpse()` antes de resumirla.
+
+**`Error in read_dta(...) : could not find function "read_dta"`**
+No encuentro nada que se llame así. `read_dta()` vive en el paquete `haven`;
+corre `library(haven)` antes de usarla. Lo mismo pasa con `read_excel()` y
+`readxl`.
+
+**`Error: 'datos/limpios/puente_claves_ine_inegi.csv' does not exist`**
+R está parado en otra carpeta, o el nombre del archivo tiene una letra
+distinta. Corre `here()` para confirmar que la ruta termina en
+`/r-para-politologos`, y revisa el nombre exacto en `datos/README.md`.
+
+**`Error: object 'municipios' not found`**
+No corriste la línea que crea ese objeto, o lo escribiste con una letra
+distinta. R distingue mayúsculas de minúsculas.
+
+Hay más, con su traducción y su arreglo, en [Errores comunes](../../recursos/errores-comunes.qmd).
+:::
+
+::: {.ya-sabes}
+### Lo que ya sabes hacer
+
+- Importar una base con `read_csv()` y leer lo que R te dice al hacerlo.
+- Usar `glimpse()` para conocer una base nueva y reconocer sus tipos de variable.
+- Contestar, de cualquier tabla, qué representa una fila y si esa fila puede repetirse.
+:::
+
+## La semana que viene
+
+**Pedirle cosas a los datos.** Vas a conocer el *pipe* `|>` y los verbos que
+más vas a usar en todo el curso: `filter()`, `select()`, `arrange()` y
+`mutate()`. La pregunta que la mueve: ¿dónde ganó Morena por más de veinte
+puntos?

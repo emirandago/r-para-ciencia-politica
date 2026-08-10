@@ -1,0 +1,394 @@
+% ══════════════════════════════════════════════════════════════════════════════
+% Laboratorio de R para Ciencia Política — ITAM
+% Sesión 02 · Los datos son tablas
+%
+% Se compila desde esta carpeta:  pdflatex 02_slides.tex  (DOS veces)
+% El preámbulo, la paleta y el logo viven en ../../estilo/ — no se editan aquí.
+% ══════════════════════════════════════════════════════════════════════════════
+
+\input{../../estilo/preambulo-lab.tex}
+
+\title[Lab de R · Sesión 2]{Los datos son tablas}
+\subtitle{¿Cómo se ve una base de datos por dentro?}
+\date{%
+  Sesión 2 de 11\\[0.3em]
+  \textit{ITAM, otoño 2026}%
+}
+\hypersetup{pdftitle={Sesión 2 · Los datos son tablas}}
+
+\begin{document}
+
+% ── Portada ───────────────────────────────────────────────────────────────────
+{\setbeamertemplate{footline}{}\setbeamertemplate{headline}{}
+\begin{frame}[plain, noframenumbering]
+  \titlepage
+\end{frame}}
+
+% ── El gancho ─────────────────────────────────────────────────────────────────
+\porquenosimporta{¿Cómo se ve una base de datos por dentro?}{%
+  La sesión pasada sacamos un gráfico de una base electoral sin mirar
+  todavía qué había adentro. Antes de pedirle cualquier cosa a una tabla,
+  hay que saber leerla.}
+
+% ── Recapitulación ────────────────────────────────────────────────────────────
+\begin{frame}{De dónde venimos}
+  \vspace{0.3em}
+  \begin{itemize}\setlength{\itemsep}{0.9em}
+    \item<1-> Sabemos dónde está parado R y usamos \cod{here()} para las rutas.
+    \item<2-> Guardamos cosas en objetos y operamos sobre un vector completo de un golpe.
+    \item<3-> Ya abrimos \cod{presidencial\_2024\_entidad.csv} una vez, para graficarlo.
+  \end{itemize}
+
+  \vspace{1.1em}
+  \onslide<4->{%
+  {\small\color{grisTenue}
+  Hoy volvemos a esa misma base, pero para mirarla por dentro antes de
+  tocar nada más.}}
+\end{frame}
+
+% ══════════════════════════════════════════════════════════════════════════════
+\section{Una tabla no es una hoja de cálculo}
+% ══════════════════════════════════════════════════════════════════════════════
+
+\begin{frame}{Cada fila es un caso, cada columna es una variable}
+  \vspace{0.3em}
+  \begin{itemize}\setlength{\itemsep}{0.9em}
+    \item<1-> En una hoja de cálculo se puede escribir cualquier cosa en
+          cualquier celda: un número aquí, una fecha allá.
+    \item<2-> R guarda una tabla distinto: como un \ac{tibble}. Cada fila es
+          una observación; cada columna, una variable.
+    \item<3-> Dentro de una columna, todo el dato tiene el mismo tipo, de
+          arriba a abajo.
+  \end{itemize}
+
+  \vspace{1.1em}
+  \onslide<4->{%
+  \begin{block}{Por qué importa esa restricción}
+    Es lo que permite pedirle a R \cod{mean(columna)} con la confianza de
+    que no se va a topar con texto a la mitad donde esperaba un número.
+  \end{block}}
+\end{frame}
+
+% ══════════════════════════════════════════════════════════════════════════════
+\section{Traer una base de verdad}
+% ══════════════════════════════════════════════════════════════════════════════
+
+\begin{frame}[fragile]{Lo que ya conoces, otra vez}
+\begin{lstlisting}
+resultados <- read_csv(
+  here("datos", "limpios",
+       "presidencial_2024_entidad.csv"))
+\end{lstlisting}
+
+  \vspace{0.6em}
+  Lee con calma lo que aparece en la consola: es la
+  \ac{especificación de columnas}, y no es un error.
+
+  \vspace{0.5em}
+  {\small\color{grisTenue}Busca \cod{clave\_entidad}: tiene que salir
+  \cod{<chr>}. Si saliera número, "01" se habria convertido en 1.}
+\end{frame}
+
+\begin{frame}{Dos funciones que se parecen y no son iguales}
+  \vspace{0.3em}
+  \begin{itemize}\setlength{\itemsep}{0.9em}
+    \item<1-> \cod{read\_csv()}, con guion bajo, del paquete \cod{readr}.
+    \item<2-> \cod{read.csv()}, con punto, de R base.
+  \end{itemize}
+
+  \vspace{1.1em}
+  \onslide<3->{%
+  \begin{saltobox}
+    \cod{read.csv()} adivina los tipos en silencio y convierte texto en
+    factor sin avisar. \cod{read\_csv()} regresa un tibble y dice, linea
+    por linea, que decidio. En este curso usamos siempre \cod{read\_csv()}.
+  \end{saltobox}}
+\end{frame}
+
+\begin{frame}[fragile]{glimpse(): conocer una base de un vistazo}
+\begin{lstlisting}
+glimpse(resultados)
+\end{lstlisting}
+
+  \vspace{0.6em}
+  \cod{head()} enseña las primeras filas. \cod{glimpse()} gira la tabla de
+  lado: cada columna cabe en una linea, con su tipo y sus primeros valores.
+
+  \vspace{0.5em}
+  {\small\color{grisTenue}Es lo primero que corres al abrir cualquier base
+  nueva.}
+\end{frame}
+
+\begin{frame}{Los tipos que vas a ver todo el curso}
+  \vspace{0.3em}
+  \small
+  \begin{tabular}{@{}lll@{}}
+    \toprule
+    \textbf{Abreviación} & \textbf{Qué es} & \textbf{Ejemplo politológico} \\
+    \midrule
+    \cod{<chr>} & texto & entidad, nombre de partido \\
+    \cod{<dbl>} & número con decimales & porcentaje de votos \\
+    \cod{<int>} & número entero & conteo de escaños \\
+    \cod{<lgl>} & lógico & TRUE / FALSE \\
+    \cod{<fct>} & factor, con categorías fijas & nivel de escolaridad \\
+    \bottomrule
+  \end{tabular}
+
+  \vspace{1.1em}
+  {\small\color{grisTenue}No se puede promediar una columna \cod{<chr>}, ni
+  ordenar de mayor a menor una columna \cod{<lgl>}. El tipo decide qué
+  preguntas se le pueden hacer a cada columna.}
+\end{frame}
+
+\begin{frame}[fragile]{Una trampa real}
+\begin{lstlisting}
+mean(resultados$entidad)
+\end{lstlisting}
+
+  \vspace{0.6em}
+  \begin{errorbox}{argument is not numeric or logical: returning NA}
+    Traducción: "este argumento no es numérico ni lógico: voy a regresar
+    NA".
+
+    \vspace{0.5em}
+    R no truena, y eso es lo peligroso: si no se lee la consola, un
+    \cod{NA} se puede quedar metido en un script largo sin que nadie sepa
+    de dónde salió.
+  \end{errorbox}
+\end{frame}
+
+% ══════════════════════════════════════════════════════════════════════════════
+\section{NA: lo que falta, y por qué importa}
+% ══════════════════════════════════════════════════════════════════════════════
+
+\begin{frame}{NA no es lo mismo que cero}
+  \vspace{0.3em}
+  \begin{itemize}\setlength{\itemsep}{0.9em}
+    \item<1-> \cod{NA} quiere decir "no disponible": R no sabe qué valor va ahí.
+    \item<2-> No es lo mismo que \cod{0}, que sí es un valor y dice algo.
+    \item<3-> No es lo mismo que \cod{""}, una cadena vacía, que también es un valor.
+  \end{itemize}
+
+  \vspace{1.2em}
+  \onslide<4->{%
+  {\small\color{grisTenue}R los trata distinto a propósito: no hay que
+  confundir "no hay información" con "la información es cero".}}
+\end{frame}
+
+\begin{frame}[fragile]{Un vector con un hueco}
+\begin{lstlisting}
+edad <- c(35, NA, 42, 29)
+
+is.na(edad)
+sum(is.na(edad))
+
+mean(edad)                  # que crees que va a pasar?
+mean(edad, na.rm = TRUE)
+\end{lstlisting}
+
+  \vspace{0.5em}
+  {\small\color{grisTenue}Un solo \cod{NA} vuelve \cod{NA} cualquier
+  operación sobre todo el vector. \cod{na.rm = TRUE} le dice a R que lo
+  ignore.}
+\end{frame}
+
+\begin{frame}{Un caso real, no inventado}
+  \vspace{0.3em}
+  En la base municipal de la elección de 2024 hay dos municipios de Oaxaca
+  con \cod{NA} en el porcentaje de cada coalición.
+
+  \vspace{1.0em}
+  \begin{itemize}\setlength{\itemsep}{0.85em}
+    \item<1-> No es un error de captura: ninguna casilla se instaló ese día.
+    \item<2-> Dividir votos entre cero no tiene sentido.
+    \item<3-> La base honesta dice \cod{NA} en vez de inventar un \cod{0}.
+  \end{itemize}
+\end{frame}
+
+% ══════════════════════════════════════════════════════════════════════════════
+\section{La unidad de observación}
+% ══════════════════════════════════════════════════════════════════════════════
+
+\begin{frame}{La pregunta que ningún glimpse() contesta sola}
+  \vspace{0.4em}
+  \begin{center}
+    {\Large\color{verdeProfundo}¿Qué representa una fila de esta tabla?}
+  \end{center}
+
+  \vspace{1.3em}
+  \begin{itemize}\setlength{\itemsep}{0.9em}
+    \item<1-> ¿Puede repetirse la misma unidad en dos filas distintas?
+    \item<2-> ¿Esta base es una foto de un instante, o sigue a alguien en el tiempo?
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Dos formas de armar una tabla}
+  \vspace{0.2em}
+  \small
+  \begin{columns}[T]
+    \begin{column}{0.48\textwidth}
+      \textbf{Corte transversal — una foto}
+      \begin{tabular}{@{}ll@{}}
+        \toprule
+        entidad & participación \\
+        \midrule
+        Aguascalientes & 60.6 \\
+        Baja California & 48.7 \\
+        Campeche & 64.6 \\
+        \bottomrule
+      \end{tabular}
+      \vspace{0.4em}
+
+      {\footnotesize\color{grisTenue}Un solo momento, muchas entidades.}
+    \end{column}
+    \begin{column}{0.48\textwidth}
+      \textbf{Serie de tiempo — película de una}
+      \begin{tabular}{@{}ll@{}}
+        \toprule
+        año & participación \\
+        \midrule
+        2012 & 63 \\
+        2018 & 63 \\
+        2024 & 61 \\
+        \bottomrule
+      \end{tabular}
+      \vspace{0.4em}
+
+      {\footnotesize\color{grisTenue}Cifras inventadas, para ver la forma.}
+    \end{column}
+  \end{columns}
+\end{frame}
+
+\begin{frame}{Dos formas más}
+  \vspace{0.2em}
+  \small
+  \begin{columns}[T]
+    \begin{column}{0.48\textwidth}
+      \textbf{Pooled — fotos sueltas}
+      \begin{tabular}{@{}lll@{}}
+        \toprule
+        año & entidad & partic. \\
+        \midrule
+        2012 & Sonora & 58 \\
+        2018 & Puebla & 61 \\
+        2024 & Yucatán & 66 \\
+        \bottomrule
+      \end{tabular}
+      \vspace{0.4em}
+
+      {\footnotesize\color{grisTenue}Nadie se repite a propósito.}
+    \end{column}
+    \begin{column}{0.48\textwidth}
+      \textbf{Panel — película de varias}
+      \begin{tabular}{@{}lll@{}}
+        \toprule
+        entidad & 2018 & 2024 \\
+        \midrule
+        Sonora & 58 & 60 \\
+        Puebla & 61 & 59 \\
+        \bottomrule
+      \end{tabular}
+      \vspace{0.4em}
+
+      {\footnotesize\color{grisTenue}Las mismas unidades, año tras año.}
+    \end{column}
+  \end{columns}
+\end{frame}
+
+\begin{frame}{¿Foto o película?}
+  \vspace{0.5em}
+  \begin{saltobox}
+    De "¿cuántas filas tiene mi base?" a "¿qué representa cada fila, y
+    puede repetirse?". Una foto compara entidades entre sí; una película
+    compara una entidad consigo misma a través del tiempo. Esa sola
+    pregunta decide qué se puede contestar con la tabla que tienes
+    enfrente.
+  \end{saltobox}
+
+  \vspace{1.0em}
+  {\small\color{grisTenue}Vamos a volver a esta distinción en la sesión 4,
+  cuando comparemos "entre" con "dentro de".}
+\end{frame}
+
+\begin{frame}[fragile]{La misma clase de dato, otra unidad de observación}
+\begin{lstlisting}
+municipios <- read_csv(
+  here("datos", "limpios",
+       "puente_claves_ine_inegi.csv"))
+
+nrow(resultados)   # 32
+nrow(municipios)    # 2477
+\end{lstlisting}
+
+  \vspace{0.6em}
+  Mismo país, misma clave de entidad. Cambiar la unidad de observación
+  multiplicó las filas por casi 80.
+\end{frame}
+
+% ══════════════════════════════════════════════════════════════════════════════
+\section{Dos formatos más, para cuando los necesites}
+% ══════════════════════════════════════════════════════════════════════════════
+
+\begin{frame}[fragile]{Excel y Stata, en dos minutos}
+\begin{lstlisting}
+library(readxl)   # para .xlsx
+library(haven)    # para .dta (Stata)
+
+# read_excel(here("datos", "limpios",
+#                  "algun_archivo.xlsx"))
+# read_dta(here("datos", "limpios",
+#               "algun_archivo.dta"))
+\end{lstlisting}
+
+  \vspace{0.5em}
+  {\small\color{grisTenue}No los corremos hoy: en este repositorio los
+  datos limpios viven como .csv y .rds. La sintaxis queda aquí para
+  cuando la necesites.}
+\end{frame}
+
+\begin{frame}{Lo que muerde la primera vez}
+  \vspace{0.3em}
+  \begin{itemize}\setlength{\itemsep}{0.9em}
+    \item<1-> \cod{read\_excel()} lee la primera hoja por default; usa
+          \cod{sheet = ...} si hay varias.
+    \item<2-> Un \cod{.dta} trae etiquetas de valor que R no siempre
+          traduce solo: prueba \cod{as\_factor()}.
+    \item<3-> Un Excel de gobierno casi siempre trae nombres de columna
+          sucios. \cod{clean\_names()}, del paquete \cod{janitor}, los
+          deja en \cod{snake\_case} de un golpe.
+  \end{itemize}
+\end{frame}
+
+% ══════════════════════════════════════════════════════════════════════════════
+\section{Ejercicio}
+% ══════════════════════════════════════════════════════════════════════════════
+
+\begin{frame}{Quince minutos, tres niveles}
+  \vspace{0.4em}
+  \begin{itemize}\setlength{\itemsep}{1.0em}
+    \item \ac{Calentamiento} — vuelve a cargar el puente de claves y corre
+          \cod{glimpse()} sobre él.
+    \item \ac{De verdad} — abre la base municipal de 2024, nunca vista en
+          clase, y cuenta sus \cod{NA} reales.
+    \item \ac{Si te sobra tiempo} — investiga la diferencia entre
+          \cod{NA} y \cod{NULL}, y verifícala corriendo código.
+  \end{itemize}
+
+  \vspace{1.2em}
+  {\small\color{grisTenue}El archivo es \cod{02\_ejercicio.R}. La solución
+  se publica al terminar la sesión.}
+\end{frame}
+
+% ── Cierre ────────────────────────────────────────────────────────────────────
+\yasabemos
+  {Importar una base con \cod{read\_csv()} y leer lo que R dice al hacerlo.}
+  {Usar \cod{glimpse()} para reconocer los tipos de variable de una base nueva.}
+  {Contestar, de cualquier tabla, qué representa una fila y si puede repetirse.}
+
+\lasiguiente{Pedirle cosas a los datos}{%
+  Vamos a conocer el pipe \cod{|>} y los verbos que más vamos a usar en
+  todo el curso: \cod{filter()}, \cod{select()}, \cod{arrange()} y
+  \cod{mutate()}. La pregunta que la mueve: ¿dónde ganó Morena por más de
+  veinte puntos?}
+
+\end{document}

@@ -1,0 +1,199 @@
+---
+title: "Sesión 4 · Agrupar, resumir, cruzar"
+subtitle: "¿Cómo comparo estados entre sí?"
+---
+
+::: {.gancho}
+Comparar exige resumir. No se pueden comparar dos estados si cada uno son ochenta
+municipios sueltos: primero hay que convertir cada estado en un número, y decidir
+cuál. Y casi nada de lo que vale la pena preguntar cabe en una sola base, así que
+además hay que unir dos. Hoy hacemos las dos cosas, y la segunda va a fallar a la
+primera —a propósito—, porque el día que cruces dos bases electorales mexicanas de
+verdad, también va a fallar.
+:::
+
+## Qué vas a poder hacer al salir
+
+Al terminar la sesión vas a saber resumir una base agrupándola por lo que te
+interese —región, tamaño, cualquier categoría— con `group_by()` y
+`summarise()`, contar filas por grupo con el atajo `count()`, y cruzar dos
+bases distintas con `left_join()`. Vas a ver ese cruce fallar en vivo, vas a
+diagnosticar por qué con las mismas herramientas que ya tienes, y lo vas a
+corregir. Y vas a cerrar, por fin, la trampa que la sesión 1 dejó pendiente:
+por qué el promedio de 32 porcentajes casi nunca es el porcentaje nacional, y
+cómo calcular el que sí lo es.
+
+Lo que no vas a entender del todo hoy es `pivot_wider()`, la operación inversa
+de `pivot_longer()`. La vemos en su forma más simple, con un caso de uso
+inmediato, y la versión completa queda en el acordeón de esta página y en
+`extras/` para cuando de verdad la necesites. No es que sea difícil: es que
+hoy hay algo más importante que le gana el tiempo, y se llama `left_join()`.
+
+## Antes de venir
+
+Las sesiones 2 y 3: necesitas poder leer una base con `read_csv()` y usar el
+pipe `|>` con `filter()`, `select()`, `arrange()` y `mutate()` sin que se te
+expliquen otra vez. Si te falta alguna, esta sesión va a costarte más de lo
+necesario.
+
+## Los archivos de la sesión
+
+::: {.descargas}
+[04_script.R — el guion de clase](https://raw.githubusercontent.com/emirandago/r-para-politologos/main/sesiones/04-agrupar-resumir-cruzar/04_script.R){.btn-descarga}
+[04_ejercicio.R — para llevar](https://raw.githubusercontent.com/emirandago/r-para-politologos/main/sesiones/04-agrupar-resumir-cruzar/04_ejercicio.R){.btn-descarga}
+[04_slides.pdf — las láminas](https://raw.githubusercontent.com/emirandago/r-para-politologos/main/sesiones/04-agrupar-resumir-cruzar/04_slides.pdf){.btn-descarga .secundario}
+[04_script_completo.R — resuelto](https://raw.githubusercontent.com/emirandago/r-para-politologos/main/sesiones/04-agrupar-resumir-cruzar/04_script_completo.R){.btn-descarga .secundario}
+[04_solucion.R — solución del ejercicio](https://raw.githubusercontent.com/emirandago/r-para-politologos/main/sesiones/04-agrupar-resumir-cruzar/04_solucion.R){.btn-descarga .secundario}
+:::
+
+El archivo `04_script.R` tiene huecos y **no corre de corrido**: está hecho
+para llenarse en clase. Los dos archivos grises se publican al terminar la
+sesión.
+
+## El contenido, en prosa
+
+### La trampa de la sesión 1, resuelta
+
+En la sesión 1 calculamos dos números que salieron distintos y los dejamos
+sin explicar del todo: el promedio simple de los 32 porcentajes estatales de
+la coalición Sigamos Haciendo Historia, y el porcentaje calculado con los
+votos totales del país. Quedamos con la desconfianza —"un promedio de
+porcentajes casi nunca es el porcentaje que crees"— pero no con la
+herramienta para repetir esa cuenta cuantas veces hiciera falta.
+
+`group_by()` agrupa una base según una o más columnas; `summarise()` colapsa
+cada grupo en una sola fila con el resumen que le pidas. Juntos contestan
+cualquier variación de "¿cómo se compara este grupo con aquel otro?": por
+región, por tamaño, por lo que se te ocurra agrupar. En esta sesión
+construimos primero una columna de región —con `mutate()` y `case_when()`,
+una clasificación nuestra y no un dato oficial, documentada como tal— y
+comparamos, región por región, el promedio simple contra el ponderado. La
+diferencia más grande aparece en la región Centro, donde Ciudad de México y
+México concentran millones de votos que un promedio simple trata igual que
+los de Tlaxcala.
+
+### El between y el within, en una frase
+
+Cada vez que agrupas y resumes estás contestando una pregunta **entre**
+grupos: ¿cómo se compara esta región con esa otra, en el mismo momento en el
+tiempo? Cuando más adelante tengas datos de varias elecciones y quieras
+comparar un mismo estado consigo mismo a través del tiempo, esa es una
+pregunta distinta —se llama comparación **within** en la literatura de datos
+de panel— y se resuelve con las mismas funciones más un giro adicional. Hoy
+solo tenemos una elección, así que hoy comparamos entre entidades. El resto
+queda para el extra de panel y efectos fijos.
+
+### count(), el atajo
+
+Cuando lo único que quieres es cuántas filas hay por grupo, `count()` hace en
+una línea lo que `group_by()` + `summarise(n = n())` hace en tres. Contamos
+cuántos municipios tiene cada entidad, y Oaxaca queda hasta arriba con más de
+quinientos: casi una cuarta parte de los municipios del país están en un solo
+estado. No es un capricho de los datos, y lo vamos a ver otra vez —peor— en
+la sesión 7, cuando un mapa "por número de algo" sin ajustar por población
+parezca que Oaxaca domina el mapa entero.
+
+### El left_join() que se rompe a propósito
+
+Este es el contenido más importante de la hora, y no se apura. Cruzamos la
+base electoral municipal con el puente de claves INE-INEGI usando el
+**nombre** del municipio, porque es lo primero que se le ocurre a cualquiera.
+R sí devuelve un resultado, pero antes avisa con un mensaje que menciona una
+relación *many-to-many*: una fila tuya hizo pareja con más de una fila de la
+otra base. El número de filas creció donde debía quedarse igual.
+
+Diagnosticamos con la herramienta que acabamos de ver: contamos cuántas veces
+se repite cada nombre de municipio, y filtramos los que aparecen más de una
+vez. Salen 89 nombres que no son únicos en el país —"Benito Juarez" es
+municipio en siete entidades distintas, "Emiliano Zapata" en seis—. México
+repartió los nombres de sus héroes patrios por el mapa entero sin que a nadie
+le importara, hace un siglo, que algún día alguien quisiera cruzar bases por
+nombre. Un nombre de municipio, solo, casi nunca es una clave.
+
+La corrección es cruzar por la clave numérica, no por el nombre. La base
+electoral ya trae la clave de INEGI en `clave_municipio` —se puede comprobar
+con Colima capital, que aparece como `06002`, la clave de INEGI, y no como
+`06001`, la clave que usa el INE para ese mismo municipio—. El puente trae
+esa misma clave de INEGI en `clave_municipio_inegi`, y al cruzar por ahí el
+resultado cuadra exacto: las mismas filas con las que empezamos, sin avisos.
+
+Con el cruce ya bien hecho, `anti_join()` sirve para preguntar algo distinto:
+¿quién, del catálogo completo de municipios, se quedó sin pareja en la base
+electoral? La respuesta son dos municipios de Chiapas, Chicomuselo y
+Pantelhó, documentados en `datos/README.md` sin una explicación completa de
+por qué. No siempre vas a poder cerrar cada pregunta que un cruce te deja
+planteada, y documentar que falta algo, con nombre y apellido, es mejor que
+no darse cuenta de que falta.
+
+`merge()` de R base puede fallar exactamente igual —perdiendo filas o
+multiplicándolas— y nunca avisa. Por eso este curso no lo usa: un cruce que
+falla en silencio es peor que uno que grita.
+
+### pivot_longer(), una vez
+
+`resultados_entidad` trae `pct_shh`, `pct_fcm` y `pct_mc` como tres columnas:
+formato ancho, cómodo para leer y difícil de graficar con una sola capa.
+`pivot_longer()` las acomoda en dos columnas —una que dice de qué coalición
+se trata, otra con el número— y ese formato largo es el que la sesión 5 va a
+necesitar para dibujar las tres coaliciones con una sola instrucción. La
+operación inversa, `pivot_wider()`, existe y se usa bastante menos de lo que
+uno imagina; queda para el acordeón y para `extras/`.
+
+### El entregable
+
+Con el cruce corregido, agrupamos la base municipal por entidad y sumamos los
+votos totales para reconstruir, desde abajo, la misma cifra que
+`presidencial_2024_entidad.csv` trae armada directamente por el INE. Las dos
+cuentas casi cuadran: la diferencia total es exactamente 117,831 votos, el
+mismo voto en el extranjero que la sesión 1 mencionó y que
+`presidencial_2024_municipio.csv` excluye por no tener municipio. Jalisco,
+Puebla, Michoacán y Guanajuato concentran la diferencia más grande, y no es
+casualidad: son estados con más población viviendo fuera del país. Cruzar dos
+bases bien hechas no solo une datos: la diferencia misma, cuando sabes
+nombrarla, es un hallazgo.
+
+::: {.si-algo-falla}
+### Si algo falla
+
+**`Warning message: Detected an unexpected many-to-many relationship...`**
+No es un error que detiene el código: es R avisando que una fila tuya hizo
+pareja con más de una fila de la otra base en un `left_join()`. Revisa si la
+columna que usaste para cruzar de verdad identifica una sola fila de cada
+lado —casi siempre no lo hace un nombre de texto— y corrige usando la clave.
+
+**`Error: object 'region' not found` después de un case_when() que "sí corrió"**
+`mutate()` no modifica la base original si no la vuelves a guardar. Si
+escribiste `resultados_entidad |> mutate(region = ...)` sin la flecha
+`resultados_entidad <-` al principio, el resultado se imprimió y se perdió.
+Vuelve a correr la línea completa, con la asignación.
+
+**Una columna de region llena de `NA`**
+Alguna entidad no quedó dentro de ninguno de los vectores de `case_when()`.
+Corre `resultados_entidad |> filter(is.na(region))` para ver cuál falta y
+agrégala al grupo que le corresponda.
+
+**`nrow()` te da más filas de las que esperabas después de un left_join()**
+No es un error de R: es el aviso de que tu columna de cruce tiene valores
+repetidos del lado derecho. Cuenta con `count(columna, sort = TRUE)` para ver
+cuáles se repiten, y cruza por una columna que sí sea única —casi siempre, la
+clave.
+
+Hay más, con su traducción y su arreglo, en [Errores comunes](../../recursos/errores-comunes.qmd).
+:::
+
+::: {.ya-sabes}
+### Lo que ya sabes hacer
+
+- Resumir una base por el grupo que te interese, con `group_by()` y
+  `summarise()`, y calcular una media ponderada cuando la simple miente.
+- Cruzar dos bases con `left_join()`, diagnosticar con `count()` y
+  `anti_join()` cuando el cruce sale mal, y corregirlo cruzando por clave.
+- Acomodar columnas en filas con `pivot_longer()` cuando lo que sigue es
+  graficar.
+:::
+
+## La semana que viene
+
+**La gramática de los gráficos.** Vas a dejar de copiar un `ggplot()`
+prestado y vas a entender por qué cada capa está donde está —y por qué unos
+gráficos convencen y otros no—.

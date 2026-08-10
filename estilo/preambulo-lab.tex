@@ -1,0 +1,522 @@
+% ══════════════════════════════════════════════════════════════════════════════
+% PREÁMBULO DEL LABORATORIO DE R PARA CIENCIA POLÍTICA — ITAM
+% Emiliano Miranda González · Otoño 2026
+%
+% Estética: beamer académico de ciencia política internacional, en la tradición
+% del deck de seminario (banda de color en la portada, láminas de sección a
+% color completo con el índice atenuado, cuerpo blanco con el título del frame
+% en el color de acento y sin regla, revelación progresiva de viñetas,
+% pie discreto con sección y folio). Verde institucional #006847.
+%
+% Se usa así, desde la carpeta de una sesión:
+%   \input{../../estilo/preambulo-lab.tex}
+%
+% Se compila con pdflatex, DOS VECES (los nodos de tikz con `remember picture`
+% necesitan la segunda pasada para colocarse bien).
+% ══════════════════════════════════════════════════════════════════════════════
+
+\documentclass[
+  aspectratio=43,
+  t,
+  10pt
+]{beamer}
+
+% ── TIPOGRAFÍA ────────────────────────────────────────────────────────────────
+% El cuerpo del deck sigue siendo sans en su totalidad. TeX Gyre Heros es un
+% clon de Helvetica en Type 1 con cobertura T1 completa —incluidas cursivas y
+% versalitas reales—, presente en cualquier distribución de TeX Live. lmodern
+% va ANTES para quedarse con la monoespaciada: sin él, los comentarios en
+% cursiva de los bloques de código salen como fuente de mapa de bits y se ven
+% borrosos al proyectar.
+%
+% Si en la máquina de quien compila están instaladas Fira Sans o Lato —que son
+% las humanistas que suelen usar los decks de seminario de ciencia política—,
+% basta sustituir la línea de tgheros por \usepackage[sfdefault]{FiraSans} o
+% \usepackage[default]{lato}. El resto del preámbulo no cambia.
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{lmodern}
+\usepackage{tgheros}
+\renewcommand{\familydefault}{\sfdefault}
+\usepackage{microtype}
+
+% ── SERIFA PARA TÍTULOS (mezcla del deck de seminario) ─────────────────────────
+% EMG pidió la mezcla de los decks de seminario de ciencia política
+% internacional (ref.: deck de Gary King, IQSS/Harvard): serifa para lo que
+% NOMBRA —portada y título de cada lámina— y sans para lo que INFORMA —cuerpo,
+% viñetas, índice de secciones y pie—. Ver \serifalab más abajo y su uso en
+% \setbeamerfont{title/subtitle/frametitle/framesubtitle}.
+%
+% Elección de la familia, verificada y no adivinada. De las candidatas del
+% encargo, kpsewhich confirmó instaladas: tgpagella, tgtermes, tgschola,
+% tgbonum, mathpazo, charter (no estaban XCharter ni newtxtext). Se compilaron
+% y renderizaron a PNG cuatro candidatas —Pagella, Schola, Charter, Bonum— con
+% el título de lámina y la banda de portada a tamaño real de proyección
+% (comparar.tex/.pdf, carpeta de trabajo temporal). Resultado:
+%   · TeX Gyre Schola y TeX Gyre Bonum: demasiado pesadas y de baja apertura,
+%     compiten con la banda de color en vez de flotar sobre ella.
+%   · Charter: elegante pero de contraste bajo y aire muy contemporáneo; se
+%     aleja del carácter clásico-académico del modelo.
+%   · TeX Gyre Pagella (clon de Palatino): contraste moderado, ojo grande,
+%     aperturas abiertas —el «a» y el «g» de dos pisos que se ven en el
+%     modelo—, y legible a tamaño de título incluso hasta el fondo de un
+%     salón. Es además, junto con TeX Gyre Heros, parte de la misma familia
+%     TeX Gyre: ambas fueron diseñadas para convivir, con métricas y peso
+%     visual pensados para mezclarse. GANADORA.
+%
+% Se invoca la familia NFSS "qpl" directamente con \fontfamily, SIN cargar
+% \usepackage{tgpagella}: ese paquete redefine \rmdefault a qpl, y aunque acá
+% no se usa \rmfamily/\textrm/\mathrm en ninguna lámina (verificado con
+% grep), no hay razón para tocar un valor global que no nos pertenece.
+% \fontfamily{qpl} basta: NFSS localiza sola el .fd de TeX Gyre Pagella la
+% primera vez que se usa. \familydefault SIGUE siendo \sfdefault: el cuerpo
+% del deck no cambia.
+%
+% BUG CORREGIDO — \serifalab llevaba SOLO \fontfamily{qpl}, sin \selectfont.
+% \fontfamily por sí solo no cambia la fuente activa: solo prepara el
+% registro interno de NFSS: el cambio real ocurre hasta el siguiente
+% \selectfont. En \setbeamerfont{title/subtitle/frametitle/framesubtitle}
+% esto no se notaba porque la clave "family=" de beamer llama a \selectfont
+% ella sola, al final de \usebeamerfont (ver beamerbasefont.sty). Pero en el
+% pie de página \serifalab se usaba suelto, después de \usebeamerfont{footline}
+% —que ya había hecho SU propio \selectfont en sans— y como nunca se volvía a
+% llamar \selectfont, el cambio de familia quedaba preparado pero nunca se
+% aplicaba: el pie seguía viéndose en sans siempre, sin importar cuántas veces
+% se recompilara. \serifalab ahora incluye su propio \selectfont, así que
+% funciona igual se use suelto o dentro de family=.
+\newcommand{\serifalab}{\fontfamily{qpl}\selectfont}
+
+% ── MATEMÁTICAS ───────────────────────────────────────────────────────────────
+% Cargadas por si una lámina necesita un subíndice o una fracción.
+% Recordatorio del §7: cero fórmulas con sumatorias en las láminas.
+\usepackage{amsmath}
+\usepackage{amssymb}
+
+% ── GRÁFICAS Y TABLAS ─────────────────────────────────────────────────────────
+\usepackage{graphicx}
+\usepackage{booktabs}
+\usepackage{tabularx}
+\usepackage{array}
+
+% ── COLOR Y CAJAS ─────────────────────────────────────────────────────────────
+\usepackage{xcolor}
+\input{../../estilo/paleta-itam.tex}   % ← única fuente de los hexes
+\usepackage{tcolorbox}
+\tcbuselibrary{skins, breakable}
+
+\usepackage{tikz}
+\usetikzlibrary{calc}
+
+% ── CÓDIGO EN LAS LÁMINAS ─────────────────────────────────────────────────────
+% El código va en las láminas porque muchas personas no alcanzan a copiar del
+% proyector a su pantalla. Se usa listings y no minted: minted exige Python,
+% Pygments y compilar con -shell-escape, y eso es fricción que nadie debería
+% tener que reproducir para compilar el material de un curso.
+\usepackage{listings}
+
+\lstdefinestyle{Rlab}{
+  language         = R,
+  % \small y no \scriptsize: esto se proyecta en un salón y hay gente hasta el
+  % fondo. Si un bloque no cabe a \small, el bloque es demasiado largo para una
+  % lámina — se parte en dos, no se encoge la letra.
+  basicstyle       = \ttfamily\small\color{grisTexto},
+  keywordstyle     = \color{verdeITAM}\bfseries,
+  % Los comentarios NO van en gris tenue: en este curso el comentario es el
+  % contenido, no una nota al margen.
+  commentstyle     = \color{grisTexto}\itshape,
+  stringstyle      = \color{guinda},
+  identifierstyle  = \color{grisTexto},
+  backgroundcolor  = \color{verdeVelo},
+  frame            = leftline,
+  framesep         = 6pt,
+  rulecolor        = \color{verdeITAM},
+  framerule        = 1.2pt,
+  xleftmargin      = 8pt,
+  showstringspaces = false,
+  breaklines       = true,
+  breakatwhitespace= true,
+  columns          = fullflexible,
+  keepspaces       = true,
+  upquote          = true,
+  aboveskip        = 0.7em,
+  belowskip        = 0.7em,
+  literate =
+    {á}{{\'a}}1 {é}{{\'e}}1 {í}{{\'i}}1 {ó}{{\'o}}1 {ú}{{\'u}}1
+    {Á}{{\'A}}1 {É}{{\'E}}1 {Í}{{\'I}}1 {Ó}{{\'O}}1 {Ú}{{\'U}}1
+    {ñ}{{\~n}}1 {Ñ}{{\~N}}1 {¿}{{?`}}1 {¡}{{!`}}1
+    % El pipe nativo no es palabra reservada de R para listings y no puede
+    % declararse como keyword porque no es alfanumérico. Se colorea a mano.
+    % Es el operador que más aparece en todo el curso: tiene que verse.
+    {|>}{{\textcolor{verdeITAM}{\bfseries|>}}}2
+}
+\lstset{style=Rlab}
+
+% Verbos del tidyverse. No son palabras reservadas de R, pero en este curso son
+% el vocabulario central: si se ven siempre del mismo color, el grupo empieza a
+% reconocerlos antes de saber qué hacen.
+\lstset{morekeywords={tibble, glimpse, mutate, filter, select, arrange,
+  summarise, group_by, left_join, anti_join, count, ggplot, aes, labs,
+  geom_col, geom_point, geom_sf, geom_histogram, st_read, st_crs, here, feols,
+  pivot_longer, pivot_wider, read_csv, read_rds, clean_names, slice_max,
+  case_when, theme_lab, ggsave, modelsummary, facet_wrap}}
+
+% Código en línea dentro de un párrafo: \cod{filter()}
+\newcommand{\cod}[1]{{\ttfamily\color{verdeProfundo}#1}}
+
+% Énfasis. NUNCA \textbf en el cuerpo: el énfasis va por color.
+\newcommand{\ac}[1]{\textcolor{verdeITAM}{#1}}   % acento primario
+\newcommand{\se}[1]{\textcolor{guinda}{#1}}      % acento secundario, uso escaso
+
+% ── LAYOUT Y UTILIDADES ───────────────────────────────────────────────────────
+\usepackage{multicol}
+\usepackage{appendixnumberbeamer}
+
+% ── HIPERENLACES — siempre al final ───────────────────────────────────────────
+\usepackage{url}
+\usepackage{hyperref}
+
+% ══════════════════════════════════════════════════════════════════════════════
+% TEMA
+% ══════════════════════════════════════════════════════════════════════════════
+\usetheme{default}
+\usecolortheme{default}
+\usefonttheme{professionalfonts}   % NO {serif}: el deck es sans en todo
+\setbeamertemplate{navigation symbols}{}
+
+% ── Colores ───────────────────────────────────────────────────────────────────
+\setbeamercolor{normal text}{fg=grisTexto, bg=white}
+\setbeamercolor{structure}{fg=verdeITAM}
+
+\setbeamercolor{frametitle}{fg=verdeITAM, bg=white}
+\setbeamercolor{framesubtitle}{fg=grisTenue}
+
+\setbeamercolor{item}{fg=verdeITAM}
+\setbeamercolor{subitem}{fg=verdeITAM}
+\setbeamercolor{subsubitem}{fg=grisTenue}
+
+\setbeamercolor{block title}{fg=white, bg=verdeITAM}
+\setbeamercolor{block body}{fg=grisTexto, bg=verdeVelo}
+\setbeamercolor{block title alerted}{fg=white, bg=guinda}
+\setbeamercolor{block body alerted}{fg=grisTexto, bg=grisVelo}
+\setbeamercolor{block title example}{fg=verdeProfundo, bg=verdeTenue}
+\setbeamercolor{block body example}{fg=grisTexto, bg=verdeVelo}
+
+% Índice de las láminas de sección: la actual en blanco, las demás atenuadas.
+% Se fijan SOLO los dos colores y se deja la plantilla de beamer intacta.
+% Redefinir \setbeamertemplate{section in toc} a mano hace que la lámina de
+% sección salga en blanco: probado, y no vale la pena averiguar por qué.
+\setbeamercolor{section in toc}{fg=white}
+\setbeamercolor{section in toc shaded}{fg=verdeSombra}
+
+% ── Tamaños ───────────────────────────────────────────────────────────────────
+% title, subtitle, frametitle y framesubtitle llevan family=\serifalab: son
+% los cuatro elementos que "nombran" (portada y título de lámina). Todo lo
+% demás —author, institute, date, block body, footline, section in toc— se
+% deja SIN family, así que hereda \familydefault, que sigue siendo sans.
+\setbeamerfont{title}{family=\serifalab, size=\LARGE}
+\setbeamerfont{subtitle}{family=\serifalab, size=\large}
+\setbeamerfont{author}{size=\normalsize}
+\setbeamerfont{institute}{size=\small}
+\setbeamerfont{date}{size=\small}
+\setbeamerfont{frametitle}{family=\serifalab, size=\Large}
+\setbeamerfont{framesubtitle}{family=\serifalab, size=\small}
+\setbeamerfont{block title}{size=\normalsize, series=\bfseries}
+\setbeamerfont{block body}{size=\small}
+\setbeamerfont{footline}{size=\tiny}
+\setbeamerfont{section in toc}{size=\large}
+
+% ── Viñetas ───────────────────────────────────────────────────────────────────
+% Punto medio pequeño, como en los decks de seminario. Nada de triángulos ni
+% de cuadrados: la viñeta no debe competir con el texto.
+\setbeamertemplate{itemize item}{\raisebox{0.12ex}{\scriptsize\textcolor{verdeITAM}{$\bullet$}}}
+\setbeamertemplate{itemize subitem}{\raisebox{0.12ex}{\tiny\textcolor{verdeITAM}{$\bullet$}}}
+\setbeamertemplate{enumerate item}{\textcolor{verdeITAM}{\insertenumlabel.}}
+\setbeamertemplate{caption}{\insertcaption}
+
+% ══════════════════════════════════════════════════════════════════════════════
+% ENCABEZADO — banda superior con el logo del ITAM sobre verde
+% ══════════════════════════════════════════════════════════════════════════════
+\newcommand{\rutaLogo}{../../estilo/logo_itam.png}
+
+\setbeamercolor{cajalogo}{fg=white, bg=verdeITAM}
+\setbeamercolor{bandacurso}{fg=grisTenue, bg=white}
+
+% Se arma con beamercolorbox y NO con tikz. Un `\fill` dentro de una
+% tikzpicture con `overlay` en la plantilla de headline no se pinta —el nodo
+% de la imagen sí aparece, pero el rectángulo de fondo no—, y como el
+% lettering del ITAM es blanco sobre transparente, el logo quedaba invisible
+% sobre el blanco de la lámina. Verificado con pdftoppm a 300 ppp.
+% Historial: 2.4ex -> 3.0ex -> 3.5ex. Cada vez crecí la caja casi en la misma
+% proporción que la imagen para evitar que se desbordara, y el resultado fue
+% que la fracción de la caja verde que ocupa el logo casi no cambiaba (pasó de
+% 43% a 46% a 49%): un cambio real pero demasiado sutil para notarse a
+% simple vista. Esta vez el salto es deliberadamente grande y la caja crece
+% MENOS que proporcionalmente, para que el logo se vea inconfundiblemente más
+% grande y no solo "técnicamente" más grande: sube a 5.0ex (+43% sobre 3.5ex),
+% con ht=5.2ex/dp=2.8ex (antes 4.6/2.6). El logo pasa a ocupar ~62% de la caja
+% (antes ~49%). Sigue en el mismo lugar: esquina superior derecha, centrado.
+% Recalculo r = (ht - dp)/2 - altura_imagen/2 = (5.2-2.8)/2 - 5.0/2 = -1.3ex.
+% La caja izquierda lleva EXACTAMENTE los mismos ht y dp, o las dos mitades
+% del encabezado quedan a distinta altura.
+\setbeamertemplate{headline}{%
+  \leavevmode%
+  \hbox{%
+    \begin{beamercolorbox}[wd=0.815\paperwidth, ht=5.2ex, dp=2.8ex, leftskip=1.4em]{bandacurso}%
+      {\tiny LABORATORIO DE R PARA CIENCIA POLÍTICA}%
+    \end{beamercolorbox}%
+    % El logo se dimensiona en ex y no en fracción del ancho de página: así
+    % cabe siempre dentro de la caja (ht 5.2ex + dp 2.8ex = 8.0ex de alto) y
+    % no se desborda por arriba. El desplazamiento lo centra verticalmente.
+    \begin{beamercolorbox}[wd=0.185\paperwidth, ht=5.2ex, dp=2.8ex, center]{cajalogo}%
+      \raisebox{-1.3ex}{\includegraphics[height=5.0ex]{\rutaLogo}}%
+    \end{beamercolorbox}%
+  }%
+  {\color{grisTexto!22}\hrule height 0.4pt}%
+  \vskip0.7em%
+}
+
+% ══════════════════════════════════════════════════════════════════════════════
+% PIE — sección a la izquierda, iniciales y folio a la derecha
+% ══════════════════════════════════════════════════════════════════════════════
+% Iniciales y folio ~1mm más a la izquierda (Cambio 3).
+%
+% DIAGNÓSTICO — antes de tocar el valor, se descubrió que "rightskip" en esta
+% caja NUNCA había tenido efecto, ni con 1.4em ni con ningún otro valor: la
+% clave "right" de beamercolorbox (beamerbasecolor.sty) hace
+% \def\beamer@colbox@rs{0pt} y, como en la lista de opciones "right" iba
+% DESPUÉS de "rightskip=1.4em", pisaba ese valor y lo dejaba en 0pt fijo.
+% Medido en el PDF ya compilado: el «0» de «1/20» quedaba a 0.25mm del borde
+% derecho de la lámina, no al 1.4em (≈5mm) que el código sugería. Es un bug
+% latente de origen, no algo que haya introducido este cambio.
+%
+% ARREGLO — se invierte el orden ("right" primero, "rightskip" después) para
+% que nuestro valor sea el que sobrevive. Y como el punto de partida real era
+% 0pt (no 1.4em), para lograr el desplazamiento sutil de ~1mm que pidió EMG
+% —"milimétricamente", no un recorte grande— el valor correcto NO es 2.2em
+% (eso habría movido el bloque ~7.8mm, ocho veces más de lo pedido): es
+% 0.45em, calibrado por render y medición en píxeles (antes: "0" de "1/20" a
+% 0.25mm del borde; con 0.45em: a 1.02mm — ver reporte). La caja izquierda
+% (sección) no se toca.
+% Iniciales y folio («EMG | N/total») en serifa: \serifalab se aplica SOLO
+% dentro de esta caja, después de \usebeamerfont{footline} (que solo trae el
+% tamaño \tiny, sin family). El nombre de la sección de la caja izquierda
+% NO lleva \serifalab y se queda en sans, como el resto del pie.
+\setbeamertemplate{footline}{%
+  \hbox{%
+    \begin{beamercolorbox}[wd=0.62\paperwidth, ht=2.6ex, dp=1.4ex, leftskip=1.4em]{}%
+      {\usebeamerfont{footline}\color{verdeITAM}\insertsectionhead}%
+    \end{beamercolorbox}%
+    \begin{beamercolorbox}[wd=0.38\paperwidth, ht=2.6ex, dp=1.4ex, right, rightskip=0.45em]{}%
+      {\usebeamerfont{footline}\serifalab\color{grisTenue}%
+       EMG\hspace{0.9em}\textbar\hspace{0.9em}%
+       \insertframenumber{}\,/\,\inserttotalframenumber}%
+    \end{beamercolorbox}%
+  }%
+  \vskip2pt%
+}
+
+% ══════════════════════════════════════════════════════════════════════════════
+% TÍTULO DE FRAME — en verde, alineado a la izquierda, SIN regla debajo
+% ══════════════════════════════════════════════════════════════════════════════
+\setbeamertemplate{frametitle}{%
+  \vspace{0.6em}
+  \hspace{-0.4em}%
+  \begin{minipage}{0.95\textwidth}
+    \raggedright
+    {\usebeamerfont{frametitle}\color{verdeITAM}\insertframetitle\par}%
+    \ifx\insertframesubtitle\@empty\else%
+      \vspace{0.15em}%
+      {\usebeamerfont{framesubtitle}\color{grisTenue}\insertframesubtitle\par}%
+    \fi
+  \end{minipage}
+  \vspace{0.5em}
+}
+
+% ══════════════════════════════════════════════════════════════════════════════
+% PORTADA — banda verde con el título, datos debajo sobre blanco
+% Título y subtítulo salen en serifa porque \usebeamerfont{title} y
+% \usebeamerfont{subtitle} ya llevan family=\serifalab (ver §Tamaños): no hace
+% falta tocar \inserttitle/\insertsubtitle aquí abajo. Autoría, adscripción y
+% fecha usan \usebeamerfont{author/institute/date}, que NO llevan family y por
+% lo tanto heredan \familydefault (sans) sin cambios.
+% ══════════════════════════════════════════════════════════════════════════════
+\setbeamertemplate{title page}{%
+  \begin{tikzpicture}[remember picture, overlay]
+    % Banda de color con el título dentro
+    \fill[verdeITAM]
+      ([yshift=-0.145\paperheight]current page.north west)
+      rectangle ([yshift=-0.455\paperheight]current page.north east);
+    \node[anchor=center, text width=0.86\paperwidth, align=center, inner sep=0pt]
+      at ([yshift=-0.265\paperheight]current page.north)
+      {\usebeamerfont{title}\color{white}\inserttitle};
+    \node[anchor=center, text width=0.80\paperwidth, align=center, inner sep=0pt]
+      at ([yshift=-0.385\paperheight]current page.north)
+      {\usebeamerfont{subtitle}\color{verdeClaro}\insertsubtitle};
+
+    % Autoría, adscripción y fecha
+    \node[anchor=north, text width=0.86\paperwidth, align=center, inner sep=0pt]
+      at ([yshift=-0.545\paperheight]current page.north)
+      {\usebeamerfont{author}\color{grisTexto}\insertauthor};
+    \node[anchor=north, text width=0.86\paperwidth, align=center, inner sep=0pt]
+      at ([yshift=-0.625\paperheight]current page.north)
+      {\usebeamerfont{institute}\color{grisTexto}\insertinstitute};
+    \node[anchor=north, text width=0.86\paperwidth, align=center, inner sep=0pt]
+      at ([yshift=-0.790\paperheight]current page.north)
+      {\usebeamerfont{date}\color{grisTenue}\insertdate};
+  \end{tikzpicture}%
+}
+
+% ══════════════════════════════════════════════════════════════════════════════
+% LÁMINA DE SECCIÓN — fondo verde completo, índice con la sección actual en
+% blanco y las demás atenuadas. Se dispara sola en cada \section{}.
+% ══════════════════════════════════════════════════════════════════════════════
+\AtBeginSection[]{%
+  {%
+  \setbeamercolor{background canvas}{bg=verdeITAM}
+  % Las entradas del índice son hipervínculos, y con colorlinks=true hyperref
+  % las pinta de linkcolor —que es el mismo verde del fondo—, así que la
+  % sección actual desaparecía. Con hidelinks, hyperref deja de colorear y de
+  % dibujar marcos, y entonces sí mandan los colores de beamer: la sección
+  % actual en blanco y las demás atenuadas.
+  % Diagnosticado a fuerza de bisecar el preámbulo; no es nada obvio.
+  \hypersetup{hidelinks}
+  \setbeamertemplate{headline}{}
+  % Mismo arreglo y mismo valor que el footline normal (Cambio 3, ver
+  % diagnóstico completo ahí arriba): "right" antes de "rightskip=0.45em", o la
+  % clave "right" pisa nuestro valor y lo deja en 0pt. Si aquí se deja
+  % distinto del footline normal, el pie de las láminas de sección queda
+  % desalineado con el del resto.
+  % Mismo \serifalab que el footline normal, y por la misma razón: solo en
+  % «EMG | N/total», nunca en el nombre de la sección.
+  \setbeamertemplate{footline}{%
+    \hbox{%
+      \begin{beamercolorbox}[wd=0.62\paperwidth, ht=2.6ex, dp=1.4ex, leftskip=1.4em]{}%
+        {\usebeamerfont{footline}\color{white}\insertsectionhead}%
+      \end{beamercolorbox}%
+      \begin{beamercolorbox}[wd=0.38\paperwidth, ht=2.6ex, dp=1.4ex, right, rightskip=0.45em]{}%
+        {\usebeamerfont{footline}\serifalab\color{verdeSombra}%
+         EMG\hspace{0.9em}\textbar\hspace{0.9em}%
+         \insertframenumber{}\,/\,\inserttotalframenumber}%
+      \end{beamercolorbox}%
+    }%
+    \vskip2pt%
+  }
+  \begin{frame}[plain, noframenumbering]
+    \vspace{1.4em}
+    \begin{minipage}{0.86\textwidth}
+      \hspace{1.2em}%
+      \begin{minipage}{0.95\textwidth}
+        \tableofcontents[currentsection, sectionstyle=show/shaded, hideallsubsections]
+      \end{minipage}
+    \end{minipage}
+  \end{frame}
+  }%
+}
+
+% ══════════════════════════════════════════════════════════════════════════════
+% ENTORNOS PROPIOS DEL CURSO
+% ══════════════════════════════════════════════════════════════════════════════
+
+% Rótulo en versalitas falsas — tgheros sí tiene versalitas, pero el rótulo se
+% ve mejor en mayúsculas con la letra pequeña.
+\newcommand{\etiqueta}[1]{{\footnotesize\color{grisTenue}\MakeUppercase{#1}}}
+
+% ── ¿Por qué nos importa esto? ────────────────────────────────────────────────
+% Abre todas las sesiones: plantea la pregunta politológica antes de que
+% aparezca una sola función.
+\newcommand{\porquenosimporta}[2]{%
+  \begin{frame}[plain, noframenumbering]
+    \vfill
+    \begin{center}
+      \etiqueta{¿Por qué nos importa esto?}\\[1.3em]
+      {\LARGE\color{verdeProfundo} #1}\\[1.5em]
+      \begin{minipage}{0.80\textwidth}
+        \centering\normalsize\color{grisTexto} #2
+      \end{minipage}
+    \end{center}
+    \vfill
+  \end{frame}%
+}
+
+% ── Lo que ya sabemos hacer ───────────────────────────────────────────────────
+% Cierra todas las sesiones. Exactamente tres viñetas: es la recompensa.
+\newcommand{\yasabemos}[3]{%
+  \begin{frame}{Lo que ya sabemos hacer}
+    \vspace{1.0em}
+    \begin{itemize}\setlength{\itemsep}{1.4em}
+      \item #1
+      \item #2
+      \item #3
+    \end{itemize}
+    \vfill
+  \end{frame}%
+}
+
+% ── Adelanto de la sesión siguiente ───────────────────────────────────────────
+\newcommand{\lasiguiente}[2]{%
+  \begin{frame}[plain, noframenumbering]
+    \vfill
+    \begin{center}
+      \etiqueta{La semana que viene}\\[1.3em]
+      {\LARGE\color{verdeITAM} #1}\\[1.5em]
+      \begin{minipage}{0.80\textwidth}
+        \centering\normalsize\color{grisTexto} #2
+      \end{minipage}
+    \end{center}
+    \vfill
+  \end{frame}%
+}
+
+% ── Caja de error anticipado ──────────────────────────────────────────────────
+% Los errores son parte del temario. Esta caja los presenta ANTES de que
+% ocurran, con su traducción del inglés y su arreglo.
+% "no shadow" y "sharp corners" son deliberados: nada de sombras ni degradados.
+\newtcolorbox{errorbox}[1]{
+  enhanced, breakable, no shadow, sharp corners,
+  colback   = grisVelo,
+  colframe  = guinda,
+  boxrule   = 0pt, leftrule = 2.5pt,
+  toprule = 0pt, bottomrule = 0pt, rightrule = 0pt,
+  fontupper = \small\color{grisTexto},
+  title     = {\color{guinda}\bfseries\small\ttfamily #1},
+  colbacktitle = grisVelo,
+  coltitle  = guinda,
+  titlerule = 0pt
+}
+
+% ── Caja del salto politólogo ─────────────────────────────────────────────────
+% El §7 pide que cada sesión contenga al menos un momento donde la intuición
+% política se convierta en pregunta empírica, y que ese momento se nombre.
+% Esta caja es el lugar donde se nombra.
+\newtcolorbox{saltobox}{
+  enhanced, breakable, no shadow, sharp corners,
+  colback   = verdeVelo,
+  colframe  = verdeITAM,
+  boxrule   = 0pt, leftrule = 2.5pt,
+  toprule = 0pt, bottomrule = 0pt, rightrule = 0pt,
+  fontupper = \small\color{grisTexto},
+  title     = {\color{verdeProfundo}\bfseries\small El salto},
+  colbacktitle = verdeVelo,
+  coltitle  = verdeProfundo,
+  titlerule = 0pt
+}
+
+% ══════════════════════════════════════════════════════════════════════════════
+% METADATOS FIJOS
+% ══════════════════════════════════════════════════════════════════════════════
+\author[E. Miranda]{Emiliano Miranda González}
+\institute[ITAM]{%
+  Instituto Tecnológico Autónomo de México\\
+  Departamento Académico de Ciencia Política%
+}
+
+\hypersetup{
+  colorlinks  = true,
+  linkcolor   = verdeITAM,
+  urlcolor    = verdeITAM,
+  citecolor   = grisTenue,
+  pdfauthor   = {Emiliano Miranda González},
+  pdfsubject  = {Laboratorio de R para Ciencia Política — ITAM},
+  pdfkeywords = {R, ciencia política, ITAM, métodos cuantitativos},
+  unicode     = true
+}

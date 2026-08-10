@@ -1,0 +1,232 @@
+---
+title: "Extra 4 · Datos de panel y efectos fijos"
+subtitle: "¿Comparamos municipios entre sí, o un municipio consigo mismo?"
+---
+
+::: {.gancho}
+En la sesión 4 quedó una nota al margen, para después: "el día que tengas
+datos de varias elecciones y quieras comparar un mismo estado consigo mismo
+a través del tiempo, esa es una pregunta distinta —se llama comparación
+*within*, contra la comparación *between* que hicimos aquí—". Hoy es
+"después". Vas a comparar la participación de 2,475 municipios en DOS
+elecciones mexicanas reales y completas: la presidencial de 2024 y la
+judicial de 2025. Y vas a descubrir que casi toda la variación de esos
+datos no viene de que unos municipios sean distintos de otros, sino de que
+el país entero, de una elección a la siguiente, se comportó distinto.
+:::
+
+## Qué vas a poder hacer al salir
+
+Vas a construir tu primer panel de datos —muchas unidades, más de un
+periodo, las dos cosas a la vez— con datos electorales mexicanos reales.
+Vas a calcular, sin ninguna fórmula con sumatorias, la variación *entre*
+municipios y la variación *dentro* de cada municipio a través del tiempo, y
+vas a ver con tus propios ojos cuál de las dos domina en este caso concreto.
+Vas a ajustar tu primer modelo con efectos fijos usando `fixest::feols()`, y
+vas a usar `lag()`, `lead()` y `cumsum()` —las funciones de ventana que la
+sesión 4 no llegó a usar— para trabajar con una variable que se mueve en el
+tiempo.
+
+Este módulo se detiene antes de la maquinaria formal de econometría de
+panel: no hay prueba de Hausman, no hay efectos aleatorios, no hay álgebra
+de matrices de varianza-covarianza. Esas herramientas exigen ya dominar
+regresión múltiple con soltura y son, con toda intención, contenido de un
+curso de métodos de posgrado, no de este laboratorio.
+
+## Qué necesitas haber visto antes
+
+La sesión 4 completa (`group_by()`, `summarise()`, `left_join()`) y la
+sesión 9 (`feols()`, `modelsummary()`).
+
+## Los archivos del módulo
+
+::: {.descargas}
+[04_script.R — el código completo](https://raw.githubusercontent.com/emirandago/r-para-politologos/main/extras/04-panel-y-efectos-fijos/04_script.R){.btn-descarga}
+[04_ejercicio.R — para practicar](https://raw.githubusercontent.com/emirandago/r-para-politologos/main/extras/04-panel-y-efectos-fijos/04_ejercicio.R){.btn-descarga}
+[04_solucion.R — solución comentada](https://raw.githubusercontent.com/emirandago/r-para-politologos/main/extras/04-panel-y-efectos-fijos/04_solucion.R){.btn-descarga .secundario}
+:::
+
+`04_script.R` corre completo, de arriba abajo, sin huecos.
+
+## El contenido, en prosa
+
+### Qué es un panel de datos
+
+Hasta hoy, cada base que usaste en el laboratorio era un corte
+—`presidencial_2024_municipio.csv` es una fotografía de un solo momento—.
+Un **panel** tiene las dos dimensiones a la vez: muchas unidades (aquí,
+municipios) observadas en más de un momento (aquí, dos elecciones). El
+panel de este módulo es lo más simple que existe —solo dos periodos, lo que
+se llama un panel "corto"—, construido con datos cien por ciento reales:
+`presidencial_2024_municipio.csv` y `judicial_2025_scjn_municipio.csv`,
+unidos por `clave_municipio`, la misma clave de INEGI que ya usaste en la
+sesión 4.
+
+`datos/limpios/vdem_americas.csv` y `datos/limpios/qog_basico.csv` —panel
+país-año, con muchos años por país— están en construcción y todavía no
+figuran en `datos/README.md` al momento de escribir este módulo. Cuando lo
+estén, valdrá la pena rehacer este mismo argumento con un panel largo de
+verdad. **[PENDIENTE]**. Por ahora, dos elecciones mexicanas reales bastan
+para construir la intuición completa: lo que cambia con un panel más largo
+es cuántos periodos tienes, no la lógica del argumento.
+
+### La pregunta *between*: comparar municipios entre sí
+
+```r
+media_por_municipio <- panel_largo |>
+  group_by(clave_municipio) |>
+  summarise(media = mean(participacion_pct))
+
+sd(media_por_municipio$media)
+```
+
+Esto es exactamente `group_by()` + `summarise()`, tal como lo aprendiste en
+la sesión 4: para cada municipio, promedia sus dos participaciones (2024 y
+2025) en un solo número, y pregúntate qué tan distintos son esos promedios
+ENTRE municipios. La desviación estándar de esos 2,475 promedios da
+alrededor de 8 puntos porcentuales: esa es la magnitud de la variación
+*between*.
+
+### La pregunta *within*: comparar un municipio consigo mismo
+
+```r
+panel_largo <- panel_largo |>
+  group_by(clave_municipio) |>
+  mutate(
+    media_municipio    = mean(participacion_pct),
+    desviacion_within   = participacion_pct - media_municipio
+  ) |>
+  ungroup()
+
+sd(panel_largo$desviacion_within)
+```
+
+El cambio es sutil pero decisivo: en vez de `summarise()` —que colapsa cada
+grupo en una fila— usamos `mutate()` —que conserva todas las filas y le
+pega a cada una la media de SU municipio—. La resta que sigue,
+`participacion_pct - media_municipio`, es la distancia de cada observación
+respecto al promedio de su propio municipio: cuánto se aleja 2024 de "lo
+normal" para ese municipio, y cuánto se aleja 2025 de lo mismo. La
+desviación estándar de esas distancias da, con los datos reales, más de 24
+puntos porcentuales: **tres veces más grande** que la variación *between*.
+
+### Lo que ese contraste dice de México
+
+Que la variación *within* sea tan grande no es un defecto de los datos: es
+el hallazgo. La participación nacional se desplomó de 63.1% en la elección
+presidencial de 2024 a apenas 15.8% en la elección judicial de 2025 —un
+promedio simple entre los 2,475 municipios, con la misma trampa de siempre:
+el dato ponderado oficial, documentado en `datos/README.md`, es 13.02%—.
+Esa caída de casi 50 puntos ocurrió, más o menos por igual, en casi todos
+los municipios del país: un choque que afecta a todas las unidades casi por
+igual es exactamente lo que produce mucha variación *within* y relativamente
+poca *between*. Dicho con la intuición de Adrián Lucardi que ya conoces de
+la sesión 4: comparar un municipio consigo mismo, aquí, revela algo que
+comparar municipios entre sí no puede ver —el tamaño del desplome nacional—,
+porque casi todos los municipios cayeron juntos.
+
+### `feols()` con un efecto fijo: la misma cuenta, con otro nombre
+
+```r
+library(fixest)
+
+modelo_fe <- feols(
+  participacion_pct ~ es_2025 | clave_municipio,
+  data = panel_largo,
+  vcov = ~clave_municipio
+)
+```
+
+`es_2025` es una variable de 0/1 —0 si la fila es de 2024, 1 si es de
+2025—. La sintaxis con `|` ya la reconoces de la sesión 9: todo lo que va
+después de la barra son efectos fijos, absorbidos, no reportados como
+coeficientes sueltos. Aquí absorbemos `clave_municipio`: el modelo elimina
+todo lo que es constante en cada municipio a través de las dos elecciones
+—su tamaño, su geografía, sus rasgos históricos, cualquier cosa que no
+cambió entre 2024 y 2025— y deja solo la variable `es_2025` para explicar
+lo que sí cambió.
+
+El coeficiente de `es_2025` en este modelo va a darte, casi hasta el último
+decimal, **el mismo número que ya calculaste a mano** restando el promedio
+de participación de 2025 menos el de 2024: alrededor de -47.4 puntos.
+No es coincidencia ni magia: con exactamente dos periodos por unidad, una
+regresión de efectos fijos sobre una sola variable de periodo reproduce,
+matemáticamente, la diferencia promedio pareada. Esto no es una curiosidad
+sin salida: es, literalmente, la mitad del ingrediente de una diferencia-en-
+diferencias, que vas a ver en el **extra 5**. La otra mitad que falta aquí
+es un grupo de comparación —una parte del país que NO haya vivido el mismo
+cambio—, y ese es exactamente el paso que separa "antes y después" de
+"diferencia en diferencias".
+
+### `lag()`, `lead()`, `cumsum()`, `cummin()` y `cummax()`: las funciones de ventana
+
+Con solo dos periodos por municipio, estas funciones se ven un poco
+recortadas. Para que su sintaxis quede clara con más de dos momentos, un
+ejemplo con datos **inventados**, tres estados ficticios y cinco años, para
+que la sintaxis no se confunda con un hallazgo real:
+
+```r
+panel_de_juguete |>
+  group_by(estado) |>
+  arrange(anio) |>
+  mutate(
+    valor_anterior     = lag(valor),           # el valor del año pasado, del MISMO estado
+    valor_siguiente    = lead(valor),          # el valor del año que viene
+    cambio             = valor - lag(valor),   # cuánto cambió respecto al año pasado
+    acumulado          = cumsum(valor),        # la suma corrida hasta ese año
+    minimo_a_la_fecha  = cummin(valor),        # el valor más CHICO visto hasta ese año
+    maximo_a_la_fecha  = cummax(valor)         # el valor más GRANDE visto hasta ese año
+  )
+```
+
+`group_by(estado)` antes de `lag()` no es opcional: sin él, `lag()` te
+traería el valor del ÚLTIMO año de OTRO estado cuando cambias de grupo, un
+error silencioso —R no te avisa— que la sesión de mejores prácticas del
+curso marca como uno de los más peligrosos de todo el trabajo con panel.
+Con nuestro panel real de dos periodos, `lag()` sí tiene un uso legítimo:
+te deja pegarle a la fila de 2025 la participación de 2024 del MISMO
+municipio, en la misma fila, lista para restar sin un segundo `left_join()`.
+
+::: {.si-algo-falla}
+### Si algo falla
+
+**`lag()` te da valores que no corresponden al municipio de esa fila**
+Casi siempre olvidaste `group_by(clave_municipio)` antes de `arrange()` y
+`mutate()`, o los pusiste en el orden equivocado. `lag()` recorre las filas
+en el orden en que están, grupo por grupo: sin agrupar y sin ordenar por
+`anio` primero, "el valor anterior" no significa nada confiable.
+
+**`feols()` no reporta un coeficiente para `clave_municipio`**
+Es lo esperado, no un error: todo lo que va después de `|` se absorbe como
+efecto fijo, no se imprime como coeficiente individual. Si quisieras ver
+esos coeficientes —casi nunca es lo que quieres, ver `mejores_practicas_r_cpol.md`—,
+tendrías que usar `factor(clave_municipio)` como variable explicativa
+normal, y con 2,475 categorías eso es exactamente el antipatrón que el
+curso evita enseñando `feols()` en primer lugar.
+
+**`Error: variable 'es_2025' not found`**
+No corriste el bloque donde se construye `panel_largo` en formato largo,
+con `pivot_longer()`, antes de crear `es_2025`. Revisa que corriste el
+script de arriba abajo sin saltarte secciones.
+
+Hay más, con su traducción y su arreglo, en
+[Errores comunes](../../recursos/errores-comunes.qmd).
+:::
+
+::: {.ya-sabes}
+### Lo que ya sabes hacer
+
+- Explicar, con tus palabras y sin fórmula, la diferencia entre
+  variación *between* y variación *within* en un panel de datos.
+- Ajustar un modelo con `feols()` y un efecto fijo con la sintaxis
+  `y ~ x | unidad`, y explicar qué hace `|` con lo que va después.
+- Usar `lag()`, `lead()` y `cumsum()` dentro de un `group_by()` bien
+  ordenado, y explicar por qué el `group_by()` no es opcional.
+:::
+
+## Para seguir
+
+El **extra 5** retoma exactamente el punto donde este módulo se detuvo: la
+diferencia-en-diferencias necesita, además de un "antes y un después" como
+el de aquí, un grupo que sirva de comparación. Es la pieza que le falta a
+este extra para completarse.

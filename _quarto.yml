@@ -1,0 +1,153 @@
+# ══════════════════════════════════════════════════════════════════════════════
+# Laboratorio de R para Ciencia Política — ITAM
+# _quarto.yml · Configuración del sitio
+#
+# Es un sitio (type: website), no un libro (type: book): tenemos once sesiones
+# con entregables distintos, más extras/, recursos/ e ia/, cada uno con su
+# propia lógica de navegación — más parecido a un sitio de curso que a un
+# texto continuo. Ver reconocimiento/17b_ia_y_sitios.md, sección "PARA NUESTRO
+# _quarto.yml", para la investigación (cinco cursos reales de R en ciencia
+# política publicados con Quarto) que respalda esta y las demás decisiones
+# de este archivo.
+#
+# Los .qmd de sesión son guiones en prosa para leer antes o después de la
+# clase, no reportes que recalculan datos al construir el sitio. El código
+# que aparece en ellos ya fue verificado por separado, corriendo los scripts
+# de sesiones/ en una instalación limpia (criterio de éxito §12.2 de
+# INSTRUCCIONES_PROYECTO_Lab_R.md). Por eso el sitio entero se construye con
+# execute: eval: false — ningún bloque de código R se ejecuta al hacer build,
+# lo que además hace que la Action de GitHub (.github/workflows/publish.yml)
+# no necesite instalar R y compile en segundos en vez de minutos.
+# ══════════════════════════════════════════════════════════════════════════════
+
+project:
+  type: website
+  render:
+    - "*.qmd"
+    # Las skills de ia/skills/ son archivos de instrucciones para un asistente
+    # de IA, no páginas del sitio: se descargan y se instalan, no se leen en el
+    # navegador. Si se dejan renderizar, aparecen como páginas sueltas sin
+    # contexto en el buscador. Quien quiera verlas llega por ia/index.qmd.
+    - "!ia/skills/"
+
+lang: es
+
+execute:
+  eval: false     # las páginas del sitio no ejecutan R al construir (son prosa)
+  freeze: auto    # por si alguna página llegara a evaluarse, cachea el resultado
+
+website:
+  title: "Laboratorio de R para Ciencia Política"
+  description: "Once sesiones de R para politólogos del ITAM que nunca han programado."
+  site-url: "https://emirandago.github.io/r-para-politologos/"
+  repo-url: "https://github.com/emirandago/r-para-politologos"
+  search: true
+
+  navbar:
+    title: "Laboratorio de R para Ciencia Política"
+    background: dark
+    # El lettering del logo es blanco sobre transparente (ver estilo/logo_itam.png):
+    # necesita su propia caja verde para verse, incluso sobre una barra ya verde.
+    # Esa caja la pone estilo/estilo.scss (.navbar-logo / .navbar-brand img), como
+    # \setbeamercolor{cajalogo}{fg=white, bg=verdeITAM} en el deck.
+    logo: estilo/logo_itam.png
+    logo-alt: "Instituto Tecnológico Autónomo de México"
+
+    left:
+      - text: "Empieza aquí"
+        href: empieza-aqui.qmd
+
+      # Menú desplegable con las once sesiones, en orden, con el título
+      # literal de cada una tal como está fijado en el §5 del documento
+      # normativo del proyecto (INSTRUCCIONES_PROYECTO_Lab_R.md).
+      - text: "Sesiones"
+        menu:
+          - text: "Sesión 01 · Tu primera hora en R"
+            href: sesiones/01-primer-contacto/01_guion.qmd
+          - text: "Sesión 02 · Los datos son tablas"
+            href: sesiones/02-los-datos-son-tablas/02_guion.qmd
+          - text: "Sesión 03 · Pedirle cosas a los datos"
+            href: sesiones/03-pedirle-cosas-a-los-datos/03_guion.qmd
+          - text: "Sesión 04 · Agrupar, resumir, cruzar"
+            href: sesiones/04-agrupar-resumir-cruzar/04_guion.qmd
+          - text: "Sesión 05 · La gramática de los gráficos"
+            href: sesiones/05-gramatica-de-los-graficos/05_guion.qmd
+          - text: "Sesión 06 · Gráficos que se publican"
+            href: sesiones/06-graficos-que-se-publican/06_guion.qmd
+          - text: "Sesión 07 · El mapa de México"
+            href: sesiones/07-el-mapa-de-mexico/07_guion.qmd
+          - text: "Sesión 08 · Describir sin mentir"
+            href: sesiones/08-describir-sin-mentir/08_guion.qmd
+          - text: "Sesión 09 · La regresión como instrumento politológico"
+            href: sesiones/09-la-regresion/09_guion.qmd
+          - text: "Sesión 10 · Que otro pueda repetirlo"
+            href: sesiones/10-que-otro-pueda-repetirlo/10_guion.qmd
+          - text: "Sesión 11 · La IA como copiloto, no como piloto"
+            href: sesiones/11-la-ia-como-copiloto/11_guion.qmd
+
+      # Los seis módulos autoestudiables de extras/ (§3 de INSTRUCCIONES_PROYECTO_Lab_R.md),
+      # en el mismo orden en que ya existen sus carpetas en el repositorio.
+      # Los archivos reales de cada módulo son NN_extra.qmd, no index.qmd —
+      # verificado contra el repositorio; los hrefs de abajo apuntan al
+      # archivo que de verdad existe.
+      - text: "Extras"
+        menu:
+          - text: "Todos los extras"
+            href: extras/index.qmd
+          - text: "Funciones e iteración"
+            href: extras/01-funciones-e-iteracion/01_extra.qmd
+          - text: "Probabilidad y simulación"
+            href: extras/02-probabilidad-y-simulacion/02_extra.qmd
+          - text: "Modelos logit y GLM"
+            href: extras/03-logit-y-glm/03_extra.qmd
+          - text: "Datos de panel y efectos fijos"
+            href: extras/04-panel-y-efectos-fijos/04_extra.qmd
+          - text: "Primer vistazo a inferencia causal"
+            href: extras/05-inferencia-causal/05_extra.qmd
+          - text: "Guía Stata → R"
+            href: extras/06-de-stata-a-r/06_extra.qmd
+
+      # Los archivos de recursos/ ya nombrados en el §4 del documento normativo.
+      - text: "Recursos"
+        menu:
+          - text: "Todos los recursos"
+            href: recursos/index.qmd
+          - text: "Glosario"
+            href: recursos/glosario.qmd
+          - text: "Errores comunes"
+            href: recursos/errores-comunes.qmd
+          - text: "Para seguir"
+            href: recursos/para-seguir.qmd
+          - text: "Acordeón de R (PDF)"
+            href: recursos/acordeon-r.pdf
+
+      # ia/README.md todavía no existe — la sección "IA" del sitio se llena
+      # junto con la sesión 11, que redacta EMG. Mientras tanto el link
+      # apunta a una página real que explica qué va a vivir aquí, para no
+      # dejar una liga rota en el menú (ver ia/index.qmd).
+      - text: "IA"
+        href: ia/index.qmd
+
+    right:
+      # El botón de GitHub: para quien sí sabe qué es un repositorio y
+      # quiere ver el código fuente completo, no solo descargar una sesión.
+      - icon: github
+        href: "https://github.com/emirandago/r-para-politologos"
+        aria-label: "Repositorio en GitHub"
+
+  # Pie discreto, igual que el del deck: la referencia del curso a la
+  # izquierda, iniciales y licencia a la derecha — la traducción web de
+  # "EMG | folio" (ver \setbeamertemplate{footline} en preambulo-lab.tex).
+  # El enlace de la licencia apunta al archivo en GitHub y no a "LICENSE" a
+  # secas: ese archivo no se copia al sitio construido, así que la liga
+  # relativa quedaba rota en las 28 páginas. Verificado recorriendo el _site.
+  page-footer:
+    left: "Laboratorio de R para Ciencia Política · ITAM"
+    right: "EMG · Material bajo licencia [CC BY 4.0](https://github.com/emirandago/r-para-politologos/blob/main/LICENSE)"
+    border: false
+
+format:
+  html:
+    theme: estilo/estilo.scss   # la paleta y las clases del curso; ver estilo/estilo.scss
+    toc: true
+    code-copy: true

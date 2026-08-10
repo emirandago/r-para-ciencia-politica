@@ -1,0 +1,323 @@
+% ══════════════════════════════════════════════════════════════════════════════
+% Laboratorio de R para Ciencia Política — ITAM
+% Sesión 08 · Describir sin mentir
+%
+% Se compila desde esta carpeta:  pdflatex 08_slides.tex  (DOS veces)
+% El preámbulo, la paleta y el logo viven en ../../estilo/ — no se editan aquí.
+% ══════════════════════════════════════════════════════════════════════════════
+
+\input{../../estilo/preambulo-lab.tex}
+
+\title[Lab de R · Sesión 8]{Describir sin mentir}
+\subtitle{¿Qué significa que dos cosas «van juntas»?}
+\date{%
+  Sesión 8 de 11\\[0.3em]
+  \textit{ITAM, otoño 2026}%
+}
+\hypersetup{pdftitle={Sesión 8 · Describir sin mentir}}
+
+\begin{document}
+
+% ── Portada ───────────────────────────────────────────────────────────────────
+{\setbeamertemplate{footline}{}\setbeamertemplate{headline}{}
+\begin{frame}[plain, noframenumbering]
+  \titlepage
+\end{frame}}
+
+% ── El gancho ─────────────────────────────────────────────────────────────────
+\porquenosimporta{¿Qué significa que dos cosas «van juntas»?}{%
+  En la sesión 1 preguntaste si donde vota más gente le va mejor a un
+  bloque político, y la respuesta honesta fue «no puedo afirmar más con lo
+  que sé hoy». Hoy sí puedes.}
+
+% ── Recapitulación ────────────────────────────────────────────────────────────
+\begin{frame}{De dónde venimos}
+  \vspace{0.3em}
+  \begin{itemize}\setlength{\itemsep}{0.9em}
+    \item<1-> Ya usaste \cod{mean()} desde la sesión 1, con la
+          participación de las 32 entidades.
+    \item<2-> Ya sabes construir un \cod{geom\_point()} desde la sesión 5.
+    \item<3-> Hoy los dos se juntan, y se les suman tres funciones nuevas:
+          \cod{median()}, \cod{sd()} y \cod{cor()}.
+  \end{itemize}
+\end{frame}
+
+% ══════════════════════════════════════════════════════════════════════════════
+\section{Un número, y su primera traición}
+% ══════════════════════════════════════════════════════════════════════════════
+
+\begin{frame}[fragile]{Dos maneras de resumir una variable}
+\begin{lstlisting}
+media_lista_nominal   <- mean(municipios$lista_nominal)
+mediana_lista_nominal <- median(municipios$lista_nominal)
+\end{lstlisting}
+
+  \vspace{0.6em}
+  \onslide<2->{%
+  \begin{errorbox}{No se parecen}
+    La media ronda las 39,700 personas. La mediana apenas roza las
+    10,400. Son los mismos 2,475 municipios.
+  \end{errorbox}}
+\end{frame}
+
+\begin{frame}{La media: un subibaja}
+  \vspace{0.2em}
+  \begin{itemize}\setlength{\itemsep}{0.85em}
+    \item<1-> Es el \ac{punto de equilibrio}: donde quedaría el apoyo si
+          pusieras cada municipio en la báscula que le toca.
+    \item<2-> Alguien muy pesado en un extremo lo inclina por completo.
+    \item<3-> Ese peso lo ponen Tijuana, Iztapalapa y Puebla: más de un
+          millón de personas en su lista nominal, cada uno.
+  \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]{La mediana: el de en medio}
+\begin{lstlisting}
+municipios |>
+  filter(lista_nominal < media_lista_nominal) |>
+  nrow()
+\end{lstlisting}
+
+  \vspace{0.7em}
+  \onslide<2->{%
+  \begin{saltobox}
+    Más de ocho de cada diez municipios están por debajo de la media. La
+    media no describe a un municipio típico: describe un punto de
+    equilibrio que casi nadie ocupa.
+  \end{saltobox}}
+\end{frame}
+
+% ══════════════════════════════════════════════════════════════════════════════
+\section{Qué tan repartidos están}
+% ══════════════════════════════════════════════════════════════════════════════
+
+\begin{frame}[fragile]{\cod{sd()}: una distancia típica al promedio}
+\begin{lstlisting}
+sd_participacion  <- sd(municipios$participacion)
+sd_lista_nominal  <- sd(municipios$lista_nominal)
+\end{lstlisting}
+
+  \vspace{0.5em}
+  Sin fórmula: entre más apretados estén los datos alrededor del promedio,
+  más chica es; entre más desperdigados, más grande.
+\end{frame}
+
+\begin{frame}{Dos variables, dos comportamientos}
+  \vspace{0.3em}
+  \begin{itemize}\setlength{\itemsep}{0.9em}
+    \item<1-> Participación: \ac{sd} de apenas 11 puntos, en una escala de
+          0 a 100. Los municipios se agolpan cerca del promedio.
+    \item<2-> Lista nominal: \ac{sd} de más de 117,000 —\se{mayor} que su
+          propia media.
+    \item<3-> Eso solo le pasa a variables muy desiguales, con una cola
+          larga de casos extremos.
+  \end{itemize}
+
+  \vspace{1.0em}
+  \onslide<4->{%
+  {\small\color{grisTenue}Vas a formalizar esto con una fórmula en tu
+  curso de Estadística; aquí lo viste moverse.}}
+\end{frame}
+
+% ══════════════════════════════════════════════════════════════════════════════
+\section{El cuarteto de Anscombe}
+% ══════════════════════════════════════════════════════════════════════════════
+
+\begin{frame}{Cuatro conjuntos, diseñados a propósito}
+  \vspace{0.3em}
+  Francis Anscombe, 1973. Cuatro conjuntos —I, II, III, IV— con la misma
+  media, la misma desviación estándar en cada variable y, según vas a
+  comprobar en un momento, hasta la misma correlación.
+
+  \vspace{1.0em}
+  \onslide<2->{%
+  {\small\color{grisTenue}Viene incluido en R, sin instalar nada:
+  \cod{anscombe}.}}
+\end{frame}
+
+\begin{frame}[fragile]{Los mismos números resumen}
+\begin{lstlisting}
+anscombe_largo |>
+  group_by(conjunto) |>
+  summarise(media_x = mean(x), media_y = mean(y),
+            sd_x = sd(x), sd_y = sd(y))
+\end{lstlisting}
+
+  \vspace{0.6em}
+  Si solo tuvieras esta tabla, dirías que los cuatro conjuntos son la
+  misma variable, medida cuatro veces.
+\end{frame}
+
+\begin{frame}[fragile]{Ahora grafícalos}
+\begin{lstlisting}
+ggplot(anscombe_largo, aes(x = x, y = y)) +
+  geom_point(colour = lab_colores[["verde_itam"]]) +
+  facet_wrap(~ conjunto) +
+  theme_lab()
+\end{lstlisting}
+
+  \vspace{0.5em}
+  {\small Sin correr una sola regresión. Hoy se trata de mirar.}
+\end{frame}
+
+\begin{frame}{Cuatro historias, no una}
+  \vspace{0.3em}
+  \begin{itemize}\setlength{\itemsep}{0.8em}
+    \item<1-> \ac{I} — una recta con ruido. Justo lo que los números
+          resumen prometían.
+    \item<2-> \ac{II} — una curva casi perfecta. No una recta.
+    \item<3-> \ac{III} — una recta arruinada por un solo dato atípico.
+    \item<4-> \ac{IV} — sin relación real: un solo punto decide toda la
+          pendiente.
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{El salto}
+  \vspace{0.5em}
+  \begin{saltobox}
+    De «confío en un número porque lo calculé bien» a «un número resumen
+    puede ser aritméticamente correcto y aun así esconder una historia
+    completamente distinta».
+
+    \vspace{0.6em}
+    La única defensa es mirar antes de resumir.
+  \end{saltobox}
+\end{frame}
+
+% ══════════════════════════════════════════════════════════════════════════════
+\section{«Van juntas»}
+% ══════════════════════════════════════════════════════════════════════════════
+
+\begin{frame}{Un número entre -1 y 1}
+  \vspace{0.3em}
+  \begin{itemize}\setlength{\itemsep}{0.85em}
+    \item<1-> Cerca de \ac{1}: cuando una sube, la otra casi siempre sube
+          con ella.
+    \item<2-> Cerca de \se{-1}: cuando una sube, la otra casi siempre
+          baja.
+    \item<3-> Cerca de \ac{0}: no hay ningún patrón en línea recta entre
+          las dos.
+  \end{itemize}
+
+  \vspace{1.0em}
+  \onslide<4->{%
+  {\small\color{grisTenue}\cod{cor()} le pone un número al «tiende» de
+  «cuando una sube, la otra tiende a subir».}}
+\end{frame}
+
+\begin{frame}[fragile]{Cuidado con el primer intento}
+\begin{lstlisting}
+cor(municipios$participacion, municipios$pct_shh)
+# [1] NA
+\end{lstlisting}
+
+  \vspace{0.7em}
+  \onslide<2->{%
+  \begin{errorbox}{NA, y no es un error de R}
+    Dos municipios de Oaxaca no tuvieron ninguna casilla instalada; su
+    \cod{pct\_shh} quedó en \cod{NA}. \cod{cor()} no lo ignora solo: hay
+    que pasarle \cod{use = "complete.obs"}.
+  \end{errorbox}}
+\end{frame}
+
+\begin{frame}[fragile]{La respuesta a la pregunta de la sesión 1}
+\begin{lstlisting}
+cor(municipios$participacion, municipios$pct_shh,
+    use = "complete.obs")
+# [1] -0.12
+\end{lstlisting}
+
+  \vspace{0.7em}
+  Casi nada. Y si acaso, en la dirección contraria a la que «más
+  participación, más apoyo al bloque que gobierna» hubiera adivinado.
+\end{frame}
+
+\begin{frame}[fragile]{La nube, con su línea de tendencia}
+\begin{lstlisting}
+ggplot(municipios, aes(x = participacion, y = pct_shh)) +
+  geom_point(alpha = 0.5) +
+  geom_smooth(method = "lm", se = FALSE) +
+  theme_lab()
+\end{lstlisting}
+
+  \vspace{0.5em}
+  {\small\cod{geom\_smooth()} traza, sin que corras una regresión tú
+  mismo, la recta que mejor resume hacia dónde va la nube.}
+\end{frame}
+
+\begin{frame}{Dos advertencias que se quedan todo el curso}
+  \vspace{0.3em}
+  \begin{itemize}\setlength{\itemsep}{0.9em}
+    \item<1-> Un número de correlación \se{nunca} dice qué causa qué.
+    \item<2-> La correlación solo mide qué tan \ac{recta} es una relación.
+    \item<3-> El conjunto II de Anscombe es esa segunda advertencia hecha
+          gráfico: una relación fuerte y real que la correlación no ve.
+  \end{itemize}
+\end{frame}
+
+% ══════════════════════════════════════════════════════════════════════════════
+\section{Cuando pocos casos deciden}
+% ══════════════════════════════════════════════════════════════════════════════
+
+\begin{frame}[fragile]{La misma pregunta, dos unidades de análisis}
+\begin{lstlisting}
+cor(entidades$participacion, entidades$pct_shh)
+# [1] 0.06
+\end{lstlisting}
+
+  \vspace{0.6em}
+  \onslide<2->{%
+  \begin{errorbox}{Ni el signo coincide}
+    Por municipio: -0.12. Por entidad: 0.06. Ambos están tan cerca de
+    cero que agrupar distinto los empuja para el lado contrario.
+  \end{errorbox}}
+\end{frame}
+
+\begin{frame}{Los ataques de tiburones}
+  \vspace{0.3em}
+  Adrián Lucardi cuenta, en su curso de métodos, un caso sobre ataques de
+  tiburones y una elección de Estados Unidos de 1916
+  {\footnotesize\color{grisTenue}[VERIFICAR la referencia exacta]}: con
+  apenas 21 observaciones, un solo criterio de codificación cambiaba el
+  resultado completo del análisis.
+
+  \vspace{1.0em}
+  \onslide<2->{%
+  \begin{saltobox}
+    Entre menos casos tengas, o entre más se pueda discutir cómo
+    agruparlos, más cuidado hay que tener antes de creerte un número.
+  \end{saltobox}}
+\end{frame}
+
+% ══════════════════════════════════════════════════════════════════════════════
+\section{Ejercicio}
+% ══════════════════════════════════════════════════════════════════════════════
+
+\begin{frame}{Quince minutos, tres niveles}
+  \vspace{0.4em}
+  \begin{itemize}\setlength{\itemsep}{1.0em}
+    \item \ac{Calentamiento} — media, mediana y \cod{sd()} de
+          \cod{pct\_fcm} en vez de \cod{lista\_nominal}.
+    \item \ac{De verdad} — ¿participación y voto por FCM van juntas? ¿El
+          signo es el opuesto al de SHH?
+    \item \ac{Si te sobra tiempo} — la misma pregunta por entidad, y la
+          pregunta comparada que espera una base de V-Dem.
+  \end{itemize}
+
+  \vspace{1.2em}
+  {\small\color{grisTenue}El archivo es \cod{08\_ejercicio.R}. La
+  solución se publica al terminar la sesión.}
+\end{frame}
+
+% ── Cierre ────────────────────────────────────────────────────────────────────
+\yasabemos
+  {Calcular media, mediana y desviación estándar de una variable, y explicar cada una sin una sola fórmula.}
+  {Explicar, con el cuarteto de Anscombe, por qué un número resumen nunca sustituye a un gráfico.}
+  {Construir un diagrama de dispersión con línea de tendencia, calcular una correlación e interpretarla en prosa.}
+
+\lasiguiente{La regresión como instrumento politológico}{%
+  La línea de tendencia de hoy se calculó sola, adentro de
+  \cod{geom\_smooth()}. La sesión 9 abre esa caja: \cod{lm()},
+  \cod{feols()}, y por qué correlación no es lo mismo que causalidad.}
+
+\end{document}

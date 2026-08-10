@@ -1,0 +1,399 @@
+% ══════════════════════════════════════════════════════════════════════════════
+% Laboratorio de R para Ciencia Política — ITAM
+% Sesión 06 · Gráficos que se publican
+%
+% Se compila desde esta carpeta:  pdflatex 06_slides.tex  (DOS veces)
+% El preámbulo, la paleta y el logo viven en ../../estilo/ — no se editan aquí.
+% ══════════════════════════════════════════════════════════════════════════════
+
+\input{../../estilo/preambulo-lab.tex}
+
+\title[Lab de R · Sesión 6]{Gráficos que se publican}
+\subtitle{¿Cómo hago una figura de paper?}
+\date{%
+  Sesión 6 de 11\\[0.3em]
+  \textit{ITAM, otoño 2026}%
+}
+\hypersetup{pdftitle={Sesión 6 · Gráficos que se publican}}
+
+\begin{document}
+
+% ── Portada ───────────────────────────────────────────────────────────────────
+{\setbeamertemplate{footline}{}\setbeamertemplate{headline}{}
+\begin{frame}[plain, noframenumbering]
+  \titlepage
+\end{frame}}
+
+% ── El gancho ─────────────────────────────────────────────────────────────────
+\porquenosimporta{¿Cómo hago una figura de paper?}{%
+  El gráfico de la sesión pasada convence en tu pantalla. Un trabajo final
+  no se entrega en tu pantalla: se entrega como PDF, con paneles que
+  comparan varias cosas a la vez y con cada color defendible.}
+
+% ── Recapitulación ────────────────────────────────────────────────────────────
+\begin{frame}{De dónde venimos}
+  \vspace{0.3em}
+  \begin{itemize}\setlength{\itemsep}{0.9em}
+    \item<1-> En la sesión 5 aprendimos capas: \cod{ggplot()}, \cod{aes()},
+          \cod{geom\_col()}, \cod{labs()}.
+    \item<2-> Elegimos color con criterio, no por gusto.
+    \item<3-> Hoy esas capas se vuelven una figura que sale de R y entra a
+          un documento.
+  \end{itemize}
+\end{frame}
+
+% ══════════════════════════════════════════════════════════════════════════════
+\section{Facetas: un panel para cada cosa}
+% ══════════════════════════════════════════════════════════════════════════════
+
+\begin{frame}{Tres coaliciones, treinta y dos entidades}
+  \vspace{0.3em}
+  \begin{itemize}\setlength{\itemsep}{0.85em}
+    \item<1-> Son noventa y seis números: tres bloques por cada entidad.
+    \item<2-> La tentación es meterlos en un solo panel, una barra junto
+          a otra.
+    \item<3-> El ojo tiene que separar dos cosas a la vez: posición y
+          color.
+  \end{itemize}
+
+  \vspace{1.0em}
+  \onslide<4->{%
+  \begin{errorbox}{Se puede leer. A duras penas.}
+    Noventa y seis barras en un solo rectángulo. Funciona, y aun así es
+    justo el gráfico que este curso te enseña a no entregar.
+  \end{errorbox}}
+\end{frame}
+
+\begin{frame}[fragile]{El intento directo}
+\begin{lstlisting}
+ggplot(entidad_bloques,
+       aes(x = entidad, y = porcentaje, fill = bloque)) +
+  geom_col(position = "dodge") +
+  coord_flip() +
+  scale_fill_lab_d()
+\end{lstlisting}
+
+  \vspace{0.6em}
+  Tres categorías exactas: \cod{scale\_fill\_lab\_d()} no truena todavía.
+\end{frame}
+
+\begin{frame}[fragile]{Formato largo: un recordatorio de un renglón}
+\begin{lstlisting}
+entidad_bloques <- resultados_entidad |>
+  select(entidad,
+         `Sigamos Haciendo Historia` = pct_shh,
+         `Fuerza y Corazon por Mexico` = pct_fcm,
+         `Movimiento Ciudadano` = pct_mc) |>
+  pivot_longer(cols = -entidad,
+               names_to = "bloque", values_to = "porcentaje")
+\end{lstlisting}
+
+  \vspace{0.4em}
+  {\small\color{grisTenue}\cod{pivot\_longer()} lo viste apenas de pasada
+  en la sesión 4. Hoy es la primera vez que de verdad lo necesitas.}
+\end{frame}
+
+\begin{frame}[fragile]{La solución: una faceta por bloque}
+\begin{lstlisting}
+ggplot(entidad_bloques,
+       aes(x = entidad, y = porcentaje, fill = bloque)) +
+  geom_col() +
+  coord_flip() +
+  facet_wrap(~ bloque, ncol = 3) +
+  scale_fill_lab_d() +
+  theme_lab()
+\end{lstlisting}
+
+  \vspace{0.7em}
+  \onslide<2->{%
+  \begin{saltobox}
+    "Esto se ve saturado" se vuelve una decisión técnica: en vez de un
+    panel con tres variables, tres paneles con el mismo eje. Un canal
+    —el panel— en vez de dos —panel y color.
+  \end{saltobox}}
+\end{frame}
+
+\begin{frame}{Mismos noventa y seis números}
+  \vspace{0.3em}
+  \begin{itemize}\setlength{\itemsep}{0.9em}
+    \item<1-> \cod{facet\_wrap()} parte el gráfico por una variable
+          categórica.
+    \item<2-> Todo lo demás —ejes, colores, tema— queda igual en cada
+          panel.
+    \item<3-> Eso es lo que hace comparables los paneles entre sí.
+  \end{itemize}
+
+  \vspace{1.1em}
+  \onslide<4->{%
+  {\small\color{grisTenue}Antes de facetar, ordenamos las entidades por el
+  resultado de SHH: si no, cada panel se ordena distinto y ya no se
+  pueden comparar.}}
+\end{frame}
+
+% ══════════════════════════════════════════════════════════════════════════════
+\section{La progresión de las escalas continuas}
+% ══════════════════════════════════════════════════════════════════════════════
+
+\begin{frame}{Un color que representa un número}
+  \vspace{0.3em}
+  \begin{itemize}\setlength{\itemsep}{0.9em}
+    \item<1-> \ac{Secuencial}: solo importa la magnitud, de menos a más.
+    \item<2-> \ac{Divergente}: hay un cero real y dos direcciones a
+          partir de él.
+    \item<3-> \ac{Por umbrales}: tramos con un color sólido cada uno, no
+          un degradado.
+  \end{itemize}
+
+  \vspace{1.1em}
+  \onslide<4->{%
+  {\small\color{grisTenue}La variable de hoy: \cod{ventaja\_shh}, cuánto
+  le ganó SHH al segundo lugar, municipio por municipio. Puede ser
+  negativa.}}
+\end{frame}
+
+\begin{frame}[fragile]{Secuencial y divergente}
+\begin{lstlisting}
+esqueleto + scale_fill_gradient(low = "#A8D5BE",
+                                 high = "#00402C")
+
+esqueleto + scale_fill_gradient2(low = "#7B1113",
+                                  mid = "white",
+                                  high = "#006847",
+                                  midpoint = 0)
+\end{lstlisting}
+
+  \vspace{0.5em}
+  Solo cambia una línea. \cod{midpoint = 0} es la frontera real: nadie
+  ganó.
+\end{frame}
+
+\begin{frame}[fragile]{viridis y por umbrales}
+\begin{lstlisting}
+esqueleto + scale_fill_viridis_c()
+
+esqueleto + scale_fill_stepsn(
+  colours = c("#7B1113", "#A8D5BE", "#006847"),
+  breaks  = c(-20, 20)
+)
+\end{lstlisting}
+
+  \vspace{0.5em}
+  \cod{stepsn()} corta donde tú decides: los mismos veinte puntos de
+  "goleada" de la sesión 1.
+\end{frame}
+
+\begin{frame}{viridis y accesibilidad cromática}
+  \vspace{0.3em}
+  \begin{itemize}\setlength{\itemsep}{0.85em}
+    \item<1-> Perceptualmente uniforme: la distancia visual entre colores
+          respeta la distancia numérica real.
+    \item<2-> Segura para las formas comunes de daltonismo, y para
+          escala de grises.
+    \item<3-> Integrada en \cod{ggplot2} desde su versión 3.0: sin
+          \cod{library()} aparte.
+  \end{itemize}
+
+  \vspace{1.1em}
+  \onslide<4->{%
+  \begin{block}{Regla del curso}
+    Con más de tres categorías, la paleta monocromática del curso deja de
+    distinguir. Ahí cambias a \cod{viridis}, no a más tonos de verde.
+  \end{block}}
+\end{frame}
+
+% ══════════════════════════════════════════════════════════════════════════════
+\section{El tema del curso: theme\_lab()}
+% ══════════════════════════════════════════════════════════════════════════════
+
+\begin{frame}[fragile]{De aquí en adelante, un solo tema}
+\begin{lstlisting}
+source(here("estilo", "tema_lab.R"))
+
+ggplot(...) +
+  geom_col() +
+  theme_lab()
+\end{lstlisting}
+
+  \vspace{0.6em}
+  Vive en \cod{estilo/tema\_lab.R}: la misma paleta de estas láminas,
+  aplicada a tus gráficos.
+\end{frame}
+
+\begin{frame}{Cuando algo falla}
+  \vspace{0.4em}
+  \begin{errorbox}{cannot open file '.../tema\_lab.R'}
+    Traducción: R no encuentra el archivo. Casi siempre es que no
+    abriste \cod{r-para-politologos.Rproj} y R no está parado donde cree.
+
+    \vspace{0.5em}
+    Corre \cod{here()} sola y revisa que termine en
+    \cod{/r-para-politologos}.
+  \end{errorbox}
+\end{frame}
+
+\begin{frame}[fragile]{Tres categorías, ni una más}
+\begin{lstlisting}
+scale_fill_lab_d()
+# Warning: pediste 4 categorias y la paleta del curso
+# solo distingue bien 3. Usa scale_fill_viridis_d().
+\end{lstlisting}
+
+  \vspace{0.7em}
+  No es un error: es la función avisándote sola. La paleta monocromática
+  del curso funciona bien hasta con tres categorías, y con las tres
+  coaliciones de hoy calza exacto.
+\end{frame}
+
+% ══════════════════════════════════════════════════════════════════════════════
+\section{Guardar de verdad: ggsave()}
+% ══════════════════════════════════════════════════════════════════════════════
+
+\begin{frame}[fragile]{El gráfico sale de R}
+\begin{lstlisting}
+dir.create(here("sesiones", "06-graficos-que-se-publican",
+                 "figuras"), showWarnings = FALSE)
+
+ggsave(
+  filename = here("sesiones", "06-graficos-que-se-publican",
+                   "figuras", "06_figura.pdf"),
+  plot = grafico_final,
+  width = 8, height = 9, units = "in", device = "pdf"
+)
+\end{lstlisting}
+\end{frame}
+
+\begin{frame}{Cuando algo falla}
+  \vspace{0.4em}
+  \begin{errorbox}{cannot open file '.../figuras/...'}
+    Traducción: la carpeta \cod{figuras} todavía no existe.
+
+    \vspace{0.5em}
+    Corre primero la línea de \cod{dir.create()} de arriba, y vuelve a
+    intentar \cod{ggsave()}.
+  \end{errorbox}
+\end{frame}
+
+\begin{frame}{¿Por qué PDF y no PNG?}
+  \vspace{0.3em}
+  \begin{itemize}\setlength{\itemsep}{0.9em}
+    \item<1-> Un \ac{PDF} es \ac{vectorial}: guarda instrucciones de
+          dibujo, no una cuadrícula de píxeles.
+    \item<2-> Se puede ampliar o imprimir en tamaño carta sin que se
+          pixele ni una letra.
+    \item<3-> Un \ac{PNG} es \ac{raster}: resolución fija, se ve borroso
+          si el documento lo estira.
+  \end{itemize}
+
+  \vspace{1.0em}
+  \onslide<4->{%
+  {\small\color{grisTenue}Excepción: con decenas de miles de puntos
+  traslapados, un PDF vectorial puede pesar más que un PNG equivalente.}}
+\end{frame}
+
+% ══════════════════════════════════════════════════════════════════════════════
+\section{Ética visual}
+% ══════════════════════════════════════════════════════════════════════════════
+
+\begin{frame}{Lo que la barra promete}
+  \vspace{0.3em}
+  \begin{itemize}\setlength{\itemsep}{0.9em}
+    \item<1-> Una barra codifica magnitud en su \ac{longitud}.
+    \item<2-> Una longitud solo se lee bien si arranca en cero.
+    \item<3-> Un punto codifica magnitud en su \ac{posición}, y una
+          posición no necesita el cero.
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Los mismos seis números, dos ejes}
+\begin{columns}[T]
+  \begin{column}{0.48\textwidth}
+    \centering
+    {\footnotesize\color{verdeProfundo}\textbf{Eje completo (0 a 80)}}\\[0.5em]
+    \begin{tikzpicture}[x=0.85cm]
+      \foreach \nombre/\valor/\i in {Yuc./72.67/0, Tlax./71.05/1, CDMX/70.35/2, Mex./64.82/3} {
+        \fill[verdeITAM] (\i,0) rectangle ++(0.62,\valor*0.045);
+        \node[font=\tiny, anchor=north] at (\i+0.31,-0.15) {\nombre};
+      }
+      \draw[grisTenue] (-0.3,0) -- (3.9,0);
+    \end{tikzpicture}
+  \end{column}
+  \begin{column}{0.48\textwidth}
+    \centering
+    {\footnotesize\color{guinda}\textbf{Eje recortado (63 a 74)}}\\[0.5em]
+    \begin{tikzpicture}[x=0.85cm]
+      \foreach \nombre/\valor/\i in {Yuc./9.67/0, Tlax./8.05/1, CDMX/7.35/2, Mex./1.82/3} {
+        \fill[guinda] (\i,0) rectangle ++(0.62,\valor*0.33);
+        \node[font=\tiny, anchor=north] at (\i+0.31,-0.15) {\nombre};
+      }
+      \draw[grisTenue] (-0.3,0) -- (3.9,0);
+    \end{tikzpicture}
+  \end{column}
+\end{columns}
+\vspace{0.8em}
+{\small\color{grisTenue}Mismos seis números de participación 2024. Lo
+único que cambia es dónde empieza el eje.}
+\end{frame}
+
+\begin{frame}{El salto}
+  \vspace{0.6em}
+  \begin{saltobox}
+    No es una diferencia de gusto entre dos estilos. Es una decisión de
+    diseño que puede hacer que una diferencia de ocho puntos se vea como
+    si fuera el doble. Eso es un problema de honestidad, no de estética.
+  \end{saltobox}
+
+  \vspace{1.2em}
+  {\small\color{grisTenue}Kieran Healy, \textit{Data Visualization: A
+  Practical Introduction} (Princeton University Press, 2018).}
+\end{frame}
+
+\begin{frame}{Lo que este curso prohíbe, sin excepción}
+  \vspace{0.3em}
+  \begin{itemize}\setlength{\itemsep}{0.9em}
+    \item<1-> Gráficos en \se{3D}.
+    \item<2-> Gráficos de \se{pastel}.
+    \item<3-> \se{Ejes duales}: dos escalas distintas en el mismo eje.
+    \item<4-> Barras que \se{no arrancan en cero}.
+  \end{itemize}
+
+  \vspace{1.1em}
+  \onslide<5->{%
+  {\small\color{grisTenue}Los cuatro le piden al ojo comparar magnitudes
+  que el gráfico ya dejó de medir de forma proporcional.}}
+\end{frame}
+
+% ══════════════════════════════════════════════════════════════════════════════
+\section{Ejercicio}
+% ══════════════════════════════════════════════════════════════════════════════
+
+\begin{frame}{Quince minutos, tres niveles}
+  \vspace{0.4em}
+  \begin{itemize}\setlength{\itemsep}{1.0em}
+    \item \ac{Calentamiento} — el mismo skyline, con participación en vez
+          de ventaja.
+    \item \ac{De verdad} — ¿la ventaja de SHH se concentra en el norte o
+          en el sur?
+    \item \ac{Si te sobra tiempo} — viridis contra magma, verificado con
+          una IA.
+  \end{itemize}
+
+  \vspace{1.2em}
+  {\small\color{grisTenue}El archivo es \cod{06\_ejercicio.R}. La
+  solución se publica al terminar la sesión.}
+\end{frame}
+
+% ── Cierre ────────────────────────────────────────────────────────────────────
+\yasabemos
+  {Partir un gráfico saturado en paneles con facet\_wrap(), y elegir la
+   escala de color según lo que tu variable signifique.}
+  {Aplicar theme\_lab() y guardar una figura como PDF con ggsave(), con
+   dimensiones explícitas.}
+  {Explicar, con un ejemplo propio, por qué una barra arranca en cero y
+   un punto no.}
+
+\lasiguiente{El mapa de México}{%
+  Vas a convertir esta misma lógica de escalas de color en un mapa
+  coroplético de los 2,469 municipios del país. Es la sesión donde por
+  fin se ve el territorio.}
+
+\end{document}

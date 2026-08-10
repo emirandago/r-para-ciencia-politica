@@ -1,0 +1,333 @@
+% ══════════════════════════════════════════════════════════════════════════════
+% Laboratorio de R para Ciencia Política — ITAM
+% Sesión 11 · La IA como copiloto, no como piloto
+%
+% Se compila desde esta carpeta:  pdflatex 11_slides.tex  (DOS veces)
+% El preámbulo, la paleta y el logo viven en ../../estilo/ — no se editan aquí.
+%
+% Nota: los mensajes de error y todas las cifras de este deck se verificaron
+% corriéndolos en R sobre los datos del repositorio. Ninguno es plausible: los
+% dos son literales.
+% ══════════════════════════════════════════════════════════════════════════════
+
+\input{../../estilo/preambulo-lab.tex}
+
+\title[Lab de R · Sesión 11]{La IA como copiloto, no como piloto}
+\subtitle{¿Cómo uso la IA sin dejar de aprender?}
+\date{%
+  Sesión 11 de 11\\[0.3em]
+  \textit{ITAM, otoño 2026}%
+}
+\hypersetup{pdftitle={Sesión 11 · La IA como copiloto, no como piloto}}
+
+\begin{document}
+
+% ── Portada ───────────────────────────────────────────────────────────────────
+{\setbeamertemplate{footline}{}\setbeamertemplate{headline}{}
+\begin{frame}[plain, noframenumbering]
+  \titlepage
+\end{frame}}
+
+% ── El gancho ─────────────────────────────────────────────────────────────────
+\porquenosimporta{¿Qué parte de esto puede hacer una máquina por nosotros?}{%
+  La pregunta no es si conviene usarla. Es cuál de las cosas que hicimos en
+  diez sesiones se puede delegar sin dejar de ser politólogas y politólogos.}
+
+\begin{frame}{De dónde venimos}
+  \vspace{0.3em}
+  \begin{itemize}\setlength{\itemsep}{0.85em}
+    \item<1-> Sabemos importar una base y saber qué es una fila.
+    \item<2-> Sabemos filtrar, agrupar, cruzar por clave y mapear.
+    \item<3-> Sabemos leer un coeficiente y decir qué no dice.
+    \item<4-> Hoy no aprendemos una función nueva. Hoy decidimos qué hacemos
+          con todo eso cuando hay una máquina que también lo sabe.
+  \end{itemize}
+\end{frame}
+
+% ══════════════════════════════════════════════════════════════════════════════
+\section{Tres respuestas y una consola}
+% ══════════════════════════════════════════════════════════════════════════════
+
+\begin{frame}{Antes de la doctrina, la evidencia}
+  \vspace{0.4em}
+  Vamos a ver tres respuestas de un asistente de inteligencia artificial a
+  preguntas sobre \se{esta} base, la que ya conocemos.
+
+  \vspace{1.0em}
+  \begin{itemize}\setlength{\itemsep}{0.9em}
+    \item<2-> Las tres suenan igual de seguras.
+    \item<3-> Antes de correr nada, decide si están bien.
+    \item<4-> Después las corremos.
+  \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]{Respuesta 1}
+\begin{lstlisting}
+# "Para graficar el voto por entidad puedes usar
+#  geom_barplot(), que es la funcion de ggplot2
+#  para graficos de barras."
+
+ggplot(resultados, aes(entidad, pct_shh)) +
+  geom_barplot()
+\end{lstlisting}
+
+  \vspace{0.7em}
+  \onslide<2->{%
+  \begin{errorbox}{Error in geom\_barplot(): could not find function "geom\_barplot"}
+    La función no existe. Nunca existió. Las de verdad son
+    \cod{geom\_bar()} y \cod{geom\_col()}.
+
+    \vspace{0.4em}
+    Este es el fallo \se{amable}: truena de inmediato y es imposible no verlo.
+  \end{errorbox}}
+\end{frame}
+
+\begin{frame}[fragile]{Respuesta 2}
+\begin{lstlisting}
+# "Para quedarte con los municipios donde la
+#  participacion fue alta, filtra asi:"
+
+resultados |>
+  filter(pct_shh > 60 | 50)
+\end{lstlisting}
+
+  \vspace{0.7em}
+  \onslide<2->{%
+  \begin{errorbox}{Sin error. Cero advertencias. Y está mal.}
+    Devuelve las \se{32} entidades. El filtro correcto devuelve \ac{19}.
+
+    \vspace{0.4em}
+    El \cod{50} suelto se evalúa como verdadero y el \cod{|} hace que la
+    condición se cumpla siempre. R no tiene por qué avisar: le pedimos algo
+    válido, y lo hizo.
+  \end{errorbox}}
+\end{frame}
+
+\begin{frame}{Respuesta 3}
+  \vspace{0.3em}
+  Sobre la regresión de la sesión 9, con los 2{,}473 municipios:
+
+  \vspace{0.9em}
+  \begin{block}{Lo que dijo el asistente}
+    «El coeficiente de participación es \cod{-0.287}, es decir, que la
+    participación \se{reduce} la ventaja de la coalición. Cada punto más de
+    participación le cuesta casi tres décimas de punto.»
+  \end{block}
+
+  \vspace{0.9em}
+  \onslide<2->{%
+  \begin{saltobox}
+    La aritmética está bien. El verbo, no. «Reduce» afirma una causa que este
+    diseño no identifica: son municipios distintos entre sí, no el mismo
+    municipio antes y después de nada. Lo correcto es «va acompañada de».
+  \end{saltobox}}
+\end{frame}
+
+\begin{frame}{Los tres fallos, ordenados por peligro}
+  \vspace{0.5em}
+  \begin{itemize}\setlength{\itemsep}{1.1em}
+    \item<1-> \ac{Inventa una función} — truena. Lo descubre cualquiera.
+    \item<2-> \ac{Escribe código que corre y contesta mal} — no truena.
+          Lo descubre quien revisa el resultado.
+    \item<3-> \ac{Interpreta de más} — ni truena ni se ve en la consola.
+          Lo descubre solo quien sabe de qué está hablando.
+  \end{itemize}
+
+  \vspace{1.3em}
+  \onslide<3->{%
+  El tercero es el que importa, y es exactamente el que la máquina no puede
+  detectar por nosotros.}
+\end{frame}
+
+% ══════════════════════════════════════════════════════════════════════════════
+\section{La división del trabajo}
+% ══════════════════════════════════════════════════════════════════════════════
+
+\begin{frame}{Lo que se delega con provecho}
+  \vspace{0.4em}
+  \begin{itemize}\setlength{\itemsep}{0.8em}
+    \item<1-> Traducir de Stata a R.
+    \item<2-> Recordar la sintaxis de un \cod{pivot\_longer()}.
+    \item<3-> Explicar qué significa un mensaje de error en inglés.
+    \item<4-> Normalizar nombres de municipio antes de un cruce.
+    \item<5-> Proponer un primer borrador de gráfico.
+  \end{itemize}
+
+  \vspace{1.1em}
+  \onslide<5->{%
+  {\small\color{grisTenue}Lo que tienen en común: se verifican en treinta
+  segundos. Corres el código y ves si funciona.}}
+\end{frame}
+
+\begin{frame}{Lo que no se delega sin dejar de ser politóloga}
+  \vspace{0.4em}
+  \begin{itemize}\setlength{\itemsep}{0.9em}
+    \item<1-> La pregunta de investigación.
+    \item<2-> La decisión de codificación —qué cuenta como qué, y por qué.
+    \item<3-> El juicio sobre si el diseño identifica algo.
+    \item<4-> La interpretación sustantiva del resultado.
+  \end{itemize}
+
+  \vspace{1.2em}
+  \onslide<4->{%
+  {\small\color{grisTenue}Lo que tienen en común: no se verifican corriendo
+  nada. Se defienden con argumentos, ante alguien que puede discrepar.}}
+\end{frame}
+
+\begin{frame}{La regla, en una línea}
+  \vspace{1.2em}
+  \begin{saltobox}
+    La máquina hace lo que se puede verificar en treinta segundos.
+
+    \vspace{0.6em}
+    Nosotros hacemos lo que no.
+  \end{saltobox}
+
+  \vspace{1.4em}
+  \onslide<2->{%
+  Y de ahí sale la prueba honesta de si nos está ayudando o sustituyendo:
+  \ac{¿puedo explicar cada línea de mi código sin volver a preguntar?}}
+\end{frame}
+
+% ══════════════════════════════════════════════════════════════════════════════
+\section{Verificar}
+% ══════════════════════════════════════════════════════════════════════════════
+
+\begin{frame}{Tres comprobaciones, siempre}
+  \vspace{0.4em}
+  \begin{itemize}\setlength{\itemsep}{1.0em}
+    \item<1-> \ac{¿La función existe?} — \cod{?nombre} en la consola.
+          Si no abre ayuda, no existe.
+    \item<2-> \ac{¿El paquete es el correcto?} — \cod{paquete::funcion}
+          para obligarlo a decir de dónde sale.
+    \item<3-> \ac{¿El número dice lo que dice?} — mira la salida, no la
+          explicación que la acompaña.
+  \end{itemize}
+
+  \vspace{1.2em}
+  \onslide<3->{%
+  {\small\color{grisTenue}En la práctica siempre falla al menos una. Esa es
+  la lección.}}
+\end{frame}
+
+\begin{frame}[fragile]{Y una cuarta, para el código que sí corre}
+\begin{lstlisting}
+# Antes de creerle a un filtro, cuenta.
+nrow(resultados)
+nrow(resultados |> filter(condicion))
+
+# Antes de creerle a un cruce, cuenta antes y despues.
+# Si cambiaron las filas, el cruce hizo algo que no pediste.
+\end{lstlisting}
+
+  \vspace{0.6em}
+  Contar es la defensa más barata que existe contra el código que corre y
+  miente. La aprendimos en la sesión 4 y hoy tiene nombre.
+\end{frame}
+
+% ══════════════════════════════════════════════════════════════════════════════
+\section{Honestidad académica}
+% ══════════════════════════════════════════════════════════════════════════════
+
+\begin{frame}{Lo que este laboratorio te pide}
+  \vspace{0.4em}
+  \begin{itemize}\setlength{\itemsep}{0.85em}
+    \item<1-> Usar la IA es legítimo. Ocultarlo, no.
+    \item<2-> Registra qué le pediste y qué decidiste tú.
+    \item<3-> Si no puedes explicar una línea, no es tuya todavía.
+    \item<4-> Cada materia tiene su propia política. \se{Pregunta antes},
+          no después.
+  \end{itemize}
+
+  \vspace{1.1em}
+  \onslide<4->{%
+  \begin{errorbox}{Un aviso concreto}
+    Hay profesoras y profesores de este departamento con reglas explícitas
+    sobre asistentes de IA en trabajo cuantitativo, y algunas son
+    restrictivas. Lo que aquí es buena práctica, allá puede ser falta.
+  \end{errorbox}}
+\end{frame}
+
+% ══════════════════════════════════════════════════════════════════════════════
+\section{El proyecto}
+% ══════════════════════════════════════════════════════════════════════════════
+
+\begin{frame}{Morena × ministras}
+  \vspace{0.3em}
+  \begin{block}{La pregunta que prometimos en la primera lámina}
+    ¿Los municipios donde Morena arrasó en 2024 son los mismos donde
+    obtuvieron más votos las candidaturas morenistas a ministra en la
+    elección judicial de 2025?
+  \end{block}
+
+  \vspace{0.9em}
+  \begin{itemize}\setlength{\itemsep}{0.7em}
+    \item<2-> El mapa lo hicimos en la sesión 7.
+    \item<3-> La regresión, en la sesión 9.
+    \item<4-> Hoy falta lo único que no se delega: decir qué significa.
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{La parte difícil no es técnica}
+  \vspace{0.4em}
+  Ninguna fuente oficial trae una columna que diga qué candidatura era
+  morenista. \ac{Esa variable hay que construirla.}
+
+  \vspace{1.0em}
+  \begin{itemize}\setlength{\itemsep}{0.75em}
+    \item<2-> El criterio se escribe \se{antes} de ver los resultados.
+    \item<3-> Se publica caso por caso, con su fuente.
+    \item<4-> Se corre también con una codificación alternativa, más
+          restrictiva.
+    \item<5-> Y se dice qué no prueba.
+  \end{itemize}
+
+  \vspace{0.9em}
+  \onslide<5->{%
+  {\small\color{grisTenue}Ninguno de esos cuatro pasos lo puede hacer una
+  máquina, porque ninguno es una pregunta sobre código.}}
+\end{frame}
+
+\begin{frame}{Treinta y cinco minutos, en parejas}
+  \vspace{0.4em}
+  \begin{itemize}\setlength{\itemsep}{1.0em}
+    \item \ac{Verificar} — tres afirmaciones que la IA hizo sobre su
+          proyecto. Anota cuál falló.
+    \item \ac{Cerrar} — tres párrafos: qué encontraron, qué no pueden
+          afirmar, qué harían con más tiempo.
+    \item \ac{Registrar} — al final del documento, qué le pidieron a la IA
+          y qué decidieron ustedes.
+  \end{itemize}
+
+  \vspace{1.1em}
+  {\small\color{grisTenue}Pueden usar la IA para pulir la redacción. No para
+  decidir qué dicen. La diferencia se nota al leerlo en voz alta, y vamos a
+  leer dos o tres.}
+\end{frame}
+
+% ── Cierre ────────────────────────────────────────────────────────────────────
+\yasabemos
+  {Distinguir las tres formas en que un asistente de IA se equivoca, y saber cuál no se ve en la consola.}
+  {Verificar una respuesta antes de creerle: que la función exista, que el paquete sea el correcto, que el número diga lo que dice.}
+  {Sostener en prosa un resultado propio, con sus límites, sin que lo escriba nadie más.}
+
+\begin{frame}[plain, noframenumbering]
+  \vfill
+  \begin{center}
+    \etiqueta{Y para terminar}\\[1.3em]
+    {\LARGE\color{verdeITAM} Saca la pregunta de la sesión 1}\\[1.5em]
+    \begin{minipage}{0.80\textwidth}
+      \centering\normalsize\color{grisTexto}
+      Aquella que escribiste sobre política mexicana el primer día y que te
+      pedí guardar. Léela otra vez y decide, tú, si con lo que aprendiste
+      alcanza para contestarla.
+
+      \vspace{0.8em}
+      Para la mayoría la respuesta va a ser «todavía no, pero ya sé qué me
+      falta». Esa es exactamente la respuesta que buscábamos.
+    \end{minipage}
+  \end{center}
+  \vfill
+\end{frame}
+
+\end{document}

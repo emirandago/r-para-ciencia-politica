@@ -1,0 +1,973 @@
+iso3,pais,pais_en,subregion_vdem,anio,indice_democracia_electoral,indice_democracia_liberal,indice_corrupcion_politica,indice_libertades_civiles,indice_empoderamiento_politico_mujeres
+ARG,Argentina,Argentina,America Latina y el Caribe,1990,0.826,0.617,0.631,0.911,0.727
+ARG,Argentina,Argentina,America Latina y el Caribe,1991,0.829,0.63,0.631,0.921,0.763
+ARG,Argentina,Argentina,America Latina y el Caribe,1992,0.829,0.631,0.631,0.921,0.766
+ARG,Argentina,Argentina,America Latina y el Caribe,1993,0.829,0.63,0.611,0.921,0.81
+ARG,Argentina,Argentina,America Latina y el Caribe,1994,0.834,0.633,0.611,0.921,0.809
+ARG,Argentina,Argentina,America Latina y el Caribe,1995,0.833,0.641,0.611,0.921,0.833
+ARG,Argentina,Argentina,America Latina y el Caribe,1996,0.83,0.634,0.611,0.92,0.833
+ARG,Argentina,Argentina,America Latina y el Caribe,1997,0.829,0.634,0.611,0.92,0.846
+ARG,Argentina,Argentina,America Latina y el Caribe,1998,0.828,0.634,0.611,0.92,0.846
+ARG,Argentina,Argentina,America Latina y el Caribe,1999,0.828,0.64,0.6,0.935,0.842
+ARG,Argentina,Argentina,America Latina y el Caribe,2000,0.833,0.67,0.459,0.937,0.852
+ARG,Argentina,Argentina,America Latina y el Caribe,2001,0.833,0.674,0.459,0.93,0.862
+ARG,Argentina,Argentina,America Latina y el Caribe,2002,0.826,0.661,0.53,0.921,0.844
+ARG,Argentina,Argentina,America Latina y el Caribe,2003,0.807,0.638,0.551,0.912,0.844
+ARG,Argentina,Argentina,America Latina y el Caribe,2004,0.795,0.632,0.551,0.914,0.851
+ARG,Argentina,Argentina,America Latina y el Caribe,2005,0.793,0.625,0.551,0.914,0.851
+ARG,Argentina,Argentina,America Latina y el Caribe,2006,0.78,0.614,0.551,0.911,0.849
+ARG,Argentina,Argentina,America Latina y el Caribe,2007,0.781,0.61,0.551,0.908,0.845
+ARG,Argentina,Argentina,America Latina y el Caribe,2008,0.766,0.59,0.551,0.901,0.849
+ARG,Argentina,Argentina,America Latina y el Caribe,2009,0.756,0.583,0.551,0.901,0.851
+ARG,Argentina,Argentina,America Latina y el Caribe,2010,0.746,0.578,0.544,0.898,0.843
+ARG,Argentina,Argentina,America Latina y el Caribe,2011,0.749,0.573,0.544,0.896,0.845
+ARG,Argentina,Argentina,America Latina y el Caribe,2012,0.763,0.582,0.544,0.89,0.846
+ARG,Argentina,Argentina,America Latina y el Caribe,2013,0.772,0.588,0.551,0.89,0.842
+ARG,Argentina,Argentina,America Latina y el Caribe,2014,0.777,0.595,0.551,0.893,0.846
+ARG,Argentina,Argentina,America Latina y el Caribe,2015,0.765,0.59,0.525,0.875,0.84
+ARG,Argentina,Argentina,America Latina y el Caribe,2016,0.751,0.612,0.436,0.887,0.832
+ARG,Argentina,Argentina,America Latina y el Caribe,2017,0.751,0.609,0.411,0.87,0.848
+ARG,Argentina,Argentina,America Latina y el Caribe,2018,0.78,0.63,0.41,0.888,0.866
+ARG,Argentina,Argentina,America Latina y el Caribe,2019,0.779,0.618,0.408,0.873,0.857
+ARG,Argentina,Argentina,America Latina y el Caribe,2020,0.797,0.634,0.479,0.886,0.84
+ARG,Argentina,Argentina,America Latina y el Caribe,2021,0.796,0.639,0.479,0.869,0.834
+ARG,Argentina,Argentina,America Latina y el Caribe,2022,0.831,0.654,0.479,0.871,0.848
+ARG,Argentina,Argentina,America Latina y el Caribe,2023,0.838,0.695,0.404,0.906,0.861
+ARG,Argentina,Argentina,America Latina y el Caribe,2024,0.721,0.558,0.39,0.859,0.845
+ARG,Argentina,Argentina,America Latina y el Caribe,2025,0.69,0.524,0.415,0.821,0.832
+BOL,Bolivia,Bolivia,America Latina y el Caribe,1990,0.651,0.431,0.697,0.827,0.522
+BOL,Bolivia,Bolivia,America Latina y el Caribe,1991,0.686,0.456,0.697,0.849,0.522
+BOL,Bolivia,Bolivia,America Latina y el Caribe,1992,0.697,0.462,0.697,0.849,0.522
+BOL,Bolivia,Bolivia,America Latina y el Caribe,1993,0.705,0.469,0.697,0.843,0.55
+BOL,Bolivia,Bolivia,America Latina y el Caribe,1994,0.718,0.481,0.696,0.849,0.599
+BOL,Bolivia,Bolivia,America Latina y el Caribe,1995,0.73,0.492,0.696,0.855,0.612
+BOL,Bolivia,Bolivia,America Latina y el Caribe,1996,0.73,0.492,0.696,0.855,0.613
+BOL,Bolivia,Bolivia,America Latina y el Caribe,1997,0.735,0.518,0.713,0.852,0.617
+BOL,Bolivia,Bolivia,America Latina y el Caribe,1998,0.735,0.518,0.713,0.849,0.617
+BOL,Bolivia,Bolivia,America Latina y el Caribe,1999,0.743,0.523,0.713,0.852,0.617
+BOL,Bolivia,Bolivia,America Latina y el Caribe,2000,0.743,0.527,0.713,0.852,0.657
+BOL,Bolivia,Bolivia,America Latina y el Caribe,2001,0.737,0.52,0.713,0.851,0.657
+BOL,Bolivia,Bolivia,America Latina y el Caribe,2002,0.719,0.51,0.721,0.847,0.692
+BOL,Bolivia,Bolivia,America Latina y el Caribe,2003,0.719,0.515,0.713,0.843,0.692
+BOL,Bolivia,Bolivia,America Latina y el Caribe,2004,0.753,0.541,0.67,0.855,0.692
+BOL,Bolivia,Bolivia,America Latina y el Caribe,2005,0.746,0.534,0.672,0.842,0.687
+BOL,Bolivia,Bolivia,America Latina y el Caribe,2006,0.724,0.462,0.696,0.836,0.708
+BOL,Bolivia,Bolivia,America Latina y el Caribe,2007,0.719,0.458,0.696,0.839,0.708
+BOL,Bolivia,Bolivia,America Latina y el Caribe,2008,0.719,0.453,0.696,0.832,0.699
+BOL,Bolivia,Bolivia,America Latina y el Caribe,2009,0.714,0.435,0.696,0.842,0.722
+BOL,Bolivia,Bolivia,America Latina y el Caribe,2010,0.68,0.4,0.723,0.839,0.74
+BOL,Bolivia,Bolivia,America Latina y el Caribe,2011,0.677,0.398,0.723,0.837,0.731
+BOL,Bolivia,Bolivia,America Latina y el Caribe,2012,0.67,0.391,0.723,0.833,0.736
+BOL,Bolivia,Bolivia,America Latina y el Caribe,2013,0.658,0.396,0.691,0.828,0.729
+BOL,Bolivia,Bolivia,America Latina y el Caribe,2014,0.647,0.391,0.694,0.827,0.759
+BOL,Bolivia,Bolivia,America Latina y el Caribe,2015,0.609,0.368,0.661,0.838,0.757
+BOL,Bolivia,Bolivia,America Latina y el Caribe,2016,0.62,0.375,0.662,0.835,0.777
+BOL,Bolivia,Bolivia,America Latina y el Caribe,2017,0.609,0.36,0.66,0.839,0.792
+BOL,Bolivia,Bolivia,America Latina y el Caribe,2018,0.593,0.341,0.654,0.834,0.778
+BOL,Bolivia,Bolivia,America Latina y el Caribe,2019,0.456,0.241,0.668,0.701,0.759
+BOL,Bolivia,Bolivia,America Latina y el Caribe,2020,0.275,0.209,0.655,0.713,0.759
+BOL,Bolivia,Bolivia,America Latina y el Caribe,2021,0.608,0.362,0.575,0.812,0.803
+BOL,Bolivia,Bolivia,America Latina y el Caribe,2022,0.587,0.338,0.674,0.797,0.811
+BOL,Bolivia,Bolivia,America Latina y el Caribe,2023,0.586,0.344,0.603,0.792,0.809
+BOL,Bolivia,Bolivia,America Latina y el Caribe,2024,0.577,0.31,0.654,0.766,0.802
+BOL,Bolivia,Bolivia,America Latina y el Caribe,2025,0.605,0.352,0.763,0.741,0.84
+BRA,Brasil,Brazil,America Latina y el Caribe,1990,0.814,0.678,0.605,0.819,0.726
+BRA,Brasil,Brazil,America Latina y el Caribe,1991,0.828,0.692,0.605,0.819,0.729
+BRA,Brasil,Brazil,America Latina y el Caribe,1992,0.836,0.699,0.605,0.819,0.725
+BRA,Brasil,Brazil,America Latina y el Caribe,1993,0.84,0.704,0.563,0.819,0.725
+BRA,Brasil,Brazil,America Latina y el Caribe,1994,0.846,0.707,0.511,0.821,0.742
+BRA,Brasil,Brazil,America Latina y el Caribe,1995,0.847,0.712,0.514,0.822,0.767
+BRA,Brasil,Brazil,America Latina y el Caribe,1996,0.848,0.711,0.507,0.822,0.774
+BRA,Brasil,Brazil,America Latina y el Caribe,1997,0.848,0.711,0.506,0.822,0.776
+BRA,Brasil,Brazil,America Latina y el Caribe,1998,0.849,0.711,0.506,0.822,0.791
+BRA,Brasil,Brazil,America Latina y el Caribe,1999,0.85,0.713,0.506,0.822,0.79
+BRA,Brasil,Brazil,America Latina y el Caribe,2000,0.854,0.717,0.506,0.823,0.789
+BRA,Brasil,Brazil,America Latina y el Caribe,2001,0.854,0.717,0.506,0.823,0.791
+BRA,Brasil,Brazil,America Latina y el Caribe,2002,0.856,0.721,0.545,0.834,0.815
+BRA,Brasil,Brazil,America Latina y el Caribe,2003,0.855,0.722,0.545,0.834,0.814
+BRA,Brasil,Brazil,America Latina y el Caribe,2004,0.855,0.722,0.545,0.834,0.814
+BRA,Brasil,Brazil,America Latina y el Caribe,2005,0.867,0.772,0.495,0.865,0.808
+BRA,Brasil,Brazil,America Latina y el Caribe,2006,0.868,0.77,0.494,0.865,0.812
+BRA,Brasil,Brazil,America Latina y el Caribe,2007,0.866,0.769,0.494,0.865,0.814
+BRA,Brasil,Brazil,America Latina y el Caribe,2008,0.866,0.769,0.494,0.865,0.812
+BRA,Brasil,Brazil,America Latina y el Caribe,2009,0.866,0.769,0.494,0.865,0.808
+BRA,Brasil,Brazil,America Latina y el Caribe,2010,0.871,0.776,0.494,0.865,0.82
+BRA,Brasil,Brazil,America Latina y el Caribe,2011,0.875,0.781,0.493,0.865,0.825
+BRA,Brasil,Brazil,America Latina y el Caribe,2012,0.871,0.777,0.493,0.864,0.827
+BRA,Brasil,Brazil,America Latina y el Caribe,2013,0.873,0.781,0.493,0.864,0.804
+BRA,Brasil,Brazil,America Latina y el Caribe,2014,0.873,0.783,0.506,0.863,0.809
+BRA,Brasil,Brazil,America Latina y el Caribe,2015,0.861,0.769,0.506,0.86,0.812
+BRA,Brasil,Brazil,America Latina y el Caribe,2016,0.781,0.653,0.535,0.836,0.764
+BRA,Brasil,Brazil,America Latina y el Caribe,2017,0.774,0.641,0.535,0.821,0.762
+BRA,Brasil,Brazil,America Latina y el Caribe,2018,0.749,0.608,0.535,0.785,0.754
+BRA,Brasil,Brazil,America Latina y el Caribe,2019,0.691,0.528,0.546,0.693,0.758
+BRA,Brasil,Brazil,America Latina y el Caribe,2020,0.699,0.534,0.537,0.682,0.758
+BRA,Brasil,Brazil,America Latina y el Caribe,2021,0.69,0.531,0.541,0.665,0.755
+BRA,Brasil,Brazil,America Latina y el Caribe,2022,0.699,0.54,0.545,0.67,0.765
+BRA,Brasil,Brazil,America Latina y el Caribe,2023,0.79,0.695,0.461,0.846,0.83
+BRA,Brasil,Brazil,America Latina y el Caribe,2024,0.799,0.712,0.438,0.853,0.831
+BRA,Brasil,Brazil,America Latina y el Caribe,2025,0.784,0.704,0.423,0.871,0.818
+BRB,Barbados,Barbados,America Latina y el Caribe,1990,0.748,0.636,0.087,0.91,0.825
+BRB,Barbados,Barbados,America Latina y el Caribe,1991,0.762,0.646,0.087,0.91,0.824
+BRB,Barbados,Barbados,America Latina y el Caribe,1992,0.762,0.646,0.091,0.91,0.824
+BRB,Barbados,Barbados,America Latina y el Caribe,1993,0.762,0.646,0.091,0.91,0.824
+BRB,Barbados,Barbados,America Latina y el Caribe,1994,0.762,0.646,0.091,0.91,0.852
+BRB,Barbados,Barbados,America Latina y el Caribe,1995,0.762,0.647,0.091,0.91,0.852
+BRB,Barbados,Barbados,America Latina y el Caribe,1996,0.762,0.647,0.091,0.91,0.852
+BRB,Barbados,Barbados,America Latina y el Caribe,1997,0.762,0.647,0.091,0.91,0.852
+BRB,Barbados,Barbados,America Latina y el Caribe,1998,0.762,0.647,0.091,0.91,0.852
+BRB,Barbados,Barbados,America Latina y el Caribe,1999,0.77,0.656,0.091,0.91,0.853
+BRB,Barbados,Barbados,America Latina y el Caribe,2000,0.769,0.654,0.091,0.91,0.853
+BRB,Barbados,Barbados,America Latina y el Caribe,2001,0.769,0.654,0.091,0.91,0.853
+BRB,Barbados,Barbados,America Latina y el Caribe,2002,0.769,0.654,0.091,0.91,0.853
+BRB,Barbados,Barbados,America Latina y el Caribe,2003,0.767,0.652,0.091,0.91,0.852
+BRB,Barbados,Barbados,America Latina y el Caribe,2004,0.766,0.65,0.091,0.91,0.86
+BRB,Barbados,Barbados,America Latina y el Caribe,2005,0.766,0.65,0.091,0.91,0.86
+BRB,Barbados,Barbados,America Latina y el Caribe,2006,0.766,0.648,0.091,0.901,0.86
+BRB,Barbados,Barbados,America Latina y el Caribe,2007,0.766,0.65,0.091,0.909,0.86
+BRB,Barbados,Barbados,America Latina y el Caribe,2008,0.783,0.665,0.091,0.909,0.85
+BRB,Barbados,Barbados,America Latina y el Caribe,2009,0.784,0.666,0.091,0.909,0.85
+BRB,Barbados,Barbados,America Latina y el Caribe,2010,0.784,0.667,0.097,0.909,0.85
+BRB,Barbados,Barbados,America Latina y el Caribe,2011,0.784,0.667,0.097,0.909,0.85
+BRB,Barbados,Barbados,America Latina y el Caribe,2012,0.784,0.667,0.097,0.909,0.85
+BRB,Barbados,Barbados,America Latina y el Caribe,2013,0.781,0.664,0.097,0.909,0.867
+BRB,Barbados,Barbados,America Latina y el Caribe,2014,0.78,0.662,0.097,0.902,0.867
+BRB,Barbados,Barbados,America Latina y el Caribe,2015,0.776,0.662,0.111,0.918,0.88
+BRB,Barbados,Barbados,America Latina y el Caribe,2016,0.776,0.662,0.122,0.918,0.88
+BRB,Barbados,Barbados,America Latina y el Caribe,2017,0.773,0.66,0.122,0.918,0.874
+BRB,Barbados,Barbados,America Latina y el Caribe,2018,0.776,0.656,0.087,0.906,0.881
+BRB,Barbados,Barbados,America Latina y el Caribe,2019,0.792,0.668,0.076,0.909,0.881
+BRB,Barbados,Barbados,America Latina y el Caribe,2020,0.811,0.692,0.076,0.92,0.886
+BRB,Barbados,Barbados,America Latina y el Caribe,2021,0.807,0.686,0.065,0.92,0.889
+BRB,Barbados,Barbados,America Latina y el Caribe,2022,0.802,0.682,0.065,0.92,0.894
+BRB,Barbados,Barbados,America Latina y el Caribe,2023,0.802,0.684,0.065,0.92,0.895
+BRB,Barbados,Barbados,America Latina y el Caribe,2024,0.802,0.685,0.073,0.92,0.895
+BRB,Barbados,Barbados,America Latina y el Caribe,2025,0.797,0.679,0.073,0.918,0.895
+CAN,Canadá,Canada,America del Norte,1990,0.833,0.754,0.033,0.929,0.879
+CAN,Canadá,Canada,America del Norte,1991,0.833,0.754,0.033,0.929,0.879
+CAN,Canadá,Canada,America del Norte,1992,0.831,0.75,0.033,0.929,0.88
+CAN,Canadá,Canada,America del Norte,1993,0.832,0.752,0.033,0.929,0.889
+CAN,Canadá,Canada,America del Norte,1994,0.842,0.762,0.035,0.929,0.893
+CAN,Canadá,Canada,America del Norte,1995,0.842,0.762,0.035,0.929,0.893
+CAN,Canadá,Canada,America del Norte,1996,0.846,0.765,0.035,0.932,0.893
+CAN,Canadá,Canada,America del Norte,1997,0.84,0.76,0.035,0.936,0.896
+CAN,Canadá,Canada,America del Norte,1998,0.836,0.756,0.035,0.936,0.897
+CAN,Canadá,Canada,America del Norte,1999,0.836,0.756,0.035,0.936,0.897
+CAN,Canadá,Canada,America del Norte,2000,0.836,0.756,0.035,0.936,0.897
+CAN,Canadá,Canada,America del Norte,2001,0.832,0.752,0.035,0.933,0.897
+CAN,Canadá,Canada,America del Norte,2002,0.825,0.746,0.035,0.931,0.897
+CAN,Canadá,Canada,America del Norte,2003,0.825,0.746,0.035,0.931,0.897
+CAN,Canadá,Canada,America del Norte,2004,0.825,0.751,0.035,0.931,0.898
+CAN,Canadá,Canada,America del Norte,2005,0.824,0.751,0.035,0.931,0.898
+CAN,Canadá,Canada,America del Norte,2006,0.83,0.757,0.035,0.931,0.903
+CAN,Canadá,Canada,America del Norte,2007,0.832,0.759,0.032,0.933,0.899
+CAN,Canadá,Canada,America del Norte,2008,0.827,0.753,0.033,0.933,0.899
+CAN,Canadá,Canada,America del Norte,2009,0.826,0.753,0.033,0.933,0.901
+CAN,Canadá,Canada,America del Norte,2010,0.826,0.755,0.03,0.933,0.904
+CAN,Canadá,Canada,America del Norte,2011,0.811,0.74,0.03,0.933,0.906
+CAN,Canadá,Canada,America del Norte,2012,0.81,0.738,0.03,0.934,0.903
+CAN,Canadá,Canada,America del Norte,2013,0.817,0.742,0.022,0.939,0.896
+CAN,Canadá,Canada,America del Norte,2014,0.814,0.742,0.022,0.938,0.897
+CAN,Canadá,Canada,America del Norte,2015,0.807,0.735,0.021,0.938,0.902
+CAN,Canadá,Canada,America del Norte,2016,0.834,0.762,0.021,0.934,0.903
+CAN,Canadá,Canada,America del Norte,2017,0.839,0.769,0.021,0.927,0.895
+CAN,Canadá,Canada,America del Norte,2018,0.84,0.763,0.021,0.928,0.892
+CAN,Canadá,Canada,America del Norte,2019,0.85,0.763,0.023,0.93,0.899
+CAN,Canadá,Canada,America del Norte,2020,0.849,0.745,0.03,0.928,0.879
+CAN,Canadá,Canada,America del Norte,2021,0.843,0.749,0.03,0.931,0.9
+CAN,Canadá,Canada,America del Norte,2022,0.848,0.745,0.03,0.904,0.858
+CAN,Canadá,Canada,America del Norte,2023,0.847,0.742,0.03,0.896,0.867
+CAN,Canadá,Canada,America del Norte,2024,0.841,0.744,0.03,0.902,0.868
+CAN,Canadá,Canada,America del Norte,2025,0.84,0.736,0.026,0.897,0.872
+CHL,Chile,Chile,America Latina y el Caribe,1990,0.721,0.63,0.067,0.896,0.571
+CHL,Chile,Chile,America Latina y el Caribe,1991,0.816,0.75,0.061,0.935,0.624
+CHL,Chile,Chile,America Latina y el Caribe,1992,0.816,0.75,0.061,0.935,0.624
+CHL,Chile,Chile,America Latina y el Caribe,1993,0.813,0.746,0.061,0.935,0.632
+CHL,Chile,Chile,America Latina y el Caribe,1994,0.85,0.783,0.061,0.936,0.637
+CHL,Chile,Chile,America Latina y el Caribe,1995,0.85,0.783,0.061,0.936,0.637
+CHL,Chile,Chile,America Latina y el Caribe,1996,0.85,0.784,0.061,0.936,0.64
+CHL,Chile,Chile,America Latina y el Caribe,1997,0.85,0.784,0.061,0.936,0.658
+CHL,Chile,Chile,America Latina y el Caribe,1998,0.851,0.786,0.061,0.936,0.658
+CHL,Chile,Chile,America Latina y el Caribe,1999,0.85,0.785,0.061,0.938,0.658
+CHL,Chile,Chile,America Latina y el Caribe,2000,0.876,0.81,0.061,0.94,0.813
+CHL,Chile,Chile,America Latina y el Caribe,2001,0.876,0.811,0.061,0.94,0.82
+CHL,Chile,Chile,America Latina y el Caribe,2002,0.88,0.817,0.061,0.942,0.832
+CHL,Chile,Chile,America Latina y el Caribe,2003,0.88,0.817,0.061,0.942,0.832
+CHL,Chile,Chile,America Latina y el Caribe,2004,0.88,0.817,0.061,0.942,0.832
+CHL,Chile,Chile,America Latina y el Caribe,2005,0.877,0.821,0.061,0.942,0.842
+CHL,Chile,Chile,America Latina y el Caribe,2006,0.894,0.839,0.061,0.942,0.842
+CHL,Chile,Chile,America Latina y el Caribe,2007,0.894,0.842,0.061,0.942,0.842
+CHL,Chile,Chile,America Latina y el Caribe,2008,0.894,0.841,0.061,0.942,0.842
+CHL,Chile,Chile,America Latina y el Caribe,2009,0.887,0.836,0.061,0.941,0.839
+CHL,Chile,Chile,America Latina y el Caribe,2010,0.888,0.837,0.068,0.941,0.839
+CHL,Chile,Chile,America Latina y el Caribe,2011,0.889,0.839,0.068,0.942,0.841
+CHL,Chile,Chile,America Latina y el Caribe,2012,0.893,0.844,0.068,0.943,0.841
+CHL,Chile,Chile,America Latina y el Caribe,2013,0.894,0.846,0.076,0.959,0.846
+CHL,Chile,Chile,America Latina y el Caribe,2014,0.893,0.85,0.077,0.957,0.858
+CHL,Chile,Chile,America Latina y el Caribe,2015,0.886,0.839,0.085,0.948,0.847
+CHL,Chile,Chile,America Latina y el Caribe,2016,0.886,0.839,0.085,0.948,0.831
+CHL,Chile,Chile,America Latina y el Caribe,2017,0.889,0.842,0.073,0.949,0.851
+CHL,Chile,Chile,America Latina y el Caribe,2018,0.87,0.803,0.055,0.92,0.847
+CHL,Chile,Chile,America Latina y el Caribe,2019,0.829,0.761,0.055,0.887,0.854
+CHL,Chile,Chile,America Latina y el Caribe,2020,0.837,0.766,0.055,0.877,0.867
+CHL,Chile,Chile,America Latina y el Caribe,2021,0.841,0.777,0.068,0.897,0.855
+CHL,Chile,Chile,America Latina y el Caribe,2022,0.833,0.776,0.064,0.926,0.9
+CHL,Chile,Chile,America Latina y el Caribe,2023,0.836,0.779,0.068,0.927,0.905
+CHL,Chile,Chile,America Latina y el Caribe,2024,0.845,0.786,0.075,0.931,0.909
+CHL,Chile,Chile,America Latina y el Caribe,2025,0.839,0.781,0.075,0.93,0.913
+COL,Colombia,Colombia,America Latina y el Caribe,1990,0.473,0.316,0.478,0.518,0.526
+COL,Colombia,Colombia,America Latina y el Caribe,1991,0.516,0.39,0.478,0.601,0.721
+COL,Colombia,Colombia,America Latina y el Caribe,1992,0.558,0.428,0.434,0.624,0.736
+COL,Colombia,Colombia,America Latina y el Caribe,1993,0.558,0.427,0.434,0.607,0.736
+COL,Colombia,Colombia,America Latina y el Caribe,1994,0.558,0.426,0.434,0.609,0.74
+COL,Colombia,Colombia,America Latina y el Caribe,1995,0.56,0.428,0.434,0.614,0.74
+COL,Colombia,Colombia,America Latina y el Caribe,1996,0.554,0.426,0.434,0.614,0.74
+COL,Colombia,Colombia,America Latina y el Caribe,1997,0.554,0.429,0.434,0.614,0.74
+COL,Colombia,Colombia,America Latina y el Caribe,1998,0.546,0.423,0.434,0.614,0.745
+COL,Colombia,Colombia,America Latina y el Caribe,1999,0.538,0.417,0.434,0.616,0.745
+COL,Colombia,Colombia,America Latina y el Caribe,2000,0.55,0.426,0.408,0.622,0.737
+COL,Colombia,Colombia,America Latina y el Caribe,2001,0.542,0.422,0.408,0.619,0.737
+COL,Colombia,Colombia,America Latina y el Caribe,2002,0.534,0.414,0.408,0.6,0.731
+COL,Colombia,Colombia,America Latina y el Caribe,2003,0.535,0.421,0.408,0.664,0.731
+COL,Colombia,Colombia,America Latina y el Caribe,2004,0.537,0.424,0.408,0.669,0.731
+COL,Colombia,Colombia,America Latina y el Caribe,2005,0.542,0.428,0.408,0.676,0.731
+COL,Colombia,Colombia,America Latina y el Caribe,2006,0.571,0.449,0.408,0.676,0.708
+COL,Colombia,Colombia,America Latina y el Caribe,2007,0.583,0.461,0.408,0.688,0.724
+COL,Colombia,Colombia,America Latina y el Caribe,2008,0.585,0.462,0.408,0.691,0.724
+COL,Colombia,Colombia,America Latina y el Caribe,2009,0.587,0.465,0.417,0.702,0.724
+COL,Colombia,Colombia,America Latina y el Caribe,2010,0.624,0.498,0.399,0.753,0.768
+COL,Colombia,Colombia,America Latina y el Caribe,2011,0.66,0.539,0.393,0.802,0.774
+COL,Colombia,Colombia,America Latina y el Caribe,2012,0.661,0.54,0.384,0.803,0.774
+COL,Colombia,Colombia,America Latina y el Caribe,2013,0.669,0.537,0.385,0.804,0.762
+COL,Colombia,Colombia,America Latina y el Caribe,2014,0.677,0.545,0.385,0.805,0.786
+COL,Colombia,Colombia,America Latina y el Caribe,2015,0.681,0.551,0.389,0.804,0.793
+COL,Colombia,Colombia,America Latina y el Caribe,2016,0.682,0.547,0.388,0.806,0.774
+COL,Colombia,Colombia,America Latina y el Caribe,2017,0.68,0.548,0.399,0.81,0.774
+COL,Colombia,Colombia,America Latina y el Caribe,2018,0.666,0.533,0.381,0.763,0.763
+COL,Colombia,Colombia,America Latina y el Caribe,2019,0.651,0.511,0.382,0.695,0.765
+COL,Colombia,Colombia,America Latina y el Caribe,2020,0.643,0.496,0.397,0.689,0.771
+COL,Colombia,Colombia,America Latina y el Caribe,2021,0.654,0.499,0.392,0.671,0.753
+COL,Colombia,Colombia,America Latina y el Caribe,2022,0.696,0.561,0.383,0.789,0.783
+COL,Colombia,Colombia,America Latina y el Caribe,2023,0.711,0.57,0.387,0.79,0.805
+COL,Colombia,Colombia,America Latina y el Caribe,2024,0.698,0.554,0.396,0.737,0.803
+COL,Colombia,Colombia,America Latina y el Caribe,2025,0.679,0.555,0.388,0.765,0.777
+CRI,Costa Rica,Costa Rica,America Latina y el Caribe,1990,0.891,0.838,0.264,0.949,0.891
+CRI,Costa Rica,Costa Rica,America Latina y el Caribe,1991,0.892,0.841,0.264,0.957,0.905
+CRI,Costa Rica,Costa Rica,America Latina y el Caribe,1992,0.892,0.841,0.264,0.957,0.905
+CRI,Costa Rica,Costa Rica,America Latina y el Caribe,1993,0.892,0.841,0.264,0.957,0.905
+CRI,Costa Rica,Costa Rica,America Latina y el Caribe,1994,0.893,0.841,0.264,0.957,0.91
+CRI,Costa Rica,Costa Rica,America Latina y el Caribe,1995,0.893,0.841,0.2,0.957,0.91
+CRI,Costa Rica,Costa Rica,America Latina y el Caribe,1996,0.893,0.84,0.2,0.957,0.91
+CRI,Costa Rica,Costa Rica,America Latina y el Caribe,1997,0.893,0.835,0.2,0.957,0.914
+CRI,Costa Rica,Costa Rica,America Latina y el Caribe,1998,0.893,0.841,0.2,0.957,0.926
+CRI,Costa Rica,Costa Rica,America Latina y el Caribe,1999,0.893,0.841,0.176,0.957,0.926
+CRI,Costa Rica,Costa Rica,America Latina y el Caribe,2000,0.892,0.84,0.176,0.957,0.938
+CRI,Costa Rica,Costa Rica,America Latina y el Caribe,2001,0.892,0.841,0.176,0.958,0.938
+CRI,Costa Rica,Costa Rica,America Latina y el Caribe,2002,0.895,0.843,0.176,0.958,0.945
+CRI,Costa Rica,Costa Rica,America Latina y el Caribe,2003,0.895,0.843,0.174,0.958,0.945
+CRI,Costa Rica,Costa Rica,America Latina y el Caribe,2004,0.894,0.843,0.174,0.957,0.945
+CRI,Costa Rica,Costa Rica,America Latina y el Caribe,2005,0.894,0.839,0.174,0.956,0.94
+CRI,Costa Rica,Costa Rica,America Latina y el Caribe,2006,0.905,0.851,0.188,0.956,0.941
+CRI,Costa Rica,Costa Rica,America Latina y el Caribe,2007,0.908,0.854,0.188,0.955,0.943
+CRI,Costa Rica,Costa Rica,America Latina y el Caribe,2008,0.908,0.854,0.188,0.955,0.943
+CRI,Costa Rica,Costa Rica,America Latina y el Caribe,2009,0.908,0.855,0.188,0.955,0.943
+CRI,Costa Rica,Costa Rica,America Latina y el Caribe,2010,0.91,0.857,0.188,0.956,0.937
+CRI,Costa Rica,Costa Rica,America Latina y el Caribe,2011,0.91,0.856,0.185,0.956,0.938
+CRI,Costa Rica,Costa Rica,America Latina y el Caribe,2012,0.91,0.857,0.188,0.96,0.943
+CRI,Costa Rica,Costa Rica,America Latina y el Caribe,2013,0.907,0.853,0.188,0.956,0.936
+CRI,Costa Rica,Costa Rica,America Latina y el Caribe,2014,0.906,0.854,0.179,0.959,0.934
+CRI,Costa Rica,Costa Rica,America Latina y el Caribe,2015,0.906,0.854,0.184,0.958,0.916
+CRI,Costa Rica,Costa Rica,America Latina y el Caribe,2016,0.902,0.852,0.188,0.961,0.916
+CRI,Costa Rica,Costa Rica,America Latina y el Caribe,2017,0.898,0.85,0.204,0.957,0.911
+CRI,Costa Rica,Costa Rica,America Latina y el Caribe,2018,0.89,0.834,0.198,0.91,0.912
+CRI,Costa Rica,Costa Rica,America Latina y el Caribe,2019,0.893,0.842,0.193,0.939,0.914
+CRI,Costa Rica,Costa Rica,America Latina y el Caribe,2020,0.895,0.844,0.193,0.941,0.911
+CRI,Costa Rica,Costa Rica,America Latina y el Caribe,2021,0.894,0.843,0.193,0.941,0.916
+CRI,Costa Rica,Costa Rica,America Latina y el Caribe,2022,0.866,0.813,0.193,0.934,0.92
+CRI,Costa Rica,Costa Rica,America Latina y el Caribe,2023,0.862,0.809,0.193,0.931,0.92
+CRI,Costa Rica,Costa Rica,America Latina y el Caribe,2024,0.862,0.809,0.206,0.931,0.92
+CRI,Costa Rica,Costa Rica,America Latina y el Caribe,2025,0.862,0.809,0.206,0.931,0.907
+CUB,Cuba,Cuba,America Latina y el Caribe,1990,0.071,0.033,0.562,0.227,0.634
+CUB,Cuba,Cuba,America Latina y el Caribe,1991,0.071,0.033,0.562,0.227,0.634
+CUB,Cuba,Cuba,America Latina y el Caribe,1992,0.071,0.034,0.619,0.234,0.634
+CUB,Cuba,Cuba,America Latina y el Caribe,1993,0.103,0.037,0.619,0.234,0.615
+CUB,Cuba,Cuba,America Latina y el Caribe,1994,0.108,0.037,0.619,0.234,0.615
+CUB,Cuba,Cuba,America Latina y el Caribe,1995,0.108,0.037,0.619,0.238,0.615
+CUB,Cuba,Cuba,America Latina y el Caribe,1996,0.108,0.038,0.619,0.242,0.615
+CUB,Cuba,Cuba,America Latina y el Caribe,1997,0.108,0.038,0.619,0.245,0.622
+CUB,Cuba,Cuba,America Latina y el Caribe,1998,0.113,0.039,0.619,0.25,0.632
+CUB,Cuba,Cuba,America Latina y el Caribe,1999,0.113,0.04,0.619,0.251,0.632
+CUB,Cuba,Cuba,America Latina y el Caribe,2000,0.113,0.04,0.619,0.252,0.632
+CUB,Cuba,Cuba,America Latina y el Caribe,2001,0.113,0.041,0.619,0.266,0.647
+CUB,Cuba,Cuba,America Latina y el Caribe,2002,0.113,0.041,0.619,0.266,0.647
+CUB,Cuba,Cuba,America Latina y el Caribe,2003,0.114,0.04,0.619,0.266,0.657
+CUB,Cuba,Cuba,America Latina y el Caribe,2004,0.114,0.04,0.619,0.266,0.657
+CUB,Cuba,Cuba,America Latina y el Caribe,2005,0.113,0.041,0.619,0.27,0.658
+CUB,Cuba,Cuba,America Latina y el Caribe,2006,0.113,0.041,0.619,0.271,0.658
+CUB,Cuba,Cuba,America Latina y el Caribe,2007,0.113,0.041,0.619,0.27,0.658
+CUB,Cuba,Cuba,America Latina y el Caribe,2008,0.105,0.039,0.619,0.258,0.662
+CUB,Cuba,Cuba,America Latina y el Caribe,2009,0.167,0.05,0.619,0.272,0.663
+CUB,Cuba,Cuba,America Latina y el Caribe,2010,0.167,0.05,0.619,0.285,0.68
+CUB,Cuba,Cuba,America Latina y el Caribe,2011,0.167,0.051,0.619,0.287,0.68
+CUB,Cuba,Cuba,America Latina y el Caribe,2012,0.167,0.052,0.619,0.296,0.674
+CUB,Cuba,Cuba,America Latina y el Caribe,2013,0.168,0.057,0.605,0.333,0.682
+CUB,Cuba,Cuba,America Latina y el Caribe,2014,0.168,0.057,0.605,0.337,0.682
+CUB,Cuba,Cuba,America Latina y el Caribe,2015,0.168,0.057,0.612,0.337,0.68
+CUB,Cuba,Cuba,America Latina y el Caribe,2016,0.169,0.055,0.583,0.309,0.682
+CUB,Cuba,Cuba,America Latina y el Caribe,2017,0.168,0.058,0.631,0.343,0.684
+CUB,Cuba,Cuba,America Latina y el Caribe,2018,0.177,0.061,0.616,0.321,0.693
+CUB,Cuba,Cuba,America Latina y el Caribe,2019,0.181,0.062,0.616,0.319,0.736
+CUB,Cuba,Cuba,America Latina y el Caribe,2020,0.178,0.06,0.616,0.317,0.708
+CUB,Cuba,Cuba,America Latina y el Caribe,2021,0.178,0.056,0.616,0.271,0.709
+CUB,Cuba,Cuba,America Latina y el Caribe,2022,0.178,0.056,0.62,0.275,0.71
+CUB,Cuba,Cuba,America Latina y el Caribe,2023,0.175,0.055,0.631,0.293,0.704
+CUB,Cuba,Cuba,America Latina y el Caribe,2024,0.178,0.056,0.631,0.3,0.706
+CUB,Cuba,Cuba,America Latina y el Caribe,2025,0.176,0.057,0.641,0.302,0.71
+DOM,República Dominicana,Dominican Republic,America Latina y el Caribe,1990,0.46,0.216,0.822,0.742,0.657
+DOM,República Dominicana,Dominican Republic,America Latina y el Caribe,1991,0.43,0.203,0.822,0.748,0.657
+DOM,República Dominicana,Dominican Republic,America Latina y el Caribe,1992,0.43,0.203,0.822,0.748,0.657
+DOM,República Dominicana,Dominican Republic,America Latina y el Caribe,1993,0.43,0.201,0.822,0.748,0.657
+DOM,República Dominicana,Dominican Republic,America Latina y el Caribe,1994,0.432,0.196,0.822,0.707,0.652
+DOM,República Dominicana,Dominican Republic,America Latina y el Caribe,1995,0.444,0.205,0.822,0.773,0.661
+DOM,República Dominicana,Dominican Republic,America Latina y el Caribe,1996,0.544,0.281,0.784,0.789,0.675
+DOM,República Dominicana,Dominican Republic,America Latina y el Caribe,1997,0.619,0.357,0.756,0.852,0.738
+DOM,República Dominicana,Dominican Republic,America Latina y el Caribe,1998,0.639,0.372,0.756,0.856,0.767
+DOM,República Dominicana,Dominican Republic,America Latina y el Caribe,1999,0.647,0.378,0.756,0.856,0.767
+DOM,República Dominicana,Dominican Republic,America Latina y el Caribe,2000,0.665,0.391,0.756,0.856,0.767
+DOM,República Dominicana,Dominican Republic,America Latina y el Caribe,2001,0.673,0.391,0.756,0.856,0.767
+DOM,República Dominicana,Dominican Republic,America Latina y el Caribe,2002,0.672,0.388,0.756,0.856,0.766
+DOM,República Dominicana,Dominican Republic,America Latina y el Caribe,2003,0.671,0.385,0.756,0.856,0.766
+DOM,República Dominicana,Dominican Republic,America Latina y el Caribe,2004,0.659,0.379,0.756,0.856,0.766
+DOM,República Dominicana,Dominican Republic,America Latina y el Caribe,2005,0.651,0.383,0.756,0.856,0.766
+DOM,República Dominicana,Dominican Republic,America Latina y el Caribe,2006,0.644,0.378,0.756,0.857,0.776
+DOM,República Dominicana,Dominican Republic,America Latina y el Caribe,2007,0.636,0.376,0.756,0.857,0.776
+DOM,República Dominicana,Dominican Republic,America Latina y el Caribe,2008,0.638,0.376,0.756,0.857,0.776
+DOM,República Dominicana,Dominican Republic,America Latina y el Caribe,2009,0.639,0.377,0.756,0.857,0.776
+DOM,República Dominicana,Dominican Republic,America Latina y el Caribe,2010,0.625,0.371,0.756,0.855,0.785
+DOM,República Dominicana,Dominican Republic,America Latina y el Caribe,2011,0.623,0.364,0.756,0.854,0.785
+DOM,República Dominicana,Dominican Republic,America Latina y el Caribe,2012,0.612,0.366,0.756,0.854,0.782
+DOM,República Dominicana,Dominican Republic,America Latina y el Caribe,2013,0.6,0.354,0.739,0.849,0.791
+DOM,República Dominicana,Dominican Republic,America Latina y el Caribe,2014,0.6,0.352,0.739,0.849,0.791
+DOM,República Dominicana,Dominican Republic,America Latina y el Caribe,2015,0.59,0.344,0.728,0.841,0.787
+DOM,República Dominicana,Dominican Republic,America Latina y el Caribe,2016,0.571,0.333,0.728,0.845,0.82
+DOM,República Dominicana,Dominican Republic,America Latina y el Caribe,2017,0.559,0.328,0.736,0.844,0.82
+DOM,República Dominicana,Dominican Republic,America Latina y el Caribe,2018,0.573,0.339,0.749,0.859,0.828
+DOM,República Dominicana,Dominican Republic,America Latina y el Caribe,2019,0.569,0.34,0.758,0.847,0.83
+DOM,República Dominicana,Dominican Republic,America Latina y el Caribe,2020,0.656,0.449,0.598,0.881,0.848
+DOM,República Dominicana,Dominican Republic,America Latina y el Caribe,2021,0.694,0.484,0.584,0.88,0.84
+DOM,República Dominicana,Dominican Republic,America Latina y el Caribe,2022,0.692,0.478,0.58,0.88,0.828
+DOM,República Dominicana,Dominican Republic,America Latina y el Caribe,2023,0.692,0.471,0.572,0.88,0.815
+DOM,República Dominicana,Dominican Republic,America Latina y el Caribe,2024,0.71,0.495,0.562,0.874,0.825
+DOM,República Dominicana,Dominican Republic,America Latina y el Caribe,2025,0.735,0.505,0.588,0.874,0.825
+ECU,Ecuador,Ecuador,America Latina y el Caribe,1990,0.716,0.467,0.63,0.855,0.567
+ECU,Ecuador,Ecuador,America Latina y el Caribe,1991,0.716,0.467,0.63,0.855,0.567
+ECU,Ecuador,Ecuador,America Latina y el Caribe,1992,0.714,0.466,0.63,0.855,0.557
+ECU,Ecuador,Ecuador,America Latina y el Caribe,1993,0.706,0.456,0.651,0.853,0.572
+ECU,Ecuador,Ecuador,America Latina y el Caribe,1994,0.697,0.45,0.646,0.849,0.562
+ECU,Ecuador,Ecuador,America Latina y el Caribe,1995,0.699,0.45,0.66,0.849,0.562
+ECU,Ecuador,Ecuador,America Latina y el Caribe,1996,0.696,0.441,0.67,0.849,0.579
+ECU,Ecuador,Ecuador,America Latina y el Caribe,1997,0.695,0.45,0.707,0.849,0.587
+ECU,Ecuador,Ecuador,America Latina y el Caribe,1998,0.696,0.459,0.704,0.855,0.722
+ECU,Ecuador,Ecuador,America Latina y el Caribe,1999,0.693,0.454,0.714,0.855,0.722
+ECU,Ecuador,Ecuador,America Latina y el Caribe,2000,0.689,0.445,0.703,0.86,0.746
+ECU,Ecuador,Ecuador,America Latina y el Caribe,2001,0.689,0.445,0.703,0.86,0.746
+ECU,Ecuador,Ecuador,America Latina y el Caribe,2002,0.689,0.446,0.703,0.861,0.739
+ECU,Ecuador,Ecuador,America Latina y el Caribe,2003,0.698,0.454,0.715,0.861,0.739
+ECU,Ecuador,Ecuador,America Latina y el Caribe,2004,0.698,0.452,0.713,0.861,0.739
+ECU,Ecuador,Ecuador,America Latina y el Caribe,2005,0.698,0.454,0.715,0.861,0.739
+ECU,Ecuador,Ecuador,America Latina y el Caribe,2006,0.693,0.451,0.709,0.866,0.802
+ECU,Ecuador,Ecuador,America Latina y el Caribe,2007,0.671,0.407,0.68,0.882,0.813
+ECU,Ecuador,Ecuador,America Latina y el Caribe,2008,0.634,0.343,0.66,0.865,0.825
+ECU,Ecuador,Ecuador,America Latina y el Caribe,2009,0.613,0.329,0.66,0.855,0.845
+ECU,Ecuador,Ecuador,America Latina y el Caribe,2010,0.588,0.309,0.67,0.832,0.844
+ECU,Ecuador,Ecuador,America Latina y el Caribe,2011,0.581,0.304,0.674,0.827,0.847
+ECU,Ecuador,Ecuador,America Latina y el Caribe,2012,0.586,0.306,0.675,0.829,0.847
+ECU,Ecuador,Ecuador,America Latina y el Caribe,2013,0.538,0.265,0.703,0.799,0.844
+ECU,Ecuador,Ecuador,America Latina y el Caribe,2014,0.534,0.262,0.704,0.798,0.842
+ECU,Ecuador,Ecuador,America Latina y el Caribe,2015,0.533,0.263,0.709,0.802,0.844
+ECU,Ecuador,Ecuador,America Latina y el Caribe,2016,0.54,0.264,0.707,0.806,0.85
+ECU,Ecuador,Ecuador,America Latina y el Caribe,2017,0.552,0.338,0.627,0.852,0.854
+ECU,Ecuador,Ecuador,America Latina y el Caribe,2018,0.641,0.458,0.638,0.906,0.858
+ECU,Ecuador,Ecuador,America Latina y el Caribe,2019,0.617,0.446,0.629,0.891,0.834
+ECU,Ecuador,Ecuador,America Latina y el Caribe,2020,0.626,0.481,0.636,0.902,0.861
+ECU,Ecuador,Ecuador,America Latina y el Caribe,2021,0.625,0.454,0.627,0.892,0.85
+ECU,Ecuador,Ecuador,America Latina y el Caribe,2022,0.661,0.504,0.628,0.889,0.831
+ECU,Ecuador,Ecuador,America Latina y el Caribe,2023,0.641,0.463,0.66,0.816,0.797
+ECU,Ecuador,Ecuador,America Latina y el Caribe,2024,0.641,0.443,0.655,0.756,0.791
+ECU,Ecuador,Ecuador,America Latina y el Caribe,2025,0.607,0.386,0.652,0.692,0.79
+GTM,Guatemala,Guatemala,America Latina y el Caribe,1990,0.371,0.205,0.852,0.317,0.362
+GTM,Guatemala,Guatemala,America Latina y el Caribe,1991,0.382,0.208,0.852,0.315,0.364
+GTM,Guatemala,Guatemala,America Latina y el Caribe,1992,0.382,0.208,0.852,0.309,0.364
+GTM,Guatemala,Guatemala,America Latina y el Caribe,1993,0.385,0.216,0.816,0.313,0.363
+GTM,Guatemala,Guatemala,America Latina y el Caribe,1994,0.396,0.229,0.812,0.334,0.414
+GTM,Guatemala,Guatemala,America Latina y el Caribe,1995,0.412,0.24,0.812,0.359,0.45
+GTM,Guatemala,Guatemala,America Latina y el Caribe,1996,0.454,0.261,0.779,0.414,0.499
+GTM,Guatemala,Guatemala,America Latina y el Caribe,1997,0.489,0.282,0.779,0.499,0.52
+GTM,Guatemala,Guatemala,America Latina y el Caribe,1998,0.489,0.284,0.779,0.499,0.529
+GTM,Guatemala,Guatemala,America Latina y el Caribe,1999,0.491,0.291,0.798,0.492,0.5
+GTM,Guatemala,Guatemala,America Latina y el Caribe,2000,0.542,0.362,0.827,0.693,0.595
+GTM,Guatemala,Guatemala,America Latina y el Caribe,2001,0.542,0.362,0.827,0.693,0.595
+GTM,Guatemala,Guatemala,America Latina y el Caribe,2002,0.542,0.362,0.827,0.693,0.595
+GTM,Guatemala,Guatemala,America Latina y el Caribe,2003,0.543,0.363,0.827,0.693,0.595
+GTM,Guatemala,Guatemala,America Latina y el Caribe,2004,0.552,0.372,0.803,0.707,0.601
+GTM,Guatemala,Guatemala,America Latina y el Caribe,2005,0.552,0.373,0.803,0.707,0.601
+GTM,Guatemala,Guatemala,America Latina y el Caribe,2006,0.552,0.374,0.803,0.705,0.603
+GTM,Guatemala,Guatemala,America Latina y el Caribe,2007,0.563,0.386,0.803,0.706,0.623
+GTM,Guatemala,Guatemala,America Latina y el Caribe,2008,0.582,0.395,0.797,0.708,0.63
+GTM,Guatemala,Guatemala,America Latina y el Caribe,2009,0.58,0.396,0.797,0.707,0.628
+GTM,Guatemala,Guatemala,America Latina y el Caribe,2010,0.583,0.397,0.793,0.711,0.635
+GTM,Guatemala,Guatemala,America Latina y el Caribe,2011,0.581,0.393,0.795,0.711,0.641
+GTM,Guatemala,Guatemala,America Latina y el Caribe,2012,0.576,0.391,0.795,0.709,0.636
+GTM,Guatemala,Guatemala,America Latina y el Caribe,2013,0.574,0.41,0.804,0.712,0.66
+GTM,Guatemala,Guatemala,America Latina y el Caribe,2014,0.572,0.412,0.804,0.712,0.663
+GTM,Guatemala,Guatemala,America Latina y el Caribe,2015,0.587,0.425,0.761,0.713,0.667
+GTM,Guatemala,Guatemala,America Latina y el Caribe,2016,0.626,0.451,0.727,0.718,0.662
+GTM,Guatemala,Guatemala,America Latina y el Caribe,2017,0.621,0.444,0.741,0.736,0.681
+GTM,Guatemala,Guatemala,America Latina y el Caribe,2018,0.602,0.415,0.788,0.728,0.698
+GTM,Guatemala,Guatemala,America Latina y el Caribe,2019,0.597,0.415,0.777,0.745,0.679
+GTM,Guatemala,Guatemala,America Latina y el Caribe,2020,0.589,0.402,0.765,0.732,0.691
+GTM,Guatemala,Guatemala,America Latina y el Caribe,2021,0.555,0.359,0.763,0.732,0.697
+GTM,Guatemala,Guatemala,America Latina y el Caribe,2022,0.509,0.314,0.779,0.697,0.696
+GTM,Guatemala,Guatemala,America Latina y el Caribe,2023,0.506,0.338,0.789,0.696,0.724
+GTM,Guatemala,Guatemala,America Latina y el Caribe,2024,0.609,0.492,0.691,0.738,0.723
+GTM,Guatemala,Guatemala,America Latina y el Caribe,2025,0.637,0.523,0.616,0.766,0.722
+GUY,Guyana,Guyana,America Latina y el Caribe,1990,0.314,0.218,0.534,0.742,0.802
+GUY,Guyana,Guyana,America Latina y el Caribe,1991,0.309,0.216,0.534,0.734,0.802
+GUY,Guyana,Guyana,America Latina y el Caribe,1992,0.358,0.256,0.534,0.753,0.744
+GUY,Guyana,Guyana,America Latina y el Caribe,1993,0.444,0.296,0.449,0.745,0.716
+GUY,Guyana,Guyana,America Latina y el Caribe,1994,0.444,0.298,0.434,0.745,0.716
+GUY,Guyana,Guyana,America Latina y el Caribe,1995,0.444,0.298,0.434,0.745,0.716
+GUY,Guyana,Guyana,America Latina y el Caribe,1996,0.444,0.298,0.434,0.745,0.741
+GUY,Guyana,Guyana,America Latina y el Caribe,1997,0.452,0.304,0.555,0.745,0.733
+GUY,Guyana,Guyana,America Latina y el Caribe,1998,0.523,0.336,0.512,0.771,0.807
+GUY,Guyana,Guyana,America Latina y el Caribe,1999,0.522,0.337,0.494,0.771,0.8
+GUY,Guyana,Guyana,America Latina y el Caribe,2000,0.519,0.334,0.569,0.719,0.8
+GUY,Guyana,Guyana,America Latina y el Caribe,2001,0.553,0.353,0.569,0.702,0.807
+GUY,Guyana,Guyana,America Latina y el Caribe,2002,0.572,0.362,0.569,0.727,0.807
+GUY,Guyana,Guyana,America Latina y el Caribe,2003,0.588,0.372,0.569,0.741,0.807
+GUY,Guyana,Guyana,America Latina y el Caribe,2004,0.588,0.372,0.569,0.742,0.83
+GUY,Guyana,Guyana,America Latina y el Caribe,2005,0.588,0.372,0.569,0.742,0.83
+GUY,Guyana,Guyana,America Latina y el Caribe,2006,0.583,0.369,0.569,0.745,0.85
+GUY,Guyana,Guyana,America Latina y el Caribe,2007,0.579,0.366,0.569,0.748,0.85
+GUY,Guyana,Guyana,America Latina y el Caribe,2008,0.576,0.366,0.569,0.746,0.852
+GUY,Guyana,Guyana,America Latina y el Caribe,2009,0.583,0.369,0.569,0.745,0.844
+GUY,Guyana,Guyana,America Latina y el Caribe,2010,0.583,0.369,0.57,0.769,0.857
+GUY,Guyana,Guyana,America Latina y el Caribe,2011,0.582,0.369,0.57,0.777,0.864
+GUY,Guyana,Guyana,America Latina y el Caribe,2012,0.579,0.369,0.57,0.776,0.864
+GUY,Guyana,Guyana,America Latina y el Caribe,2013,0.608,0.386,0.56,0.781,0.853
+GUY,Guyana,Guyana,America Latina y el Caribe,2014,0.607,0.385,0.56,0.785,0.853
+GUY,Guyana,Guyana,America Latina y el Caribe,2015,0.65,0.444,0.416,0.878,0.867
+GUY,Guyana,Guyana,America Latina y el Caribe,2016,0.657,0.456,0.392,0.888,0.875
+GUY,Guyana,Guyana,America Latina y el Caribe,2017,0.66,0.457,0.394,0.89,0.873
+GUY,Guyana,Guyana,America Latina y el Caribe,2018,0.664,0.45,0.384,0.883,0.868
+GUY,Guyana,Guyana,America Latina y el Caribe,2019,0.64,0.426,0.415,0.861,0.867
+GUY,Guyana,Guyana,America Latina y el Caribe,2020,0.555,0.386,0.476,0.9,0.861
+GUY,Guyana,Guyana,America Latina y el Caribe,2021,0.498,0.335,0.464,0.868,0.836
+GUY,Guyana,Guyana,America Latina y el Caribe,2022,0.491,0.329,0.464,0.841,0.824
+GUY,Guyana,Guyana,America Latina y el Caribe,2023,0.484,0.313,0.507,0.844,0.83
+GUY,Guyana,Guyana,America Latina y el Caribe,2024,0.491,0.314,0.507,0.85,0.818
+GUY,Guyana,Guyana,America Latina y el Caribe,2025,0.515,0.328,0.507,0.847,0.81
+HND,Honduras,Honduras,America Latina y el Caribe,1990,0.484,0.257,0.851,0.608,0.558
+HND,Honduras,Honduras,America Latina y el Caribe,1991,0.49,0.263,0.853,0.642,0.594
+HND,Honduras,Honduras,America Latina y el Caribe,1992,0.49,0.267,0.853,0.655,0.621
+HND,Honduras,Honduras,America Latina y el Caribe,1993,0.49,0.264,0.853,0.652,0.594
+HND,Honduras,Honduras,America Latina y el Caribe,1994,0.527,0.286,0.845,0.7,0.599
+HND,Honduras,Honduras,America Latina y el Caribe,1995,0.544,0.3,0.845,0.727,0.632
+HND,Honduras,Honduras,America Latina y el Caribe,1996,0.557,0.305,0.845,0.732,0.64
+HND,Honduras,Honduras,America Latina y el Caribe,1997,0.557,0.307,0.845,0.74,0.654
+HND,Honduras,Honduras,America Latina y el Caribe,1998,0.555,0.309,0.845,0.747,0.654
+HND,Honduras,Honduras,America Latina y el Caribe,1999,0.556,0.316,0.845,0.748,0.654
+HND,Honduras,Honduras,America Latina y el Caribe,2000,0.556,0.326,0.841,0.748,0.662
+HND,Honduras,Honduras,America Latina y el Caribe,2001,0.555,0.326,0.841,0.768,0.634
+HND,Honduras,Honduras,America Latina y el Caribe,2002,0.555,0.327,0.844,0.768,0.634
+HND,Honduras,Honduras,America Latina y el Caribe,2003,0.565,0.333,0.844,0.783,0.634
+HND,Honduras,Honduras,America Latina y el Caribe,2004,0.565,0.333,0.844,0.783,0.634
+HND,Honduras,Honduras,America Latina y el Caribe,2005,0.559,0.331,0.844,0.782,0.715
+HND,Honduras,Honduras,America Latina y el Caribe,2006,0.521,0.312,0.844,0.797,0.718
+HND,Honduras,Honduras,America Latina y el Caribe,2007,0.522,0.315,0.846,0.799,0.718
+HND,Honduras,Honduras,America Latina y el Caribe,2008,0.519,0.323,0.846,0.796,0.721
+HND,Honduras,Honduras,America Latina y el Caribe,2009,0.441,0.283,0.846,0.653,0.673
+HND,Honduras,Honduras,America Latina y el Caribe,2010,0.408,0.239,0.847,0.714,0.675
+HND,Honduras,Honduras,America Latina y el Caribe,2011,0.419,0.248,0.854,0.731,0.707
+HND,Honduras,Honduras,America Latina y el Caribe,2012,0.418,0.24,0.854,0.744,0.704
+HND,Honduras,Honduras,America Latina y el Caribe,2013,0.413,0.255,0.856,0.781,0.731
+HND,Honduras,Honduras,America Latina y el Caribe,2014,0.433,0.27,0.856,0.782,0.731
+HND,Honduras,Honduras,America Latina y el Caribe,2015,0.426,0.245,0.856,0.76,0.724
+HND,Honduras,Honduras,America Latina y el Caribe,2016,0.425,0.254,0.856,0.751,0.719
+HND,Honduras,Honduras,America Latina y el Caribe,2017,0.414,0.244,0.84,0.731,0.721
+HND,Honduras,Honduras,America Latina y el Caribe,2018,0.361,0.233,0.845,0.792,0.713
+HND,Honduras,Honduras,America Latina y el Caribe,2019,0.368,0.229,0.842,0.785,0.691
+HND,Honduras,Honduras,America Latina y el Caribe,2020,0.372,0.233,0.828,0.791,0.706
+HND,Honduras,Honduras,America Latina y el Caribe,2021,0.394,0.248,0.814,0.773,0.723
+HND,Honduras,Honduras,America Latina y el Caribe,2022,0.544,0.389,0.772,0.811,0.77
+HND,Honduras,Honduras,America Latina y el Caribe,2023,0.539,0.398,0.75,0.82,0.796
+HND,Honduras,Honduras,America Latina y el Caribe,2024,0.538,0.383,0.749,0.821,0.8
+HND,Honduras,Honduras,America Latina y el Caribe,2025,0.511,0.38,0.752,0.819,0.789
+HTI,Haití,Haiti,America Latina y el Caribe,1990,0.202,0.08,0.851,0.568,0.367
+HTI,Haití,Haiti,America Latina y el Caribe,1991,0.327,0.166,0.857,0.572,0.415
+HTI,Haití,Haiti,America Latina y el Caribe,1992,0.18,0.083,0.84,0.427,0.369
+HTI,Haití,Haiti,America Latina y el Caribe,1993,0.207,0.089,0.84,0.427,0.369
+HTI,Haití,Haiti,America Latina y el Caribe,1994,0.232,0.107,0.84,0.455,0.418
+HTI,Haití,Haiti,America Latina y el Caribe,1995,0.348,0.238,0.84,0.72,0.495
+HTI,Haití,Haiti,America Latina y el Caribe,1996,0.427,0.275,0.84,0.728,0.495
+HTI,Haití,Haiti,America Latina y el Caribe,1997,0.441,0.287,0.812,0.77,0.495
+HTI,Haití,Haiti,America Latina y el Caribe,1998,0.442,0.288,0.812,0.77,0.495
+HTI,Haití,Haiti,America Latina y el Caribe,1999,0.442,0.282,0.812,0.77,0.496
+HTI,Haití,Haiti,America Latina y el Caribe,2000,0.437,0.28,0.812,0.776,0.496
+HTI,Haití,Haiti,America Latina y el Caribe,2001,0.417,0.27,0.831,0.757,0.496
+HTI,Haití,Haiti,America Latina y el Caribe,2002,0.41,0.265,0.831,0.73,0.496
+HTI,Haití,Haiti,America Latina y el Caribe,2003,0.408,0.259,0.831,0.722,0.491
+HTI,Haití,Haiti,America Latina y el Caribe,2004,0.249,0.108,0.818,0.707,0.456
+HTI,Haití,Haiti,America Latina y el Caribe,2005,0.247,0.097,0.83,0.744,0.456
+HTI,Haití,Haiti,America Latina y el Caribe,2006,0.386,0.211,0.789,0.77,0.46
+HTI,Haití,Haiti,America Latina y el Caribe,2007,0.469,0.299,0.833,0.815,0.496
+HTI,Haití,Haiti,America Latina y el Caribe,2008,0.468,0.301,0.833,0.814,0.497
+HTI,Haití,Haiti,America Latina y el Caribe,2009,0.459,0.296,0.833,0.811,0.497
+HTI,Haití,Haiti,America Latina y el Caribe,2010,0.459,0.275,0.846,0.814,0.509
+HTI,Haití,Haiti,America Latina y el Caribe,2011,0.431,0.262,0.853,0.8,0.511
+HTI,Haití,Haiti,America Latina y el Caribe,2012,0.438,0.268,0.85,0.802,0.511
+HTI,Haití,Haiti,America Latina y el Caribe,2013,0.434,0.262,0.832,0.792,0.498
+HTI,Haití,Haiti,America Latina y el Caribe,2014,0.434,0.262,0.849,0.792,0.498
+HTI,Haití,Haiti,America Latina y el Caribe,2015,0.425,0.243,0.86,0.793,0.487
+HTI,Haití,Haiti,America Latina y el Caribe,2016,0.42,0.255,0.835,0.803,0.487
+HTI,Haití,Haiti,America Latina y el Caribe,2017,0.418,0.251,0.851,0.763,0.472
+HTI,Haití,Haiti,America Latina y el Caribe,2018,0.429,0.257,0.89,0.76,0.465
+HTI,Haití,Haiti,America Latina y el Caribe,2019,0.421,0.247,0.882,0.758,0.473
+HTI,Haití,Haiti,America Latina y el Caribe,2020,0.4,0.237,0.854,0.747,0.445
+HTI,Haití,Haiti,America Latina y el Caribe,2021,0.33,0.204,0.869,0.748,0.429
+HTI,Haití,Haiti,America Latina y el Caribe,2022,0.233,0.154,0.841,0.728,0.403
+HTI,Haití,Haiti,America Latina y el Caribe,2023,0.231,0.084,0.786,0.73,0.391
+HTI,Haití,Haiti,America Latina y el Caribe,2024,0.237,0.101,0.786,0.741,0.402
+HTI,Haití,Haiti,America Latina y el Caribe,2025,0.238,0.098,0.786,0.743,0.403
+JAM,Jamaica,Jamaica,America Latina y el Caribe,1990,0.577,0.448,0.169,0.879,0.848
+JAM,Jamaica,Jamaica,America Latina y el Caribe,1991,0.577,0.448,0.169,0.879,0.848
+JAM,Jamaica,Jamaica,America Latina y el Caribe,1992,0.577,0.451,0.169,0.879,0.848
+JAM,Jamaica,Jamaica,America Latina y el Caribe,1993,0.608,0.473,0.169,0.879,0.867
+JAM,Jamaica,Jamaica,America Latina y el Caribe,1994,0.623,0.486,0.169,0.879,0.867
+JAM,Jamaica,Jamaica,America Latina y el Caribe,1995,0.627,0.489,0.169,0.881,0.867
+JAM,Jamaica,Jamaica,America Latina y el Caribe,1996,0.628,0.49,0.169,0.882,0.867
+JAM,Jamaica,Jamaica,America Latina y el Caribe,1997,0.642,0.499,0.169,0.882,0.87
+JAM,Jamaica,Jamaica,America Latina y el Caribe,1998,0.67,0.522,0.169,0.882,0.87
+JAM,Jamaica,Jamaica,America Latina y el Caribe,1999,0.67,0.522,0.169,0.882,0.87
+JAM,Jamaica,Jamaica,America Latina y el Caribe,2000,0.675,0.549,0.169,0.886,0.872
+JAM,Jamaica,Jamaica,America Latina y el Caribe,2001,0.675,0.549,0.169,0.886,0.872
+JAM,Jamaica,Jamaica,America Latina y el Caribe,2002,0.695,0.566,0.169,0.886,0.869
+JAM,Jamaica,Jamaica,America Latina y el Caribe,2003,0.743,0.617,0.169,0.886,0.869
+JAM,Jamaica,Jamaica,America Latina y el Caribe,2004,0.743,0.617,0.169,0.886,0.869
+JAM,Jamaica,Jamaica,America Latina y el Caribe,2005,0.751,0.629,0.169,0.886,0.869
+JAM,Jamaica,Jamaica,America Latina y el Caribe,2006,0.756,0.633,0.169,0.884,0.875
+JAM,Jamaica,Jamaica,America Latina y el Caribe,2007,0.762,0.644,0.169,0.884,0.878
+JAM,Jamaica,Jamaica,America Latina y el Caribe,2008,0.774,0.654,0.169,0.884,0.878
+JAM,Jamaica,Jamaica,America Latina y el Caribe,2009,0.774,0.654,0.169,0.884,0.876
+JAM,Jamaica,Jamaica,America Latina y el Caribe,2010,0.774,0.656,0.169,0.888,0.876
+JAM,Jamaica,Jamaica,America Latina y el Caribe,2011,0.767,0.651,0.169,0.888,0.877
+JAM,Jamaica,Jamaica,America Latina y el Caribe,2012,0.784,0.667,0.167,0.888,0.877
+JAM,Jamaica,Jamaica,America Latina y el Caribe,2013,0.798,0.679,0.131,0.899,0.894
+JAM,Jamaica,Jamaica,America Latina y el Caribe,2014,0.798,0.679,0.131,0.899,0.894
+JAM,Jamaica,Jamaica,America Latina y el Caribe,2015,0.798,0.679,0.131,0.899,0.894
+JAM,Jamaica,Jamaica,America Latina y el Caribe,2016,0.804,0.685,0.126,0.899,0.901
+JAM,Jamaica,Jamaica,America Latina y el Caribe,2017,0.811,0.696,0.126,0.902,0.903
+JAM,Jamaica,Jamaica,America Latina y el Caribe,2018,0.807,0.688,0.12,0.899,0.903
+JAM,Jamaica,Jamaica,America Latina y el Caribe,2019,0.81,0.703,0.12,0.911,0.92
+JAM,Jamaica,Jamaica,America Latina y el Caribe,2020,0.808,0.702,0.171,0.908,0.927
+JAM,Jamaica,Jamaica,America Latina y el Caribe,2021,0.801,0.691,0.175,0.896,0.938
+JAM,Jamaica,Jamaica,America Latina y el Caribe,2022,0.798,0.692,0.167,0.901,0.946
+JAM,Jamaica,Jamaica,America Latina y el Caribe,2023,0.798,0.677,0.213,0.879,0.945
+JAM,Jamaica,Jamaica,America Latina y el Caribe,2024,0.798,0.676,0.19,0.879,0.943
+JAM,Jamaica,Jamaica,America Latina y el Caribe,2025,0.805,0.679,0.207,0.876,0.929
+MEX,México,Mexico,America Latina y el Caribe,1990,0.388,0.186,0.769,0.601,0.528
+MEX,México,Mexico,America Latina y el Caribe,1991,0.41,0.196,0.769,0.613,0.499
+MEX,México,Mexico,America Latina y el Caribe,1992,0.438,0.208,0.769,0.626,0.499
+MEX,México,Mexico,America Latina y el Caribe,1993,0.455,0.215,0.769,0.637,0.509
+MEX,México,Mexico,America Latina y el Caribe,1994,0.467,0.26,0.679,0.645,0.635
+MEX,México,Mexico,America Latina y el Caribe,1995,0.491,0.281,0.662,0.667,0.631
+MEX,México,Mexico,America Latina y el Caribe,1996,0.512,0.293,0.662,0.667,0.631
+MEX,México,Mexico,America Latina y el Caribe,1997,0.555,0.346,0.643,0.669,0.631
+MEX,México,Mexico,America Latina y el Caribe,1998,0.6,0.378,0.64,0.678,0.631
+MEX,México,Mexico,America Latina y el Caribe,1999,0.605,0.381,0.64,0.682,0.631
+MEX,México,Mexico,America Latina y el Caribe,2000,0.671,0.481,0.55,0.711,0.647
+MEX,México,Mexico,America Latina y el Caribe,2001,0.681,0.484,0.549,0.713,0.647
+MEX,México,Mexico,America Latina y el Caribe,2002,0.693,0.494,0.573,0.713,0.647
+MEX,México,Mexico,America Latina y el Caribe,2003,0.702,0.499,0.611,0.713,0.678
+MEX,México,Mexico,America Latina y el Caribe,2004,0.711,0.505,0.611,0.713,0.678
+MEX,México,Mexico,America Latina y el Caribe,2005,0.711,0.505,0.611,0.713,0.678
+MEX,México,Mexico,America Latina y el Caribe,2006,0.674,0.478,0.609,0.685,0.678
+MEX,México,Mexico,America Latina y el Caribe,2007,0.639,0.454,0.609,0.695,0.685
+MEX,México,Mexico,America Latina y el Caribe,2008,0.649,0.456,0.609,0.69,0.683
+MEX,México,Mexico,America Latina y el Caribe,2009,0.65,0.459,0.609,0.691,0.701
+MEX,México,Mexico,America Latina y el Caribe,2010,0.662,0.465,0.633,0.683,0.714
+MEX,México,Mexico,America Latina y el Caribe,2011,0.662,0.468,0.633,0.683,0.721
+MEX,México,Mexico,America Latina y el Caribe,2012,0.65,0.457,0.663,0.688,0.737
+MEX,México,Mexico,America Latina y el Caribe,2013,0.623,0.42,0.758,0.68,0.739
+MEX,México,Mexico,America Latina y el Caribe,2014,0.621,0.421,0.758,0.671,0.739
+MEX,México,Mexico,America Latina y el Caribe,2015,0.643,0.433,0.724,0.69,0.748
+MEX,México,Mexico,America Latina y el Caribe,2016,0.643,0.434,0.724,0.691,0.748
+MEX,México,Mexico,America Latina y el Caribe,2017,0.638,0.44,0.682,0.703,0.768
+MEX,México,Mexico,America Latina y el Caribe,2018,0.675,0.452,0.652,0.721,0.798
+MEX,México,Mexico,America Latina y el Caribe,2019,0.684,0.428,0.607,0.711,0.803
+MEX,México,Mexico,America Latina y el Caribe,2020,0.664,0.406,0.592,0.697,0.796
+MEX,México,Mexico,America Latina y el Caribe,2021,0.624,0.371,0.507,0.677,0.778
+MEX,México,Mexico,America Latina y el Caribe,2022,0.584,0.33,0.546,0.666,0.776
+MEX,México,Mexico,America Latina y el Caribe,2023,0.548,0.302,0.529,0.668,0.783
+MEX,México,Mexico,America Latina y el Caribe,2024,0.496,0.246,0.581,0.63,0.798
+MEX,México,Mexico,America Latina y el Caribe,2025,0.469,0.221,0.574,0.626,0.801
+NIC,Nicaragua,Nicaragua,America Latina y el Caribe,1990,0.631,0.414,0.57,0.735,0.67
+NIC,Nicaragua,Nicaragua,America Latina y el Caribe,1991,0.688,0.471,0.566,0.802,0.707
+NIC,Nicaragua,Nicaragua,America Latina y el Caribe,1992,0.688,0.478,0.557,0.817,0.708
+NIC,Nicaragua,Nicaragua,America Latina y el Caribe,1993,0.691,0.482,0.557,0.842,0.75
+NIC,Nicaragua,Nicaragua,America Latina y el Caribe,1994,0.69,0.484,0.557,0.842,0.75
+NIC,Nicaragua,Nicaragua,America Latina y el Caribe,1995,0.689,0.485,0.537,0.854,0.728
+NIC,Nicaragua,Nicaragua,America Latina y el Caribe,1996,0.676,0.45,0.658,0.853,0.715
+NIC,Nicaragua,Nicaragua,America Latina y el Caribe,1997,0.632,0.409,0.805,0.849,0.715
+NIC,Nicaragua,Nicaragua,America Latina y el Caribe,1998,0.632,0.409,0.805,0.849,0.618
+NIC,Nicaragua,Nicaragua,America Latina y el Caribe,1999,0.597,0.383,0.805,0.843,0.619
+NIC,Nicaragua,Nicaragua,America Latina y el Caribe,2000,0.586,0.378,0.805,0.838,0.614
+NIC,Nicaragua,Nicaragua,America Latina y el Caribe,2001,0.588,0.373,0.733,0.838,0.671
+NIC,Nicaragua,Nicaragua,America Latina y el Caribe,2002,0.601,0.377,0.733,0.839,0.671
+NIC,Nicaragua,Nicaragua,America Latina y el Caribe,2003,0.591,0.371,0.733,0.835,0.671
+NIC,Nicaragua,Nicaragua,America Latina y el Caribe,2004,0.591,0.372,0.753,0.835,0.671
+NIC,Nicaragua,Nicaragua,America Latina y el Caribe,2005,0.591,0.372,0.753,0.835,0.671
+NIC,Nicaragua,Nicaragua,America Latina y el Caribe,2006,0.563,0.322,0.758,0.807,0.631
+NIC,Nicaragua,Nicaragua,America Latina y el Caribe,2007,0.457,0.216,0.849,0.748,0.681
+NIC,Nicaragua,Nicaragua,America Latina y el Caribe,2008,0.445,0.203,0.845,0.733,0.678
+NIC,Nicaragua,Nicaragua,America Latina y el Caribe,2009,0.441,0.197,0.845,0.732,0.689
+NIC,Nicaragua,Nicaragua,America Latina y el Caribe,2010,0.436,0.192,0.839,0.717,0.703
+NIC,Nicaragua,Nicaragua,America Latina y el Caribe,2011,0.425,0.188,0.839,0.709,0.748
+NIC,Nicaragua,Nicaragua,America Latina y el Caribe,2012,0.371,0.156,0.839,0.704,0.748
+NIC,Nicaragua,Nicaragua,America Latina y el Caribe,2013,0.319,0.125,0.862,0.687,0.754
+NIC,Nicaragua,Nicaragua,America Latina y el Caribe,2014,0.319,0.126,0.865,0.685,0.754
+NIC,Nicaragua,Nicaragua,America Latina y el Caribe,2015,0.318,0.124,0.873,0.676,0.754
+NIC,Nicaragua,Nicaragua,America Latina y el Caribe,2016,0.305,0.12,0.873,0.67,0.757
+NIC,Nicaragua,Nicaragua,America Latina y el Caribe,2017,0.281,0.103,0.878,0.585,0.748
+NIC,Nicaragua,Nicaragua,America Latina y el Caribe,2018,0.221,0.051,0.896,0.247,0.66
+NIC,Nicaragua,Nicaragua,America Latina y el Caribe,2019,0.215,0.046,0.901,0.229,0.651
+NIC,Nicaragua,Nicaragua,America Latina y el Caribe,2020,0.215,0.045,0.938,0.224,0.616
+NIC,Nicaragua,Nicaragua,America Latina y el Caribe,2021,0.195,0.034,0.932,0.176,0.612
+NIC,Nicaragua,Nicaragua,America Latina y el Caribe,2022,0.158,0.027,0.937,0.13,0.588
+NIC,Nicaragua,Nicaragua,America Latina y el Caribe,2023,0.158,0.021,0.908,0.09,0.566
+NIC,Nicaragua,Nicaragua,America Latina y el Caribe,2024,0.151,0.02,0.942,0.088,0.526
+NIC,Nicaragua,Nicaragua,America Latina y el Caribe,2025,0.151,0.019,0.942,0.077,0.531
+PAN,Panamá,Panama,America Latina y el Caribe,1990,0.476,0.367,0.703,0.847,0.701
+PAN,Panamá,Panama,America Latina y el Caribe,1991,0.684,0.507,0.576,0.859,0.701
+PAN,Panamá,Panama,America Latina y el Caribe,1992,0.7,0.518,0.576,0.859,0.7
+PAN,Panamá,Panama,America Latina y el Caribe,1993,0.704,0.522,0.576,0.861,0.7
+PAN,Panamá,Panama,America Latina y el Caribe,1994,0.707,0.533,0.576,0.889,0.715
+PAN,Panamá,Panama,America Latina y el Caribe,1995,0.711,0.534,0.576,0.892,0.715
+PAN,Panamá,Panama,America Latina y el Caribe,1996,0.711,0.534,0.576,0.892,0.715
+PAN,Panamá,Panama,America Latina y el Caribe,1997,0.711,0.534,0.576,0.892,0.715
+PAN,Panamá,Panama,America Latina y el Caribe,1998,0.699,0.524,0.576,0.888,0.715
+PAN,Panamá,Panama,America Latina y el Caribe,1999,0.698,0.524,0.576,0.888,0.723
+PAN,Panamá,Panama,America Latina y el Caribe,2000,0.73,0.549,0.576,0.895,0.746
+PAN,Panamá,Panama,America Latina y el Caribe,2001,0.738,0.558,0.576,0.9,0.746
+PAN,Panamá,Panama,America Latina y el Caribe,2002,0.738,0.558,0.576,0.9,0.746
+PAN,Panamá,Panama,America Latina y el Caribe,2003,0.738,0.558,0.576,0.9,0.746
+PAN,Panamá,Panama,America Latina y el Caribe,2004,0.737,0.561,0.576,0.902,0.786
+PAN,Panamá,Panama,America Latina y el Caribe,2005,0.736,0.547,0.576,0.902,0.786
+PAN,Panamá,Panama,America Latina y el Caribe,2006,0.736,0.547,0.576,0.902,0.786
+PAN,Panamá,Panama,America Latina y el Caribe,2007,0.736,0.547,0.576,0.902,0.786
+PAN,Panamá,Panama,America Latina y el Caribe,2008,0.736,0.547,0.576,0.902,0.786
+PAN,Panamá,Panama,America Latina y el Caribe,2009,0.739,0.549,0.576,0.9,0.748
+PAN,Panamá,Panama,America Latina y el Caribe,2010,0.746,0.554,0.576,0.897,0.749
+PAN,Panamá,Panama,America Latina y el Caribe,2011,0.746,0.554,0.576,0.897,0.749
+PAN,Panamá,Panama,America Latina y el Caribe,2012,0.746,0.554,0.576,0.897,0.749
+PAN,Panamá,Panama,America Latina y el Caribe,2013,0.748,0.547,0.573,0.899,0.753
+PAN,Panamá,Panama,America Latina y el Caribe,2014,0.744,0.544,0.573,0.899,0.79
+PAN,Panamá,Panama,America Latina y el Caribe,2015,0.755,0.553,0.573,0.907,0.79
+PAN,Panamá,Panama,America Latina y el Caribe,2016,0.753,0.55,0.573,0.907,0.79
+PAN,Panamá,Panama,America Latina y el Caribe,2017,0.736,0.553,0.546,0.897,0.793
+PAN,Panamá,Panama,America Latina y el Caribe,2018,0.732,0.539,0.509,0.871,0.784
+PAN,Panamá,Panama,America Latina y el Caribe,2019,0.731,0.535,0.507,0.869,0.79
+PAN,Panamá,Panama,America Latina y el Caribe,2020,0.721,0.533,0.515,0.862,0.789
+PAN,Panamá,Panama,America Latina y el Caribe,2021,0.735,0.544,0.488,0.873,0.795
+PAN,Panamá,Panama,America Latina y el Caribe,2022,0.725,0.559,0.488,0.879,0.812
+PAN,Panamá,Panama,America Latina y el Caribe,2023,0.722,0.557,0.506,0.88,0.765
+PAN,Panamá,Panama,America Latina y el Caribe,2024,0.728,0.578,0.484,0.888,0.775
+PAN,Panamá,Panama,America Latina y el Caribe,2025,0.728,0.575,0.485,0.874,0.742
+PER,Perú,Peru,America Latina y el Caribe,1990,0.612,0.393,0.538,0.595,0.62
+PER,Perú,Peru,America Latina y el Caribe,1991,0.59,0.39,0.538,0.588,0.641
+PER,Perú,Peru,America Latina y el Caribe,1992,0.249,0.115,0.56,0.533,0.608
+PER,Perú,Peru,America Latina y el Caribe,1993,0.252,0.095,0.691,0.42,0.599
+PER,Perú,Peru,America Latina y el Caribe,1994,0.246,0.094,0.691,0.428,0.599
+PER,Perú,Peru,America Latina y el Caribe,1995,0.285,0.106,0.691,0.437,0.628
+PER,Perú,Peru,America Latina y el Caribe,1996,0.362,0.129,0.691,0.437,0.628
+PER,Perú,Peru,America Latina y el Caribe,1997,0.362,0.125,0.691,0.421,0.628
+PER,Perú,Peru,America Latina y el Caribe,1998,0.349,0.12,0.68,0.421,0.628
+PER,Perú,Peru,America Latina y el Caribe,1999,0.349,0.12,0.68,0.421,0.628
+PER,Perú,Peru,America Latina y el Caribe,2000,0.413,0.185,0.654,0.504,0.653
+PER,Perú,Peru,America Latina y el Caribe,2001,0.723,0.567,0.472,0.884,0.756
+PER,Perú,Peru,America Latina y el Caribe,2002,0.792,0.648,0.519,0.884,0.756
+PER,Perú,Peru,America Latina y el Caribe,2003,0.792,0.651,0.519,0.884,0.756
+PER,Perú,Peru,America Latina y el Caribe,2004,0.792,0.651,0.519,0.884,0.756
+PER,Perú,Peru,America Latina y el Caribe,2005,0.792,0.659,0.519,0.885,0.759
+PER,Perú,Peru,America Latina y el Caribe,2006,0.792,0.652,0.531,0.879,0.784
+PER,Perú,Peru,America Latina y el Caribe,2007,0.796,0.647,0.533,0.877,0.783
+PER,Perú,Peru,America Latina y el Caribe,2008,0.801,0.65,0.533,0.88,0.783
+PER,Perú,Peru,America Latina y el Caribe,2009,0.8,0.649,0.533,0.879,0.78
+PER,Perú,Peru,America Latina y el Caribe,2010,0.804,0.658,0.544,0.885,0.781
+PER,Perú,Peru,America Latina y el Caribe,2011,0.812,0.67,0.506,0.883,0.771
+PER,Perú,Peru,America Latina y el Caribe,2012,0.827,0.698,0.518,0.888,0.775
+PER,Perú,Peru,America Latina y el Caribe,2013,0.821,0.689,0.54,0.889,0.771
+PER,Perú,Peru,America Latina y el Caribe,2014,0.822,0.691,0.54,0.893,0.777
+PER,Perú,Peru,America Latina y el Caribe,2015,0.817,0.688,0.524,0.894,0.77
+PER,Perú,Peru,America Latina y el Caribe,2016,0.788,0.673,0.527,0.894,0.784
+PER,Perú,Peru,America Latina y el Caribe,2017,0.789,0.677,0.522,0.893,0.793
+PER,Perú,Peru,America Latina y el Caribe,2018,0.81,0.698,0.51,0.898,0.827
+PER,Perú,Peru,America Latina y el Caribe,2019,0.801,0.694,0.526,0.901,0.835
+PER,Perú,Peru,America Latina y el Caribe,2020,0.818,0.706,0.534,0.875,0.799
+PER,Perú,Peru,America Latina y el Caribe,2021,0.771,0.66,0.525,0.88,0.809
+PER,Perú,Peru,America Latina y el Caribe,2022,0.733,0.621,0.622,0.858,0.809
+PER,Perú,Peru,America Latina y el Caribe,2023,0.7,0.572,0.576,0.841,0.809
+PER,Perú,Peru,America Latina y el Caribe,2024,0.642,0.501,0.619,0.791,0.788
+PER,Perú,Peru,America Latina y el Caribe,2025,0.667,0.506,0.63,0.8,0.775
+PRY,Paraguay,Paraguay,America Latina y el Caribe,1990,0.384,0.208,0.931,0.719,0.501
+PRY,Paraguay,Paraguay,America Latina y el Caribe,1991,0.401,0.215,0.931,0.719,0.501
+PRY,Paraguay,Paraguay,America Latina y el Caribe,1992,0.481,0.35,0.916,0.794,0.534
+PRY,Paraguay,Paraguay,America Latina y el Caribe,1993,0.512,0.364,0.893,0.801,0.553
+PRY,Paraguay,Paraguay,America Latina y el Caribe,1994,0.518,0.377,0.893,0.804,0.553
+PRY,Paraguay,Paraguay,America Latina y el Caribe,1995,0.518,0.377,0.893,0.804,0.553
+PRY,Paraguay,Paraguay,America Latina y el Caribe,1996,0.523,0.38,0.893,0.804,0.553
+PRY,Paraguay,Paraguay,America Latina y el Caribe,1997,0.527,0.383,0.893,0.804,0.553
+PRY,Paraguay,Paraguay,America Latina y el Caribe,1998,0.532,0.386,0.893,0.804,0.553
+PRY,Paraguay,Paraguay,America Latina y el Caribe,1999,0.535,0.385,0.896,0.808,0.553
+PRY,Paraguay,Paraguay,America Latina y el Caribe,2000,0.54,0.391,0.871,0.83,0.622
+PRY,Paraguay,Paraguay,America Latina y el Caribe,2001,0.54,0.391,0.871,0.83,0.612
+PRY,Paraguay,Paraguay,America Latina y el Caribe,2002,0.54,0.391,0.871,0.83,0.612
+PRY,Paraguay,Paraguay,America Latina y el Caribe,2003,0.565,0.409,0.825,0.828,0.651
+PRY,Paraguay,Paraguay,America Latina y el Caribe,2004,0.595,0.428,0.81,0.842,0.659
+PRY,Paraguay,Paraguay,America Latina y el Caribe,2005,0.595,0.427,0.81,0.842,0.659
+PRY,Paraguay,Paraguay,America Latina y el Caribe,2006,0.595,0.433,0.81,0.842,0.659
+PRY,Paraguay,Paraguay,America Latina y el Caribe,2007,0.595,0.446,0.809,0.842,0.659
+PRY,Paraguay,Paraguay,America Latina y el Caribe,2008,0.62,0.493,0.757,0.857,0.691
+PRY,Paraguay,Paraguay,America Latina y el Caribe,2009,0.631,0.502,0.757,0.869,0.698
+PRY,Paraguay,Paraguay,America Latina y el Caribe,2010,0.639,0.509,0.757,0.871,0.698
+PRY,Paraguay,Paraguay,America Latina y el Caribe,2011,0.63,0.503,0.757,0.868,0.698
+PRY,Paraguay,Paraguay,America Latina y el Caribe,2012,0.608,0.48,0.804,0.852,0.686
+PRY,Paraguay,Paraguay,America Latina y el Caribe,2013,0.585,0.407,0.828,0.828,0.683
+PRY,Paraguay,Paraguay,America Latina y el Caribe,2014,0.595,0.414,0.825,0.835,0.697
+PRY,Paraguay,Paraguay,America Latina y el Caribe,2015,0.593,0.416,0.837,0.836,0.689
+PRY,Paraguay,Paraguay,America Latina y el Caribe,2016,0.589,0.414,0.837,0.844,0.673
+PRY,Paraguay,Paraguay,America Latina y el Caribe,2017,0.596,0.418,0.832,0.841,0.671
+PRY,Paraguay,Paraguay,America Latina y el Caribe,2018,0.583,0.417,0.786,0.843,0.684
+PRY,Paraguay,Paraguay,America Latina y el Caribe,2019,0.585,0.42,0.791,0.843,0.692
+PRY,Paraguay,Paraguay,America Latina y el Caribe,2020,0.578,0.42,0.765,0.801,0.656
+PRY,Paraguay,Paraguay,America Latina y el Caribe,2021,0.578,0.427,0.766,0.801,0.69
+PRY,Paraguay,Paraguay,America Latina y el Caribe,2022,0.578,0.43,0.775,0.79,0.698
+PRY,Paraguay,Paraguay,America Latina y el Caribe,2023,0.576,0.42,0.775,0.792,0.709
+PRY,Paraguay,Paraguay,America Latina y el Caribe,2024,0.581,0.39,0.801,0.792,0.694
+PRY,Paraguay,Paraguay,America Latina y el Caribe,2025,0.581,0.376,0.801,0.805,0.669
+SLV,El Salvador,El Salvador,America Latina y el Caribe,1990,0.212,0.085,0.815,0.183,0.406
+SLV,El Salvador,El Salvador,America Latina y el Caribe,1991,0.221,0.089,0.815,0.202,0.384
+SLV,El Salvador,El Salvador,America Latina y el Caribe,1992,0.272,0.141,0.771,0.431,0.463
+SLV,El Salvador,El Salvador,America Latina y el Caribe,1993,0.379,0.207,0.737,0.699,0.557
+SLV,El Salvador,El Salvador,America Latina y el Caribe,1994,0.471,0.258,0.719,0.745,0.602
+SLV,El Salvador,El Salvador,America Latina y el Caribe,1995,0.484,0.274,0.719,0.755,0.602
+SLV,El Salvador,El Salvador,America Latina y el Caribe,1996,0.491,0.28,0.719,0.766,0.604
+SLV,El Salvador,El Salvador,America Latina y el Caribe,1997,0.493,0.282,0.719,0.767,0.639
+SLV,El Salvador,El Salvador,America Latina y el Caribe,1998,0.492,0.289,0.719,0.798,0.671
+SLV,El Salvador,El Salvador,America Latina y el Caribe,1999,0.505,0.297,0.719,0.803,0.665
+SLV,El Salvador,El Salvador,America Latina y el Caribe,2000,0.522,0.315,0.719,0.806,0.63
+SLV,El Salvador,El Salvador,America Latina y el Caribe,2001,0.534,0.326,0.719,0.807,0.63
+SLV,El Salvador,El Salvador,America Latina y el Caribe,2002,0.543,0.331,0.719,0.804,0.633
+SLV,El Salvador,El Salvador,America Latina y el Caribe,2003,0.537,0.332,0.719,0.804,0.64
+SLV,El Salvador,El Salvador,America Latina y el Caribe,2004,0.539,0.336,0.753,0.814,0.64
+SLV,El Salvador,El Salvador,America Latina y el Caribe,2005,0.542,0.338,0.745,0.822,0.65
+SLV,El Salvador,El Salvador,America Latina y el Caribe,2006,0.557,0.348,0.745,0.824,0.689
+SLV,El Salvador,El Salvador,America Latina y el Caribe,2007,0.56,0.351,0.745,0.824,0.689
+SLV,El Salvador,El Salvador,America Latina y el Caribe,2008,0.561,0.357,0.74,0.824,0.689
+SLV,El Salvador,El Salvador,America Latina y el Caribe,2009,0.594,0.399,0.719,0.825,0.704
+SLV,El Salvador,El Salvador,America Latina y el Caribe,2010,0.613,0.422,0.693,0.834,0.71
+SLV,El Salvador,El Salvador,America Latina y el Caribe,2011,0.613,0.425,0.693,0.835,0.71
+SLV,El Salvador,El Salvador,America Latina y el Caribe,2012,0.615,0.429,0.693,0.834,0.738
+SLV,El Salvador,El Salvador,America Latina y el Caribe,2013,0.626,0.437,0.623,0.829,0.763
+SLV,El Salvador,El Salvador,America Latina y el Caribe,2014,0.665,0.465,0.608,0.827,0.754
+SLV,El Salvador,El Salvador,America Latina y el Caribe,2015,0.658,0.462,0.605,0.825,0.763
+SLV,El Salvador,El Salvador,America Latina y el Caribe,2016,0.659,0.461,0.611,0.831,0.763
+SLV,El Salvador,El Salvador,America Latina y el Caribe,2017,0.672,0.465,0.629,0.809,0.776
+SLV,El Salvador,El Salvador,America Latina y el Caribe,2018,0.631,0.428,0.685,0.784,0.746
+SLV,El Salvador,El Salvador,America Latina y el Caribe,2019,0.599,0.393,0.596,0.76,0.753
+SLV,El Salvador,El Salvador,America Latina y el Caribe,2020,0.518,0.316,0.668,0.663,0.715
+SLV,El Salvador,El Salvador,America Latina y el Caribe,2021,0.403,0.156,0.713,0.575,0.657
+SLV,El Salvador,El Salvador,America Latina y el Caribe,2022,0.378,0.118,0.748,0.487,0.565
+SLV,El Salvador,El Salvador,America Latina y el Caribe,2023,0.377,0.106,0.698,0.508,0.532
+SLV,El Salvador,El Salvador,America Latina y el Caribe,2024,0.335,0.09,0.684,0.484,0.602
+SLV,El Salvador,El Salvador,America Latina y el Caribe,2025,0.321,0.09,0.682,0.511,0.587
+SUR,Surinam,Suriname,America Latina y el Caribe,1990,0.726,0.547,0.196,0.852,0.689
+SUR,Surinam,Suriname,America Latina y el Caribe,1991,0.45,0.374,0.196,0.877,0.705
+SUR,Surinam,Suriname,America Latina y el Caribe,1992,0.75,0.626,0.222,0.88,0.753
+SUR,Surinam,Suriname,America Latina y el Caribe,1993,0.751,0.635,0.215,0.88,0.778
+SUR,Surinam,Suriname,America Latina y el Caribe,1994,0.751,0.639,0.215,0.88,0.778
+SUR,Surinam,Suriname,America Latina y el Caribe,1995,0.751,0.639,0.215,0.88,0.778
+SUR,Surinam,Suriname,America Latina y el Caribe,1996,0.764,0.65,0.199,0.884,0.82
+SUR,Surinam,Suriname,America Latina y el Caribe,1997,0.769,0.652,0.199,0.883,0.824
+SUR,Surinam,Suriname,America Latina y el Caribe,1998,0.769,0.652,0.199,0.883,0.824
+SUR,Surinam,Suriname,America Latina y el Caribe,1999,0.769,0.652,0.199,0.883,0.824
+SUR,Surinam,Suriname,America Latina y el Caribe,2000,0.78,0.665,0.199,0.884,0.841
+SUR,Surinam,Suriname,America Latina y el Caribe,2001,0.779,0.662,0.199,0.884,0.837
+SUR,Surinam,Suriname,America Latina y el Caribe,2002,0.779,0.662,0.199,0.884,0.837
+SUR,Surinam,Suriname,America Latina y el Caribe,2003,0.779,0.662,0.199,0.884,0.837
+SUR,Surinam,Suriname,America Latina y el Caribe,2004,0.779,0.662,0.199,0.884,0.843
+SUR,Surinam,Suriname,America Latina y el Caribe,2005,0.767,0.654,0.199,0.884,0.855
+SUR,Surinam,Suriname,America Latina y el Caribe,2006,0.76,0.649,0.199,0.884,0.855
+SUR,Surinam,Suriname,America Latina y el Caribe,2007,0.759,0.645,0.199,0.884,0.855
+SUR,Surinam,Suriname,America Latina y el Caribe,2008,0.759,0.647,0.199,0.883,0.855
+SUR,Surinam,Suriname,America Latina y el Caribe,2009,0.759,0.647,0.199,0.883,0.855
+SUR,Surinam,Suriname,America Latina y el Caribe,2010,0.752,0.632,0.209,0.879,0.807
+SUR,Surinam,Suriname,America Latina y el Caribe,2011,0.747,0.627,0.209,0.878,0.807
+SUR,Surinam,Suriname,America Latina y el Caribe,2012,0.747,0.624,0.209,0.878,0.807
+SUR,Surinam,Suriname,America Latina y el Caribe,2013,0.75,0.627,0.229,0.877,0.795
+SUR,Surinam,Suriname,America Latina y el Caribe,2014,0.75,0.627,0.229,0.877,0.803
+SUR,Surinam,Suriname,America Latina y el Caribe,2015,0.757,0.633,0.229,0.877,0.844
+SUR,Surinam,Suriname,America Latina y el Caribe,2016,0.754,0.622,0.246,0.872,0.849
+SUR,Surinam,Suriname,America Latina y el Caribe,2017,0.748,0.626,0.268,0.867,0.848
+SUR,Surinam,Suriname,America Latina y el Caribe,2018,0.748,0.609,0.273,0.863,0.85
+SUR,Surinam,Suriname,America Latina y el Caribe,2019,0.741,0.583,0.273,0.843,0.834
+SUR,Surinam,Suriname,America Latina y el Caribe,2020,0.754,0.628,0.2,0.87,0.838
+SUR,Surinam,Suriname,America Latina y el Caribe,2021,0.761,0.639,0.195,0.893,0.871
+SUR,Surinam,Suriname,America Latina y el Caribe,2022,0.781,0.655,0.195,0.897,0.849
+SUR,Surinam,Suriname,America Latina y el Caribe,2023,0.764,0.633,0.168,0.908,0.888
+SUR,Surinam,Suriname,America Latina y el Caribe,2024,0.767,0.634,0.14,0.91,0.898
+SUR,Surinam,Suriname,America Latina y el Caribe,2025,0.781,0.626,0.172,0.913,0.877
+TTO,Trinidad y Tobago,Trinidad and Tobago,America Latina y el Caribe,1990,0.744,0.617,0.143,0.892,0.812
+TTO,Trinidad y Tobago,Trinidad and Tobago,America Latina y el Caribe,1991,0.762,0.635,0.143,0.895,0.83
+TTO,Trinidad y Tobago,Trinidad and Tobago,America Latina y el Caribe,1992,0.772,0.644,0.143,0.897,0.83
+TTO,Trinidad y Tobago,Trinidad and Tobago,America Latina y el Caribe,1993,0.772,0.644,0.143,0.897,0.83
+TTO,Trinidad y Tobago,Trinidad and Tobago,America Latina y el Caribe,1994,0.775,0.645,0.143,0.897,0.83
+TTO,Trinidad y Tobago,Trinidad and Tobago,America Latina y el Caribe,1995,0.772,0.646,0.148,0.894,0.801
+TTO,Trinidad y Tobago,Trinidad and Tobago,America Latina y el Caribe,1996,0.776,0.646,0.148,0.897,0.806
+TTO,Trinidad y Tobago,Trinidad and Tobago,America Latina y el Caribe,1997,0.776,0.646,0.148,0.902,0.806
+TTO,Trinidad y Tobago,Trinidad and Tobago,America Latina y el Caribe,1998,0.776,0.646,0.148,0.902,0.806
+TTO,Trinidad y Tobago,Trinidad and Tobago,America Latina y el Caribe,1999,0.776,0.646,0.148,0.902,0.806
+TTO,Trinidad y Tobago,Trinidad and Tobago,America Latina y el Caribe,2000,0.782,0.66,0.148,0.907,0.851
+TTO,Trinidad y Tobago,Trinidad and Tobago,America Latina y el Caribe,2001,0.754,0.633,0.148,0.907,0.851
+TTO,Trinidad y Tobago,Trinidad and Tobago,America Latina y el Caribe,2002,0.766,0.643,0.13,0.907,0.877
+TTO,Trinidad y Tobago,Trinidad and Tobago,America Latina y el Caribe,2003,0.776,0.662,0.13,0.907,0.877
+TTO,Trinidad y Tobago,Trinidad and Tobago,America Latina y el Caribe,2004,0.776,0.662,0.13,0.907,0.877
+TTO,Trinidad y Tobago,Trinidad and Tobago,America Latina y el Caribe,2005,0.775,0.662,0.13,0.908,0.877
+TTO,Trinidad y Tobago,Trinidad and Tobago,America Latina y el Caribe,2006,0.779,0.665,0.13,0.908,0.877
+TTO,Trinidad y Tobago,Trinidad and Tobago,America Latina y el Caribe,2007,0.781,0.666,0.13,0.908,0.891
+TTO,Trinidad y Tobago,Trinidad and Tobago,America Latina y el Caribe,2008,0.801,0.684,0.13,0.907,0.891
+TTO,Trinidad y Tobago,Trinidad and Tobago,America Latina y el Caribe,2009,0.801,0.684,0.132,0.907,0.891
+TTO,Trinidad y Tobago,Trinidad and Tobago,America Latina y el Caribe,2010,0.802,0.686,0.137,0.906,0.898
+TTO,Trinidad y Tobago,Trinidad and Tobago,America Latina y el Caribe,2011,0.803,0.687,0.137,0.906,0.901
+TTO,Trinidad y Tobago,Trinidad and Tobago,America Latina y el Caribe,2012,0.803,0.687,0.137,0.906,0.901
+TTO,Trinidad y Tobago,Trinidad and Tobago,America Latina y el Caribe,2013,0.777,0.665,0.137,0.909,0.901
+TTO,Trinidad y Tobago,Trinidad and Tobago,America Latina y el Caribe,2014,0.777,0.662,0.137,0.908,0.901
+TTO,Trinidad y Tobago,Trinidad and Tobago,America Latina y el Caribe,2015,0.791,0.676,0.137,0.911,0.903
+TTO,Trinidad y Tobago,Trinidad and Tobago,America Latina y el Caribe,2016,0.79,0.676,0.102,0.911,0.903
+TTO,Trinidad y Tobago,Trinidad and Tobago,America Latina y el Caribe,2017,0.791,0.676,0.117,0.903,0.888
+TTO,Trinidad y Tobago,Trinidad and Tobago,America Latina y el Caribe,2018,0.784,0.67,0.106,0.906,0.892
+TTO,Trinidad y Tobago,Trinidad and Tobago,America Latina y el Caribe,2019,0.787,0.676,0.101,0.909,0.901
+TTO,Trinidad y Tobago,Trinidad and Tobago,America Latina y el Caribe,2020,0.788,0.672,0.102,0.893,0.898
+TTO,Trinidad y Tobago,Trinidad and Tobago,America Latina y el Caribe,2021,0.791,0.672,0.096,0.904,0.894
+TTO,Trinidad y Tobago,Trinidad and Tobago,America Latina y el Caribe,2022,0.778,0.661,0.096,0.891,0.878
+TTO,Trinidad y Tobago,Trinidad and Tobago,America Latina y el Caribe,2023,0.778,0.661,0.1,0.891,0.875
+TTO,Trinidad y Tobago,Trinidad and Tobago,America Latina y el Caribe,2024,0.773,0.653,0.1,0.89,0.879
+TTO,Trinidad y Tobago,Trinidad and Tobago,America Latina y el Caribe,2025,0.786,0.668,0.1,0.888,0.874
+URY,Uruguay,Uruguay,America Latina y el Caribe,1990,0.836,0.76,0.046,0.936,0.807
+URY,Uruguay,Uruguay,America Latina y el Caribe,1991,0.837,0.762,0.046,0.937,0.811
+URY,Uruguay,Uruguay,America Latina y el Caribe,1992,0.837,0.762,0.046,0.937,0.811
+URY,Uruguay,Uruguay,America Latina y el Caribe,1993,0.837,0.762,0.046,0.937,0.811
+URY,Uruguay,Uruguay,America Latina y el Caribe,1994,0.838,0.761,0.046,0.926,0.816
+URY,Uruguay,Uruguay,America Latina y el Caribe,1995,0.871,0.794,0.041,0.934,0.817
+URY,Uruguay,Uruguay,America Latina y el Caribe,1996,0.871,0.796,0.041,0.949,0.817
+URY,Uruguay,Uruguay,America Latina y el Caribe,1997,0.871,0.795,0.041,0.949,0.817
+URY,Uruguay,Uruguay,America Latina y el Caribe,1998,0.877,0.804,0.041,0.951,0.817
+URY,Uruguay,Uruguay,America Latina y el Caribe,1999,0.875,0.802,0.041,0.951,0.844
+URY,Uruguay,Uruguay,America Latina y el Caribe,2000,0.873,0.797,0.041,0.952,0.844
+URY,Uruguay,Uruguay,America Latina y el Caribe,2001,0.873,0.802,0.041,0.952,0.844
+URY,Uruguay,Uruguay,America Latina y el Caribe,2002,0.873,0.802,0.041,0.952,0.844
+URY,Uruguay,Uruguay,America Latina y el Caribe,2003,0.873,0.79,0.041,0.952,0.844
+URY,Uruguay,Uruguay,America Latina y el Caribe,2004,0.874,0.808,0.041,0.952,0.844
+URY,Uruguay,Uruguay,America Latina y el Caribe,2005,0.89,0.819,0.041,0.957,0.851
+URY,Uruguay,Uruguay,America Latina y el Caribe,2006,0.892,0.823,0.041,0.957,0.851
+URY,Uruguay,Uruguay,America Latina y el Caribe,2007,0.892,0.823,0.041,0.957,0.851
+URY,Uruguay,Uruguay,America Latina y el Caribe,2008,0.892,0.822,0.041,0.957,0.851
+URY,Uruguay,Uruguay,America Latina y el Caribe,2009,0.894,0.825,0.041,0.957,0.869
+URY,Uruguay,Uruguay,America Latina y el Caribe,2010,0.912,0.847,0.041,0.957,0.882
+URY,Uruguay,Uruguay,America Latina y el Caribe,2011,0.912,0.847,0.041,0.957,0.878
+URY,Uruguay,Uruguay,America Latina y el Caribe,2012,0.912,0.847,0.041,0.957,0.878
+URY,Uruguay,Uruguay,America Latina y el Caribe,2013,0.91,0.843,0.049,0.945,0.876
+URY,Uruguay,Uruguay,America Latina y el Caribe,2014,0.909,0.843,0.049,0.945,0.899
+URY,Uruguay,Uruguay,America Latina y el Caribe,2015,0.897,0.832,0.042,0.943,0.9
+URY,Uruguay,Uruguay,America Latina y el Caribe,2016,0.897,0.832,0.042,0.943,0.895
+URY,Uruguay,Uruguay,America Latina y el Caribe,2017,0.89,0.828,0.042,0.953,0.898
+URY,Uruguay,Uruguay,America Latina y el Caribe,2018,0.896,0.836,0.042,0.954,0.902
+URY,Uruguay,Uruguay,America Latina y el Caribe,2019,0.896,0.836,0.042,0.954,0.902
+URY,Uruguay,Uruguay,America Latina y el Caribe,2020,0.867,0.808,0.055,0.95,0.9
+URY,Uruguay,Uruguay,America Latina y el Caribe,2021,0.852,0.789,0.063,0.939,0.884
+URY,Uruguay,Uruguay,America Latina y el Caribe,2022,0.818,0.747,0.08,0.928,0.89
+URY,Uruguay,Uruguay,America Latina y el Caribe,2023,0.833,0.756,0.068,0.932,0.878
+URY,Uruguay,Uruguay,America Latina y el Caribe,2024,0.846,0.768,0.051,0.926,0.871
+URY,Uruguay,Uruguay,America Latina y el Caribe,2025,0.862,0.79,0.055,0.932,0.875
+USA,Estados Unidos,United States of America,America del Norte,1990,0.863,0.8,0.055,0.948,0.842
+USA,Estados Unidos,United States of America,America del Norte,1991,0.867,0.805,0.055,0.946,0.846
+USA,Estados Unidos,United States of America,America del Norte,1992,0.872,0.809,0.055,0.947,0.864
+USA,Estados Unidos,United States of America,America del Norte,1993,0.867,0.805,0.055,0.947,0.875
+USA,Estados Unidos,United States of America,America del Norte,1994,0.867,0.806,0.055,0.947,0.877
+USA,Estados Unidos,United States of America,America del Norte,1995,0.868,0.808,0.055,0.947,0.877
+USA,Estados Unidos,United States of America,America del Norte,1996,0.869,0.808,0.055,0.947,0.878
+USA,Estados Unidos,United States of America,America del Norte,1997,0.871,0.811,0.055,0.947,0.878
+USA,Estados Unidos,United States of America,America del Norte,1998,0.871,0.81,0.055,0.947,0.882
+USA,Estados Unidos,United States of America,America del Norte,1999,0.868,0.808,0.055,0.947,0.883
+USA,Estados Unidos,United States of America,America del Norte,2000,0.867,0.808,0.055,0.948,0.885
+USA,Estados Unidos,United States of America,America del Norte,2001,0.828,0.769,0.055,0.946,0.883
+USA,Estados Unidos,United States of America,America del Norte,2002,0.829,0.769,0.055,0.934,0.884
+USA,Estados Unidos,United States of America,America del Norte,2003,0.86,0.798,0.055,0.906,0.885
+USA,Estados Unidos,United States of America,America del Norte,2004,0.862,0.799,0.055,0.906,0.894
+USA,Estados Unidos,United States of America,America del Norte,2005,0.856,0.794,0.055,0.921,0.894
+USA,Estados Unidos,United States of America,America del Norte,2006,0.862,0.801,0.055,0.914,0.897
+USA,Estados Unidos,United States of America,America del Norte,2007,0.897,0.84,0.055,0.922,0.897
+USA,Estados Unidos,United States of America,America del Norte,2008,0.9,0.845,0.055,0.94,0.901
+USA,Estados Unidos,United States of America,America del Norte,2009,0.9,0.848,0.054,0.952,0.908
+USA,Estados Unidos,United States of America,America del Norte,2010,0.9,0.848,0.054,0.951,0.902
+USA,Estados Unidos,United States of America,America del Norte,2011,0.896,0.845,0.054,0.95,0.899
+USA,Estados Unidos,United States of America,America del Norte,2012,0.896,0.842,0.053,0.949,0.9
+USA,Estados Unidos,United States of America,America del Norte,2013,0.905,0.852,0.053,0.953,0.899
+USA,Estados Unidos,United States of America,America del Norte,2014,0.901,0.848,0.053,0.953,0.9
+USA,Estados Unidos,United States of America,America del Norte,2015,0.9,0.848,0.053,0.953,0.898
+USA,Estados Unidos,United States of America,America del Norte,2016,0.885,0.83,0.068,0.951,0.898
+USA,Estados Unidos,United States of America,America del Norte,2017,0.834,0.749,0.1,0.943,0.89
+USA,Estados Unidos,United States of America,America del Norte,2018,0.824,0.739,0.097,0.935,0.897
+USA,Estados Unidos,United States of America,America del Norte,2019,0.818,0.74,0.093,0.931,0.892
+USA,Estados Unidos,United States of America,America del Norte,2020,0.815,0.734,0.085,0.917,0.905
+USA,Estados Unidos,United States of America,America del Norte,2021,0.821,0.756,0.068,0.938,0.906
+USA,Estados Unidos,United States of America,America del Norte,2022,0.833,0.769,0.061,0.944,0.909
+USA,Estados Unidos,United States of America,America del Norte,2023,0.857,0.789,0.055,0.931,0.897
+USA,Estados Unidos,United States of America,America del Norte,2024,0.843,0.751,0.051,0.927,0.868
+USA,Estados Unidos,United States of America,America del Norte,2025,0.735,0.571,0.06,0.826,0.829
+VEN,Venezuela,Venezuela,America Latina y el Caribe,1990,0.741,0.595,0.701,0.872,0.801
+VEN,Venezuela,Venezuela,America Latina y el Caribe,1991,0.742,0.618,0.701,0.872,0.801
+VEN,Venezuela,Venezuela,America Latina y el Caribe,1992,0.733,0.609,0.707,0.869,0.801
+VEN,Venezuela,Venezuela,America Latina y el Caribe,1993,0.744,0.614,0.696,0.869,0.777
+VEN,Venezuela,Venezuela,America Latina y el Caribe,1994,0.748,0.602,0.696,0.881,0.777
+VEN,Venezuela,Venezuela,America Latina y el Caribe,1995,0.748,0.604,0.69,0.881,0.783
+VEN,Venezuela,Venezuela,America Latina y el Caribe,1996,0.748,0.604,0.69,0.881,0.783
+VEN,Venezuela,Venezuela,America Latina y el Caribe,1997,0.746,0.603,0.696,0.879,0.783
+VEN,Venezuela,Venezuela,America Latina y el Caribe,1998,0.73,0.575,0.696,0.863,0.81
+VEN,Venezuela,Venezuela,America Latina y el Caribe,1999,0.665,0.44,0.731,0.807,0.845
+VEN,Venezuela,Venezuela,America Latina y el Caribe,2000,0.573,0.31,0.894,0.769,0.828
+VEN,Venezuela,Venezuela,America Latina y el Caribe,2001,0.529,0.288,0.894,0.761,0.828
+VEN,Venezuela,Venezuela,America Latina y el Caribe,2002,0.495,0.255,0.902,0.723,0.824
+VEN,Venezuela,Venezuela,America Latina y el Caribe,2003,0.487,0.243,0.902,0.706,0.824
+VEN,Venezuela,Venezuela,America Latina y el Caribe,2004,0.475,0.216,0.913,0.707,0.824
+VEN,Venezuela,Venezuela,America Latina y el Caribe,2005,0.474,0.182,0.933,0.699,0.84
+VEN,Venezuela,Venezuela,America Latina y el Caribe,2006,0.45,0.168,0.933,0.709,0.839
+VEN,Venezuela,Venezuela,America Latina y el Caribe,2007,0.434,0.162,0.947,0.7,0.837
+VEN,Venezuela,Venezuela,America Latina y el Caribe,2008,0.432,0.159,0.943,0.701,0.843
+VEN,Venezuela,Venezuela,America Latina y el Caribe,2009,0.431,0.16,0.947,0.698,0.839
+VEN,Venezuela,Venezuela,America Latina y el Caribe,2010,0.419,0.154,0.954,0.686,0.83
+VEN,Venezuela,Venezuela,America Latina y el Caribe,2011,0.415,0.152,0.958,0.685,0.83
+VEN,Venezuela,Venezuela,America Latina y el Caribe,2012,0.399,0.145,0.958,0.672,0.826
+VEN,Venezuela,Venezuela,America Latina y el Caribe,2013,0.327,0.109,0.968,0.598,0.819
+VEN,Venezuela,Venezuela,America Latina y el Caribe,2014,0.312,0.102,0.966,0.56,0.807
+VEN,Venezuela,Venezuela,America Latina y el Caribe,2015,0.3,0.103,0.94,0.521,0.794
+VEN,Venezuela,Venezuela,America Latina y el Caribe,2016,0.293,0.118,0.905,0.525,0.799
+VEN,Venezuela,Venezuela,America Latina y el Caribe,2017,0.233,0.082,0.908,0.404,0.761
+VEN,Venezuela,Venezuela,America Latina y el Caribe,2018,0.213,0.061,0.918,0.362,0.738
+VEN,Venezuela,Venezuela,America Latina y el Caribe,2019,0.209,0.06,0.955,0.325,0.743
+VEN,Venezuela,Venezuela,America Latina y el Caribe,2020,0.206,0.056,0.961,0.323,0.743
+VEN,Venezuela,Venezuela,America Latina y el Caribe,2021,0.215,0.056,0.968,0.338,0.75
+VEN,Venezuela,Venezuela,America Latina y el Caribe,2022,0.209,0.054,0.971,0.342,0.747
+VEN,Venezuela,Venezuela,America Latina y el Caribe,2023,0.206,0.053,0.969,0.34,0.76
+VEN,Venezuela,Venezuela,America Latina y el Caribe,2024,0.196,0.046,0.97,0.335,0.759
+VEN,Venezuela,Venezuela,America Latina y el Caribe,2025,0.181,0.042,0.968,0.307,0.748

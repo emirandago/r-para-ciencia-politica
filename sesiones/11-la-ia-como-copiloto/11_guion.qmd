@@ -1,0 +1,209 @@
+---
+title: "Sesión 11 · La IA como copiloto, no como piloto"
+subtitle: "¿Cómo uso la IA sin dejar de aprender?"
+---
+
+::: {.gancho}
+Tienes intuiciones sobre política mexicana desde la sesión 1. Diez sesiones
+después, tienes además un mapa, una regresión y una base construida a pulso.
+Hoy no aprendes una función nueva. Hoy decides qué de todo eso se lo puedes
+pedir a una máquina y qué te toca sostener a ti, en prosa, ante alguien que
+puede discrepar.
+:::
+
+## Qué vas a poder hacer al salir
+
+Al terminar la hora vas a poder distinguir tres formas distintas en que un
+asistente de inteligencia artificial se equivoca sobre tu propio proyecto, y
+vas a saber cuál de las tres no se ve en la consola por más que la mires. Vas
+a tener un método de tres comprobaciones para no creerle a una respuesta
+antes de correrla —que la función exista, que el paquete sea el correcto, que
+el número diga lo que dice— y el hábito, más barato que cualquiera de las
+tres, de contar filas antes y después de cada filtro y cada cruce.
+
+Lo que no vas a hacer hoy es que la IA decida por ti qué significa tu
+coeficiente. Ese es, con toda intención, el único tramo del curso que se
+queda fuera de lo que se delega, y vas a cerrar el proyecto final —el mapa de
+la sesión 7, la regresión de la sesión 9— escribiendo esa interpretación con
+tus propias palabras.
+
+## Antes de venir
+
+Haber corrido la sesión 7 (el mapa) y la sesión 9 (la regresión). Hoy no se
+explican otra vez `left_join()`, `geom_sf()` ni `feols()`: se usan, para
+recargar en unos minutos lo que ya construiste, y dedicar la hora a lo que
+falta.
+
+## Los archivos de la sesión
+
+::: {.descargas}
+[11_script.R — el guion de clase](https://raw.githubusercontent.com/emirandago/r-para-politologos/main/sesiones/11-la-ia-como-copiloto/11_script.R){.btn-descarga}
+[11_ejercicio.R — para llevar](https://raw.githubusercontent.com/emirandago/r-para-politologos/main/sesiones/11-la-ia-como-copiloto/11_ejercicio.R){.btn-descarga}
+[11_slides.pdf — las láminas](https://raw.githubusercontent.com/emirandago/r-para-politologos/main/sesiones/11-la-ia-como-copiloto/11_slides.pdf){.btn-descarga .secundario}
+[11_script_completo.R — resuelto](https://raw.githubusercontent.com/emirandago/r-para-politologos/main/sesiones/11-la-ia-como-copiloto/11_script_completo.R){.btn-descarga .secundario}
+[11_solucion.R — solución del ejercicio](https://raw.githubusercontent.com/emirandago/r-para-politologos/main/sesiones/11-la-ia-como-copiloto/11_solucion.R){.btn-descarga .secundario}
+:::
+
+El archivo `11_script.R` tiene huecos y **no corre de corrido**: está hecho
+para llenarse en clase. Los dos archivos grises se publican al terminar la
+sesión.
+
+## El contenido, en prosa
+
+### Antes de la doctrina, la evidencia
+
+La sesión no abre con una regla. Abre con tres respuestas reales de un
+asistente de inteligencia artificial sobre este mismo proyecto, leídas en voz
+alta antes de correr nada. La primera propone `geom_barplot()`, que suena a
+`ggplot2` y no existe: truena de inmediato con
+`Error in geom_barplot(): could not find function "geom_barplot"`. La
+segunda propone `filter(pct_shh > 60 | 50)` para quedarse con las entidades
+de participación alta: no truena, no marca ni una advertencia, y devuelve las
+32 entidades en vez de las 19 que devuelve el filtro correcto, porque el `50`
+suelto se evalúa como verdadero y el `|` hace que la condición se cumpla
+siempre. La tercera lee el coeficiente `-0.287` de la sesión 9 y dice que la
+participación "reduce" la ventaja de la coalición: la aritmética está bien,
+el verbo no, porque este diseño compara municipios distintos entre sí y no
+puede sostener una palabra causal.
+
+Las tres suenan igual de seguras. Esa es la lección antes de cualquier
+lección: la confianza con la que algo está escrito no dice nada sobre si es
+correcto, y las tres se ordenan por lo difícil que es detectarlas —la primera
+la descubre cualquiera, la segunda quien revisa el resultado, la tercera solo
+quien sabe de qué está hablando.
+
+### La división del trabajo cognitivo
+
+De ahí sale la regla que organiza el resto de la hora. Se delega con
+provecho lo que se verifica en treinta segundos: traducir de Stata a R,
+recordar la sintaxis de un `pivot_longer()`, explicar qué significa un
+mensaje de error en inglés, normalizar nombres de municipio antes de un
+cruce, proponer un primer borrador de gráfico. No se delega sin dejar de ser
+politóloga o politólogo lo que no se verifica corriendo nada, sino
+defendiendo un argumento ante alguien que puede discrepar: la pregunta de
+investigación, la decisión de codificación —qué cuenta como qué, y por
+qué—, el juicio sobre si el diseño identifica algo, y la interpretación
+sustantiva del resultado.
+
+De esa línea sale también la prueba honesta de si la IA está ayudando o
+sustituyendo: ¿puedo explicar cada línea de mi código sin volver a
+preguntarle a nadie? Si la respuesta es no, ese código todavía no es tuyo,
+aunque corra.
+
+### Verificar: tres comprobaciones, y una cuarta
+
+Las tres comprobaciones se corren, no se leen. ¿La función existe? —
+`exists("nombre")` contesta más rápido que abrir `?nombre`, y si no existe,
+tampoco va a abrir ayuda. ¿El paquete es el correcto? — escribir
+`paquete::funcion()` obliga a R a decir de dónde sale cada cosa, en vez de
+dejar que gane la que esté primera en el orden en que cargaste tus
+paquetes. ¿El número dice lo que dice? — se mira la salida de R, no la
+frase que la explica, porque la aritmética y el verbo pueden fallar por
+separado, como en la tercera respuesta de arriba.
+
+Hay una cuarta comprobación, para el código que sí corre: contar. `nrow()`
+antes y después de cualquier `filter()`, y antes y después de cualquier
+`left_join()`. Si el número de filas cambió sin que lo hayas pedido, algo
+pasó que no pediste. No es una herramienta nueva —es la misma que usaste en
+la sesión 4 para diagnosticar un cruce fallido— pero hoy tiene nombre y se
+aplica sistemáticamente, no solo cuando algo se ve raro.
+
+### Honestidad académica
+
+Usar la IA en este laboratorio es legítimo. Ocultarlo no. La regla es
+simple de enunciar y exige disciplina para cumplirse: registra qué le
+pediste y qué decidiste tú, en el propio documento, no en un anexo aparte
+que nadie lee. Si no puedes explicar una línea sin volver a preguntar, esa
+línea no es tuya todavía, sin importar quién la escribió primero.
+
+Esto no es universal dentro del ITAM. Hay profesoras y profesores del
+departamento con reglas explícitas sobre asistentes de IA en trabajo
+cuantitativo, y algunas son restrictivas. Lo que aquí es buena práctica, en
+otra materia puede ser falta. Pregunta antes de entregar, no después.
+
+### Cerrar el proyecto
+
+El mapa de la sesión 7 y la regresión de la sesión 9 ya están hechos: hoy no
+se rehacen. Lo que falta es lo único que ninguna máquina puede hacer: decir
+qué significa. La parte más difícil del proyecto nunca fue técnica. Ninguna
+fuente oficial trae una columna que diga qué candidatura a ministra o
+ministro era abiertamente morenista — esa variable hay que construirla, con
+un criterio que se escribe antes de ver los resultados, que se publica caso
+por caso con su fuente, que se corre también con una codificación
+alternativa más restrictiva, y que se acompaña de una frase explícita sobre
+qué no prueba. Ninguno de esos cuatro pasos es una pregunta sobre código.
+
+## Antes de entregar: la rúbrica
+
+El laboratorio no tiene calificación. Esta lista no sirve para poner nota:
+sirve para que revise mi propio trabajo y sepa si está terminado. La escribo
+en primera persona porque así se usa —como algo que me pregunto a mí, no
+como algo que alguien más marca.
+
+- **Reproducibilidad.** Mi documento Quarto compila de principio a fin en
+  una computadora que no es la mía. No hay ninguna ruta absoluta. Quien lo
+  descargue obtiene mis mismos números.
+- **Procedencia.** Cada dato que uso dice de dónde salió, con institución,
+  año y liga. Mi codificación de candidaturas está escrita, es pública y se
+  puede discutir caso por caso.
+- **Honestidad visual.** Mis mapas usan una escala perceptualmente uniforme
+  y segura para daltonismo. Mis barras arrancan en cero. Mis ejes están
+  etiquetados con unidades. Ninguna decisión de diseño hace parecer más
+  fuerte una relación de lo que es.
+- **Lectura sustantiva.** Escribí en prosa qué dice mi coeficiente, con las
+  unidades de mi variable, y qué no dice. La palabra «causa» no aparece, o
+  aparece precedida de una explicación de por qué no puedo afirmarla.
+- **Límites reconocidos.** Nombré al menos tres razones por las que alguien
+  podría discrepar de mi resultado, y ninguna de las tres es «faltan
+  datos».
+- **Trabajo con IA, si la usé.** Puedo explicar cada línea de mi código sin
+  volver a preguntarle a nadie. Verifiqué que cada función que usé existe
+  en el paquete que dije. Registré, en el propio documento, qué le pedí a
+  la IA y qué decidí yo.
+
+::: {.si-algo-falla}
+### Si algo falla
+
+**`Error in geom_barplot(): could not find function "geom_barplot"`**
+La función no existe. Nunca existió. Las de verdad, para lo mismo, son
+`geom_bar()` y `geom_col()`. Es el fallo más amable de los tres que vas a
+ver hoy: truena de inmediato y es imposible no verlo.
+
+**`Error: could not find function "feols"`**
+No encuentro ninguna función con ese nombre. Casi siempre falta correr
+`library(fixest)` al recargar el proyecto, aunque ya hayas cargado
+`tidyverse`. Corre esa línea y vuelve a intentar.
+
+**`Error in theme_lab_mapa(): could not find function "theme_lab_mapa"`**
+`theme_lab_mapa()` no viene en ningún paquete: vive en
+`estilo/tema_lab.R`, dentro del repositorio. Si no corriste
+`source(here("estilo", "tema_lab.R"))` al principio del script, R no la
+conoce. No es un paquete que te falte instalar.
+
+Hay más, con su traducción y su arreglo, en [Errores comunes](../../recursos/errores-comunes.qmd).
+:::
+
+::: {.ya-sabes}
+### Lo que ya sabes hacer
+
+- Distinguir las tres formas en que un asistente de IA se equivoca, y saber
+  cuál no se ve en la consola.
+- Verificar una respuesta antes de creerle: que la función exista, que el
+  paquete sea el correcto, que el número diga lo que dice.
+- Sostener en prosa un resultado propio, con sus límites, sin que lo
+  escriba nadie más.
+:::
+
+## Y para terminar
+
+No hay una sesión 12. Lo que sigue es sacar la pregunta que escribiste al
+final del ejercicio de la sesión 1 —aquella sobre política mexicana que te
+pedí guardar el primer día— y leerla otra vez. Decide, tú, si con lo que
+aprendiste en estas once horas alcanza para contestarla.
+
+Para la mayoría la respuesta va a ser «todavía no, pero ya sé qué me
+falta». Esa es exactamente la respuesta que este laboratorio buscaba: no que
+salieras con todas las respuestas, sino con la capacidad de nombrar con
+precisión qué te falta para llegar a ellas —un dato, una herramienta, o un
+curso de Estadística que ahora vas a tomar con una pregunta propia en la
+mano, en vez de con miedo a la sintaxis.

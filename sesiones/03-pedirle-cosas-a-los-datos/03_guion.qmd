@@ -1,0 +1,137 @@
+---
+title: "Sesión 3 · Pedirle cosas a los datos"
+subtitle: "¿Dónde ganó Morena por más de veinte puntos?"
+---
+
+::: {.gancho}
+Una base de 2,475 municipios no se lee: se interroga. Nadie recorre esa tabla con
+el dedo buscando dónde ganó Morena por más de veinte puntos, ni debería. Lo que se
+hace es preguntárselo —en una línea— y dejar que la máquina conteste con una tabla
+más chica que sí cabe en la cabeza. Hoy aprendemos a preguntar, que es la mitad
+del oficio.
+:::
+
+## Qué vas a poder hacer al salir
+
+Al terminar la sesión vas a saber pedirle cosas a una base de datos sin usar
+corchetes: quedarte con las filas que cumplen una condición con `filter()`,
+elegir las columnas que te importan con `select()`, ordenar con `arrange()` y
+crear columnas nuevas con `mutate()`, encadenando los cuatro verbos con el
+pipe `|>`. Vas a reconocer, y evitar, el error más peligroso de todo el
+curso: un filtro que no truena y devuelve una tabla equivocada sin avisar.
+
+Lo que no vas a hacer todavía es comparar entidades entre sí de verdad —eso
+es resumir grupos de filas en una cifra, y llega la próxima sesión— ni cruzar
+dos bases distintas. Hoy trabajas siempre sobre una sola tabla a la vez. El
+entregable de la hora es una tabla filtrada que conteste una pregunta que tú
+mismo escribiste, no una de este guion.
+
+## Antes de venir
+
+Haber corrido la sesión 2: usamos `read_csv()` y `glimpse()` sin volver a
+explicarlos, y damos por hecho que sabes qué es una fila, qué es una columna
+y por qué un `NA` merece desconfianza.
+
+## Los archivos de la sesión
+
+::: {.descargas}
+[03_script.R — el guion de clase](https://raw.githubusercontent.com/emirandago/r-para-politologos/main/sesiones/03-pedirle-cosas-a-los-datos/03_script.R){.btn-descarga}
+[03_ejercicio.R — para llevar](https://raw.githubusercontent.com/emirandago/r-para-politologos/main/sesiones/03-pedirle-cosas-a-los-datos/03_ejercicio.R){.btn-descarga}
+[03_slides.pdf — las láminas](https://raw.githubusercontent.com/emirandago/r-para-politologos/main/sesiones/03-pedirle-cosas-a-los-datos/03_slides.pdf){.btn-descarga .secundario}
+[03_script_completo.R — resuelto](https://raw.githubusercontent.com/emirandago/r-para-politologos/main/sesiones/03-pedirle-cosas-a-los-datos/03_script_completo.R){.btn-descarga .secundario}
+[03_solucion.R — solución del ejercicio](https://raw.githubusercontent.com/emirandago/r-para-politologos/main/sesiones/03-pedirle-cosas-a-los-datos/03_solucion.R){.btn-descarga .secundario}
+:::
+
+El archivo `03_script.R` tiene huecos y **no corre de corrido**: está hecho
+para llenarse en clase. Los dos archivos grises se publican al terminar la
+sesión.
+
+## El contenido, en prosa
+
+### Por qué no usamos corchetes
+
+Antes de que existiera `dplyr`, filtrar una tabla en R se veía así: el nombre
+de la base repetido tres veces, corchetes anidados, una coma que separa la
+condición de las columnas que quieres conservar. Funciona, pero cuesta leerlo
+y cuesta más todavía detectar dónde se rompió cuando algo truena. El
+[pipe]{.termino-en} `|>` —que se lee "y luego"— y los verbos de `dplyr`
+resuelven exactamente ese problema: cada paso de la operación queda en su
+propia línea, con un nombre que dice lo que hace. En este laboratorio nunca
+vas a usar `%>%`, el pipe anterior a 2021; si lo ves en un tutorial viejo o en
+código que te pase alguien más, es el mismo símbolo, con otra letra.
+
+### filter(): de una sensación a una tabla
+
+`filter()` se queda con las filas que cumplen una condición: una entidad con
+un nombre exacto, una columna mayor a cierto número, dos condiciones
+combinadas con `&` o con `|`. Es aquí donde ocurre el momento central de la
+sesión: convertir "siento que Morena arrasó en el sur" en
+`filter(ventaja > 20)` es exactamente el salto de una intuición política a
+una pregunta empírica. La intuición no desaparece —sigue siendo el origen de
+la pregunta—, pero ahora vive en una línea que cualquiera puede correr,
+revisar y, si hace falta, refutar con otro número.
+
+### La trampa que no truena
+
+Hay un error que no aparece en rojo y por eso es el más peligroso del curso.
+Si una columna guarda un código —digamos, 1 para una coalición y 2 para
+otra— y alguien escribe `filter(codigo == 1 | 2)` pensando que así se queda
+con ambas, R no avisa de nada: calcula la comparación con 1, y después le
+hace un OR con el número 2 suelto, que R convierte en `TRUE` porque cualquier
+número distinto de cero se interpreta como verdadero. El resultado es
+`TRUE` en todas las filas, así que el filtro devuelve la tabla completa, sin
+ningún mensaje de que algo salió mal. La forma correcta es `%in%`:
+`filter(codigo %in% c(1, 2))` pregunta "¿está en esta lista?" y no tiene esa
+trampa. Un descuido parecido, aunque menos silencioso, es escribir `=` en vez
+de `==` dentro de `filter()`; ese sí interrumpe la ejecución con un error.
+
+### select(), arrange() y mutate(): terminar de armar la pregunta
+
+`select()` elige columnas por nombre, por exclusión con `-`, o por patrón con
+atajos como `starts_with()`. `rename()` cambia un nombre sin tocar los datos,
+y `distinct()` sirve para confirmar cuántos valores únicos hay en una
+columna —una manera barata de detectar un archivo mal cargado antes de
+seguir trabajando con él. `arrange()` ordena, y con `desc()` invierte el
+orden; `slice_max()` hace en una sola línea lo que antes tomaba dos:
+quedarte con las N filas de arriba en alguna variable. `mutate()` crea
+columnas nuevas a partir de las que ya existen —en la sesión armamos así la
+ventaja de Morena sobre el segundo lugar, usando `pmax()` para quedarnos con
+el mayor de dos números, fila por fila. Filtrar esa columna nueva sobre los
+2,475 municipios del país, en vez de sobre las 32 entidades, es la misma
+idea vectorizada de la sesión 1, otra vez, a otra escala.
+
+::: {.si-algo-falla}
+### Si algo falla
+
+**`Error: object 'entidad' not found`, aunque `entidad` sí es una columna**
+Si esto pasa al llamar `filter()`, casi siempre es que no cargaste
+`library(tidyverse)`: sin él, R usa el `filter()` de un paquete distinto, que
+no sabe leer nombres de columna sueltos y busca `entidad` como si fuera un
+objeto independiente. Corre `library(tidyverse)` y vuelve a intentar.
+
+**`Error: object 'Jalisco' not found`**
+Te faltaron las comillas. `filter(entidad == Jalisco)` le pide a R que
+busque un objeto llamado `Jalisco`; lo que querías era el texto
+`"Jalisco"`. Dentro de `filter()`, todo valor de texto lleva comillas.
+
+**`Error: object 'ventaja' not found`, después de haber corrido `mutate()`**
+`mutate()` nunca modifica tu tabla por sí solo: si no reasignas el resultado
+con `resultados <- resultados |> mutate(...)`, la columna nueva se imprimió
+en la consola y se perdió. Revisa que la línea de arriba tenga la flecha.
+
+Hay más, con su traducción y su arreglo, en [Errores comunes](../../recursos/errores-comunes.qmd).
+:::
+
+::: {.ya-sabes}
+### Lo que ya sabes hacer
+
+- Cambiar los corchetes de base R por un pipe legible: filter(), select(), arrange() y mutate().
+- Reconocer la trampa filter(var == 1 | 2) y usar %in% en su lugar.
+- Convertir una intuición política propia en una tabla que la pone a prueba.
+:::
+
+## La semana que viene
+
+**Agrupar, resumir, cruzar.** Vamos a comparar entidades entre sí de
+verdad —no fila por fila, sino resumidas en una cifra— y a cruzar dos bases
+por una clave que no siempre coincide.

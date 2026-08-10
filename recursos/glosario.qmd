@@ -1,0 +1,561 @@
+---
+title: "Glosario"
+subtitle: "Inglés técnico → español, y el estándar que fija este laboratorio"
+---
+
+::: {.gancho}
+La mitad de los abandonos en un curso de programación no ocurre por una idea
+difícil: ocurre por una palabra que nadie tradujo la primera vez que apareció,
+y que después da vergüenza preguntar. Este glosario existe para que eso no te
+pase aquí.
+:::
+
+## Por qué este glosario fija su propio estándar
+
+`AnalizaR Datos Políticos` —el único libro de referencia en español de R para
+ciencia política, y la fuente que más se cita en este laboratorio— **no es
+internamente consistente** en su traducción técnica. Es un libro de dieciséis
+capítulos escrito por autores distintos, y cada quien tradujo a su manera: el
+mismo libro dice "pipas" en un capítulo y "pipes" en otro; dice "Ambiente" en
+un capítulo y "Entorno" en otro. Donde el libro sí es uniforme —*paquete*,
+*argumento*, *valores perdidos* (aquí, "valor faltante"), *consola*, *capa* y
+*mapeo estético*— este laboratorio adopta la misma convención, porque ya está
+probada y no hay razón para inventar otra. Donde el libro se contradice a sí
+mismo, este laboratorio elige un término, lo explica y lo usa siempre igual.
+Ese es el criterio detrás de cada entrada: no "lo que suena mejor", sino "lo
+que este curso usa sin excepción, de la sesión 1 a la 11".
+
+Cada entrada trae el término en inglés, cómo se dice en este laboratorio, una
+definición breve y en qué sesión aparece por primera vez.
+
+---
+
+### aesthetic (estético)
+
+**En este laboratorio:** no se traduce sola; es el adjetivo dentro de
+*mapeo estético* (ver **mapping**, abajo). En el código de `ggplot2` sobrevive
+sin traducir, como el nombre de la función `aes()`.
+
+**Definición:** en la gramática de `ggplot2`, lo "estético" es cualquier canal
+visual del gráfico que puede representar una columna de datos: la posición en
+un eje, el color, el tamaño, la forma de un punto.
+
+**Primera aparición:** sesión 1 (se usa `aes()` sin explicarlo a fondo);
+definición completa en sesión 5.
+
+---
+
+### argument (argumento)
+
+**En este laboratorio:** **argumento**.
+
+**Definición:** un dato que le pasas a una función entre paréntesis para que
+haga su trabajo con él —`na.rm = TRUE` en `mean(x, na.rm = TRUE)` es un
+argumento—. No confundir con la propia función: la función es la receta; el
+argumento es un ingrediente que le das cada vez que la usas.
+
+**Primera aparición:** en uso, sesión 2 (`na.rm = TRUE`); como concepto
+definido con ese nombre, sesión 10.
+
+---
+
+### chunk (bloque de código)
+
+**En este laboratorio:** **chunk**, sin traducir —es el nombre que usa la
+propia interfaz de RStudio y de Quarto, así que traducirlo generaría más
+confusión que claridad—, glosado siempre como "bloque de código" la primera
+vez que aparece.
+
+**Definición:** un fragmento de código de R, delimitado por tres comillas
+invertidas, dentro de un documento Quarto o R Markdown. A diferencia de un
+script, dentro de un chunk el código convive con texto explicado y con el
+resultado que produce, ya integrado en el documento final.
+
+**Primera aparición:** sesión 10.
+
+---
+
+### coefficient (coeficiente)
+
+**En este laboratorio:** **coeficiente**.
+
+**Definición:** el número que acompaña a una variable explicativa dentro de
+una regresión, y que dice cuánto sube o baja, en promedio, la variable
+explicada por cada unidad que sube la explicativa. Junto con el intercepto,
+son los dos números que definen una recta de regresión.
+
+**Primera aparición:** sesión 9.
+
+---
+
+### commit (confirmar cambios)
+
+**En este laboratorio:** en la sesión 10, donde se sube material a GitHub
+únicamente arrastrando archivos con el navegador, se usa la frase llana
+**"confirmar la subida"** en vez del término técnico. La palabra **commit**
+—una fotografía guardada del estado de un repositorio en un momento dado, con
+un mensaje que describe qué cambió— se introduce formalmente hasta que uses
+Git por línea de comandos, cubierto en
+[Para seguir](para-seguir.qmd).
+
+**Primera aparición:** sesión 10 (mencionado, no enseñado a fondo).
+
+---
+
+### console (consola)
+
+**En este laboratorio:** **consola**.
+
+**Definición:** el panel de RStudio donde escribes una instrucción, la
+ejecutas de inmediato y R contesta ahí mismo. Lo que se escribe en la consola
+no queda guardado en ningún archivo: sirve para probar algo rápido, no para
+construir un análisis que quieras repetir.
+
+**Primera aparición:** sesión 1.
+
+---
+
+### CRS (sistema de referencia de coordenadas)
+
+**En este laboratorio:** se mantienen las siglas en inglés, **CRS**, porque es
+como aparece en la documentación de `sf` y en el mensaje que `st_crs()`
+imprime en pantalla; se glosa siempre como "sistema de referencia de
+coordenadas" la primera vez.
+
+**Definición:** el acuerdo matemático que dice cómo se aplanan las coordenadas
+de un punto sobre la Tierra (un elipsoide) en un mapa (un plano). Ningún CRS
+conserva a la vez el área, la forma y la distancia reales; elegir uno es
+decidir qué se sacrifica al aplanar.
+
+**Primera aparición:** sesión 7.
+
+---
+
+### dataframe
+
+**En este laboratorio:** **dataframe**, sin traducir —como en el propio libro
+de referencia, y como en toda la documentación de R—.
+
+**Definición:** una tabla rectangular con filas y columnas, donde cada
+columna guarda un solo tipo de dato de arriba a abajo. Es la estructura
+general; un `tibble` (ver abajo) es la versión concreta de dataframe que usa
+este laboratorio.
+
+**Primera aparición:** sesión 2.
+
+---
+
+### deprecated (deprecado/a)
+
+**En este laboratorio:** **deprecado/a**, adaptación directa del inglés y no
+una traducción por otra vía ("obsoleto", "en desuso"), porque es la palabra
+que vas a encontrar en los avisos que R imprime en pantalla y en la
+documentación de los paquetes.
+
+**Definición:** una función o un argumento que todavía funciona, pero que sus
+autores ya no recomiendan usar porque existe un reemplazo mejor. Casi siempre
+sigue corriendo, con un aviso; en algún momento futuro puede dejar de
+funcionar del todo (entonces se dice que quedó *defunct*).
+
+**Primera aparición:** sesión 1 (`coord_flip()` se discute como un caso que
+**no** está deprecado, precisamente para enseñar a distinguir un rumor de un
+hecho verificable corriendo el código).
+
+---
+
+### environment (entorno)
+
+**En este laboratorio:** **entorno**. El panel de RStudio donde ves los
+objetos que has creado conserva su nombre en inglés en la interfaz,
+*Environment*; en prosa, este laboratorio dice siempre "entorno".
+
+**Definición:** el espacio de memoria donde R guarda, mientras dura tu
+sesión, todos los objetos que has creado con `<-`. Si un objeto no aparece en
+el entorno, no existe todavía para R, sin importar que la línea que lo crea
+esté escrita en tu script.
+
+**Primera aparición:** sesión 1 (como panel de la interfaz).
+
+---
+
+### facet (panel)
+
+**En este laboratorio:** el resultado visual de dividir un gráfico se llama
+**panel**; el nombre de la función, `facet_wrap()`, se deja sin traducir,
+porque así se escribe en el código. Ojo con una ambigüedad real: la palabra
+"panel" también se usa, desde la sesión 1, para referirse a cada una de las
+secciones de la ventana de RStudio (el panel de la consola, el panel del
+script). Son dos usos distintos de la misma palabra española para dos
+conceptos de inglés distintos (*pane* de la interfaz, *facet* de un gráfico);
+el contexto siempre deja claro cuál es cuál.
+
+**Definición:** dividir un gráfico saturado en varios paneles más pequeños,
+uno por cada categoría de una variable, todos con el mismo eje para poder
+compararlos entre sí.
+
+**Primera aparición:** sesión 6.
+
+---
+
+### factor
+
+**En este laboratorio:** **factor**, sin traducir —es el nombre del tipo de
+dato en R y de la abreviación `<fct>` que vas a ver en la consola—.
+
+**Definición:** una columna de texto con un número fijo de categorías
+posibles (niveles), a diferencia de una columna `<chr>` de texto libre, donde
+cualquier valor cabe. Sirve para variables como partido político o región,
+donde el conjunto de respuestas válidas está cerrado de antemano.
+
+**Primera aparición:** sesión 2 (mencionado como uno de los tipos que vas a
+encontrar más adelante).
+
+---
+
+### function (función)
+
+**En este laboratorio:** **función**.
+
+**Definición:** una receta con nombre que recibe argumentos, hace algo con
+ellos y regresa un resultado. `mean()`, `filter()` y `ggplot()` son funciones
+que ya existen en algún paquete; en la sesión 10 escribes la primera función
+propia del curso.
+
+**Primera aparición:** en uso, sesión 1 (`mean()`, `ggplot()`); como concepto
+que se construye desde cero, sesión 10.
+
+---
+
+### geom
+
+**En este laboratorio:** **geom**, sin traducir —es, literalmente, la
+abreviación de *geometric object* que usa `ggplot2` en el nombre de sus
+funciones—.
+
+**Definición:** la pieza de la gramática de `ggplot2` que decide qué forma
+visual toman los datos: barras (`geom_col()`), puntos (`geom_point()`), línea
+(`geom_line()`), polígonos de un mapa (`geom_sf()`).
+
+**Primera aparición:** sesión 1 (`geom_col()`, sin explicarlo a fondo);
+catálogo completo en sesión 5.
+
+---
+
+### join / merge (unir, cruzar)
+
+**En este laboratorio:** **unir** y **cruzar** se usan como sinónimos, los
+dos con la misma frecuencia; el laboratorio evita "fusionar" —que sí aparece,
+una sola vez, en el libro de referencia— porque no aporta nada frente a las
+dos palabras que ya cubren el concepto y solo suma una tercera opción a
+recordar. La función de R correspondiente, `left_join()`, no se traduce
+nunca: es un nombre de función, no un concepto en prosa.
+
+**Definición:** combinar dos tablas distintas en una sola, emparejando filas
+según los valores que comparten en una o más columnas —la "clave" del cruce—.
+
+**Primera aparición:** sesión 4.
+
+---
+
+### knit (tejer, renderizar)
+
+**En este laboratorio:** se traduce como **renderizar**, la misma palabra que
+usa este laboratorio para el equivalente en Quarto (ver **render**, abajo),
+porque las dos son la misma operación —convertir un documento con código y
+texto en un archivo final legible— con nombres distintos según la
+herramienta. *Knit* (literalmente "tejer") es el verbo que usa R Markdown; el
+botón correspondiente en RStudio, para un archivo `.Rmd`, dice *Knit* en vez
+de *Render*.
+
+**Definición:** construir, a partir de un documento con código y texto
+mezclados, el archivo final (casi siempre HTML) que alguien puede abrir sin
+tener R instalado.
+
+**Primera aparición:** sesión 10, al contrastar Quarto con su antecesor, R
+Markdown.
+
+---
+
+### layer (capa)
+
+**En este laboratorio:** **capa**.
+
+**Definición:** cada pieza que se agrega a un gráfico de `ggplot2` con el
+operador `+` —un geom, una escala, un tema— y que hereda, salvo que se le
+indique lo contrario, los datos y el mapeo estético definidos en la llamada
+a `ggplot()`.
+
+**Primera aparición:** sesión 5.
+
+---
+
+### library (biblioteca)
+
+**En este laboratorio:** se evita traducir "library" como sustantivo suelto,
+para no confundirlo con **paquete** (ver abajo). `library()` se deja siempre
+como el nombre de la función —nunca "cargar la biblioteca de tidyverse"—,
+sino "cargar el paquete `tidyverse` con `library()`".
+
+**Definición:** técnicamente, en R, "library" nombra la carpeta donde viven
+los paquetes instalados en tu computadora, y `library()` es la función que
+carga uno de ellos para poder usarlo en tu sesión. En el habla cotidiana,
+mucha gente dice "librería" para referirse al paquete mismo; este laboratorio
+evita esa costumbre y llama **paquete** al paquete, y `library()`, sin
+traducir, a la función que lo carga.
+
+**Primera aparición:** sesión 1.
+
+---
+
+### mapping (mapeo)
+
+**En este laboratorio:** **mapeo**, casi siempre dentro de la frase completa
+**mapeo estético** (ver **aesthetic**, arriba).
+
+**Definición:** la instrucción que le dice a `ggplot2` qué columna de tus
+datos controla qué canal visual del gráfico —qué va en el eje x, qué va en el
+color—. Se escribe dentro de `aes()`.
+
+**Primera aparición:** sesión 1 (en uso); sesión 5 (formalizado).
+
+---
+
+### missing value (valor faltante)
+
+**En este laboratorio:** **valor faltante**, o simplemente `NA`. El libro de
+referencia usa consistentemente "valores perdidos"; este laboratorio prefiere
+"valor faltante" porque describe con más precisión lo que `NA` significa
+—R no tiene ese dato, no es que el dato se haya "perdido" en el camino—, pero
+ambos términos son intercambiables si los encuentras en otro material.
+
+**Definición:** el valor especial que usa R para decir "no sé qué va aquí".
+No es lo mismo que cero, que sí es un valor y dice algo; ni que una cadena de
+texto vacía, que también es un valor. Cualquier operación que dependa de un
+vector con al menos un `NA` se vuelve `NA` también, salvo que le pidas
+explícitamente que lo ignore (`na.rm = TRUE`).
+
+**Primera aparición:** sesión 2.
+
+---
+
+### package (paquete)
+
+**En este laboratorio:** **paquete**.
+
+**Definición:** una colección de funciones, datos y documentación,
+construida por alguien más, que puedes instalar una sola vez con
+`install.packages()` y cargar en cada sesión con `library()`. `tidyverse`,
+`sf` y `fixest` son paquetes.
+
+**Primera aparición:** sesión 1.
+
+---
+
+### path (ruta)
+
+**En este laboratorio:** **ruta**.
+
+**Definición:** la dirección de un archivo o una carpeta dentro del sistema
+de archivos de una computadora. Este laboratorio nunca escribe una ruta
+completa a mano (nunca `setwd("/Users/tu-nombre/...")`): todas las rutas se
+construyen de forma relativa a la carpeta del proyecto, con `here::here()`.
+
+**Primera aparición:** sesión 1.
+
+---
+
+### pipe
+
+**En este laboratorio:** **pipe**, sin traducir. El libro de referencia usa
+"pipas" en algunos capítulos y "pipes" en otros; este laboratorio fija
+**pipe** como el único término, porque es el que vas a encontrar en toda la
+documentación oficial de R y de `tidyverse` a partir de 2021, y porque
+"pipas" no aparece en ningún material que produzcas fuera de este curso. El
+símbolo que usa este laboratorio es siempre el pipe nativo `|>`, nunca el
+pipe de `magrittr`, `%>%`, salvo el momento explícito en que se contrastan
+los dos.
+
+**Definición:** el operador que encadena una operación después de otra,
+tomando el resultado de la izquierda y pasándolo como primer argumento a la
+función de la derecha. Se lee "y luego".
+
+**Primera aparición:** en uso, sesión 1; nombrado y explicado, sesión 3.
+
+---
+
+### plot (gráfico)
+
+**En este laboratorio:** **gráfico** (sustantivo), **graficar** (verbo).
+
+**Definición:** cualquier representación visual de datos —de barras, de
+puntos, un mapa—. En el código de R, muchas funciones conservan el nombre en
+inglés (`plot()`, de R base; `ggplot()`, la que usa este curso), pero en
+prosa siempre se dice "gráfico".
+
+**Primera aparición:** sesión 1.
+
+---
+
+### render (renderizar)
+
+**En este laboratorio:** **renderizar**.
+
+**Definición:** construir, a partir de un documento Quarto (`.qmd`) con
+código y texto mezclados, el archivo final —casi siempre HTML— que corrió de
+verdad todo el código y muestra sus resultados ya integrados. El botón que
+hace esto en RStudio, para un archivo `.qmd`, se llama *Render*.
+
+**Primera aparición:** sesión 10.
+
+---
+
+### repository (repositorio)
+
+**En este laboratorio:** **repositorio** —es, además, una palabra que ya
+existe en español sin necesidad de adaptarla—.
+
+**Definición:** una carpeta de código, versionada y con historial de
+cambios, que vive en una plataforma como GitHub. El repositorio de este
+laboratorio contiene las once sesiones, los datos, y esta misma página.
+
+**Primera aparición:** sesión 10.
+
+---
+
+### scale (escala)
+
+**En este laboratorio:** **escala**.
+
+**Definición:** la regla que traduce un valor de tus datos a un canal visual
+concreto —qué color exacto le corresponde a 34.2%, qué tan larga es una barra
+que representa 500,000 votos—. Elegir el tipo de escala (secuencial,
+divergente, cualitativa) es una afirmación sobre la estructura de la
+variable, no una decisión estética.
+
+**Primera aparición:** sesión 5, a fondo en sesión 6.
+
+---
+
+### script
+
+**En este laboratorio:** **script**, sin traducir.
+
+**Definición:** el panel de RStudio donde escribes código que se guarda en
+un archivo y no se ejecuta solo: tú decides qué línea corre y cuándo. Todo lo
+que quieras poder repetir dentro de tres meses tiene que vivir en un script,
+nunca solo en la consola.
+
+**Primera aparición:** sesión 1.
+
+---
+
+### shapefile
+
+**En este laboratorio:** **shapefile**, sin traducir —es el nombre de un
+formato de archivo, no un concepto que se pueda traducir sin perder
+precisión—.
+
+**Definición:** un formato estándar para guardar geometría (puntos, líneas,
+polígonos) junto con sus atributos. Un shapefile nunca es un solo archivo:
+son varios (`.shp`, `.dbf`, `.shx`, `.prj`, entre otros) que tienen que viajar
+juntos, con el mismo nombre, en la misma carpeta.
+
+**Primera aparición:** sesión 7.
+
+---
+
+### string (cadena de texto)
+
+**En este laboratorio:** **texto**, o **cadena de texto** cuando hace falta
+ser más preciso —por ejemplo, para distinguirlo de un `factor`, que también
+almacena texto pero con categorías fijas—. Es el tipo de dato que R abrevia
+como `<chr>` (de *character*).
+
+**Definición:** una columna o un valor compuesto por letras, números o
+símbolos, tratado como texto y no como una cantidad con la que se pueda
+calcular directamente.
+
+**Primera aparición:** sesión 2.
+
+---
+
+### theme (tema)
+
+**En este laboratorio:** **tema**.
+
+**Definición:** en `ggplot2`, todas las decisiones visuales que no son datos:
+el grosor de la línea de los ejes, dónde va la leyenda, si hay cuadrícula.
+`theme_lab()` —definido en `estilo/tema_lab.R`— es el tema propio de este
+laboratorio.
+
+**Primera aparición:** sesión 6.
+
+---
+
+### tibble
+
+**En este laboratorio:** **tibble**, sin traducir.
+
+**Definición:** la versión concreta de **dataframe** (ver arriba) que usa
+`tidyverse`: una tabla que exige que cada columna tenga un solo tipo de dato
+de arriba a abajo, y que muestra su tipo de dato debajo del nombre de cada
+columna al imprimirse en consola. Todo tibble es un dataframe; no todo
+dataframe —por ejemplo, uno creado con `data.frame()` de R base— es un
+tibble.
+
+**Primera aparición:** sesión 2.
+
+---
+
+### tidy data (datos ordenados)
+
+**En este laboratorio:** el término no se usa en las once sesiones
+—ninguna necesita nombrar el concepto de forma explícita, porque las bases
+del curso ya llegan en ese formato—. Si lo encuentras en otro material
+(incluyendo el libro de referencia, que lo deja sin traducir como anglicismo
+con la glosa ocasional de "formato largo"), la traducción de este laboratorio
+es **datos ordenados**.
+
+**Definición:** una tabla donde cada fila es una observación, cada columna es
+una variable, y cada celda tiene un solo valor. Es el formato que casi todas
+las funciones de `tidyverse` esperan recibir.
+
+**Primera aparición:** no aparece nombrado en las once sesiones; el concepto
+sí se usa, sin el nombre, desde la sesión 2 (la pregunta "¿qué representa una
+fila?").
+
+---
+
+### working directory (directorio de trabajo)
+
+**En este laboratorio:** **directorio de trabajo**.
+
+**Definición:** la carpeta a partir de la cual R busca cualquier archivo que
+le pidas abrir o donde guarda cualquier archivo que le pidas crear. Este
+laboratorio nunca lo fija a mano con `setwd()`: se resuelve solo al abrir el
+proyecto con el archivo `.Rproj`, y se confirma con `here::here()`.
+
+**Primera aparición:** sesión 1.
+
+---
+
+### wrangling (manejo de datos)
+
+**En este laboratorio:** el término en sí no se usa —como en el propio libro
+de referencia, cuyo capítulo sobre exactamente este tema se titula "Manejo de
+datos" sin mencionar la palabra en inglés ni una vez—. Si lo encuentras en
+otro material, la traducción de este laboratorio es **manejo de datos**, y
+cubre el conjunto de operaciones de las sesiones 3 y 4: filtrar, ordenar,
+crear columnas, agrupar, resumir y cruzar.
+
+**Definición:** el trabajo de transformar una base de datos cruda en una
+tabla lista para graficar o modelar —limpiar, reordenar, combinar—.
+
+**Primera aparición:** el concepto se cubre en las sesiones 3 y 4; el término
+no aparece nombrado.
+
+---
+
+¿Un término que no está aquí? Es casi seguro que sí aparece, con su mensaje
+completo, en [Errores comunes](errores-comunes.qmd) —el catálogo del
+laboratorio traduce cada mensaje de error la primera vez que lo cita—.

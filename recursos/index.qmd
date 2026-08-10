@@ -1,0 +1,63 @@
+---
+title: "Recursos"
+subtitle: "El material de consulta que acompaña a las once sesiones"
+---
+
+::: {.gancho}
+Esta sección no se lee de corrido: se consulta cuando hace falta. Un
+mensaje de error a media clase, una palabra en inglés que nadie tradujo, la
+pregunta de hacia dónde seguir cuando el laboratorio termine —cada una de
+esas situaciones tiene su propio documento aquí.
+:::
+
+::: {.tarjeta-sesion}
+### [Glosario](glosario.qmd)
+
+::: {.pregunta}
+Inglés técnico → español, y el estándar que fija este laboratorio.
+:::
+
+::: {.entregable}
+Para que una palabra que nadie tradujo la primera vez no sea la razón por
+la que dejas de venir.
+:::
+:::
+
+::: {.tarjeta-sesion}
+### [Errores comunes](errores-comunes.qmd)
+
+::: {.pregunta}
+Cómo leer un mensaje de error en R, y qué hacer con cada uno.
+:::
+
+::: {.entregable}
+El catálogo de los errores más frecuentes del curso, con su traducción del
+inglés y su arreglo.
+:::
+:::
+
+::: {.tarjeta-sesion}
+### [Para seguir](para-seguir.qmd)
+
+::: {.pregunta}
+Adónde ir después de estas once horas.
+:::
+
+::: {.entregable}
+Lo que cada sesión fue dejando pendiente en el camino, reunido en un solo
+lugar.
+:::
+:::
+
+::: {.tarjeta-sesion}
+### [Acordeón de R](acordeon-r.pdf)
+
+::: {.pregunta}
+La sintaxis que más se usa en el curso, en una sola hoja.
+:::
+
+::: {.entregable}
+Descarga en PDF: para tener a un lado mientras programas, sin tener que
+volver al sitio a buscar cómo se escribía algo.
+:::
+:::

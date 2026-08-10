@@ -1,0 +1,219 @@
+---
+title: "Extra 5 · Primer vistazo a inferencia causal"
+subtitle: "¿Qué le falta a un antes-y-después para volverse una comparación honesta?"
+---
+
+::: {.gancho}
+El extra 4 te dejó con una pregunta pendiente: comparaste la participación
+de México en dos elecciones, antes y después, pero un antes-y-después solo
+te dice que algo cambió, no qué lo causó —pudo haber sido el tipo de
+elección, pudo haber sido cualquier otra cosa que también haya cambiado
+entre 2024 y 2025—. Esta página es una invitación, no un curso de
+econometría: en una hora vas a ver tres ideas que gobiernan buena parte de
+la ciencia política empírica contemporánea, contadas como aritmética,
+como dibujo y como historia, nunca como aparato técnico completo.
+:::
+
+## Qué vas a poder hacer al salir
+
+Vas a calcular una diferencia-en-diferencias con cuatro números y dos
+restas, sin una sola regresión con controles. Vas a ver, dibujado, el salto
+que define una regresión discontinua, y vas a entender por qué ese salto es
+evidencia de un efecto y no una coincidencia. Y vas a poder explicar, con
+una historia y no con una fórmula, qué es un factor de confusión
+(*confounder*) y por qué correlación nunca alcanza para causalidad.
+
+Dilo con toda claridad, porque este módulo se lo toma en serio: **esto no
+es un curso de inferencia causal**. No vas a correr `rdrobust()`, no vas a
+elegir un ancho de banda óptimo, no vas a calcular una descomposición de
+Goodman-Bacon ni vas a estimar un DiD con tratamiento escalonado. Esas
+herramientas presuponen ya dominar regresión múltiple, panel y las
+sutilezas de cada método, y son contenido de un segundo curso de métodos,
+no de un primer vistazo. Lo que este extra sí te deja, y no es poco, es la
+capacidad de reconocer estas tres ideas cuando las veas en un paper, y de
+sospechar de una afirmación causal que no tiene ninguna de las tres detrás.
+
+## Qué necesitas haber visto antes
+
+El **extra 4** (recomendado, no obligatorio: ahí construiste el "antes y
+después" que aquí se completa) y la sección de correlación-no-es-causa de
+la **sesión 9**.
+
+## Los archivos del módulo
+
+::: {.descargas}
+[05_script.R — el código completo](https://raw.githubusercontent.com/emirandago/r-para-politologos/main/extras/05-inferencia-causal/05_script.R){.btn-descarga}
+[05_ejercicio.R — para practicar](https://raw.githubusercontent.com/emirandago/r-para-politologos/main/extras/05-inferencia-causal/05_ejercicio.R){.btn-descarga}
+[05_solucion.R — solución comentada](https://raw.githubusercontent.com/emirandago/r-para-politologos/main/extras/05-inferencia-causal/05_solucion.R){.btn-descarga .secundario}
+:::
+
+`05_script.R` corre completo, de arriba abajo, sin huecos.
+
+## El contenido, en prosa
+
+### Diferencia-en-diferencias: cuatro números y dos restas
+
+El 1 de enero de 2019, el gobierno federal duplicó el salario mínimo en los
+43 municipios de la franja fronteriza norte del país, y lo dejó con el
+aumento normal en el resto de México. Ese contraste geográfico —una zona
+que recibió el cambio de política, un resto del país que no— es exactamente
+la estructura que le faltaba al "antes y después" del extra 4: un **grupo
+de tratamiento** y un **grupo de control**, cada uno observado **antes** y
+**después**.
+
+No vamos a usar las cifras reales de empleo de esa política —exigirían
+microdatos que este repositorio no tiene, y estimarlas de verdad es
+material de un paper completo—. Vamos a usar números redondos e
+inventados, con la misma estructura, para que la aritmética quede
+completamente clara:
+
+| | Antes | Después | Diferencia |
+|---|---|---|---|
+| Franja fronteriza (tratamiento) | 100 | 108 | **+8** |
+| Resto del país (control) | 100 | 103 | **+3** |
+
+La primera resta —dentro de la franja, después menos antes— te da +8, pero
+ese +8 mezcla el efecto de la política con cualquier otra cosa que también
+haya cambiado en México entre esos dos momentos —inflación, crecimiento
+económico, lo que sea que le pasa al país entero por igual—. La segunda
+resta —dentro del resto del país, que no recibió la política— te da +3, y
+ese +3 es, precisamente, "lo que hubiera pasado de todos modos". La
+diferencia-en-diferencias es la resta de esas dos restas: +8 menos +3 son
+**+5**, la parte del cambio que le puedes atribuir a la política y no a
+todo lo demás que también estaba pasando.
+
+```r
+diferencia_tratamiento <- 108 - 100   #  8
+diferencia_control     <- 103 - 100   #  3
+diferencia_en_diferencias <- diferencia_tratamiento - diferencia_control  #  5
+```
+
+Este cálculo tiene un supuesto escondido, y hay que decirlo con todas sus
+letras aunque no lo vayas a comprobar formalmente hoy: que, SIN la
+política, la franja fronteriza habría cambiado igual que el resto del país
+—se llama el supuesto de **tendencias paralelas**—. Verificarlo de verdad
+—con datos de varios años antes de la política, buscando que las dos series
+ya vinieran moviéndose parecido— es exactamente el tipo de trabajo que
+queda fuera de este primer vistazo.
+
+### La misma cuenta, con una regresión
+
+```r
+datos_did <- tibble(
+  grupo       = c("control", "control", "tratamiento", "tratamiento"),
+  periodo     = c("antes", "despues", "antes", "despues"),
+  tratamiento = c(0, 0, 1, 1),
+  despues     = c(0, 1, 0, 1),
+  resultado   = c(100, 103, 100, 108)
+)
+
+modelo_did <- feols(resultado ~ tratamiento * despues, data = datos_did)
+```
+
+El coeficiente de la interacción `tratamiento:despues` te va a dar,
+exactamente, 5 —el mismo número que ya calculaste a mano con dos restas—.
+No es casualidad: con exactamente cuatro celdas, una regresión con
+tratamiento, periodo y su interacción es una manera más larga de escribir
+la misma aritmética. La ventaja de escribirlo como regresión aparece
+cuando tienes muchas unidades y varios periodos, no cuatro celdas sueltas
+—ahí la regresión te da, de una vez, el número Y su error estándar—, pero
+la intuición no cambia en nada.
+
+### Regresión discontinua: un dibujo con un salto
+
+Algunas políticas se asignan con una regla de corte estricta: superas un
+umbral, entras al programa; no lo superas, te quedas fuera. La intuición de
+una regresión discontinua es que, justo alrededor de ese corte, las
+observaciones de un lado y del otro son casi idénticas en todo lo demás —la
+que sacó 59.9 en un examen que requiere 60 no es, en ningún sentido
+sustantivo, distinta de la que sacó 60.1—, así que cualquier salto brusco
+en el resultado, justo en el corte, es evidencia fuerte de un efecto.
+
+```r
+set.seed(2026)
+datos_rd <- tibble(
+  puntaje    = runif(500, min = -10, max = 10),
+  elegible   = as.numeric(puntaje >= 0),
+  resultado  = 50 + 2 * puntaje + 15 * elegible + rnorm(500, sd = 5)
+)
+```
+
+Estos datos son **enteramente simulados**, con `set.seed()` para que
+siempre veas el mismo dibujo: `puntaje` es una variable de asignación
+ficticia, `elegible` es 1 del lado derecho del corte, y `resultado`
+incluye un salto de 15 unidades exactamente en `puntaje = 0`, construido a
+propósito. Grafícalo y el salto se ve a simple vista: eso es todo lo que
+este extra te pide de una regresión discontinua. No vas a estimarlo con
+`rdrobust()`, no vas a correr una prueba de manipulación en el corte, no
+vas a elegir un ancho de banda: eso es anécdota para ver una vez, nunca
+técnica para practicar aquí.
+
+### La intuición de un *confounder*, contada como historia
+
+Ya te encontraste esto en la sesión 9, con el caso real de legisladores
+estadounidenses que tienen más hijas y votan más a favor de temas de
+mujeres: la pregunta era si tener hijas CAUSA ese voto, o si ambas cosas
+—tener familias grandes y votar de cierta manera— comparten una causa
+común que no estás midiendo. Esa causa común es un **factor de confusión**:
+algo que empuja tanto a la variable que te interesa como al resultado, sin
+que una cause a la otra.
+
+Tienes el mismo patrón, con datos mexicanos reales, en la sesión 9: ahí
+viste que agregar `pct_mc` al modelo de `ventaja_shh` movía el coeficiente
+de `participacion` de -0.29 a -0.18. Eso es exactamente lo que hace un
+posible confusor cuando lo agregas a un modelo: si el coeficiente de
+interés se mueve mucho al controlar por algo, es señal de que esa "algo" sí
+estaba conectada con las dos variables originales. La prueba de mesa, sin
+ninguna fórmula, es siempre la misma pregunta: *si controlo por esto, ¿el
+patrón se sostiene o desaparece?* Cuando desaparece casi por completo, la
+"algo" que agregaste era, probablemente, la verdadera historia.
+
+::: {.si-algo-falla}
+### Si algo falla
+
+**El coeficiente de `tratamiento:despues` no me da exactamente 5**
+Revisa que `datos_did` tenga EXACTAMENTE las cuatro filas del ejemplo, con
+`tratamiento` y `despues` codificados como 0/1 y no como texto. Con texto
+sin convertir a factor, `feols()` puede tronar o darte una tabla distinta
+a la esperada.
+
+**El salto de la regresión discontinua no se ve en mi gráfico**
+Revisa que `geom_vline(xintercept = 0)` esté en el bloque de `ggplot()`, y
+que no hayas cambiado el `15` del bloque de simulación por un número
+chico: con un salto de 1 o 2 unidades, sobre datos con `rnorm(sd = 5)` de
+ruido, es fácil que no se distinga a simple vista.
+
+**`Error in feols(...) : tratamiento * despues` no reconoce el operador `*`**
+El `*` dentro de una fórmula de R no es multiplicación: es notación de
+"incluye las dos variables por separado Y su interacción". Es la misma
+sintaxis, con el mismo significado, que viste en `mejores_practicas_r_cpol.md`
+para no confundir con `tratamiento:despues`, que SOLO incluye la
+interacción, sin los términos por separado —y omitirlos sesga la
+estimación, un antipatrón documentado del curso—.
+
+Hay más, con su traducción y su arreglo, en
+[Errores comunes](../../recursos/errores-comunes.qmd).
+:::
+
+::: {.ya-sabes}
+### Lo que ya sabes hacer
+
+- Calcular una diferencia-en-diferencias con cuatro números, y nombrar
+  el supuesto de tendencias paralelas que ese cálculo esconde.
+- Reconocer, en un dibujo, el salto que define una regresión
+  discontinua, y explicar por qué ese salto es evidencia y no
+  coincidencia.
+- Contar, sin ninguna fórmula, qué es un factor de confusión, y usar
+  la prueba de "¿el patrón se sostiene al controlar por esto?" sobre
+  un modelo real.
+:::
+
+## Para seguir
+
+Este es, con toda intención, el módulo más breve de los seis extras. Si te
+quedaste con ganas de la maquinaria completa —tendencias paralelas
+verificadas con datos, `rdrobust()` con ancho de banda óptimo, matching,
+ponderación por probabilidad inversa—, el capítulo 10 de *AnalizaR Datos
+Políticos* (Andrew Heiss) la cubre con DAGs y datos simulados, y es la
+puerta de entrada honesta hacia un curso de métodos cuantitativos de
+verdad, que este laboratorio de once horas nunca pretendió ser.

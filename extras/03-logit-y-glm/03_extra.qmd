@@ -1,0 +1,214 @@
+---
+title: "Extra 3 · Modelos logit y GLM"
+subtitle: "¿Qué pasa cuando lo que quieres explicar es sí o no?"
+---
+
+::: {.gancho}
+En la sesión 9 explicaste `ventaja_shh`, una variable continua, con `lm()` y
+`feols()`. Pero una buena parte de las preguntas politológicas de verdad no
+son continuas: ¿hubo un quiebre democrático o no? ¿ganó la coalición o no?
+¿el municipio tuvo un triunfo arrasador o no? Cuando lo que quieres explicar
+solo puede valer 0 o 1, ajustarle una recta —por bien que se vea en el
+gráfico— te puede predecir probabilidades negativas o mayores a cien por
+ciento, que no significan nada. Esta es la clase que Álvaro Pérez anunció en
+su temario y nunca llegó a dar. Aquí se cumple esa promesa.
+:::
+
+## Qué vas a poder hacer al salir
+
+Vas a ajustar tu primera regresión logística con `glm(family = binomial())`,
+sobre una pregunta real: ¿qué tan probable es que un municipio le haya dado
+a Sigamos Haciendo Historia un triunfo por más de veinte puntos en 2024, y
+qué tanto tiene que ver el tamaño del municipio con esa probabilidad? Vas a
+convertir la salida del modelo —que por default llega en una escala
+llamada [log-odds]{.termino-en} o *logaritmo de momios*, que no tiene una
+lectura intuitiva— a probabilidades, que sí la tienen. Y vas a usar
+`marginaleffects::avg_slopes()` para poner un número honesto a "cuánto
+cambia la probabilidad" en vez de quedarte con el coeficiente crudo.
+
+Este módulo interpreta **en probabilidades, no en log-odds**, en toda su
+extensión: no vas a calcular una razón de momios (*odds ratio*) ni vas a
+necesitar entender qué es un logaritmo natural para seguir el argumento. Es
+una decisión deliberada: la razón de momios es la interpretación más común
+en los libros de texto de ciencia política, y también la que más se presta
+a malentendidos —"el momio se multiplica por 1.5" no le dice nada intuitivo
+a nadie que no lleve meses trabajando con logit—. La probabilidad sí se
+entiende sola.
+
+## Qué necesitas haber visto antes
+
+La sesión 9 completa: `lm()`, `feols()`, `modelsummary()`, y la costumbre de
+leer un coeficiente con sus unidades antes de repetirlo en voz alta. Si
+viste el extra 2, la palabra "probabilidad" ya no te es nueva.
+
+## Los archivos del módulo
+
+::: {.descargas}
+[03_script.R — el código completo](https://raw.githubusercontent.com/emirandago/r-para-politologos/main/extras/03-logit-y-glm/03_script.R){.btn-descarga}
+[03_ejercicio.R — para practicar](https://raw.githubusercontent.com/emirandago/r-para-politologos/main/extras/03-logit-y-glm/03_ejercicio.R){.btn-descarga}
+[03_solucion.R — solución comentada](https://raw.githubusercontent.com/emirandago/r-para-politologos/main/extras/03-logit-y-glm/03_solucion.R){.btn-descarga .secundario}
+:::
+
+`03_script.R` corre completo, de arriba abajo, sin huecos.
+
+## El contenido, en prosa
+
+### Por qué `lm()` no es la herramienta correcta aquí
+
+Nada te impide, técnicamente, correr `lm(arraso_shh ~ lista_nominal_miles)`
+sobre una variable que solo vale 0 o 1: R no te lo va a impedir, y de hecho
+a eso se le llama **modelo lineal de probabilidad**. El problema no es que
+truene: es que una recta no tiene por qué quedarse entre 0 y 1. Con los
+datos reales de 2024, el modelo lineal ajustado predice, para el municipio
+más grande del país —más de 1.6 millones de personas en la lista
+nominal—, una probabilidad de 0.237: todavía dentro de rango, pero muy
+cerca del límite. Si extrapolaras ese mismo modelo a un municipio
+hipotético de 3 millones de personas —más grande que cualquiera de los
+2,473 reales, pero no una cifra absurda para una ciudad que siga creciendo—,
+la predicción cae a -0.26: una probabilidad negativa, que no quiere decir
+nada. `glm()` con familia binomial resuelve esto por construcción: la
+función que usa por dentro —la [logística]{.termino-en}, con forma de
+"S" alargada— nunca puede salir del rango de 0 a 1, sin importar qué tan
+extremo sea el valor de x.
+
+### `glm(family = binomial())`: la sintaxis
+
+```r
+modelo_logit <- glm(
+  arraso_shh ~ lista_nominal_miles,
+  data   = municipios,
+  family = binomial()
+)
+```
+
+Se parece mucho a `lm()`, con dos diferencias: el nombre de la función
+—`glm()` es *generalized linear model*, modelo lineal generalizado— y el
+argumento `family`, que le dice a R qué forma tiene la variable que quieres
+explicar. `binomial()` es la familia correcta para una variable de dos
+valores (0/1, sí/no, ganó/perdió). GLM es una familia más amplia de
+modelos —hay familias para conteos, para variables con solo valores
+positivos, para varias más— pero en ciencia política, con mucho, la que más
+vas a usar es esta.
+
+### De log-odds a probabilidades
+
+`summary(modelo_logit)` te va a dar un coeficiente que, leído directo, no
+dice nada intuitivo: está en la escala de log-odds, el logaritmo natural de
+la razón entre "probabilidad de que sí" y "probabilidad de que no". Nadie
+piensa naturalmente en logaritmos de razones de probabilidad, y este curso
+no te va a pedir que empieces hoy. La manera honesta de leer un modelo
+logit es pedirle predicciones ya convertidas a probabilidad:
+
+```r
+predict(modelo_logit, newdata = tibble(lista_nominal_miles = c(1, 100, 300)), type = "response")
+```
+
+`type = "response"` es el argumento que hace la conversión: sin él,
+`predict()` te devuelve log-odds; con él, probabilidades entre 0 y 1,
+listas para leerse. Con el modelo real de 2024, un municipio de mil
+personas en la lista nominal tiene una probabilidad predicha de triunfo
+arrasador de 83.3%; uno de cien mil personas, 80.6%; uno de trescientas mil,
+74.3%. La probabilidad baja conforme el municipio crece, y lo hace de forma
+suave, nunca brincando fuera de 0 a 1.
+
+### `marginaleffects::avg_slopes()`: un número para "cuánto cambia"
+
+El coeficiente crudo de un modelo logit no te dice, por sí solo, cuánto
+cambia la probabilidad por unidad de x —a diferencia de una regresión
+lineal, donde el coeficiente ES ese cambio, siempre—: en logit, ese cambio
+depende de en qué punto de la curva se mire, porque la curva no es una
+línea recta. `marginaleffects::avg_slopes()` resuelve esto calculando el
+cambio en probabilidad en cada observación real de tus datos y luego
+promediando esos cambios: es lo que se llama un **efecto marginal
+promedio**.
+
+```r
+avg_slopes(modelo_logit, variables = "lista_nominal_miles")
+```
+
+Con el modelo real, ese número da, aproximadamente, -0.00026: por cada mil
+personas más en la lista nominal, la probabilidad de un triunfo arrasador
+cae, en promedio, 0.026 puntos porcentuales —o, dicho en una unidad más
+legible, casi 2.65 puntos porcentuales por cada cien mil personas más—.
+Fíjate en el verbo: "en promedio". El efecto marginal de un logit nunca es
+un número único y constante como en una recta; es un promedio sobre todos
+los puntos donde sí lo calculaste, y por eso se llama *average* slope.
+
+### Una segunda variable, y la misma humildad de siempre
+
+```r
+modelo_logit_2 <- glm(
+  arraso_shh ~ lista_nominal_miles + participacion,
+  data   = municipios,
+  family = binomial()
+)
+```
+
+Agregar `participacion` no cambia el signo del coeficiente de
+`lista_nominal_miles` —sigue siendo negativo, y su magnitud casi no se
+mueve—, pero sí aporta su propio efecto: municipios con más participación
+también tienen, en promedio, menor probabilidad de un triunfo arrasador.
+Ninguno de los dos coeficientes es enorme, y el ajuste global del modelo
+—medido con un número llamado pseudo-R² de McFadden, el equivalente
+aproximado del R² de una regresión lineal para un modelo logit— apenas
+ronda 0.01. Es exactamente la misma lección de humildad de la sesión 9: un
+coeficiente puede ser estadísticamente distinguible de cero —su error
+estándar es varias veces más chico que el coeficiente mismo— y aun así
+explicar una fracción diminuta de por qué un municipio arrasa y otro no.
+`modelsummary()` construye la tabla de los dos modelos exactamente igual
+que en la sesión 9, con estrellas junto a los coeficientes: la misma
+advertencia de entonces aplica sin cambios —una estrella dice qué tan lejos
+está un número de cero, no qué tan importante es—.
+
+::: {.si-algo-falla}
+### Si algo falla
+
+**`Error in eval(family$initialize) : y values must be 0 <= y <= 1`**
+Tu variable dependiente no es estrictamente 0/1. Revisa con `table()` que
+solo tenga esos dos valores, y que no queden `NA` sin filtrar.
+
+**Las predicciones salen como números negativos o mayores a 1**
+Casi siempre significa que olvidaste `type = "response"` en `predict()`, y
+lo que estás viendo son log-odds, no probabilidades. Log-odds sí pueden ser
+negativos o mayores a 1 sin ningún problema; probabilidades, nunca.
+
+**`could not find function "avg_slopes"`**
+`avg_slopes()` vive en el paquete `marginaleffects`, que no es parte de
+`tidyverse` y hay que cargarlo aparte con `library(marginaleffects)`.
+
+**`Warning: glm.fit: fitted probabilities numerically 0 or 1 occurred`**
+Es una advertencia, no un error: tu modelo está clasificando algunas
+observaciones con una probabilidad casi perfecta de 0 o de 1. Con los
+datos y las variables de este módulo no debería aparecer; si te aparece en
+tu propio ejercicio, casi siempre significa que una de tus variables
+explicativas casi separa completamente el 0 del 1.
+
+Hay más, con su traducción y su arreglo, en
+[Errores comunes](../../recursos/errores-comunes.qmd).
+:::
+
+::: {.ya-sabes}
+### Lo que ya sabes hacer
+
+- Explicar por qué una variable de sí/no necesita `glm(family = binomial())`
+  en vez de `lm()`.
+- Convertir la salida de un modelo logit a probabilidades con
+  `predict(..., type = "response")`, y leerla en una oración con
+  unidades.
+- Usar `avg_slopes()` para poner un número a "cuánto cambia la
+  probabilidad", y explicar por qué ese número es un promedio y no una
+  constante.
+:::
+
+## Para seguir
+
+`datos/limpios/vdem_americas.csv` y `datos/limpios/qog_basico.csv`
+—bases comparadas de panel país-año— están en construcción y **todavía no
+están documentadas en `datos/README.md`** al momento de escribir este
+módulo. En cuanto lo estén, este extra gana un ejemplo más clásico de la
+literatura —logit de quiebre democrático, al estilo del capítulo 8 de
+*AnalizaR Datos Políticos* (Urdinez, cap. 8)— con datos de muchos países y
+muchos años en vez de un solo corte de México. **[PENDIENTE]**. Mientras
+tanto, el **extra 4** retoma la idea de panel —muchas unidades, varios
+periodos— con las dos elecciones mexicanas que sí tenemos completas y
+verificadas.

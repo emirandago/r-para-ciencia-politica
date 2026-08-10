@@ -1,0 +1,223 @@
+---
+title: "Para seguir"
+subtitle: "Adónde ir después de estas once horas"
+---
+
+::: {.gancho}
+Once sesiones alcanzan para perderle el miedo a R, no para saberlo todo. Eso
+es exactamente lo que debían hacer. Esta página junta, en un solo lugar, lo
+que cada sesión fue apuntando en el camino —una herramienta que no cupo, una
+pregunta que quedó abierta, un rumbo posible— para que decidas hacia dónde
+seguir sin tener que adivinarlo.
+:::
+
+Cada recurso de esta página se verificó abriendo la fuente directamente; si
+en algún punto dice `[VERIFICAR]`, es porque no se pudo confirmar algo con
+certeza y conviene revisarlo antes de citarlo en un trabajo propio.
+
+## Lo que estas once horas dejaron pendiente, a propósito
+
+Tres herramientas se mencionaron en el camino y se pospusieron aquí, siempre
+por la misma razón: enseñarlas bien se hubiera llevado una sesión completa, y
+esa sesión no era la prioridad de un curso que empieza en cero.
+
+**Git por línea de comandos.** Subir un reporte a GitHub arrastrando archivos
+con el mouse (sesión 10) funciona para un documento propio. En cuanto
+trabajes en equipo sobre el mismo código —un proyecto de tesis con alguien
+más, un repositorio compartido con un profesor— vas a necesitar `git` de
+verdad: ramas, `commit`, `push`, y la autenticación por token que GitHub exige
+desde que retiró la contraseña simple. El punto de partida más citado en la
+comunidad de R para esto es *Happy Git and GitHub for the useR*, de Jenny
+Bryan (con colaboración de los ayudantes de STAT 545 y Jim Hester),
+disponible completo y gratis en
+[happygitwithr.com](https://happygitwithr.com/), bajo licencia CC BY-NC 4.0.
+Está escrito exactamente para quien ya sabe R y quiere aprender Git, no al
+revés.
+
+**`renv`.** Cada paquete de R sigue actualizándose después de que termines el
+curso, y un script que corre hoy puede tronar en un año si `dplyr` cambió
+algo entre medio —la sesión 4 de este mismo laboratorio documenta un caso
+real de eso, con verbos de `dplyr` que quedaron *defunct*—. `renv` fija, para
+un proyecto específico, la versión exacta de cada paquete que usaste, en un
+archivo `renv.lock` que puedes guardar junto con tu código. Documentación
+oficial y el vignette de introducción en
+[rstudio.github.io/renv](https://rstudio.github.io/renv/), mantenido por
+Posit. Vale la pena adoptarlo en cuanto empieces un proyecto de tesis o de
+investigación que vaya a vivir más de un semestre.
+
+**Positron, como alternativa a RStudio.** Positron es el nuevo entorno de
+desarrollo de Posit —la misma empresa detrás de RStudio—, construido sobre
+la base de Visual Studio Code, pensado para tratar R y Python como lenguajes
+de igual jerarquía. Este laboratorio usó RStudio en las once sesiones porque,
+para un curso de un solo lenguaje y de gente que nunca ha programado, RStudio
+sigue siendo más maduro: tiene soporte completo de *Addins* (menús que
+agregan varios paquetes de este mismo curso) y de vista previa de Quarto que
+Positron, en su versión de 2026, todavía no iguala del todo. Pero si en algún
+momento programas en R y en Python en el mismo proyecto —algo cada vez más
+común en ciencia política computacional—, vale la pena mirar
+[positron.posit.co](https://positron.posit.co/), que documenta con qué
+funciona bien hoy y qué le sigue faltando.
+
+## Libros, con cita completa
+
+**Para seguir con R en general:**
+
+- Hadley Wickham, Mine Çetinkaya-Rundel y Garrett Grolemund, *R for Data
+  Science* (2.ª edición), O'Reilly, 2023. Gratis y completo en
+  [r4ds.hadley.nz](https://r4ds.hadley.nz/), bajo licencia CC BY-NC-ND 3.0.
+  Es el sucesor natural de este laboratorio: retoma exactamente los mismos
+  paquetes (`dplyr`, `ggplot2`, `tidyr`) con mucho más detalle y sin el
+  recorte que impuso trabajar en una hora a la semana. Existe una traducción
+  al español de esta misma segunda edición, hecha por la comunidad, en
+  [davidrsch.github.io/r4ds-es](https://davidrsch.github.io/r4ds-es/).
+
+- Andrés Cruz y Francisco Urdinez (eds.), *AnalizaR Datos Políticos*, versión
+  1.1, 2021. Disponible completo en
+  [arcruz0.github.io/libroadp](https://arcruz0.github.io/libroadp/), bajo
+  licencia CC BY-NC-ND 4.0 (también publicado en inglés por CRC Press como
+  *Political Data Science Using R*, 2020). Es el único libro de referencia en
+  español de R para ciencia política, y la fuente que más veces se citó para
+  construir este laboratorio. Tiene capítulos que este curso no alcanzó a
+  cubrir —modelos logísticos, modelos de panel, análisis de redes, minería de
+  texto, componentes principales— y que puedes leer directamente ahí. El
+  paquete de datos que acompaña al libro, `paqueteadp`, se instala con
+  `remotes::install_github("arcruz0/paqueteadp")` —nunca estuvo en CRAN, así
+  que instálalo solo cuando quieras acceder a alguno de sus datasets, no como
+  parte de tu flujo normal de trabajo—.
+
+**Si tu interés es más de programación** (escribir mejor código, entender por
+qué R funciona como funciona):
+
+- Hadley Wickham, *Advanced R* (2.ª edición), Chapman & Hall/CRC, 2019.
+  Gratis y completo en [adv-r.hadley.nz](https://adv-r.hadley.nz/), bajo
+  licencia CC BY-NC-SA 4.0. Ahí vive la explicación completa de varios de los
+  errores de `recursos/errores-comunes.qmd` que este laboratorio solo pudo
+  mostrar por encima —qué es exactamente un *closure*, cómo funciona el
+  sistema de S3 detrás de `UseMethod`—.
+
+**Si tu interés es más de geografía** (más allá del mapa de la sesión 7):
+
+- Robin Lovelace, Jakub Nowosad y Jannes Muenchow, *Geocomputation with R*
+  (2.ª edición), CRC Press, 2025. Gratis y completo en
+  [r.geocompx.org](https://r.geocompx.org/), bajo licencia CC BY-NC-ND 4.0,
+  con traducción parcial al español en
+  [r.geocompx.org/es](https://r.geocompx.org/es/). Cubre justo lo que la
+  sesión 7 dejó fuera por falta de tiempo: operaciones geométricas, datos
+  raster con `terra`, autocorrelación espacial, y mapas interactivos.
+
+**Si tu interés es más de texto** (minería de texto político, análisis de
+discurso legislativo):
+
+- Julia Silge y David Robinson, *Text Mining with R: A Tidy Approach*,
+  O'Reilly, 2017. Gratis y completo en
+  [tidytextmining.com](https://www.tidytextmining.com/), bajo licencia CC
+  BY-NC-SA 3.0. Extiende la misma gramática de `tidyverse` que ya conoces —el
+  paquete se llama, justamente, `tidytext`— al análisis de palabras, n-gramas
+  y modelos de tópicos.
+
+**Si tu interés es más de estadística** (lo que este laboratorio prometió
+prefigurar, no sustituir): la ruta formal son tus cursos de Estadística I y
+Estadística II del ITAM. Como complemento, dos referencias:
+
+- Kieran Healy, *Data Visualization: A Practical Introduction*, Princeton
+  University Press, 2018 —ya citado en la sesión 6 de este laboratorio, sobre
+  ética visual y por qué una escala de color es una afirmación, no un
+  adorno—.
+- Gareth James, Daniela Witten, Trevor Hastie y Rob Tibshirani, *An
+  Introduction to Statistical Learning with Applications in R* (2.ª
+  edición), Springer, 2021. Gratis en PDF en
+  [statlearning.com](https://www.statlearning.com/), con laboratorios de
+  código en R al final de cada capítulo. Es el paso natural después de la
+  sesión 9 de este laboratorio, hacia modelos más allá de la regresión
+  lineal simple.
+
+## Cursos
+
+- Los "Data Skills Videos" y el material formativo de
+  [PsyTeachR](https://psyteachr.github.io/), el equipo de la Universidad de
+  Glasgow que produjo *Data Skills for Reproducible Science* (Lisa DeBruine,
+  Emily Nordmann y colegas, 2021, CC BY-SA 4.0), disponible en su versión
+  original en [psyteachr.github.io/msc-data-skills](https://psyteachr.github.io/msc-data-skills/)
+  y, ya actualizado y con Quarto en vez de R Markdown, como *Data Skills for
+  Reproducible Research* (Lisa DeBruine, Dale Barr y Emily Nordmann, 2025,
+  licencia CC BY), en
+  [psyteachr.github.io/reprores-v5](https://psyteachr.github.io/reprores-v5/).
+  Vale la pena decir esto con nombre y apellido, porque es una cuenta
+  pendiente de este laboratorio con la honestidad académica: el curso de
+  Introducción a R que Álvaro Pérez impartió antes en el ITAM adaptó buena
+  parte de su temario y de su código de este libro —clase por clase, en
+  tramos textualmente idénticos— sin citarlo en ningún archivo. Este
+  laboratorio no repite esa omisión: si en algún momento reconoces un
+  ejercicio o una estructura de este curso que se parece a la de PsyTeachR,
+  es porque en efecto viene de ahí, y aquí queda dicho.
+
+- Los cheat sheets oficiales de Posit, uno por paquete (`dplyr`, `ggplot2`,
+  `tidyr`, `sf`, entre otros), disponibles desde RStudio en el menú *Help ▸
+  Cheat Sheets*, o en línea en
+  [posit.co/resources/cheatsheets](https://posit.co/resources/cheatsheets/).
+  El [acordeón de este laboratorio](acordeon-r.pdf) es una versión reducida
+  y en español, pensada solo para lo que este curso enseñó; los cheat sheets
+  de Posit cubren cada paquete a fondo.
+
+## La comunidad, en español y en Latinoamérica
+
+- **LatinR** — la Conferencia Latinoamericana sobre Uso de R en Investigación
+  y Desarrollo, activa desde 2018 (primera edición en Buenos Aires), con
+  ediciones anuales virtuales y presenciales alternadas. La edición 2026 es
+  del 10 al 14 de octubre, virtual. Sitio y transmisiones en
+  [latin-r.com](https://latin-r.com/); las presentaciones de ediciones
+  anteriores viven en [github.com/LatinR](https://github.com/LatinR), en
+  español y portugués.
+
+- **RLadies+** (antes R-Ladies) — la red global de comunidades locales que
+  promueven la diversidad de género en el uso de R, con capítulos activos en
+  varias ciudades de América Latina, incluyendo capítulos mexicanos. Directorio
+  completo de capítulos en [rladies.org/chapters](https://rladies.org/chapters/).
+
+## Paquetes y datasets que quedaron fuera del camino de once sesiones
+
+Los tres cursos que este laboratorio heredó —de Paula Cortina, de Aldo Gómez
+y de Álvaro Pérez— usaron estas herramientas para practicar. Ninguna entró al
+camino crítico de once sesiones porque los datos de este laboratorio son
+electorales mexicanos de principio a fin, pero las tres son legítimas y valen
+la pena si quieres seguir practicando con otro tipo de datos.
+
+- **`nycflights13`** — la base de más de 300,000 vuelos que salieron de los
+  tres aeropuertos de Nueva York en 2013, mantenida en CRAN. El curso
+  heredado de Paula Cortina la usó para practicar `dplyr` y los primeros
+  `ggplot()` antes de llegar a datos electorales; sigue siendo un dataset
+  cómodo para practicar cruces y agrupaciones con datos que no son
+  mexicanos, útil para el contrapunto comparado que este laboratorio
+  promete desde la sesión 1.
+
+- **`wesanderson`** — paletas de color inspiradas en las películas de Wes
+  Anderson, de Karthik Ram, en CRAN y en
+  [github.com/karthik/wesanderson](https://github.com/karthik/wesanderson).
+  El curso heredado de Aldo Gómez la usó para mapas de la Ciudad de México.
+  No es una paleta verificada como segura para daltonismo —a diferencia de
+  `viridis`, que este laboratorio sí exige en las sesiones 5 a 7—, así que
+  úsala para exploración propia, no para una figura que vaya a un trabajo
+  final o a una publicación.
+
+- **`plotly`** — gráficos interactivos: uno puede acercarse, alejarse y pasar
+  el cursor sobre un punto para ver su valor exacto. Documentación completa
+  en [plotly.com/r](https://plotly.com/r/). La función `ggplotly()`, del
+  mismo paquete, convierte un gráfico de `ggplot2` que ya sabes construir en
+  una versión interactiva con una sola línea de código adicional —es, con
+  diferencia, la puerta de entrada más barata a gráficos interactivos para
+  quien ya terminó la sesión 6 de este laboratorio—.
+
+## Y si quieres seguir con el proyecto Morena × ministras
+
+El proyecto final del laboratorio —cruzar el poder electoral de Morena con
+el voto por candidaturas morenistas a ministra de la Corte en la elección
+judicial— tiene continuaciones naturales una vez que termine el curso: un
+segundo corte con otra elección judicial si vuelve a haber una, una
+comparación contra otro poder Ejecutivo estatal, o una regresión con más
+control de variables que la que enseñó la sesión 9 —con la advertencia,
+repetida en esa misma sesión, de que agregar variables no es lo mismo que
+acercarse a una respuesta causal. Los materiales de Eric Magar
+(`emagar/elecRetrns`, `emagar/mxDistritos`, en GitHub) y el trabajo de
+Data México de Adrián Lucardi son los puntos de partida más sólidos para
+seguir con datos electorales mexicanos reales más allá de lo que trae
+`datos/` en este repositorio.

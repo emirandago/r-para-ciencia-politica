@@ -1,0 +1,187 @@
+---
+title: "Sesión 7 · El mapa de México"
+subtitle: "¿Cómo se ve el voto en el territorio?"
+---
+
+::: {.gancho}
+Hasta hoy, "el sur votó distinto al norte" era una frase que se defendía con una
+tabla y un poco de paciencia para leerla. Después de esta hora se defiende
+señalando un mapa. La tabla de 2,478 municipios que ya conoces se vuelve una
+imagen del país completo, y en esa imagen aparece un patrón regional que ninguna
+columna de números, por sí sola, había dejado ver con esta claridad.
+:::
+
+## Qué vas a poder hacer al salir
+
+Vas a saber qué es un objeto `sf` —una tabla común y corriente con una columna
+adicional que guarda la forma de cada polígono—, vas a verificar el sistema de
+coordenadas de un archivo espacial antes de dibujar nada, y vas a producir un
+mapa coroplético de los resultados de la elección presidencial de 2024 con una
+escala de color que dice la verdad sobre lo que mide. También vas a ver, con
+datos reales, por qué un mapa de "cuántos votos" casi nunca es lo que crees que
+es.
+
+Lo que no vas a hacer hoy es correr `st_read()` sobre el Marco Geoestadístico
+completo de INEGI: pesa cientos de megabytes y tardaría minutos en cargar,
+minutos que en una sesión de una hora no sobran. Alguien ya lo hizo una sola
+vez, fuera de esta hora, y simplificó la geometría; tú vas a cargar el
+resultado en segundos. Vas a leer, de todas formas, cómo se ve la salida real
+de `st_read()`, para que la reconozcas el día que sí la necesites.
+
+## Antes de venir
+
+Haber corrido la sesión 4, donde `left_join()` se enseñó a fondo —hoy se
+aplica sin volver a explicarlo—, y la sesión 6, de donde vienen `theme_lab()`,
+las escalas de color con criterio y `ggsave()`.
+
+## Los archivos de la sesión
+
+::: {.descargas}
+[07_script.R — el guion de clase](https://raw.githubusercontent.com/emirandago/r-para-politologos/main/sesiones/07-el-mapa-de-mexico/07_script.R){.btn-descarga}
+[07_ejercicio.R — para llevar](https://raw.githubusercontent.com/emirandago/r-para-politologos/main/sesiones/07-el-mapa-de-mexico/07_ejercicio.R){.btn-descarga}
+[07_slides.pdf — las láminas](https://raw.githubusercontent.com/emirandago/r-para-politologos/main/sesiones/07-el-mapa-de-mexico/07_slides.pdf){.btn-descarga .secundario}
+[07_script_completo.R — resuelto](https://raw.githubusercontent.com/emirandago/r-para-politologos/main/sesiones/07-el-mapa-de-mexico/07_script_completo.R){.btn-descarga .secundario}
+[07_solucion.R — solución del ejercicio](https://raw.githubusercontent.com/emirandago/r-para-politologos/main/sesiones/07-el-mapa-de-mexico/07_solucion.R){.btn-descarga .secundario}
+:::
+
+El archivo `07_script.R` tiene huecos y **no corre de corrido**: está hecho
+para llenarse en clase. Los dos archivos grises se publican al terminar la
+sesión.
+
+## El contenido, en prosa
+
+### Un mapa es, antes que nada, una tabla
+
+La manera más rápida de perderle el miedo a un mapa es dejar de pensarlo como
+un mapa. Un objeto `sf` —de *simple features*, el estándar de R para
+geometría— es una tabla: tiene filas y columnas, se filtra con `filter()`, se
+cruza con `left_join()`, se describe con `glimpse()`, exactamente como
+cualquier `tibble` que ya conoces. Lo único distinto es una columna adicional,
+`geometry`, que en vez de un número o un texto guarda el contorno de cada
+polígono. Dicho de otro modo: un objeto `sf` es una tabla con una columna
+rara, no una criatura aparte.
+
+El Marco Geoestadístico completo de INEGI —el catálogo oficial de fronteras
+municipales y estatales del país— pesa cientos de megabytes, y `st_read()`
+tarda entre diez y veinte segundos en abrirlo, más otro rato cada vez que se
+vuelve a dibujar. En una sesión de una hora, eso son varios minutos de gente
+mirando una barra de progreso. La solución no fue recortar el contenido de
+hoy: fue simplificar la geometría una sola vez, fuera de clase, con
+`rmapshaper::ms_simplify()`, y publicar el resultado en
+`datos/geo/municipios_simplificado.rds` y `datos/geo/entidades_simplificado.rds`,
+dos archivos que cargan en segundos con `read_rds()`. Sirven únicamente para
+**dibujar**: cualquier cálculo de área o de distancia sobre ellos da un número
+incorrecto, porque la simplificación deforma los polígonos justo para eso.
+Está documentado, con esas palabras exactas, en `datos/README.md`.
+
+Aunque no la corras hoy, vale la pena saber leer la salida de `st_read()` la
+primera vez que la ves, porque la vas a encontrar en cualquier proyecto real
+de geografía política: te dice cuántas filas trae (*features*), cuántas
+columnas normales sin contar la geometría (*fields*), si cada fila es un solo
+polígono o varios pegados bajo el mismo nombre —una isla, un exclave— (*
+Geometry type*), y en qué sistema de coordenadas viene. Esa última línea es el
+contenido de la siguiente sección.
+
+### El CRS: un acuerdo sobre cómo aplanar una esfera
+
+La Tierra es un elipsoide y un mapa es un rectángulo plano. Pasar de uno a
+otro exige elegir un sistema de referencia de coordenadas —CRS, por sus
+siglas en inglés—, y elegirlo es, literalmente, decidir qué se sacrifica al
+aplanar: ningún CRS conserva a la vez el área real, la forma real y la
+distancia real. El Marco Geoestadístico de INEGI viene, de fábrica, en una
+proyección cónica de Lambert amarrada a ITRF2008 (EPSG:6372), pensada para
+medir con precisión dentro del territorio mexicano. Los archivos de esta
+sesión ya vienen reproyectados a WGS84 (longitud y latitud, EPSG:4326), el
+estándar de facto para mapas web y para `geom_sf()` —pero eso no es un
+supuesto que te toque hacer: es algo que se verifica con `st_crs()` antes de
+dibujar una sola línea, siempre, sin excepción. Si algún día sobrepones dos
+capas con CRS distinto, R no te detiene con un error rojo: los polígonos
+simplemente no coinciden en el mapa, y ese es un error mucho más difícil de
+detectar que uno rojo.
+
+### La unión por clave, aplicada sin volver a explicarla
+
+La sesión 4 enseñó `left_join()` a fondo, con todo y el problema de las
+claves municipales del INE contra las de INEGI. Hoy ese aprendizaje se usa,
+no se repite: `presidencial_2024_municipio.csv` ya viene con la clave INEGI
+reconciliada (`datos/README.md`, sección 6), así que se cruza directo contra
+`municipios_simplificado.rds` por `clave_municipio`, sin volver a pasar por el
+puente de claves. Lo único nuevo es que uno de los dos lados del `left_join()`
+es un objeto `sf`: a la función no le importa, sigue cruzando fila por fila, y
+la columna `geometry` viaja con el resto.
+
+### El mapa de conteos contra el mapa de proporciones
+
+En la sesión 1, al hablar de la lista nominal contra la participación, se dijo
+de pasada que un mapa de "número de homicidios" es, en buena medida, un mapa
+de dónde vive la gente, y se prometió que lo veríamos otra vez, y peor, aquí.
+Esta sesión cumple esa promesa con datos reales: un mapa coroplético de
+**votos** de la coalición Sigamos Haciendo Historia por municipio ilumina casi
+exclusivamente los municipios más poblados del país —Iztapalapa, Tijuana,
+Ecatepec, Puebla, Ciudad Juárez, Guadalajara—, que no son necesariamente donde
+esa coalición ganó por más margen. El mismo mapa, coloreado por
+**porcentaje** en vez de por conteo, cambia por completo: ahora se encienden
+municipios pequeños de Oaxaca y Chiapas donde casi nadie votó distinto. Es la
+misma trampa de contar sin ponderar por población que ya viste en la sesión 1,
+pero en dos dimensiones y mucho más fácil de tomar por autoritativa sin
+darse cuenta.
+
+### La coropleta final, y el primer paso visible del proyecto
+
+El mapa que cierra la sesión colorea `ventaja_shh` —cuánto le sacó SHH al
+segundo lugar, en puntos porcentuales— con una escala **divergente**
+centrada en cero, el mismo criterio de la sesión 6 aplicado ahora sobre un
+territorio en vez de sobre una barra, con las fronteras estatales encima para
+dar contexto. Ese mapa no es un ejercicio aislado: es, literalmente, uno de
+los dos mapas del proyecto final del laboratorio. En la sesión 11 se le va a
+sobreponer un segundo mapa —el voto por candidaturas abiertamente morenistas
+a ministra de la Corte, en la elección judicial de 2025— para preguntar si
+coinciden en el territorio. El proyecto Morena × ministras no empieza en la
+sesión 11: nace hoy, en este archivo.
+
+::: {.si-algo-falla}
+### Si algo falla
+
+**`Error in st_read(...) : Cannot open ...`**
+No es un error que vayas a ver hoy —no corremos `st_read()` sobre el
+shapefile completo—, pero si algún día lo intentas y te sale esto, casi
+siempre falta uno de los archivos compañeros del `.shp` (`.dbf`, `.shx`,
+`.prj`): un shapefile son varios archivos que tienen que viajar juntos, nunca
+uno solo.
+
+**`Error: object 'municipios' not found`**
+No corriste la línea donde se creó, o la sesión anterior se cerró y perdiste
+los objetos guardados. Vuelve a correr `read_rds()` desde el principio del
+script.
+
+**Filas duplicadas después de un `left_join()` que no truena**
+Si `nrow()` de tu mapa crece en vez de quedarse en 2,478, casi siempre
+significa que la clave de unión tiene valores repetidos de un lado. Revisa
+con `sum(duplicated(...))` antes de unir, no después.
+
+**El mapa se ve todo de un solo color**
+Casi siempre significa que la columna que pusiste en `fill = ` dentro de
+`aes()` quedó fuera de `aes()` por error, o que se llenó de `NA` después de un
+`left_join()` que no encontró coincidencias. `sum(is.na(...))` te dice cuántas
+filas se quedaron sin dato.
+
+Hay más, con su traducción y su arreglo, en [Errores comunes](../../recursos/errores-comunes.qmd).
+:::
+
+::: {.ya-sabes}
+### Lo que ya sabes hacer
+
+- Reconocer un objeto `sf` como lo que es —una tabla con una columna de
+  geometría— y verificar su CRS con `st_crs()` antes de dibujar nada.
+- Unir un mapa con una base de resultados electorales usando `left_join()`, y
+  producir una coropleta con una escala de color que dice la verdad.
+- Explicar, con un ejemplo propio, por qué un mapa de conteos no es lo mismo
+  que un mapa de proporciones.
+:::
+
+## La semana que viene
+
+**Describir sin mentir.** Vas a aprender a resumir una variable con un solo
+número —media, mediana, desviación estándar— y a desconfiar de esos números
+hasta que los veas en un gráfico. El cuarteto de Anscombe te va a enseñar, sin
+una sola fórmula, por qué se grafica antes de resumir.

@@ -1,0 +1,99 @@
+---
+title: "Extras"
+subtitle: "Seis módulos autoestudiables, para lo que no cupo en las once horas"
+---
+
+::: {.gancho}
+Once horas alcanzan para perderle el miedo a R, no para cubrir todo lo que
+enseñaron los cursos que este laboratorio hereda. Lo que no entró en las
+once sesiones presenciales vive aquí, con el mismo estándar de calidad: seis
+módulos completos, cada uno con su propio guion, script, ejercicio y
+solución comentada.
+:::
+
+## Cómo usarlos
+
+Cada módulo es autocontenido: se puede trabajar solo, sin depender de que
+alguien más lo explique en vivo. Los seis suponen que ya pasaste por las
+sesiones que citan —el módulo de datos de panel, por ejemplo, retoma algo
+que quedó pendiente en la sesión 4—, así que conviene llegar a cada uno
+después de la sesión que menciona, no antes.
+
+::: {.tarjeta-sesion}
+### [Extra 1 · Funciones e iteración a profundidad](01-funciones-e-iteracion/01_extra.qmd)
+
+::: {.pregunta}
+¿Qué haces cuando la misma operación se repite treinta y dos veces?
+:::
+
+::: {.entregable}
+Escribir funciones propias e iterar con el ecosistema de purrr, en vez de
+copiar y pegar el mismo bloque una y otra vez.
+:::
+:::
+
+::: {.tarjeta-sesion}
+### [Extra 2 · Probabilidad y simulación](02-probabilidad-y-simulacion/02_extra.qmd)
+
+::: {.pregunta}
+¿Qué tanto cambiaría el resultado si volvieras a tirar los dados?
+:::
+
+::: {.entregable}
+Ver moverse la variación muestral repitiendo sorteos con la computadora,
+como preludio de la estadística inferencial.
+:::
+:::
+
+::: {.tarjeta-sesion}
+### [Extra 3 · Modelos logit y GLM](03-logit-y-glm/03_extra.qmd)
+
+::: {.pregunta}
+¿Qué pasa cuando lo que quieres explicar es sí o no?
+:::
+
+::: {.entregable}
+Ajustar un modelo logístico cuando la variable de interés es binaria, en vez
+de forzar una recta donde no corresponde.
+:::
+:::
+
+::: {.tarjeta-sesion}
+### [Extra 4 · Datos de panel y efectos fijos](04-panel-y-efectos-fijos/04_extra.qmd)
+
+::: {.pregunta}
+¿Comparamos municipios entre sí, o un municipio consigo mismo?
+:::
+
+::: {.entregable}
+Comparar la participación de 2,475 municipios en dos elecciones mexicanas
+reales —la presidencial de 2024 y la judicial de 2025— con efectos fijos.
+:::
+:::
+
+::: {.tarjeta-sesion}
+### [Extra 5 · Primer vistazo a inferencia causal](05-inferencia-causal/05_extra.qmd)
+
+::: {.pregunta}
+¿Qué le falta a un antes-y-después para volverse una comparación honesta?
+:::
+
+::: {.entregable}
+Tres ideas centrales de inferencia causal, contadas como aritmética, como
+dibujo y como historia, no como aparato técnico completo.
+:::
+:::
+
+::: {.tarjeta-sesion}
+### [Extra 6 · Guía de Stata a R](06-de-stata-a-r/06_extra.qmd)
+
+::: {.pregunta}
+¿Por qué traducir un comando de Stata palabra por palabra no siempre
+funciona?
+:::
+
+::: {.entregable}
+Un diccionario Stata → R y las trampas silenciosas de la traducción
+mecánica, comando por comando.
+:::
+:::

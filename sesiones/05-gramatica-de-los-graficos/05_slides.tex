@@ -1,0 +1,330 @@
+% ══════════════════════════════════════════════════════════════════════════════
+% Laboratorio de R para Ciencia Política — ITAM
+% Sesión 05 · La gramática de los gráficos
+%
+% Se compila desde esta carpeta:  pdflatex 05_slides.tex  (DOS veces)
+% El preámbulo, la paleta y el logo viven en ../../estilo/ — no se editan aquí.
+% ══════════════════════════════════════════════════════════════════════════════
+
+\input{../../estilo/preambulo-lab.tex}
+
+\title[Lab de R · Sesión 5]{La gramática de los gráficos}
+\subtitle{¿Por qué unos gráficos convencen y otros no?}
+\date{%
+  Sesión 5 de 11\\[0.3em]
+  \textit{ITAM, otoño 2026}%
+}
+\hypersetup{pdftitle={Sesión 5 · La gramática de los gráficos}}
+
+\begin{document}
+
+% ── Portada ───────────────────────────────────────────────────────────────────
+{\setbeamertemplate{footline}{}\setbeamertemplate{headline}{}
+\begin{frame}[plain, noframenumbering]
+  \titlepage
+\end{frame}}
+
+% ── El gancho ─────────────────────────────────────────────────────────────────
+\porquenosimporta{¿Por qué unos gráficos convencen y otros no?}{%
+  Ya copiaste un \cod{ggplot()} en la sesión 1 sin entenderlo del todo, y
+  funcionó. Hoy esa confianza se vuelve comprensión.}
+
+% ── Recapitulación ────────────────────────────────────────────────────────────
+\begin{frame}{De dónde venimos}
+  \vspace{0.3em}
+  \begin{itemize}\setlength{\itemsep}{0.9em}
+    \item<1-> En la sesión pasada filtraste, ordenaste y cruzaste bases con
+          \cod{filter()}, \cod{arrange()} y \cod{mutate()}.
+    \item<2-> El dato ya no es el problema de hoy: lo que cambia es cómo lo
+          mostramos.
+    \item<3-> El gráfico que copiaste en la sesión 1 vuelve hoy, y esta vez
+          lo vas a entender pieza por pieza.
+  \end{itemize}
+\end{frame}
+
+% ══════════════════════════════════════════════════════════════════════════════
+\section{La gramática}
+% ══════════════════════════════════════════════════════════════════════════════
+
+\begin{frame}{Un gráfico no se elige de un menú}
+  \vspace{0.2em}
+  \begin{itemize}\setlength{\itemsep}{0.75em}
+    \item<1-> \ac{Los datos} — el tibble que le pasas a \cod{ggplot()}.
+    \item<2-> \ac{aes()} — qué columna va en cada canal visual: x, y,
+          color.
+    \item<3-> \ac{Un geom\_*()} — qué forma toman esos datos.
+    \item<4-> \ac{labs()} — qué hay que leer: título, ejes, fuente.
+    \item<5-> \ac{theme() y ajustes} — todo lo que NO son los datos.
+  \end{itemize}
+
+  \vspace{1.0em}
+  \onslide<5->{%
+  {\small\color{grisTenue}Las capas se encadenan con \cod{+}. Cada una
+  hereda lo que la anterior ya definió.}}
+\end{frame}
+
+\begin{frame}[fragile]{La regla que resuelve casi toda duda}
+\begin{lstlisting}
+# FIJO: no depende de ningun dato, va FUERA de aes()
+geom_col(fill = "#006847")
+
+# MAPEADO: depende de la variable, va DENTRO de aes()
+aes(fill = participacion)
+\end{lstlisting}
+
+  \vspace{0.7em}
+  \onslide<2->{%
+  \begin{block}{La regla}
+    Todo lo que depende de una variable va \ac{dentro} de \cod{aes()}. Lo
+    que es constante para todo el gráfico va \ac{fuera}.
+  \end{block}}
+\end{frame}
+
+\begin{frame}[fragile]{\cod{aes()} global contra \cod{aes()} local}
+\begin{lstlisting}
+ggplot(datos, aes(x = participacion, y = entidad)) +
+  geom_col(fill = "#006847") +
+  geom_point(aes(colour = participacion))
+\end{lstlisting}
+
+  \vspace{0.6em}
+  \begin{itemize}\setlength{\itemsep}{0.8em}
+    \item<1-> El \cod{aes()} de \cod{ggplot()} es \ac{global}: todas las
+          capas lo heredan.
+    \item<2-> El \cod{aes()} dentro de un \cod{geom\_*()} es \ac{local}:
+          solo aplica a esa capa.
+  \end{itemize}
+
+  \vspace{0.8em}
+  \onslide<3->{%
+  {\small\color{grisTenue}Vuelve a aparecer en la sesión 7, cuando
+  \cod{geom\_sf()} mapee su propio color.}}
+\end{frame}
+
+% ══════════════════════════════════════════════════════════════════════════════
+\section{Tres geoms}
+% ══════════════════════════════════════════════════════════════════════════════
+
+\begin{frame}[fragile]{Barras: \cod{geom\_col()}}
+\begin{lstlisting}
+ggplot(resultados_entidad,
+       aes(x = participacion,
+           y = reorder(entidad, participacion))) +
+  geom_col(fill = "#006847")
+\end{lstlisting}
+
+  \vspace{0.6em}
+  La longitud codifica la magnitud, y una longitud se lee desde cero. Por
+  eso una barra que no arranca en cero miente.
+\end{frame}
+
+\begin{frame}[fragile]{Puntos: \cod{geom\_point()}}
+\begin{lstlisting}
+ggplot(resultados_entidad,
+       aes(x = participacion,
+           y = reorder(entidad, participacion))) +
+  geom_point(colour = "#006847", size = 3)
+\end{lstlisting}
+
+  \vspace{0.6em}
+  Mismo esqueleto, un solo cambio. La magnitud queda en la
+  \ac{posición}, no en la longitud: por eso un punto no necesita empezar
+  en cero.
+\end{frame}
+
+\begin{frame}[fragile]{Línea: \cod{geom\_line()}}
+\begin{lstlisting}
+ggplot(resultados_entidad,
+       aes(x = reorder(entidad, participacion),
+           y = participacion, group = 1)) +
+  geom_line(colour = "#006847", linewidth = 1)
+\end{lstlisting}
+
+  \vspace{0.5em}
+  \begin{itemize}\setlength{\itemsep}{0.7em}
+    \item<1-> Sirve cuando el orden del eje x significa algo de verdad
+          —casi siempre, tiempo—.
+    \item<2-> \cod{group = 1} no es decorativo: sin él, cada categoría
+          queda en su propio grupo de un punto, y no hay nada que
+          conectar.
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Cuando algo falla}
+  \vspace{0.4em}
+  \begin{errorbox}{Warning: Ignoring unknown aesthetics: fill}
+    Traducción: «no sé qué hacer con \cod{fill} aquí, así que lo ignoro».
+
+    \vspace{0.5em}
+    \cod{geom\_line()} no tiene relleno, tiene trazo. El argumento
+    correcto es \cod{colour}, no \cod{fill}.
+  \end{errorbox}
+
+  \vspace{1.0em}
+  El mismo par, al revés, reaparece en \cod{geom\_col()} —que sí tiene
+  relleno— y en la sesión 7, en \cod{geom\_sf()}.
+\end{frame}
+
+% ══════════════════════════════════════════════════════════════════════════════
+\section{Qué hay que ver}
+% ══════════════════════════════════════════════════════════════════════════════
+
+\begin{frame}{Un buen título dice qué hay que ver, no qué es}
+  \vspace{0.3em}
+  \begin{itemize}\setlength{\itemsep}{1.0em}
+    \item<1-> \se{Descriptivo}: «Participación en la elección de 2024,
+          por entidad». Dice lo que el gráfico YA es.
+    \item<2-> \ac{Dirige la mirada}: «¿En qué entidades casi nadie se
+          quedó en casa?». Apunta a algo concreto.
+  \end{itemize}
+
+  \vspace{1.2em}
+  \onslide<3->{%
+  {\small\color{grisTenue}Ya lo dijimos en la sesión 1. Hoy se vuelve
+  regla, no ocurrencia.}}
+\end{frame}
+
+\begin{frame}[fragile]{Los cuatro que casi nunca faltan}
+\begin{lstlisting}
+labs(
+  title    = "¿Donde casi nadie se quedo en casa?",
+  subtitle = "Porcentaje de la lista nominal que voto",
+  x        = "Participacion (%)",
+  y        = NULL,
+  caption  = "Fuente: INE, computos distritales 2024."
+)
+\end{lstlisting}
+
+  \vspace{0.5em}
+  \cod{title} —la pregunta—, \cod{subtitle} —la precisión—, \cod{x}/\cod{y}
+  —con su unidad—, \cod{caption} —la fuente. Un gráfico sin fuente no se
+  entrega.
+\end{frame}
+
+% ══════════════════════════════════════════════════════════════════════════════
+\section{Color con criterio}
+% ══════════════════════════════════════════════════════════════════════════════
+
+\begin{frame}[fragile]{El contraejemplo primero}
+\begin{lstlisting}
+ggplot(entidades_top8,
+       aes(x = participacion,
+           y = reorder(entidad, participacion),
+           fill = entidad)) +
+  geom_col() +
+  scale_fill_manual(values = rainbow(8))
+\end{lstlisting}
+
+  \vspace{0.5em}
+  {\small El material heredado de este laboratorio coloreaba mapas de
+  México así. Vamos a entender por qué parece razonable, y a tumbarlo.}
+\end{frame}
+
+\begin{frame}{Por qué \cod{rainbow()} falla}
+  \vspace{0.3em}
+  \begin{itemize}\setlength{\itemsep}{0.9em}
+    \item<1-> Reparte matices a distancias iguales en \ac{grados}, no en
+          percepción humana: el amarillo se ve más brillante que el
+          morado a la misma distancia angular.
+    \item<2-> Buena parte de sus matices pasa por la zona rojo-verde: la
+          que colapsa bajo la forma más común de daltonismo.
+    \item<3-> No fue diseñada para esto. Existe una paleta que sí:
+          \cod{scale\_fill\_brewer(palette = "Dark2")}, segura para
+          daltonismo, con techo documentado de 8 categorías.
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Tres familias, tres preguntas distintas}
+  \vspace{0.3em}
+  \begin{itemize}\setlength{\itemsep}{0.85em}
+    \item<1-> \ac{Secuencial} — un tono, de claro a oscuro. Para una
+          magnitud sin dos bandos: la participación.
+    \item<2-> \ac{Divergente} — dos tonos desde un centro neutro. Para
+          un punto medio \se{sustantivo}, casi siempre un cero real.
+    \item<3-> \ac{Cualitativa} — máximo contraste, sin gradiente. Para
+          categorías sin orden: el nombre de una entidad.
+  \end{itemize}
+
+  \vspace{1.0em}
+  \onslide<4->{%
+  {\small\color{grisTenue}Cualitativa ya la viste: es
+  \cod{scale\_fill\_brewer(palette = "Dark2")}.}}
+\end{frame}
+
+\begin{frame}[fragile]{Secuencial: sin dos bandos}
+\begin{lstlisting}
+ggplot(resultados_entidad,
+       aes(x = participacion,
+           y = reorder(entidad, participacion),
+           fill = participacion)) +
+  geom_col() +
+  scale_fill_viridis_c()
+\end{lstlisting}
+
+  \vspace{0.5em}
+  viridis va de claro a oscuro, es perceptualmente uniforme y legible
+  bajo las formas comunes de daltonismo.
+\end{frame}
+
+\begin{frame}[fragile]{Divergente: con un cero real}
+\begin{lstlisting}
+ggplot(municipios_grandes,
+       aes(x = ventaja_shh,
+           y = reorder(municipio, ventaja_shh),
+           fill = ventaja_shh)) +
+  geom_col() +
+  scale_fill_gradient2(low = "#B2182B", mid = "white",
+                        high = "#2166AC", midpoint = 0)
+\end{lstlisting}
+
+  \vspace{0.4em}
+  {\small\cod{ventaja\_shh} SÍ tiene dos bandos reales: positivo, va
+  adelante un bloque; negativo, va adelante el otro.}
+\end{frame}
+
+\begin{frame}{El salto}
+  \vspace{0.4em}
+  \begin{saltobox}
+    Elegir una escala de color no es una decisión estética: es una
+    afirmación sobre la estructura de la variable.
+
+    \vspace{0.6em}
+    Una paleta divergente sobre una variable \se{sin} un cero real
+    —\cod{midpoint = mean(x)} en vez de un cero sustantivo— no es fea:
+    inventa una frontera que no existe.
+  \end{saltobox}
+\end{frame}
+
+% ══════════════════════════════════════════════════════════════════════════════
+\section{Ejercicio}
+% ══════════════════════════════════════════════════════════════════════════════
+
+\begin{frame}{Quince minutos, tres niveles}
+  \vspace{0.4em}
+  \begin{itemize}\setlength{\itemsep}{1.0em}
+    \item \ac{Calentamiento} — el mismo esqueleto secuencial, con
+          \cod{pct\_shh} en vez de participación.
+    \item \ac{De verdad} — ¿dónde estuvo más reñida la elección entre
+          las ciudades grandes del país?
+    \item \ac{Si te sobra tiempo} — prueba \cod{rainbow()} con 69
+          municipios, y verifica una paleta con \cod{ggokabeito}.
+  \end{itemize}
+
+  \vspace{1.2em}
+  {\small\color{grisTenue}El archivo es \cod{05\_ejercicio.R}. La
+  solución se publica al terminar la sesión.}
+\end{frame}
+
+% ── Cierre ────────────────────────────────────────────────────────────────────
+\yasabemos
+  {Armar un gráfico capa por capa, sabiendo qué va dentro de \cod{aes()} y qué va fuera.}
+  {Elegir entre barras, puntos y línea según la pregunta, no por costumbre.}
+  {Justificar una paleta de color como una decisión sustantiva, no un gusto.}
+
+\lasiguiente{Gráficos que se publican}{%
+  El gráfico de hoy funciona en tu pantalla. La semana que viene lo
+  convertimos en una figura lista para un trabajo final, con facetas,
+  \cod{theme\_lab()} y la ética visual que decide si un gráfico honesto
+  se vuelve, sin querer, uno engañoso.}
+
+\end{document}

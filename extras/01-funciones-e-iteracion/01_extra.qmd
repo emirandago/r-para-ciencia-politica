@@ -1,0 +1,349 @@
+---
+title: "Extra 1 · Funciones e iteración a profundidad"
+subtitle: "¿Qué haces cuando la misma operación se repite treinta y dos veces?"
+---
+
+::: {.gancho}
+En la sesión 4 calculaste el promedio simple y el promedio ponderado de una
+columna. Si quisieras hacer exactamente esa misma cuenta para `pct_shh`,
+`pct_fcm` y `pct_mc`, tendrías que copiar el bloque tres veces y cambiarle el
+nombre a la columna cada vez. Cópialo una cuarta vez y ya tienes un problema:
+en algún punto se te va a olvidar cambiar un nombre, y R no te va a avisar. La
+respuesta de este módulo es escribir la operación una sola vez, con un hueco
+donde antes había un nombre fijo, y dejar que R repita el hueco por ti.
+:::
+
+## Qué vas a poder hacer al salir
+
+Vas a escribir tus propias funciones, con argumentos que tienen un valor por
+omisión y con un condicional adentro. Vas a entender qué es el alcance —qué
+tan lejos ve una función y qué tan lejos la ve a ella el resto de tu script—.
+Vas a generar secuencias con `rep()`, `seq()` y `replicate()`, recorrer una
+lista con un bucle `for` y con `purrr::map_dbl()`, y comparar dos conjuntos de
+entidades con `intersect()`, `union()` y `setdiff()`. Cierras con la pieza más
+avanzada de todo el laboratorio: una función que recibe el *nombre* de una
+columna como si fuera un dato más, y la usa para producir seis mapas de
+México con un ciclo, no con seis bloques de código pegados uno tras otro.
+
+Lo que no vas a entender del todo, y no pasa nada, es *por qué* funciona la
+sintaxis `.data[[var]]` de la última sección. Se llama evaluación diferida
+([tidy evaluation]{.termino-en}) y es, sin exagerar, el concepto más avanzado
+de todo el material del laboratorio, extras incluidos. Vas a poder copiar el
+patrón y usarlo con confianza; entenderlo en sus tripas es material de un
+curso de R intermedio, no de este.
+
+## Qué necesitas haber visto antes
+
+Las sesiones 1 a 4 (objetos, vectores, el pipe, `group_by()`/`summarise()`) y
+la sesión 7 (mapas con `sf`) para el último bloque. No hace falta haber visto
+la sesión 10 todavía: ahí se enseña apenas lo mínimo de funciones propias, y
+este extra es exactamente el "a fondo" que esa sesión promete y no alcanza a
+dar en una hora de clase.
+
+## Los archivos del módulo
+
+::: {.descargas}
+[01_script.R — el código completo](https://raw.githubusercontent.com/emirandago/r-para-politologos/main/extras/01-funciones-e-iteracion/01_script.R){.btn-descarga}
+[01_ejercicio.R — para practicar](https://raw.githubusercontent.com/emirandago/r-para-politologos/main/extras/01-funciones-e-iteracion/01_ejercicio.R){.btn-descarga}
+[01_solucion.R — solución comentada](https://raw.githubusercontent.com/emirandago/r-para-politologos/main/extras/01-funciones-e-iteracion/01_solucion.R){.btn-descarga .secundario}
+:::
+
+A diferencia de las sesiones presenciales, `01_script.R` **corre completo, de
+arriba abajo, sin huecos**. Este módulo no se imparte en clase: se lee y se
+corre en solitario, y un archivo con huecos sin nadie a quien preguntarle no
+tendría ningún sentido.
+
+## El contenido, en prosa
+
+### Por qué escribir una función propia
+
+Una función es una máquina pequeña: entra algo, R hace algo con eso adentro,
+y sale un resultado. Ya usaste cientos de funciones que alguien más escribió
+—`mean()`, `filter()`, `ggplot()`—; hoy escribes las tuyas. La razón para
+hacerlo casi nunca es "R no trae una función para esto": es que tu propia
+operación, la que combina tres o cuatro pasos del curso en un orden
+particular, se repite. La regla informal que vale la pena adoptar es la de
+"si copiaste y pegaste el mismo bloque tres veces, cambiando solo un nombre,
+esa tercera vez debiste haber escrito una función". Copiar y pegar no es
+gratis: cada copia es un lugar más donde un error se puede esconder, y
+corregirlo significa encontrar y arreglar cada copia por separado. Una
+función centraliza la corrección en un solo sitio.
+
+### La anatomía de una función
+
+```r
+calcular_ventaja <- function(pct_primero, pct_segundo) {
+  ventaja <- pct_primero - pct_segundo
+  return(ventaja)
+}
+```
+
+`function(pct_primero, pct_segundo)` declara los argumentos: los huecos que
+alguien va a llenar cada vez que use la función. El cuerpo, entre llaves, es
+el trabajo. `return()` dice qué sale de la máquina; en R es opcional —si no
+lo escribes, la función devuelve el resultado de la última línea de todas
+formas—, pero escribirlo siempre deja explícito, para quien lea tu código
+después (incluida tu propia persona de dentro de tres meses), cuál es el
+punto exacto donde termina el cálculo.
+
+### Argumentos por omisión
+
+Un argumento puede traer un valor de fábrica, que se usa si nadie especifica
+otro:
+
+```r
+clasificar_margen <- function(ventaja, umbral = 20) {
+  if (ventaja > umbral) {
+    "arrasadora"
+  } else if (ventaja > 0) {
+    "cerrada"
+  } else {
+    "perdida"
+  }
+}
+
+clasificar_margen(25)        # usa el umbral de fábrica, 20
+clasificar_margen(25, 10)    # sobreescribe el umbral
+```
+
+El `if`/`else if`/`else` de adentro es un condicional: R evalúa las
+preguntas en orden y se detiene en la primera que resulte verdadera. Fíjate
+que no hay `return()` en ningún lado: R, otra vez, devuelve el resultado de
+la última expresión que se evaluó, que es el texto correspondiente a la
+rama que se cumplió.
+
+### El alcance: qué tan lejos ve una función
+
+Una variable que creas *dentro* de una función no existe fuera de ella.
+Corre esto y compruébalo:
+
+```r
+demostrar_alcance <- function(x) {
+  resultado_interno <- x * 2
+  resultado_interno
+}
+
+demostrar_alcance(21)
+resultado_interno   # Error: object 'resultado_interno' not found
+```
+
+`resultado_interno` vivió y murió adentro de la función. Esto no es un
+capricho de diseño: es lo que te permite escribir cien funciones distintas
+sin que a ninguna le importe si otra, en otro lado del script, usó el mismo
+nombre de variable por dentro. Cada función tiene su propio cuarto y no ve
+lo que pasa en el cuarto de al lado —salvo los objetos que ya existían
+*antes* de que la función se llamara, que sí puede leer, aunque no pueda
+modificarlos de vuelta hacia afuera sin que tú se lo pidas explícitamente
+con `<<-`, un operador que este curso no enseña porque casi nunca es la
+herramienta correcta para alguien que empieza.
+
+### `rep()`, `seq()` y `replicate()`: generar antes de iterar
+
+Tres funciones que generan vectores, cada una con un propósito distinto.
+
+```r
+rep("Morena", 5)              # repite un valor
+rep(c("SHH", "FCM"), times = 3)  # repite un patrón completo
+rep(c("SHH", "FCM"), each = 3)   # repite cada elemento antes de pasar al siguiente
+
+seq(0, 100, by = 10)          # una secuencia con un salto fijo
+seq(0, 100, length.out = 5)   # una secuencia con un número fijo de pasos
+
+set.seed(1899)                          # sin esto, cada corrida da otra cosa
+replicate(4, mean(sample(1:100, 10)))  # repite una EXPRESIÓN completa, no un valor
+```
+
+`replicate()` es distinta de las otras dos: no repite un dato, repite una
+operación completa, tantas veces como le pidas, y junta los resultados en un
+vector. Es la puerta de entrada a la simulación del extra 2: ahí vas a usar
+exactamente esta función para repetir un sorteo miles de veces.
+
+### El bucle `for`
+
+```r
+columnas_pct <- c("pct_shh", "pct_fcm", "pct_mc")
+promedios_for <- vector("double", length(columnas_pct))
+names(promedios_for) <- columnas_pct
+
+for (columna in columnas_pct) {
+  promedios_for[columna] <- mean(resultados_entidad[[columna]])
+}
+
+promedios_for
+```
+
+`vector("double", length(columnas_pct))` crea, antes de empezar, un espacio
+del tamaño correcto para guardar los resultados. Esto no es una manía: un
+`for` que va agrandando un vector con `c()` dentro de cada vuelta funciona
+igual de bien con tres columnas y se vuelve perceptiblemente lento con
+miles de vueltas, porque R tiene que copiar el vector completo cada vez que
+crece. Reservar el espacio primero evita ese problema desde el principio.
+
+Dentro del bucle, `resultados_entidad[[columna]]` saca la columna cuyo
+nombre está guardado en la variable `columna`. Fíjate en los corchetes
+dobles: `resultados_entidad$pct_shh` solo funciona si escribes el nombre
+literal; `resultados_entidad[[columna]]` funciona con lo que sea que
+`columna` valga en ese momento del bucle. Esa diferencia —un nombre fijo
+contra un nombre que vive en una variable— es la idea que vas a volver a
+encontrar, mucho más desarrollada, en la sección del `.data[[var]]`.
+
+`break` corta el bucle por completo antes de que termine; `next` salta
+nada más la vuelta actual y sigue con la siguiente. Los vas a usar poco en
+ciencia política aplicada —son más comunes en programación de propósito
+general que en análisis de datos—, pero conviene reconocerlos si te los
+encuentras en código ajeno.
+
+### La alternativa moderna: `purrr::map_dbl()`
+
+`purrr` es el paquete de `tidyverse` para iterar sin escribir un `for`
+explícito. Hace, en una línea, lo mismo que el bloque de arriba en seis:
+
+```r
+promedios_map <- resultados_entidad |>
+  select(all_of(columnas_pct)) |>
+  map_dbl(mean)
+
+promedios_map
+```
+
+`map_dbl()` recorre cada columna de la tabla, le aplica `mean()` y devuelve
+un vector de números (`_dbl` es por *double*, el tipo numérico decimal de
+R). Existen primas de la misma familia —`map_chr()` para texto, `map()`
+quien no promete un tipo fijo y devuelve una lista— que resuelven el mismo
+patrón para otros tipos de salida. La ventaja sobre el `for` no es
+velocidad —para este tamaño de datos son indistinguibles—: es que
+`map_dbl()` **garantiza** que la salida es un vector de números, y avisa
+con un error si alguna columna no lo produce. Un `for` no da esa garantía
+por sí solo: si algo sale mal a media vuelta, puede dejarte un resultado a
+medias sin ningún aviso.
+
+### Operaciones de conjuntos: `intersect()`, `union()`, `setdiff()`
+
+Tres funciones que comparan dos vectores como si fueran conjuntos, en el
+sentido de la teoría de conjuntos que ya conoces de la educación media:
+
+```r
+entidades_shh_alto <- resultados_entidad |>
+  filter(pct_shh > 60) |>
+  pull(entidad)
+
+entidades_participacion_alta <- resultados_entidad |>
+  filter(participacion > 65) |>
+  pull(entidad)
+
+intersect(entidades_shh_alto, entidades_participacion_alta)  # en las dos listas
+union(entidades_shh_alto, entidades_participacion_alta)      # en cualquiera de las dos
+setdiff(entidades_shh_alto, entidades_participacion_alta)    # en la primera, no en la segunda
+```
+
+`pull()` es un atajo: saca una sola columna de una tabla y la entrega como
+vector, igual que `$`, pero encadenable con el pipe —`resultados_entidad$entidad`
+no se puede meter a media cadena de `|>`, `pull(entidad)` sí—. Con los datos
+reales de 2024, diecinueve entidades tienen más de 60% de votos para SHH y
+solo cinco tienen más de 65% de participación; la intersección de ambos
+grupos son exactamente tres: Puebla, Tlaxcala y Yucatán. `setdiff()` en el
+otro sentido —participación alta pero sin `pct_shh` por encima de 60— deja
+Ciudad de México y Coahuila. Fíjate que `setdiff()` no es simétrica:
+`setdiff(A, B)` y `setdiff(B, A)` casi nunca dan lo mismo, y es un error
+frecuente asumir que sí.
+
+### El salto: una función que recibe un NOMBRE de columna
+
+Aquí es donde este extra se separa del resto del laboratorio. Hasta ahora,
+cada vez que quisiste graficar una columna distinta, escribiste
+`aes(fill = pct_shh)`, con el nombre tecleado directo. Eso funciona porque
+`ggplot2` sabe, por magia de diseño del paquete, buscar `pct_shh` como
+columna de la tabla sin que la pongas entre comillas. El problema aparece
+en el momento en que **tú** quieres que el nombre de la columna sea una
+variable —el argumento de una función— en vez de un texto fijo:
+
+```r
+mapa_por_variable <- function(datos, variable, titulo) {
+  ggplot(datos, aes(fill = .data[[variable]])) +
+    geom_sf(color = "white", linewidth = 0.15) +
+    scale_fill_viridis_c() +
+    theme_lab_mapa() +
+    labs(title = titulo, fill = NULL)
+}
+```
+
+`.data` es un objeto especial de `tidyverse` que representa "la tabla de
+datos que estoy usando en este momento", y `.data[[variable]]` le pide la
+columna cuyo *nombre* está guardado en la variable `variable` —exactamente
+el mismo patrón de corchetes dobles del `for` de más arriba, ahora
+funcionando dentro de un `aes()`—. Esto se llama evaluación diferida
+([tidy evaluation]{.termino-en}): en vez de que `aes()` busque
+literalmente una columna llamada `variable`, primero mira qué dice la
+variable `variable`, y busca esa columna. Es el mecanismo que le permite a
+`ggplot2` aceptar tanto `aes(fill = pct_shh)` —el nombre tecleado
+directo— como `aes(fill = .data[[variable]])` —el nombre que llega
+indirecto, a través de un argumento de función—.
+
+Con esa función escrita una sola vez, seis mapas dejan de ser seis bloques
+de código pegados y se vuelven seis llamadas de una línea:
+
+```r
+mapa_participacion <- mapa_por_variable(mapa_entidades, "participacion", "Participación (%)")
+mapa_shh           <- mapa_por_variable(mapa_entidades, "pct_shh",       "Voto SHH (%)")
+mapa_fcm           <- mapa_por_variable(mapa_entidades, "pct_fcm",       "Voto FCM (%)")
+mapa_mc            <- mapa_por_variable(mapa_entidades, "pct_mc",        "Voto MC (%)")
+
+(mapa_participacion | mapa_shh) / (mapa_fcm | mapa_mc)
+```
+
+Este patrón —una función con `.data[[var]]` por dentro, llamada una vez
+por columna— viene, con muy pocos cambios, del curso de Aldo Gómez, que la
+usó para construir seis mapas de la Ciudad de México (PIB, homicidios,
+IDH, acceso a internet, parques, desempleo) con seis llamadas a una sola
+función llamada `map_var()`. Es, de los tres cursos heredados, la pieza de
+código más avanzada de todas, y por eso vive aquí y no en el camino
+crítico de las once sesiones.
+
+::: {.si-algo-falla}
+### Si algo falla
+
+**`Error in .data[[variable]] : object 'variable' not found`**
+Casi siempre significa que llamaste a la función sin ponerle comillas al
+nombre de la columna: `mapa_por_variable(mapa_entidades, pct_shh, "...")`
+en vez de `mapa_por_variable(mapa_entidades, "pct_shh", "...")`. Dentro de
+`.data[[ ]]`, el nombre de la columna tiene que llegar como texto.
+
+**`Error in vector("double", length(columnas_pct)) : object 'columnas_pct' not found`**
+No corriste la línea donde se crea `columnas_pct` antes del `for`. R
+ejecuta un script de arriba abajo; si saltaste una línea, cualquier
+variable que esa línea creaba todavía no existe.
+
+**Un `for` no muestra nada en pantalla, ni siquiera al terminar**
+Es el comportamiento normal. A diferencia de la consola, dentro de un
+bucle R no imprime resultados intermedios solo porque los calculó: hay que
+pedírselo explícitamente con `print()`, o guardar el resultado y mostrarlo
+después del bucle, como hace `promedios_for` en el ejemplo de esta página.
+
+**`could not find function "map_dbl"`**
+`map_dbl()` vive en `purrr`, que `library(tidyverse)` ya carga por ti. Si
+este error aparece, revisa que sí corriste el bloque de paquetes al
+principio del script.
+
+Hay más, con su traducción y su arreglo, en
+[Errores comunes](../../recursos/errores-comunes.qmd).
+:::
+
+::: {.ya-sabes}
+### Lo que ya sabes hacer
+
+- Escribir una función propia, con un argumento por omisión y un
+  condicional adentro, y explicar por qué el alcance protege tu código.
+- Elegir entre un `for` y `purrr::map_dbl()` para la misma tarea, y decir
+  con tus palabras qué garantiza uno que el otro no.
+- Escribir una función que recibe el *nombre* de una columna como
+  argumento, usando `.data[[var]]`, para no repetir seis veces el mismo
+  bloque de un mapa.
+:::
+
+## Para seguir
+
+Si este módulo te dejó con ganas de más simulación, el **extra 2** usa
+`replicate()` —la función que aquí solo probaste una vez— como columna
+vertebral de todo un módulo de probabilidad. Si te interesa más la parte de
+mapas, la **sesión 7** es su origen y el mejor lugar para revisar
+`geom_sf()`, `st_crs()` y las escalas de color con calma.

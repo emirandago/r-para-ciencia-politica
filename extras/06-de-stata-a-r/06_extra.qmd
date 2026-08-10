@@ -1,0 +1,222 @@
+---
+title: "Extra 6 · Guía de Stata a R"
+subtitle: "¿Por qué traducir un comando de Stata palabra por palabra no siempre funciona?"
+---
+
+::: {.gancho}
+Llegaste a este laboratorio con Stata en los dedos, de otra materia —Economía,
+Estadística, Métodos—. Cada vez que quieres hacer algo en R, tu cerebro
+primero piensa el comando de Stata y después lo traduce, a veces bien y a
+veces mal, a R. Esta página es el diccionario que te hace falta, y también
+la explicación de por qué la traducción mecánica, comando por comando,
+tiende trampas silenciosas que ningún error rojo te va a avisar.
+:::
+
+## Qué vas a poder hacer al salir
+
+Vas a tener, en una sola página, la tabla de equivalencias entre los
+comandos de Stata que ya conoces y su versión en R de este laboratorio. Vas
+a entender la diferencia de filosofía que explica por qué la traducción
+directa a veces falla: Stata trabaja siempre sobre UNA base cargada en
+memoria; R trabaja con OBJETOS, cuantos quieras, ninguno se modifica solo.
+Y vas a conocer cuatro errores típicos de quien traduce de Stata a R sin
+saber que está traduciendo —el más importante: `t.test()` no asume lo mismo
+que `ttest` sobre las varianzas, y esa diferencia cambia un número—.
+
+## Qué necesitas haber visto antes
+
+Nada del laboratorio es estrictamente indispensable: esta página funciona
+como referencia. Se aprovecha más si ya viste las sesiones 2 a 4 (importar,
+`dplyr`) y la sesión 9 (`lm()`, `feols()`).
+
+## Los archivos del módulo
+
+::: {.descargas}
+[06_script.R — el código completo](https://raw.githubusercontent.com/emirandago/r-para-politologos/main/extras/06-de-stata-a-r/06_script.R){.btn-descarga}
+[06_ejercicio.R — para practicar](https://raw.githubusercontent.com/emirandago/r-para-politologos/main/extras/06-de-stata-a-r/06_ejercicio.R){.btn-descarga}
+[06_solucion.R — solución comentada](https://raw.githubusercontent.com/emirandago/r-para-politologos/main/extras/06-de-stata-a-r/06_solucion.R){.btn-descarga .secundario}
+:::
+
+`06_script.R` corre completo, de arriba abajo, sin huecos.
+
+## El contenido, en prosa
+
+### La diferencia de filosofía que explica casi todo lo demás
+
+Stata tiene, en todo momento, **una sola base cargada en memoria**. Cuando
+escribes `gen nueva_variable = ...`, esa variable se agrega a ESA base, en
+el lugar donde vive. Cuando escribes `use otra_base, clear`, la base
+anterior desaparece de la memoria por completo —de ahí el nombre `clear`—.
+Es un modelo de "un escritorio, un documento a la vez".
+
+R no tiene ningún concepto equivalente a "la base activa". Cada tabla que
+cargas es un **objeto** con su propio nombre —`resultados_entidad`,
+`municipios`, lo que sea que hayas decidido llamarle—, y puedes tener
+tantos objetos como quepan en la memoria de tu computadora, todos
+disponibles al mismo tiempo, sin que trabajar con uno afecte a los demás.
+Cuando escribes `mutate()`, no modificas nada "en su lugar": creas una
+versión nueva de la tabla, y si quieres conservarla tienes que **reasignarla
+explícitamente** con `<-`. Esto se llama, en la jerga de R,
+*copy-on-modify*: R copia antes de modificar, nunca modifica el original a
+tus espaldas.
+
+Esta diferencia explica el error de traducción más común de todos: alguien
+que traduce `replace var = 0 if var < 0` (que SÍ modifica la base activa de
+Stata, sin que tengas que decirle nada más) escribiendo, en R,
+
+```r
+mutate(var = if_else(var < 0, 0, var))
+```
+
+sin guardarlo en ningún lado. R corre esa línea, produce una tabla nueva
+—la imprime en pantalla, si estás en la consola— y la **descarta** de
+inmediato, porque nunca le dijiste dónde guardarla. La base original,
+`datos`, sigue exactamente igual que antes. No hay ningún error rojo: solo
+un resultado que no se guardó. La forma correcta:
+
+```r
+datos <- datos |> mutate(var = if_else(var < 0, 0, var))
+```
+
+### Tabla de equivalencias
+
+**Manipulación de datos**
+
+| Stata | R (este curso) |
+|---|---|
+| `use archivo.dta, clear` | `datos <- haven::read_dta(here("archivo.dta"))` |
+| `gen nueva = expr` | `datos <- datos \|> mutate(nueva = expr)` |
+| `replace var = x if cond` | `datos <- datos \|> mutate(var = if_else(cond, x, var))` |
+| `drop var` | `datos <- datos \|> select(-var)` |
+| `keep if cond` | `datos <- datos \|> filter(cond)` |
+| `collapse (mean) y, by(g)` | `datos \|> group_by(g) \|> summarise(y = mean(y))` |
+| `merge 1:1 id using archivo2` | `left_join(datos1, datos2, by = "id")` (también `inner_join()`, `anti_join()`) |
+| `reshape long` | `pivot_longer(...)` |
+| `reshape wide` | `pivot_wider(...)` |
+| `tab var` | `table(datos$var)` o `janitor::tabyl(datos, var)` |
+| `encode strvar` | `as.factor(datos$strvar)` |
+| `label variable v "descripción"` | `attr(datos$v, "label") <- "descripción"`, o simplemente un buen nombre de columna |
+
+**Regresión, errores estándar y efectos fijos**
+
+| Stata | R (este curso) |
+|---|---|
+| `reg y x1 x2` | `feols(y ~ x1 + x2, data = datos)` |
+| `reg y x, robust` | `feols(y ~ x, data = datos, vcov = "hetero")` |
+| `reg y x, cluster(id)` | `feols(y ~ x, data = datos, vcov = ~id)` |
+| `xtreg y x, fe` | `feols(y ~ x \| unidad, data = datos)` |
+| `areg y x, absorb(id)` | `feols(y ~ x \| id, data = datos)` |
+| `reghdfe y x, absorb(id1 id2)` | `feols(y ~ x \| id1 + id2, data = datos)` |
+| `xtset id tiempo` | No existe un equivalente de "declarar panel" globalmente: se lo dices a cada función, con `\| unidad` en `feols()` o `group_by(unidad)` para `lag()`/`lead()` |
+
+**Pruebas, macros y flujo de programa**
+
+| Stata | R (este curso) | Advertencia |
+|---|---|---|
+| `ttest y, by(grupo)` | `t.test(y ~ grupo, data = datos)` | **Gotcha crítico**, ver abajo |
+| `pwcorr v1 v2, sig` | `cor(datos[, c("v1", "v2")], use = "pairwise")` | Los p-valores de `sig` no tienen equivalente directo en el camino crítico de este curso |
+| `foreach var in x1 x2 x3 { ... }` | `purrr::map(list(x1, x2, x3), ...)` o un `for` (extra 1) | |
+| `local miVar = 5` | `mi_var <- 5` | R no tiene un sistema de macros de texto como Stata |
+| `preserve` / `restore` | `datos_respaldo <- datos` ... `datos <- datos_respaldo` | Consecuencia directa de *copy-on-modify*: nunca hace falta un comando especial para "no perder" la base |
+
+**Salida y tablas**
+
+| Stata | R (este curso) |
+|---|---|
+| `esttab` / `estout` | `modelsummary(list(m1, m2, m3))` |
+| `outreg2` | `modelsummary(list(...), output = "tabla.docx")` |
+| `coefplot` | `modelplot(list(m1, m2))` (paquete `modelsummary`) |
+
+### El *gotcha* más importante: `t.test()` y las varianzas
+
+`ttest y, by(grupo)` en Stata **asume, por default, que las dos varianzas
+son iguales** entre los dos grupos. `t.test(y ~ grupo, data = datos)` en R
+**asume, por default, lo contrario**: que las varianzas pueden ser
+distintas —la corrección se llama prueba de Welch—. Con la misma base de
+datos, los dos comandos, cada uno "sin tocar ningún argumento", te pueden
+dar un resultado ligeramente distinto. Para replicar exactamente lo que
+hace Stata, hay que decírselo a R explícitamente:
+
+```r
+t.test(y ~ grupo, data = datos, var.equal = TRUE)
+```
+
+Este no es el único caso donde "el mismo comando, sin argumentos" no
+significa lo mismo en los dos programas. Otros dos que vale la pena
+recordar, aunque este curso no profundice en ellos: la **categoría base**
+de un factor —Stata usa por default el valor MÁS BAJO como categoría de
+referencia; R usa, por default, el primer nivel en orden alfabético, que
+casi nunca coincide con el valor más bajo si tus categorías son texto— y el
+manejo de **valores perdidos** en una regresión —Stata elimina en silencio
+las filas con algún dato faltante; `lm()` en R también las elimina, pero sí
+te avisa, en la parte de abajo de `summary()`, cuántas filas quitó—.
+
+### Un ejemplo completo, lado a lado
+
+```stata
+* Stata
+use "presidencial_2024_municipio.dta", clear
+gen ventaja = pct_shh - pct_fcm
+reg ventaja participacion, robust
+```
+
+```r
+# R, este curso
+municipios <- read_csv(here("datos", "limpios", "presidencial_2024_municipio.csv"))
+municipios <- municipios |> mutate(ventaja = pct_shh - pct_fcm)
+modelo <- feols(ventaja ~ participacion, data = municipios, vcov = "hetero")
+```
+
+Tres diferencias que resumen toda esta página: **`read_csv()` no reemplaza
+ninguna base "activa"**, guarda un objeto con nombre propio; **`mutate()`
+no modifica `municipios` a menos que lo reasignes con `<-`**, que es
+justamente lo que hace la segunda línea; y **`feols(..., vcov = "hetero")`**
+es la manera de este curso de pedir el mismo error robusto que
+`reg ..., robust` en Stata.
+
+::: {.si-algo-falla}
+### Si algo falla
+
+**Corrí `mutate()` y la columna nueva no aparece cuando reviso la base**
+Casi seguro no reasignaste el resultado con `<-`. R nunca modifica un
+objeto "en su lugar" salvo que tú lo reasignes explícitamente: revisa que
+tu línea tenga la forma `datos <- datos |> mutate(...)`, no solo
+`datos |> mutate(...)`.
+
+**Mi `t.test()` no da el mismo número que el `ttest` de Stata**
+Agrega `var.equal = TRUE`: es el *gotcha* de esta página.
+
+**`Error: could not find function "read_dta"`**
+`read_dta()` vive en el paquete `haven`, que no es parte del `tidyverse`
+base y hay que cargarlo aparte con `library(haven)`.
+
+**Mis niveles de factor no quedan en el orden que esperaba**
+R ordena los niveles de un factor alfabéticamente por default, no por el
+orden en que aparecen en tus datos ni por ningún criterio numérico. Usa
+`factor(x, levels = c("orden", "que", "quieras"))` para fijar el orden a
+mano.
+
+Hay más, con su traducción y su arreglo, en
+[Errores comunes](../../recursos/errores-comunes.qmd).
+:::
+
+::: {.ya-sabes}
+### Lo que ya sabes hacer
+
+- Explicar, con tus palabras, por qué R no tiene una "base activa" y
+  qué consecuencia práctica tiene eso para cada línea que escribes.
+- Traducir los comandos de Stata más comunes de manipulación,
+  regresión y salida a su equivalente de este curso.
+- Nombrar tres diferencias donde "el mismo comando sin argumentos" no
+  significa lo mismo en los dos programas.
+:::
+
+## Para seguir
+
+`mejores_practicas_r_cpol.md` —el documento normativo de este
+laboratorio— trae una tabla de equivalencias más extensa, con variables
+instrumentales, RDD y efectos marginales, pensada para un nivel de
+posgrado. Esta página tomó de ahí lo que corresponde al alcance de las once
+sesiones y los cinco extras anteriores; si tu materia de destino usa Stata
+para algo más avanzado que no aparece aquí, ese documento es el siguiente
+lugar al que acudir.

@@ -1,0 +1,389 @@
+% ══════════════════════════════════════════════════════════════════════════════
+% Laboratorio de R para Ciencia Política — ITAM
+% Sesión 04 · Agrupar, resumir, cruzar
+%
+% Se compila desde esta carpeta:  pdflatex 04_slides.tex  (DOS veces)
+% El preámbulo, la paleta y el logo viven en ../../estilo/ — no se editan aquí.
+% ══════════════════════════════════════════════════════════════════════════════
+
+\input{../../estilo/preambulo-lab.tex}
+
+\title[Lab de R · Sesión 4]{Agrupar, resumir, cruzar}
+\subtitle{¿Cómo comparo estados entre sí?}
+\date{%
+  Sesión 4 de 11\\[0.3em]
+  \textit{ITAM, otoño 2026}%
+}
+\hypersetup{pdftitle={Sesión 4 · Agrupar, resumir, cruzar}}
+
+\begin{document}
+
+% ── Portada ───────────────────────────────────────────────────────────────────
+{\setbeamertemplate{footline}{}\setbeamertemplate{headline}{}
+\begin{frame}[plain, noframenumbering]
+  \titlepage
+\end{frame}}
+
+% ── El gancho ─────────────────────────────────────────────────────────────────
+\porquenosimporta{¿Cómo comparo estados entre sí?}{%
+  Sientes que unas regiones votaron distinto que otras y que el tamaño de un
+  municipio importa. Hoy conviertes esas dos intuiciones en un número —y ves,
+  en vivo, cómo un cruce de datos se rompe y cómo se arregla.}
+
+% ── Recapitulación ────────────────────────────────────────────────────────────
+\begin{frame}{De dónde venimos}
+  \vspace{0.3em}
+  \begin{itemize}\setlength{\itemsep}{0.9em}
+    \item<1-> El pipe \cod{|>} encadena pasos sin que ninguno destruya la base.
+    \item<2-> \cod{filter()}, \cod{select()}, \cod{arrange()} y \cod{mutate()}
+          trabajan fila por fila, o columna por columna.
+    \item<3-> Hoy, por primera vez, vamos a colapsar muchas filas en una sola
+          por grupo.
+  \end{itemize}
+\end{frame}
+
+% ══════════════════════════════════════════════════════════════════════════════
+\section{Resumir: la trampa de la sesión 1}
+% ══════════════════════════════════════════════════════════════════════════════
+
+\begin{frame}{Dos números que no cuadraban}
+  \vspace{0.3em}
+  En la sesión 1 calculamos esto y lo dejamos sin resolver del todo:
+
+  \vspace{0.8em}
+  \begin{itemize}\setlength{\itemsep}{0.9em}
+    \item<1-> \cod{mean(resultados\$pct\_shh)} — el promedio simple de 32 porcentajes.
+    \item<2-> \cod{sum(votos\_shh) / sum(total\_votos) * 100} — el ponderado.
+    \item<3-> Los dos salen distintos, y nos quedamos con la desconfianza.
+  \end{itemize}
+
+  \vspace{1.0em}
+  \onslide<4->{%
+  {\small\color{grisTenue}Hoy tenemos la herramienta para repetir esa cuenta
+  cuantas veces haga falta.}}
+\end{frame}
+
+\begin{frame}[fragile]{group\_by() + summarise()}
+\begin{lstlisting}
+resultados_entidad |>
+  group_by(region) |>
+  summarise(
+    pct_simple    = mean(pct_shh),
+    pct_ponderado = 100 * sum(votos_shh) / sum(total_votos)
+  )
+\end{lstlisting}
+
+  \vspace{0.6em}
+  \cod{group\_by()} no cambia ni una celda: solo marca por dónde vas a resumir.
+  \cod{summarise()} colapsa cada grupo en una sola fila.
+\end{frame}
+
+\begin{frame}[fragile]{Una región no es un dato del INE}
+\begin{lstlisting}
+resultados_entidad <- resultados_entidad |>
+  mutate(region = case_when(
+    entidad %in% c("Chihuahua", "Sonora")
+      ~ "Noroeste",
+    entidad %in% c("Coahuila", "Tamaulipas")
+      ~ "Noreste",
+    # ... tres grupos mas, en el script completo
+  ))
+\end{lstlisting}
+
+  \vspace{0.6em}
+  \begin{itemize}\setlength{\itemsep}{0.6em}
+    \item<1-> \cod{case\_when()} prueba condiciones en orden y asigna la
+          primera que se cumple.
+    \item<2-> Cinco regiones, decisión nuestra, documentada como tal —no hay
+          una regionalización oficial única.
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Simple contra ponderado, por región}
+  \vspace{0.3em}
+  \begin{center}
+  \begin{tabular}{lrr}
+    \toprule
+    Región & \cod{pct\_simple} & \cod{pct\_ponderado} \\
+    \midrule
+    Sur-sureste        & 70.22 & 70.29 \\
+    Noroeste           & 61.27 & 61.58 \\
+    Centro             & 63.57 & 60.84 \\
+    Noreste            & 53.75 & 52.37 \\
+    Occidente y Bajío  & 52.12 & 50.08 \\
+    \bottomrule
+  \end{tabular}
+  \end{center}
+
+  \vspace{0.9em}
+  En Centro, la brecha es la más grande: Ciudad de México y México
+  concentran millones de votos que el promedio simple trata igual que los
+  de Tlaxcala.
+\end{frame}
+
+\begin{frame}{Cerramos la trampa de la sesión 1}
+  \vspace{0.4em}
+  \begin{saltobox}
+    De «el país votó como 60 y tantos por ciento» a poder decirlo con
+    precisión: el promedio simple de las 32 entidades es 60.66\%, el
+    ponderado real es 59.76\%. La diferencia es, exactamente, el peso que
+    un promedio simple le regala a los estados chicos.
+  \end{saltobox}
+\end{frame}
+
+\begin{frame}{Entre grupos, no dentro de un grupo}
+  \vspace{0.3em}
+  \begin{itemize}\setlength{\itemsep}{0.85em}
+    \item<1-> \cod{group\_by()} + \cod{summarise()} compara \ac{entre}
+          grupos: esta región contra esa otra.
+    \item<2-> Comparar un mismo estado consigo mismo a través del tiempo es
+          otra pregunta —se llama comparación \textit{within} en datos de panel.
+    \item<3-> Hoy solo hay una elección: hoy comparamos \textit{between}. El
+          resto queda para el extra de panel y efectos fijos.
+  \end{itemize}
+\end{frame}
+
+% ══════════════════════════════════════════════════════════════════════════════
+\section{count(): contar sin rodeos}
+% ══════════════════════════════════════════════════════════════════════════════
+
+\begin{frame}[fragile]{El atajo de todos los días}
+\begin{lstlisting}
+resultados_municipio |>
+  count(entidad, sort = TRUE)
+\end{lstlisting}
+
+  \vspace{0.7em}
+  Lo mismo que \cod{group\_by()} + \cod{summarise(n = n())}, en una sola
+  línea. \cod{sort = TRUE} ordena de mayor a menor.
+\end{frame}
+
+\begin{frame}{Oaxaca, otra vez}
+  \vspace{0.4em}
+  \begin{itemize}\setlength{\itemsep}{0.9em}
+    \item<1-> Oaxaca tiene más de 500 municipios: casi una cuarta parte de
+          todos los del país.
+    \item<2-> No es un capricho de los datos.
+    \item<3-> Va a regresar, peor, en la sesión 7: un mapa «por cantidad»
+          sin ajustar por población hace ver que Oaxaca domina el mapa
+          entero.
+  \end{itemize}
+\end{frame}
+
+% ══════════════════════════════════════════════════════════════════════════════
+\section{El left\_join() que se rompe, a propósito}
+% ══════════════════════════════════════════════════════════════════════════════
+
+\begin{frame}{La pregunta de hoy}
+  \vspace{0.3em}
+  Tenemos la base electoral municipal y el puente de claves INE-INEGI.
+
+  \vspace{0.9em}
+  \begin{itemize}\setlength{\itemsep}{0.9em}
+    \item<1-> ¿Los cruzamos por el \ac{nombre} del municipio?
+    \item<2-> Es la primera idea que se le ocurre a cualquiera.
+    \item<3-> Vamos a intentarla tal cual, a propósito.
+  \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]{El intento por nombre}
+\begin{lstlisting}
+intento_por_nombre <- resultados_municipio |>
+  left_join(puente, by = "municipio")
+
+nrow(resultados_municipio)   # 2475
+nrow(intento_por_nombre)     # ?
+\end{lstlisting}
+
+  \vspace{0.5em}
+  {\small R sí devuelve un resultado. Antes, avisa.}
+\end{frame}
+
+\begin{frame}{Cuando algo falla}
+  \vspace{0.4em}
+  \begin{errorbox}{Warning: unexpected many-to-many relationship}
+    Traducción: una fila tuya hizo pareja con \se{más de una} fila de la
+    otra base. No detiene el código —el resultado sí se produce—, pero es
+    una alarma que hay que leer.
+
+    \vspace{0.5em}
+    \cod{nrow()} pasó de 2{,}475 a 2{,}943. Empezaste con una fila por
+    municipio y terminaste con más.
+  \end{errorbox}
+\end{frame}
+
+\begin{frame}[fragile]{Diagnóstico con la herramienta que ya sabes}
+\begin{lstlisting}
+resultados_municipio |>
+  count(municipio, sort = TRUE) |>
+  filter(n > 1)
+\end{lstlisting}
+
+  \vspace{0.7em}
+  89 nombres de municipio no son únicos en México.
+\end{frame}
+
+\begin{frame}{Héroes patrios repartidos por el mapa}
+  \vspace{0.4em}
+  \begin{itemize}\setlength{\itemsep}{0.9em}
+    \item<1-> «Benito Juarez» —así, sin acento en los datos— es municipio en
+          \ac{siete} entidades distintas.
+    \item<2-> «Emiliano Zapata» lo es en \ac{seis}.
+    \item<3-> Un nombre de municipio, solo, casi nunca es una clave.
+  \end{itemize}
+
+  \vspace{1.1em}
+  \onslide<3->{%
+  {\small\color{grisTenue}La combinación entidad + municipio sí lo es casi
+  siempre; la clave numérica lo es siempre.}}
+\end{frame}
+
+\begin{frame}[fragile]{Unir por clave, la correcta}
+\begin{lstlisting}
+cruce_correcto <- resultados_municipio |>
+  left_join(puente,
+    by = c("clave_municipio" = "clave_municipio_inegi"))
+
+nrow(cruce_correcto)   # 2475
+\end{lstlisting}
+
+  \vspace{0.6em}
+  Sin warning, sin filas de más. La base electoral ya trae la clave de
+  INEGI en \cod{clave\_municipio} —compruébalo con Colima capital:
+  \cod{"06002"}, no \cod{"06001"}.
+\end{frame}
+
+\begin{frame}{El cruce, resuelto}
+  \vspace{0.4em}
+  \begin{saltobox}
+    De «estas dos bases no cuadran» a saber, con exactitud, en cuáles de
+    los 2{,}477 municipios se rompe un cruce por nombre —y por qué— y
+    cruzarlas bien por clave.
+  \end{saltobox}
+\end{frame}
+
+\begin{frame}[fragile]{anti\_join(): ¿quién se queda fuera, de verdad?}
+\begin{lstlisting}
+puente |>
+  anti_join(resultados_municipio,
+    by = c("clave_municipio_inegi" = "clave_municipio"))
+\end{lstlisting}
+
+  \vspace{0.6em}
+  Chicomuselo y Pantelhó, Chiapas. Documentado en \cod{datos/README.md} y
+  sin una explicación completa de por qué —está bien decirlo.
+\end{frame}
+
+\begin{frame}{Por qué merge() está prohibido en este curso}
+  \vspace{0.3em}
+  \begin{itemize}\setlength{\itemsep}{0.9em}
+    \item<1-> \cod{merge()} de R base puede perder filas o multiplicarlas,
+          igual que un \cod{left\_join()} mal hecho.
+    \item<2-> La diferencia es que \se{nunca avisa}.
+    \item<3-> Un cruce que falla en silencio es peor que uno que grita.
+  \end{itemize}
+\end{frame}
+
+% ══════════════════════════════════════════════════════════════════════════════
+\section{pivot\_longer(): acomodar columnas}
+% ══════════════════════════════════════════════════════════════════════════════
+
+\begin{frame}[fragile]{Tres columnas, una sola}
+\begin{lstlisting}
+resultados_entidad |>
+  select(entidad, pct_shh, pct_fcm, pct_mc) |>
+  pivot_longer(
+    cols      = c(pct_shh, pct_fcm, pct_mc),
+    names_to  = "coalicion",
+    values_to = "pct"
+  )
+\end{lstlisting}
+
+  \vspace{0.5em}
+  {\small 32 entidades × 3 coaliciones = 96 filas. El formato que la sesión
+  5 necesita para graficar.}
+\end{frame}
+
+\begin{frame}{Y la inversa, en una línea}
+  \vspace{0.4em}
+  \begin{itemize}\setlength{\itemsep}{0.9em}
+    \item<1-> \cod{pivot\_wider()} hace exactamente lo contrario.
+    \item<2-> Se usa bastante menos de lo que uno imagina.
+    \item<3-> Queda en el acordeón de esta sesión y en \cod{extras/}.
+  \end{itemize}
+\end{frame}
+
+% ══════════════════════════════════════════════════════════════════════════════
+\section{El entregable}
+% ══════════════════════════════════════════════════════════════════════════════
+
+\begin{frame}[fragile]{Reconstruir la cifra por entidad}
+\begin{lstlisting}
+resultados_municipio |>
+  group_by(entidad) |>
+  summarise(total_votos_reconstruido = sum(total_votos))
+\end{lstlisting}
+
+  \vspace{0.6em}
+  Sumamos los 2{,}475 municipios agrupados por entidad. ¿Cuadra contra
+  \cod{presidencial\_2024\_entidad.csv}, armado directo por el INE?
+\end{frame}
+
+\begin{frame}{Casi cuadra —y la diferencia tiene nombre}
+  \vspace{0.3em}
+  \begin{center}
+  \begin{tabular}{lr}
+    \toprule
+    Entidad & Diferencia (votos) \\
+    \midrule
+    Jalisco    & 16{,}769 \\
+    Puebla     & 9{,}972 \\
+    Michoacán  & 9{,}288 \\
+    Guanajuato & 9{,}214 \\
+    \bottomrule
+  \end{tabular}
+  \end{center}
+
+  \vspace{0.9em}
+  La suma total es 117{,}831: exactamente el voto en el extranjero, que
+  \cod{presidencial\_2024\_municipio.csv} excluye por no tener municipio.
+  Los estados con más población fuera del país concentran la diferencia
+  más grande.
+\end{frame}
+
+% ══════════════════════════════════════════════════════════════════════════════
+\section{Ejercicio}
+% ══════════════════════════════════════════════════════════════════════════════
+
+\begin{frame}{Quince minutos, tres niveles}
+  \vspace{0.4em}
+  \begin{itemize}\setlength{\itemsep}{1.0em}
+    \item \ac{Calentamiento} — el mismo resumen por región, con Movimiento
+          Ciudadano en vez de Sigamos Haciendo Historia.
+    \item \ac{De verdad} — municipios chicos, medianos y grandes: ¿cuál
+          participa más? Y, con el puente, ¿qué entidad tiene más claves
+          distintas entre INE e INEGI?
+    \item \ac{Si te sobra tiempo} — investiga \cod{pivot\_wider()} y el
+          argumento \cod{relationship} de los joins, y verifica lo que te
+          conteste una IA corriéndolo.
+  \end{itemize}
+
+  \vspace{1.1em}
+  {\small\color{grisTenue}El archivo es \cod{04\_ejercicio.R}. La solución
+  se publica al terminar la sesión.}
+\end{frame}
+
+% ── Cierre ────────────────────────────────────────────────────────────────────
+\yasabemos
+  {Resumir una base por el grupo que te interese, con \cod{group\_by()} y
+   \cod{summarise()}, y calcular una media ponderada cuando la simple miente.}
+  {Cruzar dos bases con \cod{left\_join()}, diagnosticar con \cod{count()} y
+   \cod{anti\_join()} cuando el cruce sale mal, y corregirlo cruzando por clave.}
+  {Acomodar columnas en filas con \cod{pivot\_longer()} cuando lo que sigue
+   es graficar.}
+
+\lasiguiente{La gramática de los gráficos}{%
+  Vas a dejar de copiar un \cod{ggplot()} prestado y vas a entender por qué
+  cada capa está donde está —y por qué unos gráficos convencen y otros no.}
+
+\end{document}

@@ -1,0 +1,288 @@
+---
+title: "Sesión 10 · Que otro pueda repetirlo"
+subtitle: "¿Cómo entrego trabajo serio?"
+---
+
+::: {.gancho}
+Nueve sesiones de trabajo viven, hasta hoy, en una sola computadora: la tuya. Si
+le mandaras tu script a alguien más —o a tu yo de dentro de un año, en otra
+laptop—, ¿correría? Lo que no se puede verificar no es un argumento: es una
+afirmación. Hoy tu análisis deja de ser un archivo suelto y se vuelve una página
+con dirección propia, que puedes mandar por WhatsApp antes de que termine la
+hora.
+:::
+
+## Qué vas a poder hacer al salir
+
+Vas a escribir un documento Quarto: un archivo que mezcla texto explicado,
+como este, con bloques de código que de verdad corren y producen sus propios
+resultados. Vas a envolver un cálculo que ya escribiste dos veces en el
+curso —la media ponderada de la sesión 1 y la sesión 4— en una función
+propia de tres líneas, para dejar de copiarlo y pegarlo. Y vas a publicar ese
+documento en `github.com`, usando solamente el navegador, hasta obtener una
+dirección propia que cualquiera puede abrir sin instalar nada.
+
+No vas a escribir hoy una función con argumentos por default, con `return()`
+explícito, ni vas a ver qué es el alcance (*scope*) de una variable dentro de
+una función. Eso existe, es importante, y tiene su propio espacio completo en
+`extras/01-funciones-e-iteracion`: hoy la función se reduce a lo mínimo
+porque lo que de verdad cierra esta sesión es Quarto y un lugar donde poner
+el resultado, no la teoría de funciones. Tampoco vas a usar Git por línea de
+comandos —existe, lo vas a necesitar si algún día trabajas en equipo sobre el
+mismo código, y desde que GitHub dejó de aceptar contraseña simple para
+subir cambios por terminal, aprenderlo bien es una clase entera aparte—: hoy
+subes archivos arrastrándolos con el mouse, y la ruta de línea de comandos
+queda apuntada en [Para seguir](../../recursos/para-seguir.qmd).
+
+## Antes de venir
+
+Crea una cuenta gratuita en [github.com](https://github.com) y confirma tu
+correo. Son cinco minutos, se hacen una sola vez, y así la hora de hoy la
+usamos para publicar, no para llenar formularios. Cualquier correo sirve; no
+hace falta que sea el del ITAM.
+
+Necesitas también haber corrido la sesión 1 —el archivo `.Rproj`, `here()`—
+y sentirte cómodo con `read_csv()`, el pipe `|>` y `ggplot()`. No vamos a
+explicar esas piezas otra vez.
+
+## Los archivos de la sesión
+
+::: {.descargas}
+[10_script.R — el guion de clase](https://raw.githubusercontent.com/emirandago/r-para-politologos/main/sesiones/10-que-otro-pueda-repetirlo/10_script.R){.btn-descarga}
+[10_ejercicio.R — para llevar](https://raw.githubusercontent.com/emirandago/r-para-politologos/main/sesiones/10-que-otro-pueda-repetirlo/10_ejercicio.R){.btn-descarga}
+[10_slides.pdf — las láminas](https://raw.githubusercontent.com/emirandago/r-para-politologos/main/sesiones/10-que-otro-pueda-repetirlo/10_slides.pdf){.btn-descarga .secundario}
+[10_script_completo.R — resuelto](https://raw.githubusercontent.com/emirandago/r-para-politologos/main/sesiones/10-que-otro-pueda-repetirlo/10_script_completo.R){.btn-descarga .secundario}
+[10_solucion.R — solución del ejercicio](https://raw.githubusercontent.com/emirandago/r-para-politologos/main/sesiones/10-que-otro-pueda-repetirlo/10_solucion.R){.btn-descarga .secundario}
+:::
+
+El archivo `10_script.R` tiene huecos y **no corre de corrido**: está hecho
+para llenarse en clase. Los dos archivos grises se publican al terminar la
+sesión.
+
+**Una nota sobre qué es cada archivo hoy, porque hoy es distinto.** En las
+sesiones anteriores el entregable era un gráfico o una tabla dentro de R. Hoy
+el entregable de verdad es un documento Quarto (`.qmd`), y ese documento **lo
+creas tú, en vivo, con el menú `File > New File > Quarto Document`**: no es
+uno de los siete archivos que se reparten, porque cada quien produce el suyo,
+con su propio nombre de usuario en la URL final. `10_script.R` no es ese
+documento: es el andamiaje. Ahí preparas y pruebas, en el entorno que ya
+conoces desde la sesión 1 —consola, script, `Ctrl+Enter`—, cada pedazo de
+código que después vas a copiar dentro de los bloques del `.qmd`. La razón de
+separar los dos pasos es deliberada: aprender la sintaxis de un documento
+nuevo (YAML, bloques, texto) y depurar código de R al mismo tiempo es
+demasiada carga junta para una sola sesión; primero se resuelve el código,
+donde ya sabes leer un error, y después se traslada, ya probado, a un
+formato nuevo.
+
+## El contenido, en prosa
+
+### Reproducibilidad es una forma de honestidad
+
+Desde la sesión 1 este curso ha insistido en cosas que, en su momento, no se
+explicaron del todo: el archivo `.Rproj`, `here()` en vez de una ruta escrita
+a mano, `Save workspace to .RData on exit` en `Never`. Cada una de esas
+decisiones tenía el mismo propósito, que hoy por fin se dice completo: que tu
+script no dependiera de nada que solo existiera en tu computadora. Un script
+que empieza siempre de una sesión limpia y que solo usa rutas relativas es
+un script que le puedes dar a cualquiera —a un compañero, a quien revise tu
+trabajo final, a tu yo de dentro de seis meses— con la confianza de que va a
+producir los mismos números.
+
+Esa confianza es el argumento completo de la sesión, y no es técnico: es
+ético. Un resultado que solo tú puedes reproducir no se puede verificar, y un
+argumento que nadie más puede verificar no es, en sentido estricto, un
+argumento: es una afirmación con forma de argumento. La ciencia política
+empírica —igual que cualquier ciencia— depende de que el trabajo de una
+persona pueda ser revisado, criticado y reutilizado por otra. Hoy conviertes
+ese principio en algo que se puede hacer en una hora.
+
+### Quarto: el heredero de R Markdown, y dos promesas que se cumplen hoy
+
+Un documento Quarto tiene tres tipos de contenido, mezclados en el mismo
+archivo: un encabezado en formato YAML entre dos líneas de tres guiones
+(`---`), con el título y las opciones del documento; texto en formato
+Markdown, igual que el que usas para escribir en cualquier README de
+GitHub; y bloques de código —*chunks*, en inglés— que empiezan y terminan
+con tres comillas invertidas y que sí corren de verdad al construir el
+documento. La diferencia con un script de R es que en un `.qmd` el código no
+es lo único que hay: es una pieza más, encajada dentro de una explicación
+narrada. El resultado, cuando lo construyes (*renderizas*, del inglés
+*render*), es un archivo HTML que se ve como una página web, con tu texto,
+tus tablas y tus gráficos ya integrados —nadie que lo abra necesita tener R
+instalado para leerlo.
+
+Quarto no salió de la nada. Es el sucesor directo de **R Markdown**, escrito
+por el mismo equipo (Posit, antes RStudio) con la misma idea de fondo —YAML
+más texto más *chunks*— pero pensado para funcionar igual con R, Python o
+Julia, y con mejor soporte para sitios completos como el que ves ahora
+mismo. Si alguna vez abres un archivo `.Rmd`, vas a reconocer la estructura
+al instante: es la misma gramática con una extensión distinta. Vale la pena
+decir esto con nombre y apellido: dos de los tres cursos que este laboratorio
+hereda anunciaron R Markdown en su temario y no llegaron a impartirlo. Hoy
+esa promesa se cumple, con su sucesor.
+
+Dentro de un *chunk*, las opciones que controlan qué se ve se escriben con el
+símbolo `#|` al principio de la línea, dentro del propio bloque de código:
+
+```
+#| echo: false     # no muestra el código, solo su resultado
+#| eval: false     # no corre el código, solo lo muestra
+#| message: false  # oculta los avisos de library(), no los errores
+#| warning: false  # oculta los warnings
+```
+
+(Un `.Rmd` escribe las mismas cuatro opciones distinto, dentro de las llaves
+de apertura del *chunk* —`{r, echo=FALSE, message=FALSE}`—; Quarto todavía
+entiende esa forma vieja, por si alguna vez heredas un archivo así, pero la
+forma con `#|` es la que se enseña aquí porque es la que Quarto recomienda
+para archivos nuevos.)
+
+Hay una pieza más que vale la pena ver hoy porque es, literalmente, la
+reproducibilidad hecha visible: un número puede ir *dentro* de una frase de
+texto, calculado en el momento, escribiendo una comilla invertida, la letra
+erre, un espacio, tu expresión de R, y cerrando con otra comilla invertida.
+Si mañana cambian los datos, ese número del texto cambia solo, sin que nadie
+tenga que acordarse de ir a corregirlo a mano. Esa sola línea es el argumento
+de honestidad de
+esta sesión, convertido en sintaxis.
+
+### La estructura de tu proyecto: por qué ya la tenías resuelta
+
+No hay nada nuevo que aprender aquí, y eso es el punto. Desde la sesión 1
+trabajas dentro de un proyecto de RStudio con rutas relativas construidas con
+`here()`. Ese mismo hábito es, exactamente, lo que hoy hace posible mover tu
+trabajo a otra computadora —la de GitHub— sin que nada se rompa. Si en algún
+momento del curso escribiste una ruta completa como
+`/Users/tu-nombre/Desktop/...`, hoy es el día en que se ve por qué eso no
+iba a funcionar nunca fuera de tu propia máquina.
+
+### Una función propia, en tres líneas
+
+En la sesión 1 calculaste el porcentaje nacional de una coalición sumando
+los votos de las 32 entidades y dividiendo entre la suma de los votos
+totales, en vez de promediar 32 porcentajes. En la sesión 4 volviste a
+escribir prácticamente la misma cuenta, con otra variable. Cada vez que
+copias y pegas una fórmula y solo le cambias el nombre de una columna, esa
+fórmula está pidiendo convertirse en una función.
+
+```r
+pct_ponderado <- function(parte, total) {
+  sum(parte) / sum(total) * 100
+}
+```
+
+Eso es todo: un nombre, los datos que recibe entre paréntesis —sus
+*argumentos*—, y una sola operación adentro. R regresa, sola, la última
+línea que evaluó; no hace falta escribir `return()` para un caso así de
+corto. Lo que antes eran dos líneas casi idénticas —una para participación,
+otra para el voto de una coalición— hoy es una sola función que llamas dos
+veces, con datos distintos. Esto es apenas la entrada al tema: escribir
+funciones con argumentos por default, con `return()` explícito cuando el
+cuerpo tiene más de un camino posible, y entender qué significa el *alcance*
+de una variable dentro de una función, es contenido completo y con el mismo
+cuidado pedagógico del resto del curso, y vive en
+`extras/01-funciones-e-iteracion`. Si te gustó este momento, ese es el lugar
+al que vuelves.
+
+### Subir a GitHub sin usar la terminal
+
+GitHub es, para lo que hoy te importa, dos cosas: un lugar donde vive tu
+código en público, y un servicio —GitHub Pages— que convierte una carpeta de
+tu repositorio en una página web con su propia dirección. Existe una forma
+de hacer todo esto por línea de comandos con `git`, que es la que van a usar
+quienes trabajen en equipo sobre el mismo código; nosotros hoy no la vamos a
+tocar, porque desde que GitHub retiró la contraseña simple para subir
+cambios por terminal, autenticarse se volvió un trámite de llaves y tokens
+que por sí solo se lleva la clase completa. Todo lo de hoy se hace con el
+navegador.
+
+Los pasos, en orden:
+
+1. Con sesión iniciada en `github.com`, crea un repositorio nuevo: el signo
+   `+` de la esquina superior derecha, o el botón para crear un
+   repositorio nuevo en tu página de perfil `[VERIFICAR el rótulo exacto:
+   las interfaces de GitHub cambian con frecuencia; busca la opción que diga
+   "nuevo repositorio" o "New repository"]`. Dale un nombre corto —por
+   ejemplo, `mi-primer-reporte`—, márcalo **público**, y créalo vacío, sin
+   marcar la opción de agregar un README.
+2. Dentro del repositorio recién creado, GitHub ofrece una zona para subir
+   archivos arrastrándolos directamente desde tu computadora
+   `[VERIFICAR el rótulo exacto del enlace o botón]`. Arrastra los tres
+   archivos de tu carpeta `mi-primer-reporte`: el HTML que acabas de
+   renderizar (llamado `index.html`), tu documento `.qmd`, y el `.csv` de
+   datos que copiaste al principio.
+3. Confirma la subida —GitHub ya trae escrito un mensaje por default, no
+   hace falta cambiarlo— con el botón de confirmar cambios
+   `[VERIFICAR el rótulo exacto]`.
+4. Ve a la pestaña de configuración del repositorio y busca, en el menú
+   lateral, la sección de **Pages**. Ahí eliges construir el sitio desde una
+   rama (*branch*) —la rama `main`, carpeta raíz— y guardas
+   `[VERIFICAR los rótulos exactos de esta pantalla]`.
+5. Espera uno o dos minutos —GitHub está construyendo tu página— y refresca
+   esa misma pantalla. Va a aparecer la dirección publicada, con la forma
+   `https://tu-usuario.github.io/mi-primer-reporte/`.
+6. Abre esa dirección. Ahí está tu reporte, en una página que cualquiera
+   puede abrir sin tener R instalado. Cópiala y mándala.
+
+El truco de nombrar el archivo `index.html` no es cosmético: GitHub Pages
+busca automáticamente un archivo con ese nombre exacto en la raíz del
+repositorio para mostrarlo como la página principal. Por eso, cuando crees tu
+documento Quarto, conviene que lo guardes desde el principio como
+`index.qmd`: así, al renderizarlo, el resultado ya se llama `index.html` sin
+que tengas que renombrar nada.
+
+### Qué se quedó fuera, a propósito
+
+Tres cosas existen, son legítimas, y no caben hoy sin romper la hora: Git por
+línea de comandos —crear ramas, hacer `commit` y `push` desde la terminal—,
+que es indispensable en cuanto trabajes en equipo sobre el mismo código;
+`renv`, que fija las versiones exactas de los paquetes que usó un proyecto
+para que nadie tenga sorpresas años después; y GitHub Actions, que puede
+construir y publicar tu sitio automáticamente cada vez que subes un cambio,
+en vez de que tú renderices a mano. Las tres están apuntadas, con dónde
+empezar, en [Para seguir](../../recursos/para-seguir.qmd).
+
+::: {.si-algo-falla}
+### Si algo falla
+
+**El YAML de tu documento marca error al renderizar**
+YAML es sensible a los espacios: nunca uses una tecla `Tab`, solo espacios, y
+mantén la misma indentación en cada nivel. La causa más común es una línea
+que quedó con un espacio de más o de menos respecto a la de arriba.
+
+**`Error: object 'pct_ponderado' not found` dentro de un *chunk***
+El *chunk* donde escribiste la función no se corrió antes que este, o tiene
+`#| eval: false` puesto sin querer. Los *chunks* de un documento Quarto
+corren en el mismo orden en que aparecen en el archivo, de arriba hacia
+abajo, igual que las líneas de un script.
+
+**Tu página de GitHub Pages muestra un 404**
+Casi siempre no es un error: la primera vez que activas Pages, GitHub tarda
+uno o dos minutos en construir el sitio. Espera un momento y refresca.
+
+**Tu página muestra el código en crudo en vez del reporte**
+Revisa dos cosas: que el archivo que subiste se llame exactamente
+`index.html` —no `10_reporte.html` ni ningún otro nombre— y que sea el
+archivo ya renderizado (el que produjo el botón *Render*), no el `.qmd` sin
+procesar.
+
+Hay más, con su traducción y su arreglo, en [Errores comunes](../../recursos/errores-comunes.qmd).
+:::
+
+::: {.ya-sabes}
+### Lo que ya sabes hacer
+
+- Escribir un documento Quarto que mezcla prosa y código, y renderizarlo a
+  una página HTML que corre sin que nadie necesite tener R instalado.
+- Envolver un cálculo que ya repetiste en una función propia de tres líneas.
+- Publicar un reporte propio en internet, con una URL que puedes compartir,
+  usando solamente el navegador.
+:::
+
+## La semana que viene
+
+**La IA como copiloto, no como piloto.** Es la última sesión, y cierra el
+proyecto Morena × ministras con el mapa y la regresión que ya construiste.
+Vas a trabajar en pareja con una inteligencia artificial siguiendo una sola
+regla: ella hace lo que se puede verificar en treinta segundos; tú haces lo
+que no.

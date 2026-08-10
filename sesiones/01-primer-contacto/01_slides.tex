@@ -1,0 +1,384 @@
+% ══════════════════════════════════════════════════════════════════════════════
+% Laboratorio de R para Ciencia Política — ITAM
+% Sesión 01 · Tu primera hora en R
+%
+% Se compila desde esta carpeta:  pdflatex 01_slides.tex  (DOS veces)
+% El preámbulo, la paleta y el logo viven en ../../estilo/ — no se editan aquí.
+% ══════════════════════════════════════════════════════════════════════════════
+
+\input{../../estilo/preambulo-lab.tex}
+
+\title[Lab de R · Sesión 1]{Tu primera hora en R}
+\subtitle{¿Por qué un politólogo programa?}
+\date{%
+  Sesión 1 de 11\\[0.3em]
+  \textit{ITAM, otoño 2026}%
+}
+\hypersetup{pdftitle={Sesión 1 · Tu primera hora en R}}
+
+\begin{document}
+
+% ── Portada ───────────────────────────────────────────────────────────────────
+{\setbeamertemplate{footline}{}\setbeamertemplate{headline}{}
+\begin{frame}[plain, noframenumbering]
+  \titlepage
+\end{frame}}
+
+% ── El gancho ─────────────────────────────────────────────────────────────────
+\porquenosimporta{¿Por qué un politólogo programa?}{%
+  Porque todos tenemos intuiciones sobre política mexicana y ahora mismo no
+  podemos probar ninguna. En una hora vamos a probar la primera.}
+
+% ── La promesa ────────────────────────────────────────────────────────────────
+\begin{frame}{Adónde vamos}
+  \vspace{0.2em}
+  En once horas vamos a poder contestar esto, con datos oficiales:
+
+  \vspace{0.9em}
+  \begin{block}{La pregunta del proyecto final}
+    ¿Los municipios donde Morena arrasó en 2024 son los mismos donde ganaron
+    las candidaturas morenistas a ministra en la elección judicial de 2025?
+  \end{block}
+
+  \vspace{0.9em}
+  Dos mapas, una regresión, y una respuesta que se puede defender.
+
+  \vspace{0.5em}
+  {\small\color{grisTenue}Hoy no. Hoy vamos a hacer una gráfica de barras.}
+\end{frame}
+
+% ── Reglas de la casa ─────────────────────────────────────────────────────────
+\begin{frame}{Reglas de la casa}
+  \vspace{0.3em}
+  \begin{itemize}\setlength{\itemsep}{0.9em}
+    \item<1-> No hay tarea obligatoria ni hay calificación.
+    \item<2-> Los errores son parte de la clase, no interrupciones.
+    \item<3-> Toda palabra en inglés se traduce la primera vez que aparece.
+    \item<4-> Si algo no se entiende, es que está mal explicado.
+  \end{itemize}
+
+  \vspace{1.1em}
+  \onslide<4->{%
+  {\small\color{grisTenue}
+  El material completo está en el sitio del curso. Nada de lo que veas hoy
+  hay que copiarlo del proyector.}}
+\end{frame}
+
+% ══════════════════════════════════════════════════════════════════════════════
+\section{¿Dónde está parado R?}
+% ══════════════════════════════════════════════════════════════════════════════
+
+\begin{frame}{La primera pregunta no es «cómo grafico»}
+  \vspace{0.3em}
+  \begin{itemize}\setlength{\itemsep}{0.85em}
+    \item<1-> R siempre está parado en una carpeta.
+    \item<2-> Todo lo que le pidamos lo busca a partir de ahí.
+    \item<3-> Esa carpeta es el \textit{working directory}: el directorio de trabajo.
+    \item<4-> Abrir el archivo \cod{.Rproj} lo deja parado donde debe.
+  \end{itemize}
+
+  \vspace{1.0em}
+  \onslide<5->{%
+  \begin{saltobox}
+    La mitad del código que circula en internet no corre en nuestra
+    computadora por esta sola razón. No porque esté mal escrito: porque
+    supone otra carpeta.
+  \end{saltobox}}
+\end{frame}
+
+\begin{frame}[fragile]{Compruébalo}
+\begin{lstlisting}
+library(here)
+
+here()
+\end{lstlisting}
+
+  \vspace{0.8em}
+  Debe terminar en \cod{/r-para-politologos}.
+
+  \vspace{0.7em}
+  Y a partir de hoy, nunca más una ruta como
+  \cod{/Users/tu-nombre/Desktop/...}
+\end{frame}
+
+\begin{frame}{Dos lugares distintos para escribir}
+  \vspace{0.3em}
+  \begin{itemize}\setlength{\itemsep}{1.0em}
+    \item<1-> La \ac{consola} es donde R contesta. Se ejecuta y se pierde.
+          Sirve para probar y para equivocarse.
+    \item<2-> El \ac{script} es nuestro cuaderno. No se ejecuta solo:
+          nosotros decidimos qué línea corre.
+  \end{itemize}
+
+  \vspace{1.3em}
+  \onslide<3->{%
+  \begin{block}{El atajo que vamos a usar toda la vida}
+    Pon el cursor en una línea y aprieta \cod{Ctrl+Enter}
+    (\cod{Cmd+Enter} en Mac).
+  \end{block}}
+\end{frame}
+
+% ══════════════════════════════════════════════════════════════════════════════
+\section{Hacer nuestro el entorno}
+% ══════════════════════════════════════════════════════════════════════════════
+
+\begin{frame}{Antes de escribir nada: acomodar el taller}
+  \vspace{0.3em}
+  Vamos a pasar once horas aquí adentro. Vale los cinco minutos.
+
+  \vspace{1.0em}
+  \begin{itemize}\setlength{\itemsep}{0.85em}
+    \item<1-> Todo vive en \cod{Tools \textrightarrow{} Global Options}
+          (en Mac, \cod{RStudio \textrightarrow{} Settings}).
+    \item<2-> Nada de lo que cambiemos ahí afecta al código. Solo a los ojos.
+    \item<3-> Hay un atajo que abre cualquier cosa por su nombre:
+          \cod{Ctrl+Shift+P} (\cod{Cmd+Shift+P} en Mac).
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Lo único que no es cuestión de gusto}
+  \vspace{0.2em}
+  \ac{General \textrightarrow{} Basic}
+
+  \vspace{0.9em}
+  \begin{itemize}\setlength{\itemsep}{0.8em}
+    \item<1-> Desmarca \cod{Restore .RData into workspace at startup}.
+    \item<2-> Pon \cod{Save workspace to .RData on exit} en \cod{Never}.
+  \end{itemize}
+
+  \vspace{1.1em}
+  \onslide<3->{%
+  \begin{saltobox}
+    Si R guarda tus objetos al cerrar, mañana tu código va a funcionar por
+    razones que no están escritas en el script. Empezar siempre de cero es
+    lo que hace que un análisis sea reproducible: la sesión limpia es la
+    prueba de que el script se basta solo.
+  \end{saltobox}}
+\end{frame}
+
+\begin{frame}{Apariencia: que no duela mirarlo}
+  \vspace{0.2em}
+  \ac{Appearance}
+
+  \vspace{0.9em}
+  \begin{itemize}\setlength{\itemsep}{0.75em}
+    \item<1-> \cod{Editor theme} — hay más de veinte. Los oscuros
+          (\textit{Tomorrow Night}, \textit{Cobalt}, \textit{Dracula})
+          cansan menos de noche; los claros se proyectan mejor.
+    \item<2-> \cod{Editor font} — busca una con \textit{ligaduras} y con el
+          cero cruzado: \textit{Fira Code}, \textit{JetBrains Mono},
+          \textit{Source Code Pro}. Distinguir \cod{0} de \cod{O} evita
+          horas perdidas.
+    \item<3-> \cod{Editor font size} — 12 para trabajar, 16 o más para
+          proyectar. Súbele hoy.
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Los cuatro paneles, en el orden que quieras}
+  \vspace{0.2em}
+  \ac{Pane Layout}
+
+  \vspace{0.9em}
+  \begin{itemize}\setlength{\itemsep}{0.8em}
+    \item<1-> Los cuatro cuadrantes se reacomodan con menús desplegables.
+    \item<2-> Una configuración cómoda: \ac{script arriba a la izquierda},
+          \ac{consola abajo a la izquierda}, y a la derecha
+          \ac{entorno} arriba y \ac{gráficos y archivos} abajo.
+    \item<3-> Así el gráfico aparece del lado contrario al que escribimos,
+          y no hay que perseguirlo por la pantalla.
+  \end{itemize}
+
+  \vspace{1.0em}
+  \onslide<3->{%
+  {\small\color{grisTenue}\cod{Ctrl+Shift+1} salta al script,
+  \cod{Ctrl+Shift+2} a la consola.}}
+\end{frame}
+
+\begin{frame}{Tres casillas más que valen la pena}
+  \vspace{0.2em}
+  \ac{Code \textrightarrow{} Display}
+
+  \vspace{0.9em}
+  \begin{itemize}\setlength{\itemsep}{0.8em}
+    \item<1-> \cod{Rainbow parentheses} — cada nivel de paréntesis de un
+          color. El error más común de la primera semana deja de ser
+          invisible.
+    \item<2-> \cod{Show margin}, columna 80 — una línea guía para no
+          escribir renglones kilométricos.
+    \item<3-> \cod{Soft-wrap R source files} — el texto largo se dobla en
+          vez de irse a la derecha para siempre.
+  \end{itemize}
+\end{frame}
+
+% ══════════════════════════════════════════════════════════════════════════════
+\section{Objetos y vectores}
+% ══════════════════════════════════════════════════════════════════════════════
+
+\begin{frame}[fragile]{Guardar cosas: la flecha}
+\begin{lstlisting}
+curules_diputados <- 500
+
+curules_diputados
+
+curules_diputados / 2
+\end{lstlisting}
+
+  \vspace{0.7em}
+  La flecha se escribe con \cod{Alt+guion} (\cod{Option+guion} en Mac).
+
+  \vspace{0.4em}
+  Fíjate en que la primera línea no imprimió nada. Guardó.
+\end{frame}
+
+\begin{frame}{El error que más veces vamos a ver}
+  \vspace{0.4em}
+  \begin{errorbox}{Error: object 'Curules\_Diputados' not found}
+    Traducción: «no encuentro nada que se llame así».
+
+    \vspace{0.5em}
+    R distingue mayúsculas de minúsculas. Casi siempre es una letra, o que
+    no corrimos la línea de arriba.
+  \end{errorbox}
+
+  \vspace{1.2em}
+  Lo vamos a provocar a propósito ahora mismo. Un error leído en voz alta
+  deja de dar miedo.
+\end{frame}
+
+\begin{frame}[fragile]{Varias cosas guardadas juntas}
+\begin{lstlisting}
+algunas_entidades <- c("Tabasco", "Chiapas",
+                       "Ciudad de Mexico", "Guanajuato")
+
+votos_ficticios <- c(120, 340, 890, 410)
+
+votos_ficticios * 1000
+\end{lstlisting}
+
+  \vspace{0.7em}
+  No escribimos cuatro multiplicaciones. Escribimos una.
+\end{frame}
+
+\begin{frame}{Lo único que hay que llevarse de hoy}
+  \vspace{0.6em}
+  \begin{saltobox}
+    Con cuatro números, esto es un truco.
+
+    \vspace{0.6em}
+    Con las 32 entidades del país, es una herramienta.
+
+    \vspace{0.6em}
+    Con los 2{,}469 municipios, es la diferencia entre poder contestar una
+    pregunta y no poder.
+  \end{saltobox}
+
+  \vspace{1.3em}
+  Todo lo demás de hoy son detalles de dónde va cada paréntesis.
+\end{frame}
+
+% ══════════════════════════════════════════════════════════════════════════════
+\section{Una base de verdad}
+% ══════════════════════════════════════════════════════════════════════════════
+
+\begin{frame}[fragile]{Los resultados de 2024, por entidad}
+\begin{lstlisting}
+resultados <- read_csv(
+  here("datos", "limpios",
+       "presidencial_2024_entidad.csv"))
+
+head(resultados)
+nrow(resultados)
+\end{lstlisting}
+
+  \vspace{0.7em}
+  Una fila es una entidad federativa. Deben ser 32.
+
+  \vspace{0.4em}
+  {\small\color{grisTenue}Lo que \cod{read\_csv()} imprime en rojo no es un
+  error: es R diciéndonos qué entendió.}
+\end{frame}
+
+\begin{frame}[fragile]{Una operación sobre las 32 a la vez}
+\begin{lstlisting}
+resultados$participacion
+
+mean(resultados$participacion)
+\end{lstlisting}
+
+  \vspace{0.9em}
+  \onslide<2->{%
+  \begin{errorbox}{Cuidado con lo que acabamos de calcular}
+    Ese número \se{no} es la participación nacional. Es el promedio de 32
+    porcentajes, y trata a Colima igual que al Estado de México.
+
+    \vspace{0.5em}
+    Un promedio de porcentajes casi nunca es el porcentaje que creemos.
+  \end{errorbox}}
+\end{frame}
+
+% ══════════════════════════════════════════════════════════════════════════════
+\section{El primer gráfico}
+% ══════════════════════════════════════════════════════════════════════════════
+
+\begin{frame}[fragile]{Un gráfico prestado}
+\begin{lstlisting}
+ggplot(resultados,
+       aes(x = reorder(entidad, participacion),
+           y = participacion)) +
+  geom_col(fill = "#006847") +
+  coord_flip() +
+  labs(title = "Participacion en 2024",
+       x = NULL, y = "Participacion (%)")
+\end{lstlisting}
+
+  \vspace{0.5em}
+  {\small No hay que entenderlo hoy. Hoy se trata de verlo salir.}
+\end{frame}
+
+\begin{frame}{Tres cosas que sí podemos leer}
+  \vspace{0.4em}
+  \begin{itemize}\setlength{\itemsep}{0.9em}
+    \item<1-> \cod{ggplot(resultados, ...)} — con qué datos.
+    \item<2-> \cod{aes(x = ..., y = ...)} — qué va en cada eje.
+    \item<3-> \cod{geom\_col()} — qué forma tiene.
+  \end{itemize}
+
+  \vspace{1.2em}
+  \onslide<4->{%
+  \begin{block}{Una advertencia que vale para todo el curso}
+    Las capas se encadenan con \cod{+}, y el \cod{+} va siempre al
+    \ac{final} de la línea. Nunca al principio de la siguiente.
+  \end{block}}
+\end{frame}
+
+% ══════════════════════════════════════════════════════════════════════════════
+\section{Ejercicio}
+% ══════════════════════════════════════════════════════════════════════════════
+
+\begin{frame}{Quince minutos, tres niveles}
+  \vspace{0.4em}
+  \begin{itemize}\setlength{\itemsep}{1.0em}
+    \item \ac{Calentamiento} — el mismo gráfico, con la lista nominal en
+          vez de la participación.
+    \item \ac{De verdad} — ¿dónde le fue mejor a Sigamos Haciendo Historia?
+    \item \ac{Si te sobra tiempo} — cambia \cod{geom\_col()} por
+          \cod{geom\_point()} y decide cuál sirve para qué.
+  \end{itemize}
+
+  \vspace{1.2em}
+  {\small\color{grisTenue}El archivo es \cod{01\_ejercicio.R}. La solución
+  se publica al terminar la sesión.}
+\end{frame}
+
+% ── Cierre ────────────────────────────────────────────────────────────────────
+\yasabemos
+  {Abrir un proyecto de RStudio, acomodarlo a nuestro gusto y saber dónde está parado R.}
+  {Guardar cosas en objetos y operar sobre las 32 entidades de un golpe.}
+  {Producir un gráfico de barras de la elección de 2024, con título y fuente.}
+
+\lasiguiente{Los datos son tablas}{%
+  Vamos a abrir una base electoral de verdad y a entender qué significa cada
+  fila antes de tocar nada. Es la sesión que separa a quien manipula datos de
+  quien los rompe sin darse cuenta.}
+
+\end{document}

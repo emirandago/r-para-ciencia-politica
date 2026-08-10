@@ -1,0 +1,275 @@
+% ══════════════════════════════════════════════════════════════════════════════
+% Laboratorio de R para Ciencia Política — ITAM
+% Sesión 10 · Que otro pueda repetirlo
+%
+% Se compila desde esta carpeta:  pdflatex 10_slides.tex  (DOS veces)
+% El preámbulo, la paleta y el logo viven en ../../estilo/ — no se editan aquí.
+% ══════════════════════════════════════════════════════════════════════════════
+
+\input{../../estilo/preambulo-lab.tex}
+
+\title[Lab de R · Sesión 10]{Que otro pueda repetirlo}
+\subtitle{¿Cómo entrego trabajo serio?}
+\date{%
+  Sesión 10 de 11\\[0.3em]
+  \textit{ITAM, otoño 2026}%
+}
+\hypersetup{pdftitle={Sesión 10 · Que otro pueda repetirlo}}
+
+\begin{document}
+
+% ── Portada ───────────────────────────────────────────────────────────────────
+{\setbeamertemplate{footline}{}\setbeamertemplate{headline}{}
+\begin{frame}[plain, noframenumbering]
+  \titlepage
+\end{frame}}
+
+% ── El gancho ─────────────────────────────────────────────────────────────────
+\porquenosimporta{¿Cómo entrego trabajo serio?}{%
+  Nueve sesiones viven, hasta hoy, en una sola computadora: la tuya. Hoy
+  salen de ahí, con una dirección propia que puedes mandar por WhatsApp.}
+
+% ── Recapitulación ────────────────────────────────────────────────────────────
+\begin{frame}{De dónde venimos}
+  \vspace{0.3em}
+  \begin{itemize}\setlength{\itemsep}{0.9em}
+    \item<1-> Mapeaste el país, correlacionaste, corriste una regresión.
+    \item<2-> Cada resultado es correcto y cada uno vive solo en tu máquina.
+    \item<3-> Nadie más lo puede correr, revisar ni cuestionar todavía.
+  \end{itemize}
+\end{frame}
+
+% ══════════════════════════════════════════════════════════════════════════════
+\section{Reproducibilidad es honestidad}
+% ══════════════════════════════════════════════════════════════════════════════
+
+\begin{frame}{Un argumento que nadie puede verificar}
+  \vspace{0.3em}
+  \begin{itemize}\setlength{\itemsep}{0.85em}
+    \item<1-> Desde la sesión 1: \cod{.Rproj}, \cod{here()}, sesión siempre limpia.
+    \item<2-> Nunca se explicó del todo por qué importaba tanto.
+    \item<3-> Hoy sí: son las reglas que hacen que tu trabajo sobreviva fuera
+          de tu computadora.
+  \end{itemize}
+
+  \vspace{1.0em}
+  \onslide<4->{%
+  \begin{saltobox}
+    De «esto corre en mi computadora» a «esto lo puede correr, revisar y
+    cuestionar cualquiera». Ese es el salto de hoy: el trabajo deja de ser
+    un archivo en un escritorio y se vuelve algo público.
+  \end{saltobox}}
+\end{frame}
+
+\begin{frame}{Lo que no se puede verificar}
+  \vspace{0.4em}
+  Un análisis que solo corre en una computadora no se puede revisar.
+
+  \vspace{0.8em}
+  Y lo que no se puede revisar no es, en sentido estricto, un
+  \ac{argumento}: es una \se{afirmación} con forma de argumento.
+
+  \vspace{1.1em}
+  {\small\color{grisTenue}Esa es la ciencia empírica: el trabajo de una
+  persona lo tiene que poder repetir otra.}
+\end{frame}
+
+% ══════════════════════════════════════════════════════════════════════════════
+\section{Quarto: el heredero de R Markdown}
+% ══════════════════════════════════════════════════════════════════════════════
+
+\begin{frame}{Tres cosas en un solo archivo}
+  \vspace{0.3em}
+  \begin{itemize}\setlength{\itemsep}{0.9em}
+    \item<1-> Un encabezado \ac{YAML}, entre dos líneas de \cod{---}.
+    \item<2-> \ac{Texto} en formato Markdown, como cualquier README.
+    \item<3-> Bloques de código —\textit{chunks}— que sí corren de verdad.
+  \end{itemize}
+
+  \vspace{1.1em}
+  \onslide<4->{%
+  {\small\color{grisTenue}\textit{Renderizar}: convertir ese archivo en una
+  página que se ve, sin que quien la abre necesite tener R instalado.}}
+\end{frame}
+
+\begin{frame}[fragile]{Anatomía de un \cod{.qmd}}
+\begin{lstlisting}
+---
+title: "Participacion en 2024"
+format: html
+---
+
+Este reporte responde una pregunta simple.
+
+```{r}
+library(tidyverse)
+resultados <- read_csv("...csv")
+```
+\end{lstlisting}
+
+  \vspace{0.3em}
+  {\small YAML, texto y código, en el mismo archivo.}
+\end{frame}
+
+\begin{frame}{Dos promesas que se cumplen hoy}
+  \vspace{0.3em}
+  Quarto es el sucesor directo de \ac{R Markdown}: mismo YAML, mismo texto,
+  mismos \textit{chunks}, escrito por el mismo equipo.
+
+  \vspace{1.0em}
+  \begin{block}{Con nombre y apellido}
+    Dos de los tres cursos que este laboratorio hereda anunciaron R Markdown
+    en su temario y nunca llegaron a impartirlo. Hoy se cumple, con su
+    sucesor.
+  \end{block}
+\end{frame}
+
+\begin{frame}[fragile]{Opciones de \textit{chunk}, con \cod{\#|}}
+\begin{lstlisting}
+#| echo: false      # no muestra el codigo
+#| eval: false      # no lo corre
+#| message: false   # oculta avisos de library()
+#| warning: false   # oculta warnings
+\end{lstlisting}
+
+  \vspace{0.7em}
+  Un \cod{.Rmd} escribe lo mismo distinto, dentro de las llaves:
+  \cod{\{r, echo=FALSE\}}. Quarto todavía lo entiende — son primos.
+
+  \vspace{0.8em}
+  Y un número puede vivir \ac{dentro} de una frase:
+  \cod{`r codigo`}. Si los datos cambian, el número del texto cambia
+  solo.
+\end{frame}
+
+% ══════════════════════════════════════════════════════════════════════════════
+\section{La estructura que ya tenías resuelta}
+% ══════════════════════════════════════════════════════════════════════════════
+
+\begin{frame}{Nada nuevo que aprender aquí}
+  \vspace{0.3em}
+  \begin{itemize}\setlength{\itemsep}{0.85em}
+    \item<1-> El proyecto de RStudio y \cod{here()} —desde la sesión 1.
+    \item<2-> Nunca una ruta como \cod{/Users/tu-nombre/Desktop/...}
+    \item<3-> Eso es, exactamente, lo que hoy hace posible mover tu trabajo
+          a otra computadora sin que nada se rompa.
+  \end{itemize}
+
+  \vspace{1.1em}
+  \onslide<3->{%
+  {\small\color{grisTenue}Nueve sesiones sin pensarlo. Hoy se ve para qué
+  servía.}}
+\end{frame}
+
+% ══════════════════════════════════════════════════════════════════════════════
+\section{Una función propia, en tres líneas}
+% ══════════════════════════════════════════════════════════════════════════════
+
+\begin{frame}[fragile]{Lo que copiaste y pegaste dos veces}
+\begin{lstlisting}
+pct_ponderado <- function(parte, total) {
+  sum(parte) / sum(total) * 100
+}
+\end{lstlisting}
+
+  \vspace{0.7em}
+  Sesión 1: participación nacional. Sesión 4: voto de una coalición.
+  Misma cuenta, escrita dos veces.
+
+  \vspace{0.6em}
+  Hoy es una función, y la llamas dos veces con datos distintos.
+\end{frame}
+
+\begin{frame}{Esto es apenas la entrada}
+  \vspace{0.3em}
+  \begin{itemize}\setlength{\itemsep}{0.85em}
+    \item<1-> Argumentos con valor por \ac{default}.
+    \item<2-> \cod{return()} explícito, cuando hay más de un camino.
+    \item<3-> El \ac{alcance} (\textit{scope}) de una variable adentro.
+  \end{itemize}
+
+  \vspace{1.1em}
+  \onslide<3->{%
+  \begin{block}{Si te gustó este momento}
+    El desarrollo completo está en \cod{extras/01-funciones-e-iteracion}.
+  \end{block}}
+\end{frame}
+
+% ══════════════════════════════════════════════════════════════════════════════
+\section{Subir a GitHub sin la terminal}
+% ══════════════════════════════════════════════════════════════════════════════
+
+\begin{frame}{Dos cosas, nada más}
+  \vspace{0.3em}
+  \begin{itemize}\setlength{\itemsep}{0.9em}
+    \item<1-> Un repositorio: tu código, en público.
+    \item<2-> \ac{GitHub Pages}: convierte una carpeta en una página web.
+  \end{itemize}
+
+  \vspace{1.2em}
+  \onslide<3->{%
+  {\small\color{grisTenue}Existe una forma por línea de comandos, con
+  \cod{git}. Hoy no la tocamos: autenticarse por terminal es, desde hace
+  poco, un trámite de tokens que se lleva la clase entera.}}
+\end{frame}
+
+\begin{frame}{Los pasos, todos con el mouse}
+  \vspace{0.2em}
+  \begin{itemize}\setlength{\itemsep}{0.75em}
+    \item<1-> Crear un repositorio nuevo, público, vacío.
+    \item<2-> Arrastrar tres archivos a la ventana: \cod{index.html},
+          tu \cod{.qmd} y tu \cod{.csv}.
+    \item<3-> \ac{Settings} \textrightarrow{} \ac{Pages} \textrightarrow{}
+          publicar desde la rama principal.
+    \item<4-> Esperar un minuto, refrescar, copiar la URL.
+  \end{itemize}
+
+  \vspace{1.0em}
+  \onslide<4->{%
+  {\small\color{grisTenue}\cod{tu-usuario.github.io/mi-primer-reporte}}}
+\end{frame}
+
+\begin{frame}{Cuando algo falla}
+  \vspace{0.4em}
+  \begin{errorbox}{Tu pagina de GitHub Pages muestra un 404}
+    Traducción: la página todavía no existe donde la buscas.
+
+    \vspace{0.5em}
+    Casi nunca es un error real: la primera vez, GitHub tarda uno o dos
+    minutos en construir el sitio. Espera y refresca.
+  \end{errorbox}
+
+  \vspace{1.0em}
+  Y si en vez del reporte ves el código en crudo: revisa que el archivo se
+  llame exactamente \cod{index.html}, no otro nombre.
+\end{frame}
+
+% ══════════════════════════════════════════════════════════════════════════════
+\section{Ejercicio}
+% ══════════════════════════════════════════════════════════════════════════════
+
+\begin{frame}{Quince minutos, tres niveles}
+  \vspace{0.4em}
+  \begin{itemize}\setlength{\itemsep}{1.0em}
+    \item \ac{Calentamiento} — la misma función, con otra coalición.
+    \item \ac{De verdad} — comparar participación entre dos elecciones.
+    \item \ac{Si te sobra tiempo} — publicar ese segundo hallazgo también.
+  \end{itemize}
+
+  \vspace{1.2em}
+  {\small\color{grisTenue}El archivo es \cod{10\_ejercicio.R}. La solución
+  se publica al terminar la sesión.}
+\end{frame}
+
+% ── Cierre ────────────────────────────────────────────────────────────────────
+\yasabemos
+  {Escribir un documento Quarto que mezcla prosa y código, y renderizarlo a una página que corre sola.}
+  {Envolver un cálculo repetido en una función propia de tres líneas.}
+  {Publicar un reporte propio en internet, con una URL que puedes compartir.}
+
+\lasiguiente{La IA como copiloto, no como piloto}{%
+  Última sesión: cierras el proyecto Morena por ministras con el mapa y la
+  regresión que ya construiste, trabajando en pareja con una inteligencia
+  artificial.}
+
+\end{document}

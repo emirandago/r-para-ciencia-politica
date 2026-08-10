@@ -1,0 +1,231 @@
+---
+title: "Extra 2 · Probabilidad y simulación"
+subtitle: "¿Qué tanto cambiaría el resultado si volvieras a tirar los dados?"
+---
+
+::: {.gancho}
+Una encuesta dice que un candidato tiene 42% de intención de voto. Si
+levantaras la encuesta otra vez, con otras mil personas elegidas al azar,
+¿saldría también 42%? Casi seguro que no —saldría 39, o 44, o 41.6—. La
+pregunta de qué tanto varía un número que depende del azar es, en el fondo,
+la pregunta que hace toda la estadística inferencial que vas a cursar más
+adelante. Aquí no la vas a formalizar: la vas a **ver moverse**, repitiendo
+sorteos con la computadora miles de veces en lugar de una sola.
+:::
+
+## Qué vas a poder hacer al salir
+
+Vas a fijar la semilla del generador aleatorio de R con `set.seed()` para que
+cualquier sorteo que hagas sea exactamente reproducible. Vas a sortear
+municipios con `sample()`, con y sin reemplazo. Vas a generar números al azar
+con cuatro distribuciones —`runif()`, `rbinom()`, `rnorm()`, `rpois()`— y
+vas a entender para qué tipo de pregunta sirve cada una, sin una sola
+fórmula de densidad de probabilidad. Y vas a usar `replicate()` —la
+conociste de pasada en el extra 1— para repetir un sorteo miles de veces y
+ver, con tus propios ojos, cómo se comporta la variación que produce el
+azar.
+
+Una advertencia honesta, antes de empezar: este módulo se detiene justo
+antes de la inferencia estadística formal. No vas a calcular un p-valor, ni
+un intervalo de confianza, ni el poder de una prueba. Esas palabras las vas
+a aprender bien, con su aparato completo, en Estadística I y Estadística II.
+Aquí, si alguna vez llegaras a necesitar un p-valor para algo, la regla es:
+nómbralo, di que se formaliza más adelante, y no lo uses como herramienta de
+decisión. Lo que sí es legítimamente tuyo desde hoy es la simulación misma:
+la capacidad de construir, con código, un mundo de mentiras controlado
+—donde tú decides las reglas del azar— para entender mejor el mundo de
+verdad.
+
+## Qué necesitas haber visto antes
+
+Las sesiones 1 y 2 (objetos, vectores, la mención de `set.seed()` que ahí
+quedó pendiente) y, si puedes, el **extra 1**: ahí conociste `replicate()`
+por primera vez y aquí la vas a usar en serio.
+
+## Los archivos del módulo
+
+::: {.descargas}
+[02_script.R — el código completo](https://raw.githubusercontent.com/emirandago/r-para-politologos/main/extras/02-probabilidad-y-simulacion/02_script.R){.btn-descarga}
+[02_ejercicio.R — para practicar](https://raw.githubusercontent.com/emirandago/r-para-politologos/main/extras/02-probabilidad-y-simulacion/02_ejercicio.R){.btn-descarga}
+[02_solucion.R — solución comentada](https://raw.githubusercontent.com/emirandago/r-para-politologos/main/extras/02-probabilidad-y-simulacion/02_solucion.R){.btn-descarga .secundario}
+:::
+
+`02_script.R` corre completo, de arriba abajo, sin huecos.
+
+## El contenido, en prosa
+
+### `set.seed()`: por qué el azar de R no es azar de verdad
+
+Lo que R llama "números aleatorios" es, en realidad, una secuencia
+perfectamente determinista que se ve como si fuera azarosa. `set.seed(n)`
+le dice a R en qué punto exacto de esa secuencia empezar. Fijar la semilla
+con un número —cualquiera, no importa cuál— tiene una sola consecuencia,
+pero es enorme: **todo el mundo que corra tu código, con la misma versión
+de R, obtiene exactamente los mismos "números al azar" que tú**. Sin
+`set.seed()`, cada corrida da un resultado distinto y nadie —ni siquiera tú
+mismo mañana— puede reproducir lo que viste hoy. Ningún curso heredado en
+este laboratorio usó `set.seed()` ni una sola vez; aquí se corrige desde la
+primera línea.
+
+### `sample()`: sortear sin fórmula
+
+```r
+sample(municipios_oaxaca, size = 5, replace = FALSE)
+```
+
+`sample()` saca elementos al azar de un vector. `replace = FALSE` —el valor
+de fábrica— es un sorteo "sin devolver la bolita a la urna": una vez que
+salió un municipio, no puede volver a salir. `replace = TRUE` sí permite
+repeticiones, y es lo que necesitas cuando simulas algo que puede repetirse
+de verdad —lanzar una moneda muchas veces, por ejemplo, donde "águila" puede
+salir dos veces seguidas—. Adrián Lucardi, en su curso de posgrado, le pide
+a cada persona del grupo que sortee con su propia clave del ITAM como
+semilla, para que cada quien reciba "su" país o su estado sin que dos
+personas trabajen con el mismo caso por accidente. Es un uso de `sample()`
+completamente ajeno
+a la estadística inferencial: es, simplemente, un sorteo justo y
+verificable.
+
+### `runif()`: números continuos, todos igual de probables
+
+```r
+runif(5, min = 0, max = 100)
+```
+
+La distribución uniforme es la más simple de las cuatro: cualquier número
+entre el mínimo y el máximo tiene exactamente la misma probabilidad de
+salir. Sirve para simular ruido sin ningún patrón —ni una zona más probable
+que otra— y es la base sobre la que están construidas las otras tres
+distribuciones de esta página, aunque R te las da ya resueltas.
+
+### `rbinom()`: decisiones binarias, una por una
+
+```r
+rbinom(n = 38773, size = 1, prob = 0.65231)
+```
+
+`rbinom()` simula resultados de tipo sí/no —vota o no vota, gana o pierde—,
+repetidos `n` veces, cada uno con la misma probabilidad `prob` de dar "sí".
+`size = 1` significa "una moneda por persona"; si en cambio pusieras
+`size = 10`, cada resultado sería la cuenta de cuántos "sí" salieron en diez
+volados, no en uno. El ejemplo de arriba simula, persona por persona, la
+decisión de votar o no votar en Asientos, Aguascalientes —un municipio real
+de 38,773 personas en la lista nominal, donde en 2024 participó 65.231% del
+padrón—, **como si** cada quien decidiera de forma independiente, con la
+misma probabilidad. Súmalo y divide entre 38,773: te va a dar un número
+cerca de 65.231%, no exacto —cada corrida sin `set.seed()` varía un poco—.
+Esa distancia entre "cerca" y "exacto" ya es, sin que lo hayas buscado, la
+primera pista de por qué la estadística inferencial existe: el mundo real
+casi nunca se comporta como monedas perfectamente independientes —hay
+familias que votan juntas, cuadras que comparten opinión—, y la
+participación real de Asientos es UN dato, no un promedio de mil sorteos.
+
+### `rnorm()`: la campana, cuando aplica
+
+```r
+rnorm(n = 2475, mean = 63.12, sd = 11.72)
+```
+
+La distribución normal —la "campana"— sirve para variables continuas que
+se acumulan alrededor de un centro y se van haciendo más raras conforme te
+alejas de él, de forma simétrica. `mean` es el centro, `sd` qué tan
+apretada o dispersa es la campana —la misma `sd()` que ya calculaste en la
+sesión 8—. La participación municipal real de 2024 tiene una media de
+63.12% y una desviación estándar de 11.72 puntos; generar 2,475 números con
+`rnorm()` y esos mismos dos parámetros produce una variable que **se
+parece** a la participación real —una campana centrada casi en el mismo
+sitio— pero no es idéntica: la real tiene un sesgo hacia la izquierda
+—hay más municipios con participación muy baja que muy alta, comparado con
+una campana perfecta— que `rnorm()`, por construcción, no puede replicar.
+Superponer las dos —la real y la simulada— en un mismo histograma es la
+manera más honesta de mostrar en qué se parece un modelo a los datos y en
+qué no.
+
+### `rpois()`: contar eventos raros
+
+```r
+rpois(n = 12, lambda = 4)
+```
+
+La distribución de Poisson simula CONTEOS de eventos —no decisiones
+binarias, no medidas continuas—: cuántas quejas llegan, cuántos incidentes
+se reportan, cuántas iniciativas se presentan. `lambda` es el promedio
+esperado de eventos por periodo. El ejemplo de arriba simula doce meses de
+un OPLE hipotético que recibe, en promedio, 4 quejas por prácticas
+indebidas al mes —un número inventado, para el ejemplo, igual que los
+`votos_ficticios` de la sesión 1—: algunos meses van a salir 2, otros 7,
+casi nunca exactamente 4, y eso es exactamente lo que Poisson predice: la
+variación alrededor del promedio crece junto con el promedio mismo.
+
+### `replicate()`: repetir el sorteo, no solo hacerlo una vez
+
+Aquí es donde las piezas se juntan. Una sola muestra de municipios te da un
+promedio de participación. ¿Qué tan distinto sería ese promedio si hubieras
+sorteado otro grupo de municipios?
+
+```r
+promedios_simulados <- replicate(
+  1000,
+  mean(sample(municipios$participacion, size = 100, replace = FALSE))
+)
+```
+
+Esto saca, mil veces, una muestra de 100 municipios al azar —sin
+`set.seed()` esto varía cada vez que lo corres; con `set.seed()`, siempre
+va a dar los mismos mil promedios— y guarda el promedio de participación de
+cada una de las mil muestras. Grafica `promedios_simulados` en un
+histograma y vas a ver, con tus propios ojos, una campana: la mayoría de
+los mil sorteos da un promedio cercano al promedio real de los 2,475
+municipios, y unos pocos sorteos —los que por azar sacaron demasiados
+municipios extremos— se alejan más. Esa campana **es** la intuición
+completa detrás de conceptos que vas a nombrar formalmente en Estadística
+—variación de un estimador, qué tan confiable es un número que viene de
+una muestra—. Aquí, hoy, no le vas a poner un nombre técnico ni la vas a
+usar para decidir nada: nada más la viste aparecer.
+
+::: {.si-algo-falla}
+### Si algo falla
+
+**`Error in rbinom(...) : NA/NaN argument`**
+Casi siempre `prob` quedó fuera del rango 0 a 1 —por ejemplo, si le pasaste
+un porcentaje como `65.231` en vez de `0.65231`—. Las cuatro funciones de
+esta página esperan probabilidades como proporciones, no como porcentajes.
+
+**Cada vez que corro el mismo bloque me sale un resultado distinto**
+Es lo esperado si no pusiste `set.seed()` justo antes. Agrega
+`set.seed(2026)` —o cualquier número que prefieras— en la línea anterior y
+vuelve a correr las dos líneas juntas, siempre en ese orden.
+
+**`Error: object 'municipios' not found`**
+No corriste el bloque de carga de datos al principio del script. Súbete al
+inicio del archivo y corre todo de arriba abajo, sin saltarte bloques.
+
+**El histograma sale con una sola barra enorme**
+Casi siempre es que graficaste el vector equivocado —por ejemplo,
+`municipios$participacion` completo en vez de `promedios_simulados`—.
+Revisa qué variable le pasaste a `geom_histogram()`.
+
+Hay más, con su traducción y su arreglo, en
+[Errores comunes](../../recursos/errores-comunes.qmd).
+:::
+
+::: {.ya-sabes}
+### Lo que ya sabes hacer
+
+- Fijar una semilla con `set.seed()` para que cualquier sorteo sea
+  exactamente reproducible por alguien más.
+- Elegir, según el tipo de pregunta, entre `sample()`, `runif()`,
+  `rbinom()`, `rnorm()` y `rpois()`, y explicar por qué cada una no
+  sirve para las otras tres preguntas.
+- Repetir un sorteo miles de veces con `replicate()` y leer, en un
+  histograma, cómo varía un promedio calculado sobre una muestra.
+:::
+
+## Para seguir
+
+La **sesión 9** —regresión— y el **extra 3** —logit— son los lugares donde
+vas a ver, por primera vez con nombre propio, algunos de los conceptos que
+aquí quedaron sin formalizar: qué tan confiable es un coeficiente, y qué
+significa un asterisco junto a un número. Cuando llegues
+ahí, vale la pena volver un momento a este módulo y notar que ya habías
+visto el fenómeno moverse, aunque no supieras cómo se llamaba.

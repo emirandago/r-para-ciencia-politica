@@ -1,0 +1,29 @@
+% ══════════════════════════════════════════════════════════════════════════════
+% PALETA DEL LABORATORIO DE R PARA CIENCIA POLÍTICA — ITAM
+% Verde institucional #006847 sobre blanco
+%
+% ESTE ES EL ÚNICO LUGAR NORMATIVO DONDE VIVEN LOS HEXES.
+% Si cambia un color, se cambia aquí y se propaga a mano a los otros dos
+% archivos que lo heredan:
+%   · estilo/tema_lab.R     → theme_lab() y las escalas de ggplot2
+%   · estilo/estilo.scss    → el sitio Quarto
+% Los tres tienen que decir lo mismo. Si no, las láminas, los gráficos y el
+% sitio dejan de combinar y se nota.
+% ══════════════════════════════════════════════════════════════════════════════
+
+\definecolor{verdeITAM}{HTML}{006847}     % acento principal — verde institucional
+\definecolor{verdeProfundo}{HTML}{00402C} % títulos y texto enfático
+\definecolor{verdeClaro}{HTML}{A8D5BE}    % fondos suaves, resaltados
+\definecolor{grisTexto}{HTML}{3D3D3D}     % cuerpo de texto
+\definecolor{guinda}{HTML}{7B1113}        % acento secundario, uso escaso
+
+% ── Derivados ────────────────────────────────────────────────────────────────
+% No son colores nuevos: son diluciones de los anteriores. Se definen aquí para
+% que nadie escriba "verdeClaro!15" a mano en una lámina y el curso termine con
+% quince tonos distintos repartidos por ahí.
+
+\colorlet{verdeVelo}{verdeClaro!22!white}   % fondo de bloque y de código
+\colorlet{verdeTenue}{verdeClaro!55!white}  % resaltado dentro de un bloque
+\colorlet{verdeSombra}{white!30!verdeITAM}  % texto atenuado SOBRE fondo verde
+\colorlet{grisVelo}{grisTexto!7!white}      % fondos muy tenues, reglas
+\colorlet{grisTenue}{grisTexto!45!white}    % texto terciario, pies

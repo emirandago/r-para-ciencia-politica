@@ -1,0 +1,341 @@
+% ══════════════════════════════════════════════════════════════════════════════
+% Laboratorio de R para Ciencia Política — ITAM
+% Sesión 03 · Pedirle cosas a los datos
+%
+% Se compila desde esta carpeta:  pdflatex 03_slides.tex  (DOS veces)
+% El preámbulo, la paleta y el logo viven en ../../estilo/ — no se editan aquí.
+% ══════════════════════════════════════════════════════════════════════════════
+
+\input{../../estilo/preambulo-lab.tex}
+
+\title[Lab de R · Sesión 3]{Pedirle cosas a los datos}
+\subtitle{¿Dónde ganó Morena por más de veinte puntos?}
+\date{%
+  Sesión 3 de 11\\[0.3em]
+  \textit{ITAM, otoño 2026}%
+}
+\hypersetup{pdftitle={Sesión 3 · Pedirle cosas a los datos}}
+
+\begin{document}
+
+% ── Portada ───────────────────────────────────────────────────────────────────
+{\setbeamertemplate{footline}{}\setbeamertemplate{headline}{}
+\begin{frame}[plain, noframenumbering]
+  \titlepage
+\end{frame}}
+
+% ── El gancho ─────────────────────────────────────────────────────────────────
+\porquenosimporta{¿Dónde ganó Morena por más de veinte puntos?}{%
+  Tienes una intuición: que Morena arrasó en el sur y compitió parejo en otras
+  partes. En esta hora esa intuición se vuelve una línea de código que contesta
+  con una tabla, no con una sensación.}
+
+% ── Recapitulación ────────────────────────────────────────────────────────────
+\begin{frame}{De dónde venimos}
+  \vspace{0.3em}
+  \begin{itemize}\setlength{\itemsep}{0.9em}
+    \item<1-> La sesión pasada abrimos una base electoral de verdad.
+    \item<2-> Vimos qué es una fila y qué es una columna, con \cod{glimpse()}.
+    \item<3-> Aprendimos a leer el tipo de cada columna y a desconfiar de un \cod{NA}.
+    \item<4-> Hoy le vamos a \ac{pedir cosas} a esa tabla.
+  \end{itemize}
+\end{frame}
+
+% ══════════════════════════════════════════════════════════════════════════════
+\section{Por qué no usamos corchetes}
+% ══════════════════════════════════════════════════════════════════════════════
+
+\begin{frame}[fragile]{Cómo filtrábamos antes del pipe}
+\begin{lstlisting}
+resultados[resultados$participacion > 60,
+           c("entidad", "participacion")]
+\end{lstlisting}
+
+  \vspace{0.6em}
+  El nombre de la tabla se repite tres veces. Un paréntesis o una coma fuera de
+  lugar y todo truena, sin decirte dónde.
+\end{frame}
+
+\begin{frame}[fragile]{La misma pregunta, con el pipe}
+\begin{lstlisting}
+resultados |>
+  filter(participacion > 60) |>
+  select(entidad, participacion)
+\end{lstlisting}
+
+  \vspace{0.7em}
+  Cada verbo dice lo que hace. Se lee de arriba hacia abajo, como una receta.
+
+  \vspace{0.4em}
+  {\small\color{grisTenue}Esto es exactamente lo que hacía el bloque anterior:
+  ninguno de los dos modifica \cod{resultados}.}
+\end{frame}
+
+\begin{frame}{El pipe se lee «y luego»}
+  \vspace{0.3em}
+  \begin{itemize}\setlength{\itemsep}{0.9em}
+    \item<1-> \cod{|>} toma lo que sale de un bloque y lo pasa al siguiente.
+    \item<2-> Se escribe con \cod{Ctrl+Shift+M} (\cod{Cmd+Shift+M} en Mac).
+    \item<3-> En este curso nunca vamos a usar \cod{\%>\%}: es el pipe viejo,
+          de antes de que R trajera uno de fábrica en 2021.
+  \end{itemize}
+
+  \vspace{1.1em}
+  \onslide<4->{%
+  {\small\color{grisTenue}Vas a escribir \cod{|>} más veces que cualquier otro
+  símbolo del curso. Vale la pena que el atajo te salga sin pensar.}}
+\end{frame}
+
+% ══════════════════════════════════════════════════════════════════════════════
+\section{filter(): de una sensación a una tabla}
+% ══════════════════════════════════════════════════════════════════════════════
+
+\begin{frame}[fragile]{Quedarte con las filas que cumplen algo}
+\begin{lstlisting}
+resultados |> filter(entidad == "Jalisco")
+
+resultados |> filter(participacion > 60)
+\end{lstlisting}
+
+  \vspace{0.6em}
+  \cod{==} pregunta si dos cosas son iguales. \cod{=} sirve para otra cosa
+  —asignar— y dentro de \cod{filter()} casi siempre es un error de dedo.
+\end{frame}
+
+\begin{frame}[fragile]{Combinar condiciones}
+\begin{lstlisting}
+resultados |>
+  filter(pct_shh > 60 | pct_fcm > 60)
+\end{lstlisting}
+
+  \vspace{0.6em}
+  \begin{itemize}\setlength{\itemsep}{0.8em}
+    \item<1-> \cod{==}, \cod{!=}, \cod{>}, \cod{<}, \cod{>=}, \cod{<=} comparan.
+    \item<2-> \cod{\&} exige que se cumplan las dos condiciones.
+    \item<3-> \cod{|} exige que se cumpla al menos una.
+  \end{itemize}
+\end{frame}
+
+% ══════════════════════════════════════════════════════════════════════════════
+\section{La trampa silenciosa}
+% ══════════════════════════════════════════════════════════════════════════════
+
+\begin{frame}{Un filtro que «funciona» y miente}
+  \vspace{0.3em}
+  \begin{itemize}\setlength{\itemsep}{0.9em}
+    \item<1-> Imagina una columna con el código de la coalición ganadora:
+          \cod{1} para Sigamos Haciendo Historia, \cod{2} para Fuerza y
+          Corazón por México.
+    \item<2-> Alguien escribe \cod{filter(codigo == 1 | 2)} para quedarse
+          con esas dos.
+    \item<3-> R no truena. Te entrega una tabla. Esa tabla está mal.
+  \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]{Compruébalo en la consola}
+\begin{lstlisting}
+codigo_coalicion <- c(1, 2, 3, 1, 2)
+
+codigo_coalicion == 1 | 2
+\end{lstlisting}
+
+  \vspace{0.6em}
+  {\small\color{grisTenue}Este vector es un ejemplo didáctico, no un dato
+  real. Corre las dos líneas y mira lo que devuelve la segunda.}
+\end{frame}
+
+\begin{frame}{Por qué pasa esto}
+  \vspace{0.4em}
+  \begin{errorbox}{codigo\_coalicion == 1 | 2 no marca ningún error}
+    R primero calcula \cod{codigo\_coalicion == 1}. Después le hace un
+    \cod{OR} con el número \cod{2}, y R convierte cualquier número distinto
+    de cero en \cod{TRUE}.
+
+    \vspace{0.5em}
+    El resultado es \cod{TRUE} en todas partes. Con \cod{filter()}, eso
+    significa quedarte con la tabla completa, \se{sin ningún aviso}.
+  \end{errorbox}
+\end{frame}
+
+\begin{frame}[fragile]{La forma correcta: \%in\%}
+\begin{lstlisting}
+codigo_coalicion %in% c(1, 2)
+
+resultados |>
+  filter(clave_entidad %in% c("01", "02", "09"))
+\end{lstlisting}
+
+  \vspace{0.6em}
+  \cod{\%in\%} pregunta «¿está en esta lista?» y no tiene esa trampa.
+
+  \vspace{0.5em}
+  {\small\color{grisTenue}Y si dentro de \cod{filter()} escribes \cod{=} en
+  vez de \cod{==}, R sí te va a detener con un error — a diferencia de la
+  trampa de arriba, esa sí truena.}
+\end{frame}
+
+% ══════════════════════════════════════════════════════════════════════════════
+\section{select(), arrange() y sus atajos}
+% ══════════════════════════════════════════════════════════════════════════════
+
+\begin{frame}[fragile]{Quedarte con las columnas que importan}
+\begin{lstlisting}
+resultados |> select(entidad, participacion)
+
+resultados |> select(-clave_entidad)
+\end{lstlisting}
+
+  \vspace{0.6em}
+  Con \cod{-} excluyes en vez de escoger. Sirve cuando quieres «todo menos
+  esto» y enlistar lo demás sería más largo.
+\end{frame}
+
+\begin{frame}[fragile]{select() con un patrón, no un nombre}
+\begin{lstlisting}
+resultados |> select(starts_with("pct_"))
+\end{lstlisting}
+
+  \vspace{0.6em}
+  Agarra de un golpe las tres columnas de porcentaje.
+
+  \vspace{0.4em}
+  {\small\color{grisTenue}Hay más atajos como este —\cod{ends\_with()},
+  \cod{contains()}— en el acordeón del curso.}
+\end{frame}
+
+\begin{frame}[fragile]{Dos verbos de inspección}
+\begin{lstlisting}
+resultados |> rename(part_pct = participacion)
+
+municipios |> distinct(entidad) |> nrow()
+\end{lstlisting}
+
+  \vspace{0.6em}
+  \cod{rename()} cambia un nombre sin tocar los datos. \cod{distinct()} te
+  dice cuántos valores únicos hay.
+
+  \vspace{0.4em}
+  {\small\color{grisTenue}El segundo debe dar 32: una confirmación barata
+  de que el archivo municipal cubre las 32 entidades.}
+\end{frame}
+
+\begin{frame}[fragile]{arrange(): ordenar}
+\begin{lstlisting}
+resultados |> arrange(desc(participacion))
+\end{lstlisting}
+
+  \vspace{0.6em}
+  \cod{desc()} invierte el orden. Sin él, \cod{arrange()} ordena siempre de
+  menor a mayor.
+\end{frame}
+
+\begin{frame}[fragile]{slice\_max(): el atajo de «los primeros N»}
+\begin{lstlisting}
+resultados |> slice_max(participacion, n = 5)
+\end{lstlisting}
+
+  \vspace{0.6em}
+  Hace en una línea lo que \cod{arrange()} y \cod{head()} hacían en dos, y
+  se lee mejor: «quédate con las 5 entidades de arriba en participación».
+\end{frame}
+
+% ══════════════════════════════════════════════════════════════════════════════
+\section{mutate() y la escala municipal}
+% ══════════════════════════════════════════════════════════════════════════════
+
+\begin{frame}[fragile]{Crear una columna nueva}
+\begin{lstlisting}
+resultados <- resultados |>
+  mutate(ventaja = pct_shh - pmax(pct_fcm, pct_mc))
+\end{lstlisting}
+
+  \vspace{0.6em}
+  \cod{pmax()} compara par por par y se queda con el mayor de los dos —el
+  segundo lugar, sea cual sea la coalición.
+\end{frame}
+
+\begin{frame}{Cuando algo falla}
+  \vspace{0.4em}
+  \begin{errorbox}{Error: object 'ventaja' not found}
+    Traducción: no existe nada que se llame así todavía.
+
+    \vspace{0.5em}
+    Casi siempre es que corriste \cod{mutate()} sin guardar el resultado:
+    \cod{mutate()} nunca modifica \cod{resultados} por sí solo. Hay que
+    reasignarlo con \cod{resultados <- resultados |> mutate(...)}.
+  \end{errorbox}
+\end{frame}
+
+\begin{frame}{De la intuición a la tabla}
+  \vspace{0.3em}
+  \begin{itemize}\setlength{\itemsep}{0.9em}
+    \item<1-> «Siento que Morena arrasó en el sur» es una intuición.
+    \item<2-> \cod{filter(ventaja > 20)} es una pregunta empírica.
+  \end{itemize}
+
+  \vspace{1.1em}
+  \onslide<3->{%
+  \begin{saltobox}
+    De «siento que Morena arrasó en el sur» a \cod{filter(ventaja > 20)}:
+    una intuición política convertida en una línea que cualquiera puede
+    correr, revisar y refutar. Ese es el salto de hoy.
+  \end{saltobox}}
+\end{frame}
+
+\begin{frame}[fragile]{La pregunta del título, contestada}
+\begin{lstlisting}
+resultados |>
+  filter(ventaja > 20) |>
+  arrange(desc(ventaja)) |>
+  select(entidad, ventaja)
+\end{lstlisting}
+
+  \vspace{0.6em}
+  Esta tabla contesta, a nivel estatal, la pregunta con la que abrió la
+  sesión.
+\end{frame}
+
+\begin{frame}[fragile]{La misma pregunta, en 2{,}475 municipios}
+\begin{lstlisting}
+municipios <- read_csv(here(
+  "datos", "limpios",
+  "presidencial_2024_municipio.csv"))
+
+municipios |> filter(ventaja_shh > 20) |> nrow()
+\end{lstlisting}
+
+  \vspace{0.5em}
+  {\small\color{grisTenue}\cod{municipios} ya trae \cod{ventaja\_shh}
+  calculada: no tuviste que hacer la resta 2{,}475 veces. Eso es lo que
+  aprendiste en la sesión 1, otra vez, a otra escala.}
+\end{frame}
+
+% ══════════════════════════════════════════════════════════════════════════════
+\section{Ejercicio}
+% ══════════════════════════════════════════════════════════════════════════════
+
+\begin{frame}{Quince minutos, tres niveles}
+  \vspace{0.4em}
+  \begin{itemize}\setlength{\itemsep}{1.0em}
+    \item \ac{Calentamiento} — sube el umbral de 20 a 10 puntos y compara.
+    \item \ac{De verdad} — construye tu propia ventaja y tu propia pregunta.
+    \item \ac{Si te sobra tiempo} — investiga \cod{slice\_min()} y
+          \cod{\%in\%} con más de dos valores.
+  \end{itemize}
+
+  \vspace{1.2em}
+  {\small\color{grisTenue}El archivo es \cod{03\_ejercicio.R}. La solución
+  se publica al terminar la sesión.}
+\end{frame}
+
+% ── Cierre ────────────────────────────────────────────────────────────────────
+\yasabemos
+  {Cambiar los corchetes de base R por un pipe legible: filter(), select(), arrange() y mutate().}
+  {Reconocer la trampa filter(var == 1 | 2) y usar \%in\% en su lugar.}
+  {Convertir una intuición política propia en una tabla que la pone a prueba.}
+
+\lasiguiente{Agrupar, resumir, cruzar}{%
+  Vamos a comparar entidades entre sí de verdad —no fila por fila, sino
+  resumidas— y a cruzar dos bases por una clave que no siempre coincide.}
+
+\end{document}

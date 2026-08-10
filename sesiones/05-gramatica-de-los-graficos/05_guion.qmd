@@ -1,0 +1,188 @@
+---
+title: "Sesión 5 · La gramática de los gráficos"
+subtitle: "¿Por qué unos gráficos convencen y otros no?"
+---
+
+::: {.gancho}
+Ya copiaste un `ggplot()` en la sesión 1 sin entenderlo del todo, y funcionó.
+Esa confianza fue el punto: hoy se convierte en comprensión. Vas a entender por
+qué ese bloque de código se construye por capas y no se elige de un menú, y vas
+a poder defender, con argumentos y no con gusto, por qué un gráfico usa el color
+que usa.
+:::
+
+## Qué vas a poder hacer al salir
+
+Vas a poder armar un gráfico de `ggplot2` sabiendo qué va dentro de `aes()` y qué
+va fuera, y por qué esa distinción importa. Vas a elegir entre barras, puntos y
+línea según la pregunta que tengas, no por costumbre. Vas a escribir un título
+que diga qué hay que ver en vez de qué es el gráfico. Y vas a saber por qué una
+paleta de color —secuencial, divergente o cualitativa— no es una decisión
+estética: es una afirmación sobre la variable que estás mostrando.
+
+Lo que no vas a ver hoy: `facet_wrap()`, `theme_lab()`, la exportación con
+`ggsave()`, ni el resto del catálogo de geoms (histograma, boxplot,
+`geom_smooth()`). Todo eso llega en la sesión 6, cuando el gráfico de hoy se
+convierta en una figura lista para un trabajo final. Hoy el objetivo es más
+angosto y más importante: entender el mecanismo, no ampliar el catálogo.
+
+## Antes de venir
+
+Necesitas haber corrido las sesiones 3 y 4. Usamos `filter()`, `arrange()`,
+`mutate()` y el pipe `|>` sin volver a explicarlos, y suponemos que ya sabes
+leer una base con `dplyr`.
+
+## Los archivos de la sesión
+
+::: {.descargas}
+[05_script.R — el guion de clase](https://raw.githubusercontent.com/emirandago/r-para-politologos/main/sesiones/05-gramatica-de-los-graficos/05_script.R){.btn-descarga}
+[05_ejercicio.R — para llevar](https://raw.githubusercontent.com/emirandago/r-para-politologos/main/sesiones/05-gramatica-de-los-graficos/05_ejercicio.R){.btn-descarga}
+[05_slides.pdf — las láminas](https://raw.githubusercontent.com/emirandago/r-para-politologos/main/sesiones/05-gramatica-de-los-graficos/05_slides.pdf){.btn-descarga .secundario}
+[05_script_completo.R — resuelto](https://raw.githubusercontent.com/emirandago/r-para-politologos/main/sesiones/05-gramatica-de-los-graficos/05_script_completo.R){.btn-descarga .secundario}
+[05_solucion.R — solución del ejercicio](https://raw.githubusercontent.com/emirandago/r-para-politologos/main/sesiones/05-gramatica-de-los-graficos/05_solucion.R){.btn-descarga .secundario}
+:::
+
+El archivo `05_script.R` tiene huecos y **no corre de corrido**: está hecho para
+llenarse en clase. Los dos archivos grises se publican al terminar la sesión.
+
+## El contenido, en prosa
+
+### Un gráfico no se elige de un menú
+
+`ggplot2` no es un catálogo del que escoges "el de barras" o "el de pastel": es
+una gramática, con piezas fijas que se combinan por reglas, igual que un
+idioma. Las piezas son cinco: los datos, `aes()` —qué columna va en cada canal
+visual—, un `geom_*()` —qué forma toman esos datos—, `labs()` —qué hay que
+leer— y `theme()` junto con los ajustes que no son los datos mismos. Las capas
+se encadenan con `+`, y cada una hereda lo que la anterior ya definió.
+
+Casi toda la confusión de esta hora se resuelve con una sola regla: todo lo que
+depende de una variable va **dentro** de `aes()`; lo que es constante para todo
+el gráfico va **fuera**. `geom_col(fill = "#006847")` pinta las treinta y dos
+barras del mismo verde porque ese color no depende de ningún dato. `aes(fill =
+participacion)` pinta cada barra distinto porque le estás pidiendo a `ggplot2`
+que lea una columna, fila por fila, y decida. La sintaxis se parece; el
+significado es opuesto, y confundir uno por otro es el primer tropiezo de
+cualquiera que empieza con `ggplot2`.
+
+De ahí sale una segunda distinción, más fina: un `aes()` escrito dentro de
+`ggplot()` es **global** y lo heredan todas las capas; un `aes()` escrito
+dentro de un `geom_*()` es **local** y solo aplica a esa capa. No hace falta
+memorizarlo hoy —vuelve a aparecer en la sesión 7, cuando `geom_sf()` mapee su
+propio color sobre un `aes()` global que solo trae la geometría—, pero conviene
+verlo pasar una vez antes de necesitarlo de verdad.
+
+### Tres geoms, un mismo esqueleto
+
+El catálogo completo de `ggplot2` tiene decenas de geoms. Esta sesión usa tres,
+y con esos tres alcanza para casi todo lo que hace el resto del curso: barras
+(`geom_col()`) para comparar magnitudes entre categorías, puntos
+(`geom_point()`) para comparar valores finos o relaciones entre dos variables,
+y línea (`geom_line()`) para series donde el orden del eje x significa algo de
+verdad —casi siempre, tiempo—. El resto del catálogo —histograma, boxplot,
+`geom_smooth()`, `geom_sf()`— llega cuando hace falta, en sesiones
+posteriores.
+
+Los tres comparten el mismo esqueleto de datos y `aes()`; lo único que cambia
+es el geom. Eso es, literalmente, el punto de tener una gramática en vez de un
+catálogo: adaptas una receta, no memorizas plantillas sueltas para cada tipo de
+gráfico.
+
+`geom_line()` trae una trampa que vale la pena ver una vez, provocada: si el
+eje x es una categoría —como el nombre de una entidad— y cada valor aparece una
+sola vez en los datos, `ggplot2` agrupa por defecto cada categoría por
+separado, y un grupo de un solo punto no tiene nada que conectar. El resultado
+no es un error: es una línea que simplemente no aparece. El arreglo es
+`aes(..., group = 1)`, para decirle a `ggplot2` que las trate a todas como una
+sola serie.
+
+### `labs()`: qué hay que ver, no qué es
+
+Ya se dijo en la sesión 1 y hoy se vuelve una regla que se puede defender: un
+buen título de gráfico dice qué hay que ver, no qué es el gráfico.
+"Participación en la elección de 2024, por entidad" describe; "¿En qué
+entidades casi nadie se quedó en casa?" dirige la mirada a algo concreto. Los
+cuatro argumentos de `labs()` que casi nunca faltan son `title` (la pregunta),
+`subtitle` (la precisión que no cabe en el título), `x`/`y` (con su unidad, o
+`NULL` cuando el eje ya se explica solo) y `caption` (la fuente: un gráfico sin
+fuente no se entrega).
+
+### Color con criterio
+
+El material heredado de este laboratorio coloreaba mapas de México con
+`rainbow()`, la función de paletas de R base. Vale la pena verla antes de
+descartarla: reparte matices del círculo cromático a distancias iguales en
+grados, no en percepción humana, así que el amarillo se ve mucho más brillante
+que el morado aunque estén a la misma distancia angular, y buena parte de sus
+matices pasa por la zona rojo-verde, la que colapsa bajo la forma más común de
+daltonismo. El reemplazo no es "usar colores más discretos": es usar una
+paleta diseñada para esto, como `viridis` o las paletas de `RColorBrewer`
+marcadas como seguras para daltonismo (`Dark2`, por ejemplo, con un techo
+documentado de ocho categorías).
+
+Hay tres familias de paleta, y cada una responde a un tipo de variable, no a un
+gusto. **Secuencial** —un tono que va de claro a oscuro— para una magnitud que
+va de menos a más sin dos bandos, como la participación. **Divergente** —dos
+tonos que se alejan desde un centro neutro— para una variable con un punto
+medio sustantivo, casi siempre un cero real, como la ventaja de un bloque
+electoral sobre otro. **Cualitativa** —colores de máximo contraste, sin
+gradiente— para categorías sin orden natural, como el nombre de una entidad.
+
+Aquí está el momento que vale la sesión entera: elegir el tipo de paleta no es
+una decisión de diseño, es una afirmación sobre la estructura de la variable.
+Si le pones una escala divergente a una variable que no tiene un cero real
+—la participación, por ejemplo— y le pasas un `midpoint` calculado con
+`mean()`, el gráfico compila y hasta se ve prolijo. El problema no es de
+sintaxis: es que le estás diciendo a quien lo mira que existe una frontera
+sustantiva en ese promedio, y esa frontera no existe. La inventaste tú, al
+calcular la media. Una escala mal elegida no es fea: es una afirmación falsa,
+hecha en color en vez de en palabras.
+
+::: {.si-algo-falla}
+### Si algo falla
+
+**`Warning: Ignoring unknown aesthetics: fill`**
+Mapeaste `fill` en un geom que solo tiene trazo, casi siempre `geom_line()` o
+`geom_point()`. Esos geoms no tienen una región que rellenar: el argumento
+correcto es `colour`, no `fill`. El mismo par reaparece, al revés, en
+`geom_col()` —que sí tiene relleno— y en la sesión 7, en `geom_sf()`.
+
+**`Error ... Insufficient values in manual scale`**
+Le pasaste a `scale_fill_manual()` o a `scale_fill_brewer()` menos colores de
+los que hay categorías —por ejemplo, ocho niveles de `fill` contra
+`rainbow(5)`—. Cuenta cuántos valores únicos tiene tu variable y ajusta el
+número, o cambia a una escala que no necesite que cuentes a mano, como
+`scale_fill_viridis_d()`.
+
+**`Error ... Continuous value supplied to discrete scale`**
+Al revés del anterior: mapeaste una variable continua (un número con
+decimales, como `participacion`) a una escala pensada para categorías, como
+`scale_fill_manual()` o `scale_fill_brewer()`. Cambia a una escala continua:
+`scale_fill_gradient()`, `scale_fill_gradient2()` o `scale_fill_viridis_c()`.
+El texto exacto de estos dos últimos mensajes puede variar un poco entre
+versiones de `ggplot2` —la causa y el arreglo no cambian—.
+
+**Mi gráfico de línea sale vacío, o son puntos sueltos sin conectar**
+No es un error, no imprime nada en rojo. Casi siempre falta `group = 1` dentro
+de `aes()`, porque el eje x es una categoría y cada valor aparece una sola vez
+en los datos. Sin ese `group`, `ggplot2` no sabe que todos los puntos
+pertenecen a la misma serie.
+
+Hay más, con su traducción y su arreglo, en [Errores comunes](../../recursos/errores-comunes.qmd).
+:::
+
+::: {.ya-sabes}
+### Lo que ya sabes hacer
+
+- Armar un gráfico capa por capa, sabiendo qué va dentro de `aes()` y qué va
+  fuera.
+- Elegir entre barras, puntos y línea según la pregunta, no por costumbre.
+- Justificar una paleta de color como una decisión sustantiva, no un gusto.
+:::
+
+## La semana que viene
+
+**Gráficos que se publican.** El gráfico de hoy funciona en la pantalla de tu
+laptop. La sesión 6 lo convierte en una figura que se puede meter a un trabajo
+final: facetas, `theme_lab()`, exportación con `ggsave()`, y la ética visual
+que decide si un gráfico honesto se puede volver, sin querer, uno engañoso.

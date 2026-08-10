@@ -1,0 +1,348 @@
+% ══════════════════════════════════════════════════════════════════════════════
+% Laboratorio de R para Ciencia Política — ITAM
+% Sesión 07 · El mapa de México
+%
+% Se compila desde esta carpeta:  pdflatex 07_slides.tex  (DOS veces)
+% El preámbulo, la paleta y el logo viven en ../../estilo/ — no se editan aquí.
+% ══════════════════════════════════════════════════════════════════════════════
+
+\input{../../estilo/preambulo-lab.tex}
+
+\title[Lab de R · Sesión 7]{El mapa de México}
+\subtitle{¿Cómo se ve el voto en el territorio?}
+\date{%
+  Sesión 7 de 11\\[0.3em]
+  \textit{ITAM, otoño 2026}%
+}
+\hypersetup{pdftitle={Sesión 7 · El mapa de México}}
+
+\begin{document}
+
+% ── Portada ───────────────────────────────────────────────────────────────────
+{\setbeamertemplate{footline}{}\setbeamertemplate{headline}{}
+\begin{frame}[plain, noframenumbering]
+  \titlepage
+\end{frame}}
+
+% ── El gancho ─────────────────────────────────────────────────────────────────
+\porquenosimporta{¿Cómo se ve el voto en el territorio?}{%
+  Una tabla de 2,478 renglones es difícil de sentir. Un mapa del mismo dato
+  no. Hoy esa tabla se vuelve una imagen del país completo.}
+
+% ── Recapitulación ────────────────────────────────────────────────────────────
+\begin{frame}{De dónde venimos}
+  \vspace{0.3em}
+  \begin{itemize}\setlength{\itemsep}{0.9em}
+    \item<1-> En la sesión 6 aprendimos a elegir escala de color con
+          criterio: secuencial, divergente, por umbrales.
+    \item<2-> Guardamos una figura como PDF con \cod{ggsave()}, lista
+          para un documento.
+    \item<3-> Hoy esas mismas escalas se aplican sobre un territorio,
+          no sobre una barra.
+  \end{itemize}
+\end{frame}
+
+% ══════════════════════════════════════════════════════════════════════════════
+\section{¿Qué es un objeto sf?}
+% ══════════════════════════════════════════════════════════════════════════════
+
+\begin{frame}{Un mapa es, antes que nada, una tabla}
+  \vspace{0.3em}
+  \begin{itemize}\setlength{\itemsep}{0.85em}
+    \item<1-> Un objeto \cod{sf} tiene filas y columnas: se filtra con
+          \cod{filter()}, se cruza con \cod{left\_join()}.
+    \item<2-> Lo único distinto: una columna adicional,
+          \cod{geometry}.
+    \item<3-> Ahí no guarda un número ni un texto: guarda el contorno
+          del polígono.
+  \end{itemize}
+
+  \vspace{1.0em}
+  \onslide<4->{%
+  \begin{saltobox}
+    De «esto es un mapa, seguro es complicado» a «esto es una tabla
+    con una columna rara».
+  \end{saltobox}}
+\end{frame}
+
+\begin{frame}[fragile]{Cargar lo que ya viene listo}
+\begin{lstlisting}
+municipios <- read_rds(
+  here("datos", "geo",
+       "municipios_simplificado.rds"))
+
+glimpse(municipios)
+\end{lstlisting}
+
+  \vspace{0.6em}
+  El Marco Geoestadístico completo pesa cientos de megabytes.
+  Alguien ya lo simplificó fuera de esta hora: esto carga en
+  segundos.
+\end{frame}
+
+\begin{frame}[fragile]{Así se lee st\_read(), línea por línea}
+\begin{lstlisting}
+Reading layer 00mun from data source
+  .../00mun.shp using driver ESRI Shapefile
+Simple feature collection with
+  2478 features and 4 fields
+Geometry type: MULTIPOLYGON
+Dimension:     XY
+Projected CRS: Mexico ITRF2008 / LCC
+\end{lstlisting}
+
+  \vspace{0.4em}
+  \begin{itemize}\setlength{\itemsep}{0.55em}
+    \item<1-> \ac{features} — las filas: aquí, municipios.
+    \item<2-> \ac{fields} — las columnas normales, sin
+          \cod{geometry}.
+    \item<3-> \ac{Geometry type} — un polígono por fila, o varios si
+          hay islas o exclaves.
+    \item<4-> La última línea es la de hoy: el CRS.
+  \end{itemize}
+\end{frame}
+
+% ══════════════════════════════════════════════════════════════════════════════
+\section{El CRS}
+% ══════════════════════════════════════════════════════════════════════════════
+
+\begin{frame}{Aplanar una esfera siempre cuesta algo}
+  \vspace{0.3em}
+  \begin{itemize}\setlength{\itemsep}{0.85em}
+    \item<1-> La Tierra es un elipsoide; un mapa es un rectángulo
+          plano.
+    \item<2-> Ningún \ac{CRS} conserva área, forma y distancia a la
+          vez.
+    \item<3-> Elegir un CRS es elegir qué se sacrifica al aplanar.
+  \end{itemize}
+
+  \vspace{1.1em}
+  \onslide<4->{%
+  {\small\color{grisTenue}INEGI usa, de fábrica, una proyección
+  cónica de Lambert (ITRF2008, EPSG:6372). Nuestros archivos ya
+  vienen reproyectados a WGS84 (EPSG:4326).}}
+\end{frame}
+
+\begin{frame}[fragile]{Verifícalo, siempre, antes de dibujar}
+\begin{lstlisting}
+st_crs(municipios)
+
+st_crs(entidades) == st_crs(municipios)
+\end{lstlisting}
+
+  \vspace{0.6em}
+  Si dos capas tienen CRS distinto, R no marca un error rojo: los
+  polígonos simplemente no coinciden en el mapa.
+\end{frame}
+
+\begin{frame}{Cuando algo falla}
+  \vspace{0.4em}
+  \begin{errorbox}{Nunca midas sobre este archivo}
+    \cod{st\_area()} o \cod{st\_distance()} sobre
+    \cod{municipios\_simplificado.rds} dan un número incorrecto.
+
+    \vspace{0.5em}
+    La simplificación deforma los polígonos justo para eso: sirven
+    para \ac{dibujar}, no para \ac{medir}. Documentado en
+    \cod{datos/README.md}.
+  \end{errorbox}
+\end{frame}
+
+% ══════════════════════════════════════════════════════════════════════════════
+\section{El primer mapa}
+% ══════════════════════════════════════════════════════════════════════════════
+
+\begin{frame}[fragile]{geom\_sf(): la única geometría sin x ni y}
+\begin{lstlisting}
+ggplot(municipios) +
+  geom_sf(fill = lab_colores[["verde_claro"]],
+          color = "white", linewidth = 0.1) +
+  theme_lab_mapa()
+\end{lstlisting}
+
+  \vspace{0.6em}
+  \cod{geom\_sf()} ya sabe leer \cod{geometry} sin que se lo digas
+  dentro de \cod{aes()}.
+\end{frame}
+
+\begin{frame}{Lo único que no tiene este mapa}
+  \vspace{0.3em}
+  \begin{itemize}\setlength{\itemsep}{0.85em}
+    \item<1-> Nadie lee «19.4° N» en un mapa de México.
+    \item<2-> \cod{theme\_lab\_mapa()} quita ejes, números y
+          cuadrícula.
+    \item<3-> Deja título, subtítulo, fuente y leyenda: lo que sí
+          informa.
+  \end{itemize}
+\end{frame}
+
+% ══════════════════════════════════════════════════════════════════════════════
+\section{Unir el mapa con los datos}
+% ══════════════════════════════════════════════════════════════════════════════
+
+\begin{frame}{El left\_join() de la sesión 4, otra vez}
+  \vspace{0.3em}
+  \begin{itemize}\setlength{\itemsep}{0.85em}
+    \item<1-> La sesión 4 ya enseñó a fondo \cod{left\_join()} y el
+          problema de las claves INE contra INEGI.
+    \item<2-> Hoy se aplica sin volver a explicarlo:
+          \cod{presidencial\_2024\_municipio.csv} ya trae la clave
+          INEGI reconciliada.
+    \item<3-> Lo único nuevo: un lado del \cod{left\_join()} es un
+          objeto \cod{sf}. A la función no le importa.
+  \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]{Cruzar por clave}
+\begin{lstlisting}
+resultados_municipio <- read_csv(here(
+  "datos", "limpios",
+  "presidencial_2024_municipio.csv")) |>
+  select(clave_municipio, participacion,
+         votos_shh, pct_shh, ventaja_shh)
+
+mapa_municipios <- left_join(
+  municipios, resultados_municipio,
+  by = "clave_municipio")
+\end{lstlisting}
+\end{frame}
+
+\begin{frame}{Cuando algo falla}
+  \vspace{0.4em}
+  \begin{errorbox}{clave\_entidad.x, clave\_entidad.y}
+    Los dos lados del \cod{left\_join()} traen \cod{clave\_entidad}
+    y \cod{municipio}. Sin \cod{select()} antes, no truena — pero
+    duplica las columnas con sufijo.
+
+    \vspace{0.5em}
+    Un tropiezo silencioso: se nota hasta que buscas la columna y no
+    está donde la dejaste.
+  \end{errorbox}
+\end{frame}
+
+% ══════════════════════════════════════════════════════════════════════════════
+\section{Conteos, proporciones, y el mapa de hoy}
+% ══════════════════════════════════════════════════════════════════════════════
+
+\begin{frame}{Una promesa de la sesión 1}
+  \vspace{0.4em}
+  \begin{block}{Lo que dijimos entonces}
+    Un mapa de «número de homicidios» es, en buena medida, un mapa
+    de dónde vive la gente. Lo veríamos otra vez, y peor, en la
+    sesión 7.
+  \end{block}
+
+  \vspace{1.0em}
+  {\small\color{grisTenue}Es hoy.}
+\end{frame}
+
+\begin{frame}[fragile]{El mismo dato, dos formas de colorearlo}
+\begin{lstlisting}
+mapa_conteo <- ggplot(mapa_municipios) +
+  geom_sf(aes(fill = votos_shh)) +
+  scale_fill_viridis_c()
+
+mapa_proporcion <- ggplot(mapa_municipios) +
+  geom_sf(aes(fill = pct_shh)) +
+  scale_fill_viridis_c()
+
+mapa_conteo | mapa_proporcion
+\end{lstlisting}
+\end{frame}
+
+\begin{frame}{Lo que se enciende en cada mapa}
+  \vspace{0.3em}
+  \begin{itemize}\setlength{\itemsep}{0.8em}
+    \item<1-> \ac{Conteo}: Iztapalapa, Tijuana, Ecatepec, Puebla,
+          Ciudad Juárez, Guadalajara.
+    \item<2-> No son los municipios donde SHH ganó por más margen:
+          son los más poblados del país.
+    \item<3-> \ac{Proporción}: municipios chicos de Oaxaca y
+          Chiapas, del tamaño de un pueblo.
+  \end{itemize}
+
+  \vspace{1.1em}
+  \onslide<4->{%
+  {\small\color{grisTenue}Misma trampa de la sesión 1, en dos
+  dimensiones y mucho más fácil de tomar por autoritativa.}}
+\end{frame}
+
+\begin{frame}[fragile]{La coropleta que vas a entregar hoy}
+\begin{lstlisting}
+ggplot() +
+  geom_sf(data = mapa_municipios,
+          aes(fill = ventaja_shh)) +
+  scale_fill_gradient2(low = "#7B1113",
+    mid = "white", high = "#006847",
+    midpoint = 0) +
+  geom_sf(data = mapa_entidades,
+          fill = NA, color = "white") +
+  theme_lab_mapa()
+\end{lstlisting}
+
+  \vspace{0.4em}
+  {\small\color{grisTenue}Escala divergente, cero real: el empate
+  entre SHH y el segundo lugar.}
+\end{frame}
+
+\begin{frame}{El salto}
+  \vspace{0.6em}
+  \begin{saltobox}
+    Una tabla de 2,475 renglones se vuelve una imagen del país, y en
+    esa imagen aparece un patrón regional que ninguna columna de
+    números, por sí sola, había dejado ver con esta claridad.
+  \end{saltobox}
+
+  \vspace{1.2em}
+  No hace falta nombrarlo del todo hoy. Basta con haberlo visto.
+\end{frame}
+
+\begin{frame}{El proyecto final nace aquí}
+  \vspace{0.3em}
+  \begin{block}{Esto no es un ejercicio aislado}
+    El mapa que acabas de armar es, literalmente, uno de los dos
+    mapas del proyecto Morena \texttimes{} ministras. En la sesión
+    11 se le sobrepone el voto por candidaturas morenistas a
+    ministra de la Corte, elección judicial de 2025.
+  \end{block}
+
+  \vspace{1.0em}
+  {\small\color{grisTenue}El proyecto no empieza en la sesión 11:
+  empieza hoy, con este archivo.}
+\end{frame}
+
+% ══════════════════════════════════════════════════════════════════════════════
+\section{Ejercicio}
+% ══════════════════════════════════════════════════════════════════════════════
+
+\begin{frame}{Quince minutos, tres niveles}
+  \vspace{0.4em}
+  \begin{itemize}\setlength{\itemsep}{1.0em}
+    \item \ac{Calentamiento} — el mismo mapa, con participación en
+          vez de ventaja.
+    \item \ac{De verdad} — el mismo dato, por entidad en vez de por
+          municipio: ¿se sostiene el patrón?
+    \item \ac{Si te sobra tiempo} — CRS geográfico contra
+          proyectado, verificado con una IA.
+  \end{itemize}
+
+  \vspace{1.2em}
+  {\small\color{grisTenue}El archivo es \cod{07\_ejercicio.R}. La
+  solución se publica al terminar la sesión.}
+\end{frame}
+
+% ── Cierre ────────────────────────────────────────────────────────────────────
+\yasabemos
+  {Reconocer un objeto sf como una tabla con una columna de geometría, y
+   verificar su CRS con st\_crs() antes de dibujar nada.}
+  {Unir un mapa con una base electoral con left\_join(), y producir una
+   coropleta con una escala de color que dice la verdad.}
+  {Explicar, con un ejemplo propio, por qué un mapa de conteos no es lo
+   mismo que un mapa de proporciones.}
+
+\lasiguiente{Describir sin mentir}{%
+  Vas a resumir una variable con un solo número —media, mediana,
+  desviación estándar— y a desconfiar de ese número hasta verlo en un
+  gráfico. El cuarteto de Anscombe lo explica sin una sola fórmula.}
+
+\end{document}

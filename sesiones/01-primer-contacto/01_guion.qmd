@@ -1,0 +1,176 @@
+---
+title: "Sesión 1 · Tu primera hora en R"
+subtitle: "¿Por qué un politólogo programa?"
+---
+
+::: {.gancho}
+Tienes intuiciones sobre política mexicana. Que Morena arrasó más en el sur, que la
+participación cae cuando la elección se ve decidida, que hay estados donde el voto
+se comporta distinto. Ahora mismo no puedes probar ninguna. En esta hora vas a
+probar la primera.
+:::
+
+## Qué vas a poder hacer al salir
+
+Al terminar la sesión vas a saber abrir un proyecto de R y entender dónde
+está parado el programa —que suena a trivialidad y es la razón por la que la mitad del
+código que circula en internet no corre en tu computadora—. Vas a saber guardar
+cosas para usarlas después, hacer una operación sobre las treinta y dos entidades
+del país de un solo golpe, y producir un gráfico de barras de la elección
+presidencial de 2024 con título, ejes etiquetados y fuente citada.
+
+No vas a entender todo lo que escribas hoy. Eso es deliberado y conviene decirlo
+de frente: el gráfico del final lo vas a copiar sin comprender cada pieza, y la
+comprensión va a llegar en la sesión 5. La confianza tiene que llegar antes que la
+comprensión, porque nadie regresa la semana siguiente a una hora de sintaxis
+abstracta, y todo el mundo regresa cuando hizo algo que se ve bien y lo quiere
+enseñar.
+
+## Antes de venir
+
+Instala R y RStudio. Son dos programas distintos y hay que instalar los dos, en ese
+orden. Toma diez minutos y se hace una sola vez en la vida.
+
+La página [Empieza aquí](../../empieza-aqui.qmd) tiene el paso a paso con capturas,
+separado por sistema operativo, y una línea de verificación que copias, pegas y te
+dice si quedó bien. Hazlo antes de llegar: la sesión empieza con R ya instalado.
+
+Si no lo lograste, ven de todos modos quince minutos antes y lo resolvemos. Lo que
+no vamos a hacer es detener a catorce personas para instalar el programa de una.
+
+## Los archivos de la sesión
+
+::: {.descargas}
+[01_script.R — el guion de clase](https://raw.githubusercontent.com/emirandago/r-para-politologos/main/sesiones/01-primer-contacto/01_script.R){.btn-descarga}
+[01_ejercicio.R — para llevar](https://raw.githubusercontent.com/emirandago/r-para-politologos/main/sesiones/01-primer-contacto/01_ejercicio.R){.btn-descarga}
+[01_slides.pdf — las láminas](https://raw.githubusercontent.com/emirandago/r-para-politologos/main/sesiones/01-primer-contacto/01_slides.pdf){.btn-descarga .secundario}
+[01_script_completo.R — resuelto](https://raw.githubusercontent.com/emirandago/r-para-politologos/main/sesiones/01-primer-contacto/01_script_completo.R){.btn-descarga .secundario}
+[01_solucion.R — solución del ejercicio](https://raw.githubusercontent.com/emirandago/r-para-politologos/main/sesiones/01-primer-contacto/01_solucion.R){.btn-descarga .secundario}
+:::
+
+El archivo `01_script.R` tiene huecos y **no corre de corrido**: está hecho para
+llenarse en clase. Eso no es un defecto, es el diseño. Los dos archivos grises se
+publican al terminar la sesión.
+
+## El contenido, en prosa
+
+### Dónde está parado R
+
+La primera pregunta que hay que saber contestar en R no es cómo se hace un gráfico.
+Es dónde estoy. R siempre está parado en una carpeta y todo lo que le pidas —abrir
+un archivo, guardar una imagen— lo va a buscar a partir de ahí. Esa carpeta se
+llama, en inglés, [working directory]{.termino-en}: el directorio de trabajo.
+
+Durante muchos años la manera de decirle a R dónde pararse fue una instrucción
+llamada `setwd()`, seguida de la ruta completa del archivo en la computadora de
+quien escribió el código. En este laboratorio no la vamos a usar nunca, y vale la
+pena entender por qué: cuando alguien escribe `setwd("/Users/paula/Desktop/Curso")`,
+ese código funciona en una sola computadora del mundo. Los tres cursos que este
+laboratorio hereda tienen rutas así, y por eso ninguno de sus scripts corre tal
+cual en la máquina de nadie más.
+
+La alternativa es un archivo con extensión `.Rproj`. Al abrirlo, R queda parado en
+la carpeta que lo contiene, y a partir de ahí las rutas se escriben relativas a esa
+carpeta con la función `here()`. El proyecto se puede mover, comprimir, mandar por
+correo o clonar, y sigue funcionando. Es una decisión de dos minutos que ahorra
+años de frustración ajena.
+
+### La consola y el script
+
+Vas a escribir código en dos lugares que hacen cosas distintas. La
+[consola]{.termino-en} es el panel de abajo: ahí R contesta, lo que escribes se
+ejecuta y se pierde, y sirve para probar cosas y para equivocarse sin consecuencias.
+El [script]{.termino-en} es el panel de arriba: es tu cuaderno, no se ejecuta solo,
+y tú decides qué línea corre y cuándo poniendo el cursor encima y apretando
+`Ctrl+Enter`, o `Cmd+Enter` si estás en Mac.
+
+La distinción importa más de lo que parece porque define un hábito. Lo que se
+escribe en la consola no se puede reproducir ni compartir ni corregir; lo que se
+escribe en el script sí. Todo lo que quieras poder rehacer dentro de tres meses
+—que es cuando vas a necesitar rehacerlo— tiene que estar en un script.
+
+### Objetos y vectores
+
+R calcula y olvida. Para que se acuerde de un resultado hay que guardarlo en un
+objeto con la flecha `<-`, que se teclea con `Alt+guion`. La primera sorpresa es
+que al guardar algo no pasa nada visible en la pantalla: R no imprime, guarda. Para
+verlo hay que escribir su nombre.
+
+La segunda sorpresa es la que importa. Un vector es varios valores guardados juntos,
+y cuando le pides una operación a un vector, R la aplica a todos sus elementos al
+mismo tiempo. Multiplicar cuatro números por mil es una sola instrucción, no cuatro.
+
+Ese es el momento donde una intuición se vuelve una herramienta, y conviene
+nombrarlo cuando pase: con cuatro números es un truco de calculadora; con las
+treinta y dos entidades del país es cómodo; con los 2,469 municipios es la
+diferencia entre poder contestar una pregunta y no poder. Todo el curso es, en el
+fondo, la elaboración de esa idea.
+
+### Una base de datos de verdad, y una trampa
+
+Vas a abrir los resultados oficiales de la elección presidencial de 2024 agregados
+por entidad federativa. Una fila es una entidad; hay treinta y dos.
+
+Con lo poco que sabes a esta altura ya puedes calcular el promedio de participación
+de las treinta y dos entidades, y ahí está la primera trampa estadística del curso.
+Ese número no es la participación nacional. Es el promedio de treinta y dos
+porcentajes, y le da exactamente el mismo peso a Colima que al Estado de México. La
+participación nacional se calcula con los votos totales, no promediando porcentajes,
+y sale distinta.
+
+No tenemos todavía las herramientas para hacerlo bien; llegan en la sesión 4. Lo
+que sí se puede llevar hoy es la desconfianza, que es más útil que la fórmula: un
+promedio de porcentajes casi nunca es el porcentaje que uno cree que calculó. Vas a
+encontrarte esa trampa en periódicos, en informes de gobierno y en trabajos finales
+de compañeros tuyos, durante el resto de tu vida.
+
+### El gráfico prestado
+
+La sesión cierra con un bloque de código que produce una gráfica de barras de la
+participación por entidad, ordenada de mayor a menor. Lo vas a escribir sin
+entenderlo del todo y va a salir una imagen que se ve bien.
+
+Hay tres cosas que sí puedes leer de ese bloque desde hoy: `ggplot(resultados, ...)`
+dice con qué datos, `aes(x = ..., y = ...)` dice qué va en cada eje, y `geom_col()`
+dice qué forma tiene. Lo demás son detalles de dónde va cada paréntesis, y llegan a
+su tiempo.
+
+::: {.si-algo-falla}
+### Si algo falla
+
+**`Error in library(tidyverse) : there is no package called 'tidyverse'`**
+No instalaste el paquete. Copia `install.packages("tidyverse")` a la consola,
+córrelo una vez —tarda varios minutos— y vuelve al script. Esta instrucción va en
+la consola y nunca dentro del script.
+
+**`Error: object 'resultados' not found`**
+No encuentro nada que se llame así. Casi siempre es una de dos cosas: no corriste
+la línea de arriba donde se creó el objeto, o lo escribiste con una letra distinta.
+R distingue mayúsculas de minúsculas, y `Resultados` y `resultados` son dos cosas
+diferentes para él.
+
+**`Error: 'datos/limpios/presidencial_2024_entidad.csv' does not exist`**
+R está parado en otra carpeta. Cierra RStudio por completo, vuelve a abrirlo con
+doble clic sobre `r-para-politologos.Rproj` —no desde el ícono de RStudio— y corre
+`here()` para confirmar que la ruta termina en `/r-para-politologos`.
+
+**La consola muestra un `+` y no pasa nada**
+Esto no es un error: R está esperando a que termines la instrucción. Te faltó
+cerrar un paréntesis o una comilla. Aprieta `Esc` para cancelar y revisa la línea.
+
+Hay más, con su traducción y su arreglo, en [Errores comunes](../../recursos/errores-comunes.qmd).
+:::
+
+::: {.ya-sabes}
+### Lo que ya sabes hacer
+
+- Abrir un proyecto de RStudio y saber dónde está parado R.
+- Guardar cosas en objetos y operar sobre las treinta y dos entidades de un golpe.
+- Producir un gráfico de barras de la elección de 2024, con título y fuente.
+:::
+
+## La semana que viene
+
+**Los datos son tablas.** Vas a abrir una base electoral de verdad y a entender qué
+significa cada fila antes de tocar nada. Es la sesión que separa a quien manipula
+datos de quien los rompe sin darse cuenta.

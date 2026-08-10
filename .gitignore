@@ -1,0 +1,69 @@
+# ── R y RStudio ──────────────────────────────────────────────────────────────
+.Rhistory
+.Rapp.history
+.RData
+.Ruserdata
+.Rproj.user/
+*.Rproj.user
+.Renviron
+
+# ── Sistema operativo ────────────────────────────────────────────────────────
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# ── Quarto ───────────────────────────────────────────────────────────────────
+/.quarto/
+_site/
+_freeze/
+*_files/
+
+# ── LaTeX: intermedios sí se ignoran, los PDF NO ─────────────────────────────
+# Los .pdf de las láminas SÍ se versionan: alguien tiene que poder descargar
+# el deck sin instalar LaTeX. Por eso no aparece *.pdf en esta lista.
+*.aux
+*.log
+*.nav
+*.out
+*.snm
+*.toc
+*.vrb
+*.fls
+*.fdb_latexmk
+*.synctex.gz
+*.bbl
+*.blg
+
+# ── Salidas de gráficos generadas al correr los scripts ──────────────────────
+# Si un script produce una figura, la figura se regenera corriendo el script.
+# Versionar la salida y el código que la produce invita a que se desincronicen.
+figuras/
+*.png
+*.jpg
+!recursos/img/*.png
+!empieza-aqui_files/**
+
+# ── Datos crudos pesados ─────────────────────────────────────────────────────
+# datos/crudos/ guarda el original tal como se descargó. Cuando pesa mucho, no
+# se versiona: el script de preparación en datos/scripts_de_preparacion/ dice
+# de dónde bajarlo. Lo que SÍ se versiona siempre es datos/limpios/.
+datos/crudos/*.zip
+datos/crudos/*.7z
+datos/crudos/*.gz
+datos/crudos/*.mdb
+
+# Los ZIP de arriba se excluyen solos, pero varios de ellos se descomprimen
+# dentro del propio datos/crudos/ (el Marco Geoestadístico de INEGI, los
+# cómputos del INE, el catálogo de secciones de mxDistritos) y esos archivos
+# extraídos también pesan varias decenas de MB cada uno. Ignoramos toda la
+# carpeta de crudos completa -- cada prep_*.R la reconstruye solo, verificado
+# en esta misma ola de trabajo -- y dejamos un .gitkeep para que la carpeta
+# exista aunque esté vacía.
+datos/crudos/**
+!datos/crudos/.gitkeep
+
+# ── Credenciales ─────────────────────────────────────────────────────────────
+.env
+*.pem
+
+**/*.quarto_ipynb

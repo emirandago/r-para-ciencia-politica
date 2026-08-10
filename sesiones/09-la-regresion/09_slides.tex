@@ -1,0 +1,358 @@
+% ══════════════════════════════════════════════════════════════════════════════
+% Laboratorio de R para Ciencia Política — ITAM
+% Sesión 09 · La regresión como instrumento politológico
+%
+% Se compila desde esta carpeta:  pdflatex 09_slides.tex  (DOS veces)
+% El preámbulo, la paleta y el logo viven en ../../estilo/ — no se editan aquí.
+% ══════════════════════════════════════════════════════════════════════════════
+
+\input{../../estilo/preambulo-lab.tex}
+
+\title[Lab de R · Sesión 9]{La regresión como\\instrumento politológico}
+\subtitle{¿Cuánto explica X a Y?}
+\date{%
+  Sesión 9 de 11\\[0.3em]
+  \textit{ITAM, otoño 2026}%
+}
+\hypersetup{pdftitle={Sesión 9 · La regresión como instrumento politológico}}
+
+\begin{document}
+
+% ── Portada ───────────────────────────────────────────────────────────────────
+{\setbeamertemplate{footline}{}\setbeamertemplate{headline}{}
+\begin{frame}[plain, noframenumbering]
+  \titlepage
+\end{frame}}
+
+% ── El gancho ─────────────────────────────────────────────────────────────────
+\porquenosimporta{¿Cuánto explica X a Y?}{%
+  Tienes una nube de puntos y una corazonada de hacia dónde va. Hoy esa
+  corazonada se convierte en un número con unidades, que alguien más puede
+  leer y discutir.}
+
+% ── Recapitulación ────────────────────────────────────────────────────────────
+\begin{frame}{De dónde venimos}
+  \vspace{0.3em}
+  \begin{itemize}\setlength{\itemsep}{0.9em}
+    \item<1-> Medimos qué tan dispersos están los datos con la desviación
+          estándar.
+    \item<2-> Calculamos la correlación entre participación y la ventaja de
+          la coalición: $-0.13$. Negativa y débil.
+    \item<3-> Le pusimos a la nube una línea con \cod{geom\_smooth(method =
+          "lm")}: hacia dónde va la nube.
+  \end{itemize}
+
+  \vspace{1.1em}
+  \onslide<4->{%
+  {\small\color{grisTenue}Hoy esa línea deja de ser un adorno del gráfico.
+  Le vamos a poner nombre y le vamos a sacar sus dos números.}}
+\end{frame}
+
+% ══════════════════════════════════════════════════════════════════════════════
+\section{Una recta con nombre}
+% ══════════════════════════════════════════════════════════════════════════════
+
+\begin{frame}{La nube ya tenía una recta; hoy la nombramos}
+  \vspace{0.3em}
+  \begin{itemize}\setlength{\itemsep}{0.9em}
+    \item<1-> Esa línea que dibujó \cod{geom\_smooth()} no salió de la nada:
+          hay un método que encuentra, de todas las rectas posibles, la que
+          mejor resume la nube.
+    \item<2-> Se llama \ac{mínimos cuadrados}. Vas a ver cómo se calcula en
+          Estadística; aquí solo la vamos a usar.
+    \item<3-> Toda recta tiene dos números: dónde arranca (el
+          \ac{intercepto}) y cuánto sube o baja por cada unidad de x (la
+          \ac{pendiente}).
+  \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]{Ajustar la recta: lm()}
+\begin{lstlisting}
+modelo_1 <- lm(ventaja_shh ~ participacion,
+               data = municipios)
+
+summary(modelo_1)
+\end{lstlisting}
+
+  \vspace{0.6em}
+  La formula se lee "ventaja\_shh en funcion de participacion". A la
+  izquierda del \cod{\textasciitilde} va lo que quieres explicar; a la
+  derecha, con qué.
+\end{frame}
+
+\begin{frame}{Dos números, siempre con unidades}
+  \vspace{0.2em}
+  \begin{itemize}\setlength{\itemsep}{0.85em}
+    \item<1-> El \ac{Intercept}: la ventaja que predice el modelo cuando la
+          participación es cero. Ningún municipio real está ahí; es solo el
+          punto donde arranca la recta.
+    \item<2-> El coeficiente de \cod{participacion}: $-0.287$. Por cada
+          punto porcentual más de participación, la ventaja de la coalición
+          cae, en promedio, 0.29 puntos porcentuales.
+  \end{itemize}
+
+  \vspace{1.0em}
+  \onslide<3->{%
+  \begin{saltobox}
+    Ese número dejó de ser una salida de consola en el momento en que le
+    pusiste unidades y lo convertiste en una oración completa. Ahora es una
+    afirmación sobre México que alguien más puede leer y discutir.
+  \end{saltobox}}
+\end{frame}
+
+% ══════════════════════════════════════════════════════════════════════════════
+\section{Dos funciones para la misma pregunta}
+% ══════════════════════════════════════════════════════════════════════════════
+
+\begin{frame}{Por qué dos funciones para lo mismo}
+  \vspace{0.3em}
+  \begin{itemize}\setlength{\itemsep}{0.9em}
+    \item<1-> \cod{lm()} viene con R, sin instalar nada: es la que vas a ver
+          en Estadística I y la que cualquiera reconoce de inmediato.
+    \item<2-> \cod{feols()}, del paquete \cod{fixest}, ajusta la misma
+          recta y además calcula, de fábrica, un error estándar que no
+          asume que la dispersión es igual en todo el rango de x.
+    \item<3-> La regla del curso: \cod{lm()} se enseña porque la vas a
+          necesitar. Lo que se \ac{reporta} como resultado final es
+          \cod{feols()} con un error estándar robusto.
+  \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]{La misma recta, con feols()}
+\begin{lstlisting}
+library(fixest)
+
+modelo_1_robusto <- feols(
+  ventaja_shh ~ participacion,
+  data = municipios,
+  vcov = "hetero")
+
+summary(modelo_1_robusto)
+\end{lstlisting}
+
+  \vspace{0.5em}
+  {\small \cod{vcov = "hetero"} pide el error estándar robusto.
+  \ac{Heterocedasticidad} la formalizas en Estadística; aquí solo la
+  nombras y la pides.}
+\end{frame}
+
+\begin{frame}{Lo que cambia y lo que no cambia}
+  \vspace{0.3em}
+  \begin{itemize}\setlength{\itemsep}{0.9em}
+    \item<1-> El coeficiente de \cod{participacion} es \se{exactamente el
+          mismo} en los dos ajustes: $-0.287$. La recta es la misma recta.
+    \item<2-> Lo que cambia es el error estándar, el número entre
+          paréntesis: dice qué tan segura es la estimación, no cambia la
+          estimación misma.
+    \item<3-> Aquí el error clásico ($0.045$) y el robusto ($0.044$) casi no
+          difieren: en este modelo, la heterocedasticidad no era severa.
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Cuando algo falla}
+  \vspace{0.4em}
+  \begin{errorbox}{Error: could not find function "feols"}
+    Traducción: «no encuentro ninguna función con ese nombre».
+
+    \vspace{0.5em}
+    Casi siempre falta correr \cod{library(fixest)}, aunque ya hayas
+    cargado \cod{tidyverse}. Corre esa línea y vuelve a intentar.
+  \end{errorbox}
+\end{frame}
+
+% ══════════════════════════════════════════════════════════════════════════════
+\section{Leer una tabla sin haberla derivado}
+% ══════════════════════════════════════════════════════════════════════════════
+
+\begin{frame}[fragile]{modelsummary(): la tabla, no la consola}
+\begin{lstlisting}
+modelsummary(
+  list("Modelo 1" = modelo_1_robusto),
+  stars = TRUE)
+\end{lstlisting}
+
+  \vspace{0.6em}
+  Nunca copies y pegues \cod{summary()} como si fuera una tabla: es fácil
+  que se te vaya un número, y no tiene el formato de un trabajo final.
+\end{frame}
+
+\begin{frame}{Cómo se lee, en cuatro palabras}
+  \vspace{0.3em}
+  \begin{itemize}\setlength{\itemsep}{0.8em}
+    \item<1-> Cada \ac{fila} es una variable.
+    \item<2-> El número de arriba es el coeficiente; el de abajo, entre
+          paréntesis, es el error estándar.
+    \item<3-> Los asteriscos dicen qué tan lejos está el coeficiente de
+          cero, no qué tan importante es.
+    \item<4-> Abajo, \cod{N} y \cod{R2} describen el modelo completo, no
+          una variable sola.
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{La humildad de los asteriscos}
+  \vspace{0.3em}
+  Con 2{,}473 municipios, hasta una relación débil deja de parecer
+  casualidad estadística: \cod{participacion} tiene tres asteriscos.
+
+  \vspace{0.6em}
+  Pero el R\textsuperscript{2} de ese modelo es apenas $0.016$: la
+  participación explica un pedazo minúsculo de por qué la ventaja cambia de
+  un municipio a otro.
+
+  \vspace{1.0em}
+  \onslide<2->{%
+  \begin{block}{Una regla que te llevas}
+    Un coeficiente pequeño con muchos asteriscos no necesariamente importa.
+    Uno grande sin asteriscos no necesariamente no importa.
+  \end{block}}
+\end{frame}
+
+% ══════════════════════════════════════════════════════════════════════════════
+\section{Un segundo modelo, y la tentación que resistimos}
+% ══════════════════════════════════════════════════════════════════════════════
+
+\begin{frame}[fragile]{Un segundo modelo: sumamos pct\_mc}
+\begin{lstlisting}
+modelo_2 <- feols(
+  ventaja_shh ~ participacion + pct_mc,
+  data = municipios,
+  vcov = "hetero")
+
+modelsummary(
+  list("Modelo 1" = modelo_1_robusto,
+       "Modelo 2" = modelo_2),
+  stars = TRUE)
+\end{lstlisting}
+\end{frame}
+
+\begin{frame}{Esto es lo que regresa}
+  \vspace{0.2em}
+  {\small
+  \begin{tabular}{lcc}
+    \toprule
+     & Modelo 1 & Modelo 2 \\
+    \midrule
+    (Intercept)     & $62.462^{***}$ & $70.386^{***}$ \\
+                     & (2.830)        & (2.635)        \\
+    participacion   & $-0.287^{***}$ & $-0.176^{***}$ \\
+                     & (0.044)        & (0.043)        \\
+    pct\_mc          &                & $-1.670^{***}$ \\
+                     &                & (0.069)        \\
+    \midrule
+    N                & 2473           & 2473           \\
+    R\textsuperscript{2} & 0.016     & 0.187          \\
+    \bottomrule
+  \end{tabular}}
+
+  \vspace{0.6em}
+  {\scriptsize\color{grisTenue}$^{***}$ p < 0.001. Errores estándar
+  robustos entre paréntesis. Fuente: INE, cómputos 2024, por municipio.}
+\end{frame}
+
+\begin{frame}{El coeficiente se movió: ¿qué significa?}
+  \vspace{0.3em}
+  \begin{itemize}\setlength{\itemsep}{0.9em}
+    \item<1-> \cod{participacion} pasó de $-0.29$ a $-0.18$ al agregar
+          \cod{pct\_mc}.
+    \item<2-> Se movió porque, en el territorio, la participación y el voto
+          de Movimiento Ciudadano no son independientes entre sí.
+    \item<3-> ¿Qué significa exactamente que se haya movido? No lo vamos a
+          contestar hoy.
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{La tentación que resistimos}
+  \vspace{0.3em}
+  \begin{itemize}\setlength{\itemsep}{0.9em}
+    \item<1-> Sin un diseño que aísle qué está causando qué, agregar
+          variables no acerca a la causalidad: solo cambia el número.
+    \item<2-> La especificación del proyecto final usa \se{una sola}
+          variable explicativa, a propósito.
+    \item<3-> Un modelo con más variables no es automáticamente un modelo
+          más honesto.
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{La promesa del proyecto final}
+  \vspace{0.2em}
+  \cod{ventaja\_shh}, la misma variable de hoy, va a reaparecer en la
+  sesión 11 —pero del otro lado de la ecuación—.
+
+  \vspace{0.9em}
+  \begin{block}{Lo que viene}
+    \small\ttfamily feols(pct\_bloque\_a \textasciitilde\ ventaja\_shh,\\
+    \hspace{2em}data = municipios, vcov = "hetero")
+  \end{block}
+
+  \vspace{0.7em}
+  Esa línea la vas a escribir casi tal cual en la sesión 11.
+\end{frame}
+
+% ══════════════════════════════════════════════════════════════════════════════
+\section{Correlación no es causa}
+% ══════════════════════════════════════════════════════════════════════════════
+
+\begin{frame}{Una historia: hijas y votaciones}
+  \vspace{0.3em}
+  Legisladores de Estados Unidos con más hijas tienden a votar más a favor
+  de temas relacionados con mujeres que legisladores con más hijos.
+  ¿Tener hijas \se{causa} ese voto?
+
+  \vspace{0.9em}
+  \begin{itemize}\setlength{\itemsep}{0.8em}
+    \item<1-> Antes de aceptarlo, pregúntate qué otra historia produce la
+          misma correlación sin que haya una causa directa.
+    \item<2-> Las familias grandes podrían compartir otras características
+          —ingreso, religión, región— que también predicen ese voto.
+    \item<3-> El número de hijas sería, en ese caso, un compañero de viaje
+          de la causa real, no la causa.
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{La regla que te llevas}
+  \vspace{0.6em}
+  \begin{saltobox}
+    Cada vez que un coeficiente sale distinto de cero, pregúntate qué otra
+    historia, además de «X causa Y», explica el mismo número. Esa pregunta
+    no la contesta R. La contestas tú.
+  \end{saltobox}
+
+  \vspace{1.2em}
+  {\small\color{grisTenue}El proyecto final lo dice con todas sus letras:
+  que dos cosas coincidan en el territorio no dice cuál produce cuál.}
+\end{frame}
+
+% ══════════════════════════════════════════════════════════════════════════════
+\section{Ejercicio}
+% ══════════════════════════════════════════════════════════════════════════════
+
+\begin{frame}{Quince minutos, tres niveles}
+  \vspace{0.4em}
+  \begin{itemize}\setlength{\itemsep}{1.0em}
+    \item \ac{Calentamiento} — la misma recta, cambiando qué se explica.
+    \item \ac{De verdad} — ¿la participación le pega igual a todos los
+          bloques?
+    \item \ac{Si te sobra tiempo} — qué es, de verdad, un error estándar
+          robusto.
+  \end{itemize}
+
+  \vspace{1.2em}
+  {\small\color{grisTenue}El archivo es \cod{09\_ejercicio.R}. La solución
+  se publica al terminar la sesión.}
+\end{frame}
+
+% ── Cierre ────────────────────────────────────────────────────────────────────
+\yasabemos
+  {Ajustar una regresión con \cod{lm()} y con \cod{feols()}, y leer sus dos
+  números con unidades.}
+  {Armar y leer una tabla de \cod{modelsummary()} sin copiar y pegar la
+  consola.}
+  {Explicar, en una oración, por qué agregar una variable no es lo mismo
+  que acercarse a la causalidad.}
+
+\lasiguiente{Que otro pueda repetirlo}{%
+  Todo lo que hiciste en estas nueve horas va a vivir en un documento que
+  cualquiera puede abrir y correr de nuevo, sin tu computadora. Vamos a
+  escribirlo con Quarto y a subirlo para que exista fuera de tu laptop.}
+
+\end{document}

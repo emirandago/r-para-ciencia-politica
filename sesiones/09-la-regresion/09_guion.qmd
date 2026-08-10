@@ -1,0 +1,180 @@
+---
+title: "Sesión 9 · La regresión como instrumento politológico"
+subtitle: "¿Cuánto explica X a Y?"
+---
+
+::: {.gancho}
+La sesión pasada dibujaste una nube de puntos y le pusiste encima una línea que
+resumía hacia dónde iba. La llamaste, informalmente, "la tendencia". Hoy esa
+línea recibe nombre y dos números concretos, y vas a aprender a convertir uno
+de esos números en una oración que alguien más pueda leer, entender y discutir
+contigo.
+:::
+
+## Qué vas a poder hacer al salir
+
+Al terminar la hora vas a saber ajustar una regresión con `lm()` —la función
+que vas a encontrar en Estadística I— y con `feols()` —el estándar profesional
+de la ciencia política cuantitativa—, y vas a entender por qué el curso enseña
+las dos en vez de una sola. Vas a poder armar una tabla de resultados con
+`modelsummary()` sin copiar y pegar la consola, leerla sin haberla derivado, y
+escribir en una sola oración completa, con unidades, qué dice un coeficiente
+sobre México.
+
+Lo que no vas a hacer hoy es aprender de dónde sale la recta. El método que
+encuentra "la mejor" recta se llama mínimos cuadrados, y su demostración
+—sumatorias incluidas— pertenece a Estadística I. Aquí lo vas a usar, no a
+derivar, y eso es exactamente lo que el curso prometió desde la sesión 1:
+prefigurar, no sustituir.
+
+## Antes de venir
+
+Haber corrido la sesión 8. Hoy reutilizamos, sin volver a explicarlas, la
+misma base municipal, el mismo diagrama de dispersión y la misma correlación
+entre participación y la ventaja de la coalición que calculaste entonces.
+
+## Los archivos de la sesión
+
+::: {.descargas}
+[09_script.R — el guion de clase](https://raw.githubusercontent.com/emirandago/r-para-politologos/main/sesiones/09-la-regresion/09_script.R){.btn-descarga}
+[09_ejercicio.R — para llevar](https://raw.githubusercontent.com/emirandago/r-para-politologos/main/sesiones/09-la-regresion/09_ejercicio.R){.btn-descarga}
+[09_slides.pdf — las láminas](https://raw.githubusercontent.com/emirandago/r-para-politologos/main/sesiones/09-la-regresion/09_slides.pdf){.btn-descarga .secundario}
+[09_script_completo.R — resuelto](https://raw.githubusercontent.com/emirandago/r-para-politologos/main/sesiones/09-la-regresion/09_script_completo.R){.btn-descarga .secundario}
+[09_solucion.R — solución del ejercicio](https://raw.githubusercontent.com/emirandago/r-para-politologos/main/sesiones/09-la-regresion/09_solucion.R){.btn-descarga .secundario}
+:::
+
+El archivo `09_script.R` tiene huecos y **no corre de corrido**: está hecho
+para llenarse en clase. Los dos archivos grises se publican al terminar la
+sesión.
+
+## El contenido, en prosa
+
+### La recta ya existía; hoy le pones nombre
+
+`geom_smooth(method = "lm")` no dibujó una línea cualquiera: encontró, de
+todas las rectas posibles, la que mejor resume la nube de puntos, con un
+método que se llama mínimos cuadrados. Toda recta tiene exactamente dos
+números: dónde arranca, que se llama intercepto, y cuánto sube o baja por
+cada unidad de la variable explicativa, que se llama pendiente o
+coeficiente. `lm(ventaja_shh ~ participacion, data = municipios)` te da esos
+dos números; `summary()` te los muestra completos, con su error estándar y
+sus asteriscos.
+
+Aquí ocurre el salto de la sesión: en el momento en que tomas el coeficiente
+de participación —$-0.287$— y lo conviertes en la oración "por cada punto
+porcentual más de participación, la ventaja de la coalición cae, en
+promedio, 0.29 puntos porcentuales", ese número deja de ser una salida de
+consola. Se vuelve una afirmación sobre México que alguien más puede leer y
+discutir. Sin las unidades a los dos lados de la frase, el coeficiente no
+significa nada: sube o baja *puntos porcentuales de ventaja* por cada *punto
+porcentual de participación*, no números sueltos.
+
+### Dos funciones, un mismo ajuste: lm() y feols()
+
+`lm()` viene instalado con R, es la que vas a ver en Estadística I y la que
+cualquiera que revise tu código reconoce de inmediato. `feols()`, del
+paquete `fixest`, ajusta exactamente la misma recta —el coeficiente que
+regresa es idéntico— pero calcula, de fábrica, un error estándar que no
+asume que la dispersión de los datos es igual en todo el rango de la
+variable explicativa. Eso se llama heterocedasticidad, y aquí basta con
+saber que `vcov = "hetero"` es la manera de pedirlo; formalizar por qué hace
+falta corregirlo es tema de Estadística.
+
+La regla de este curso, para que no quede ambigüedad: `lm()` se enseña
+porque es lo que vas a encontrar en tu formación estadística y porque su
+salida es legible sin preparación previa. Lo que se reporta como resultado
+final —en este curso y en la práctica profesional de la ciencia política
+cuantitativa— es `feols()` con un error estándar robusto. Las dos funciones
+no compiten: cada una tiene un trabajo distinto.
+
+### Una tabla que se lee, no se deriva
+
+Nunca copies y pegues la salida de `summary()` como si fuera una tabla de
+resultados: no tiene el formato adecuado y es fácil que se te pierda un
+número al transcribirlo a mano. `modelsummary()` arma la tabla por ti, con
+una fila por variable, el coeficiente arriba y el error estándar entre
+paréntesis abajo, y los asteriscos de significancia al lado.
+
+Leer esa tabla es un oficio distinto de derivar los números que contiene, y
+requiere una advertencia de humildad. Con 2,473 municipios, hasta una
+relación débil deja de parecer casualidad estadística: el coeficiente de
+participación tiene tres asteriscos. Pero el $R^2$ de ese modelo es apenas
+$0.016$: la participación explica un pedazo minúsculo de por qué la ventaja
+cambia de un municipio a otro. Un coeficiente pequeño con muchos asteriscos
+no necesariamente importa, y uno grande sin asteriscos no necesariamente no
+importa. Significativo y sustantivo son dos preguntas distintas, y ninguna
+tabla contesta la segunda por ti.
+
+### El segundo modelo, y la tentación que resistimos
+
+La especificación del proyecto final usa una sola variable explicativa, a
+propósito: `feols(pct_bloque_a ~ ventaja_shh, data = municipios, vcov =
+"hetero")`. Aquí, solo para verlo pasar una vez, se agrega una segunda
+variable —el porcentaje de votos de Movimiento Ciudadano en el
+municipio— y el coeficiente de participación se mueve de $-0.29$ a
+$-0.18$. ¿Qué significa que se haya movido? La sesión no lo contesta, y esa
+es la lección, no un pendiente: sin un diseño que aísle qué está causando
+qué, agregar una variable más no acerca a la causalidad. Solo cambia el
+número, porque participación y el voto de Movimiento Ciudadano no son
+independientes entre sí en el territorio.
+
+La tentación, en cualquier trabajo final, es seguir agregando variables
+hasta que aparezca el coeficiente que uno andaba buscando. Resistirla es
+parte del oficio: un modelo con más variables no es automáticamente un
+modelo más honesto. La variable `ventaja_shh` de hoy va a reaparecer en la
+sesión 11, pero del otro lado de la ecuación, explicando el voto morenista
+en la elección judicial.
+
+### Correlación no es causa
+
+Un caso real de la ciencia política de Estados Unidos ayuda a instalar la
+idea sin necesidad de una fórmula: legisladores con más hijas tienden a
+votar más a favor de temas relacionados con mujeres que legisladores con
+más hijos (Washington, 2008, *American Economic Review*). La pregunta que hay que aprender a hacerse, cada vez que un
+coeficiente sale distinto de cero, no es "¿esto prueba que X causa Y?", sino
+"¿qué otra historia, además de 'X causa Y', explica el mismo número?". Las
+familias grandes podrían compartir otras características —ingreso,
+religión, región— que también predicen ese voto; el número de hijas sería,
+en ese caso, un compañero de viaje de la causa real, no la causa. Esa
+pregunta no la contesta R. La contestas tú, y el proyecto final lo exige con
+todas sus letras: que dos cosas coincidan en el territorio no dice cuál
+produce cuál.
+
+::: {.si-algo-falla}
+### Si algo falla
+
+**`Error: could not find function "feols"`**
+No encuentro ninguna función con ese nombre. Casi siempre falta correr
+`library(fixest)`, aunque ya hayas cargado `tidyverse`. Corre esa línea y
+vuelve a intentar.
+
+**`Error in eval(predvars, data, env) : object 'participacion' not found`**
+Este error aparece cuando escribes la fórmula de `lm()` o `feols()` sin el
+argumento `data =`. Sin decirle en qué tabla buscar, R intenta encontrar
+`participacion` como un objeto suelto en tu entorno y no lo encuentra.
+Revisa que tu llamada tenga `data = municipios`.
+
+**La tabla de `modelsummary()` se ve distinta a la del sitio**
+Desde la versión 2.0 del paquete, el motor que arma la tabla por defecto es
+`tinytable`, no `kableExtra`. No es un error: es un cambio de versión.
+Corre `packageVersion("modelsummary")` para confirmar cuál tienes instalada.
+
+Hay más, con su traducción y su arreglo, en [Errores comunes](../../recursos/errores-comunes.qmd).
+:::
+
+::: {.ya-sabes}
+### Lo que ya sabes hacer
+
+- Ajustar una regresión con `lm()` y con `feols()`, y leer sus dos números
+  con unidades.
+- Armar y leer una tabla de `modelsummary()` sin copiar y pegar la consola.
+- Explicar, en una oración, por qué agregar una variable no es lo mismo que
+  acercarse a la causalidad.
+:::
+
+## La semana que viene
+
+**Que otro pueda repetirlo.** Todo lo que construiste en estas nueve horas va
+a vivir en un documento que cualquiera puede abrir y correr de nuevo, sin tu
+computadora. Vas a escribirlo con Quarto y a publicarlo para que exista fuera
+de tu laptop.

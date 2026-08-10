@@ -1,0 +1,67 @@
+Laboratorio de R para Ciencia Política — ITAM
+Copyright (c) 2026 Emiliano Miranda González
+
+================================================================================
+Creative Commons Atribución 4.0 Internacional (CC BY 4.0)
+================================================================================
+
+Identificador SPDX: CC-BY-4.0
+
+Texto legal vinculante (versión oficial en inglés):
+  https://creativecommons.org/licenses/by/4.0/legalcode.txt
+
+Resumen oficial en español:
+  https://creativecommons.org/licenses/by/4.0/deed.es
+
+La sección 3(a)(1)(C) de la propia licencia admite satisfacer la condición de
+atribución mediante un enlace al texto de la licencia, que es lo que hace este
+archivo. Si prefieres incluir el texto legal completo en el repositorio,
+descárgalo de la primera liga y sustituye este archivo.
+
+--------------------------------------------------------------------------------
+QUÉ PUEDES HACER
+
+Compartir: copiar y redistribuir el material en cualquier medio o formato.
+Adaptar: remezclar, transformar y construir a partir del material,
+para cualquier finalidad, incluso comercial.
+
+BAJO LA SIGUIENTE CONDICIÓN
+
+Atribución: debes dar crédito de manera adecuada, aportar un enlace a la
+licencia e indicar si se han realizado cambios. Puedes hacerlo de cualquier
+forma razonable, pero no de una manera que sugiera que quien licencia te
+respalda a ti o a tu uso.
+
+No hay restricciones adicionales: no puedes aplicar términos legales ni
+medidas tecnológicas que restrinjan legalmente a otras personas hacer
+cualquier uso permitido por la licencia.
+
+--------------------------------------------------------------------------------
+CÓMO CITAR ESTE MATERIAL
+
+  Miranda González, Emiliano (2026). Laboratorio de R para Ciencia Política.
+  Instituto Tecnológico Autónomo de México, Departamento Académico de
+  Ciencia Política. https://github.com/emirandago/r-para-politologos
+  Licencia CC BY 4.0.
+
+--------------------------------------------------------------------------------
+ALCANCE DE ESTA LICENCIA
+
+Esta licencia cubre el material didáctico producido para este laboratorio:
+los guiones de sesión, las láminas, los scripts de R, los ejercicios, las
+soluciones y las páginas del sitio.
+
+NO cubre, y cada uno conserva sus propios términos:
+
+1. Los datos alojados en datos/. Cada archivo documenta su fuente y su
+   licencia en datos/README.md. Los datos del INE y del INEGI se rigen por
+   los términos de libre uso de la información pública gubernamental
+   mexicana; los datos de terceros (V-Dem, Latinobarómetro, Quality of
+   Government) se rigen por las condiciones de cada proveedor y deben
+   citarse conforme a ellas.
+
+2. Los paquetes de R que el curso utiliza, cada uno bajo su propia licencia
+   (mayoritariamente GPL-2, GPL-3 o MIT).
+
+3. Cualquier material de terceros que se cite o se reproduzca, señalado en
+   el lugar donde aparece.

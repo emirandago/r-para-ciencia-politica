@@ -1,0 +1,66 @@
+# ══════════════════════════════════════════════════════════════════════════════
+# Laboratorio de R para Ciencia Política — ITAM
+# .github/workflows/publish.yml
+#
+# Construye el sitio Quarto y lo publica en GitHub Pages cada vez que hay un
+# cambio en la rama main. Reproduce la plantilla oficial de Quarto para
+# publicar por GitHub Action (quarto.org/docs/publishing/github-pages.html,
+# sección "GitHub Action" → "Publish Action"), verificada directamente contra
+# la documentación vigente al escribir este archivo.
+#
+# A propósito, esta Action NO instala R. El sitio se construye con
+# execute: eval: false en _quarto.yml (ver ese archivo): los .qmd de las
+# sesiones son guiones en prosa, no reportes que recalculan datos al hacer
+# build, así que no hace falta reconstituir R ni los paquetes del curso en
+# el runner. Eso hace el build mucho más rápido y evita que la publicación
+# del sitio dependa de que todo el stack de R se instale limpio en la nube
+# cada vez — el código en sí ya se verificó por separado, corriendo los
+# scripts de sesiones/ en una instalación limpia antes de subirlos.
+# ══════════════════════════════════════════════════════════════════════════════
+
+on:
+  # Corre automáticamente cada vez que se sube un cambio a la rama main...
+  push:
+    branches: main
+  # ...y también se puede disparar a mano desde la pestaña "Actions" del
+  # repositorio en GitHub, sin necesidad de hacer un commit nuevo.
+  workflow_dispatch:
+
+name: Quarto Publish
+
+jobs:
+  build-deploy:
+    runs-on: ubuntu-latest
+
+    # GitHub Actions necesita permiso explícito de escritura para poder
+    # publicar el sitio construido en la rama gh-pages del repositorio.
+    permissions:
+      contents: write
+
+    steps:
+      # Paso 1: trae una copia del repositorio al runner (la máquina virtual
+      # temporal donde corre la Action). Sin esto no hay nada que construir.
+      - name: Descargar el repositorio
+        uses: actions/checkout@v4
+
+      # Paso 2: instala Quarto en el runner. Esta es la única herramienta
+      # que necesitamos instalar, precisamente porque no ejecutamos R.
+      - name: Instalar Quarto
+        uses: quarto-dev/quarto-actions/setup@v2
+
+      # Paso 3: construye el sitio (quarto render) y publica el resultado en
+      # la rama gh-pages del repositorio. GITHUB_TOKEN es un token temporal
+      # que GitHub genera automáticamente para cada ejecución; no hay que
+      # crear ningún secreto a mano para que esto funcione.
+      - name: Renderizar y publicar el sitio
+        uses: quarto-dev/quarto-actions/publish@v2
+        with:
+          target: gh-pages
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+# Después de que esta Action corra por primera vez, GitHub crea la rama
+# gh-pages y normalmente configura Pages para publicar desde ahí de forma
+# automática. Si no ocurre solo, revisa Settings → Pages → Source, y
+# selecciona la rama gh-pages (ver publicar_en_github.sh, en la raíz del
+# proyecto local, para el resto del proceso de puesta en marcha).

@@ -1,0 +1,25 @@
+---
+title: "IA"
+subtitle: "Uso responsable de inteligencia artificial en trabajo cuantitativo"
+---
+
+::: {.gancho}
+Esta sección explica qué se le puede delegar con provecho a la inteligencia
+artificial en el trabajo con R —sintaxis, depuración, traducción de Stata a
+R, borradores de gráficos— y qué no se le puede delegar sin dejar de ser
+politólogo: la pregunta de investigación, la interpretación sustantiva, el
+juicio sobre si un diseño identifica algo.
+:::
+
+## En preparación
+
+Esta página se está construyendo junto con la sesión 11, **La IA como
+copiloto, no como piloto**, que Emiliano Miranda González está redactando.
+Cuando esté lista va a incluir la guía de uso responsable de IA del
+laboratorio, las skills que se comparten en clase y una colección de
+prompts que sí funcionan para R —verificados, no aspiracionales—.
+
+Mientras tanto, la doctrina corta es la que ya rige el resto del
+laboratorio: verificar siempre que una función exista antes de confiar en
+que una IA la propuso bien, y no delegar nunca la pregunta politológica ni
+la lectura del resultado.

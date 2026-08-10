@@ -1,0 +1,258 @@
+---
+title: "Empieza aquí"
+---
+
+::: {.gancho}
+Esta página asume que nunca has instalado nada de esto. Sigue los pasos en
+orden, de arriba hacia abajo, sin saltarte ninguno. Son quince minutos la
+primera vez y nunca los vuelves a necesitar.
+:::
+
+## Dos programas, no uno
+
+Vas a instalar dos cosas distintas y es importante que entiendas por qué son
+dos y no una:
+
+**R** es el lenguaje: el motor que de verdad hace los cálculos, lee los
+datos y produce los gráficos. No tiene ventanas bonitas ni menús; por sí
+solo es una consola sencilla.
+
+**RStudio** es el [IDE]{.termino-en} (*integrated development environment*,
+entorno de desarrollo integrado): el programa con ventanas, pestañas y
+botones donde vas a escribir y correr código de R todos los días. RStudio no
+funciona sin R —es una capa que se pone encima—, así que **siempre se
+instala primero R y después RStudio**, nunca al revés.
+
+Es la misma relación que hay entre un motor y el tablero de un coche: el
+motor es el que mueve el coche, pero tú manejas desde el tablero.
+
+## Paso 1 — Instalar R
+
+### En Windows
+
+1. Ve a [cran.r-project.org](https://cran.r-project.org/).
+2. Busca el enlace **"Download R for Windows"** y dale clic.
+3. En la página siguiente, busca el enlace que dice algo como
+   **"install R for the first time"** o **"base"** y entra ahí.
+4. Vas a ver un botón grande que dice **"Download R"** seguido de la versión
+   más reciente. Dale clic y espera a que baje el instalador (un archivo
+   `.exe`).
+5. Abre el archivo descargado y sigue el asistente de instalación dejando
+   todas las opciones en su valor por defecto. Si Windows te pregunta si
+   quieres permitir que la aplicación haga cambios, acepta.
+
+`[VERIFICAR]`: el texto exacto de los enlaces de la página de CRAN cambia de
+cuando en cuando; si no encuentras alguno con el nombre exacto de arriba,
+busca la opción que diga "Windows" y "base" o "primera instalación": es la
+correcta.
+
+### En macOS
+
+1. Ve a [cran.r-project.org](https://cran.r-project.org/).
+2. Busca el enlace **"Download R for macOS"** y dale clic.
+3. Vas a ver varios archivos `.pkg`. Necesitas el que corresponde al
+   procesador de tu Mac: si es una Mac reciente (2020 en adelante, chip
+   Apple, familia M), usa el paquete marcado **"arm64"**; si es una Mac más
+   antigua con procesador Intel, usa el marcado **"x86_64"**. Si no sabes
+   cuál tienes, en el menú de la manzana ve a *Acerca de esta Mac* y ahí
+   dice el chip.
+4. Descarga el `.pkg` correcto y ábrelo. Sigue el instalador dejando las
+   opciones por defecto.
+
+`[VERIFICAR]`: los nombres exactos de los archivos en la página de descarga
+de CRAN cambian con cada versión de R; el criterio de "arm64 si tu Mac es
+reciente, x86_64 si es antigua" es el que se mantiene estable.
+
+### Qué es un CRAN mirror y cuál elegir
+
+[CRAN]{.termino-en} (*Comprehensive R Archive Network*) es la red oficial
+donde vive R y todos sus paquetes. Como la usan millones de personas, no
+está en un solo servidor: está copiada —"espejada"— en decenas de servidores
+alrededor del mundo, y a cada copia se le llama un
+[mirror]{.termino-en} (espejo). Si en algún momento del proceso te piden
+elegir uno, la opción más simple es **0-Cloud**
+([cloud.r-project.org](https://cloud.r-project.org/)), que reparte la carga
+automáticamente y te conecta con un servidor cercano sin que tengas que
+adivinar cuál país elegir. Si no aparece esa opción, cualquier mirror que
+diga México o Estados Unidos funciona igual de bien: la diferencia es
+velocidad de descarga, no funcionalidad.
+
+`[VERIFICAR]`: si la página actual de CRAN te pide elegir mirror antes de
+descargar o si te manda directo al instalador sin preguntarte, es un detalle
+que cambia con el tiempo; en cualquier caso, la recomendación de usar
+0-Cloud cuando aparezca la opción sigue siendo válida.
+
+## Paso 2 — Instalar RStudio
+
+1. Ve a [posit.co/download/rstudio-desktop/](https://posit.co/download/rstudio-desktop/).
+2. Busca la sección de descarga para tu sistema operativo (**RStudio
+   Desktop**, la versión gratuita de código abierto, no la de paga) y dale
+   clic al botón de descarga correspondiente a Windows o a macOS.
+3. Abre el instalador descargado y sigue el asistente dejando las opciones
+   por defecto.
+
+`[VERIFICAR]`: el número de versión exacto de RStudio cambia con frecuencia;
+usa siempre la versión más reciente que ofrezca la página, no busques una
+versión específica.
+
+## Paso 3 — Cómo se ve la ventana la primera vez
+
+Cuando abres RStudio por primera vez, sin haber abierto ningún archivo,
+vas a ver la pantalla dividida en tres zonas:
+
+- **Consola** (ocupa todo el lado izquierdo): aquí es donde R contesta. Es
+  donde vas a escribir código para probar cosas rápido; lo que escribes ahí
+  se ejecuta al momento y no se guarda en ningún archivo.
+- **Environment / History**, arriba a la derecha: la pestaña *Environment*
+  (entorno) muestra los objetos que has creado durante la sesión —bases de
+  datos, números, vectores—; la pestaña *History* (historial) guarda cada
+  línea de código que has corrido.
+- **Files / Plots / Packages / Help / Viewer**, abajo a la derecha: cinco
+  pestañas que muestran, respectivamente, los archivos de tu carpeta de
+  trabajo, los gráficos que produces, los paquetes instalados, la
+  documentación de ayuda, y una vista previa de documentos renderizados.
+
+Cuando abras o crees un archivo de script (extensión `.R`), va a aparecer
+una cuarta zona arriba a la izquierda —el editor de código— y la consola se
+recorre hacia abajo. Ese editor es donde vas a escribir y guardar el código
+del curso; la consola queda para probar cosas sueltas.
+
+## Paso 4 — Descargar el repositorio del curso, sin usar git
+
+No necesitas saber qué es `git` ni tener una cuenta de GitHub para conseguir
+el material del curso.
+
+1. Entra a la página del repositorio:
+   [github.com/emirandago/r-para-politologos](https://github.com/emirandago/r-para-politologos).
+2. Busca el botón verde que dice **"Code"** (cerca de la parte superior de
+   la lista de archivos) y dale clic.
+3. En el menú que se abre, elige **"Download ZIP"**. El navegador va a
+   descargar un archivo llamado algo como `r-para-politologos-main.zip`,
+   normalmente a tu carpeta de Descargas.
+4. Descomprime ese archivo:
+   - En **Windows**: clic derecho sobre el archivo → **"Extraer todo..."**
+     → elige dónde guardarlo (recomendado: el Escritorio o Documentos) →
+     **"Extraer"**.
+   - En **macOS**: doble clic sobre el archivo. Se descomprime solo, en la
+     misma carpeta donde estaba el ZIP.
+5. Verifica que la carpeta resultante contenga directamente los archivos del
+   curso —debes ver, entre otros, un archivo llamado
+   `r-para-politologos.Rproj` y carpetas como `sesiones` y `datos`—. Si en
+   vez de eso ves una sola carpeta con el mismo nombre adentro, entra a esa
+   carpeta interior: ahí están los archivos de verdad (ver la sección "si
+   algo falló" más abajo).
+6. Mueve esa carpeta a un lugar estable de tu computadora —el Escritorio o
+   Documentos son buenas opciones— y no la borres ni la muevas de ahí
+   mientras dure el curso: el proyecto de RStudio recuerda su ubicación.
+
+## Paso 5 — Abrir el proyecto
+
+Dentro de la carpeta que acabas de descomprimir, busca el archivo
+**`r-para-politologos.Rproj`** (el icono es un cubo azul con una "R") y dale
+doble clic. Eso abre RStudio ya "parado" en la carpeta correcta del curso:
+es la única forma correcta de empezar a trabajar, y a partir de la sesión 1
+vas a entender exactamente por qué importa.
+
+## Paso 6 — Instalar los paquetes del curso
+
+Un paquete es una caja de herramientas que alguien más escribió y regaló, y
+que R no trae de fábrica. Con RStudio abierto y el proyecto cargado, copia
+la siguiente línea, pégala en la **Consola** (el panel donde R contesta) y
+presiona Enter. Se corre una sola vez en toda tu vida con esta computadora:
+
+```r
+install.packages(c("tidyverse", "here", "janitor", "sf", "viridis", "modelsummary", "fixest"))
+```
+
+Va a tardar varios minutos y vas a ver mucho texto correr en la consola: es
+normal. Algunos paquetes, en particular `sf`, pueden pedir herramientas
+adicionales del sistema operativo la primera vez; si eso ocurre, sigue las
+instrucciones que aparezcan en pantalla.
+
+## Paso 7 — Verificar que todo quedó bien
+
+Copia y pega esto en la consola y presiona Enter:
+
+```r
+library(tidyverse)
+library(here)
+library(janitor)
+library(sf)
+library(viridis)
+library(modelsummary)
+library(fixest)
+
+message("Todo cargó sin errores: ya puedes empezar la sesión 1.")
+```
+
+Si ves el mensaje **"Todo cargó sin errores: ya puedes empezar la sesión
+1."**, terminaste: tu instalación está lista. Si en vez de eso ves un error
+en rojo, casi siempre dice `there is no package called...` seguido del
+nombre de un paquete: significa que ese paquete no se instaló bien. Vuelve
+al Paso 6 y corre de nuevo la línea de `install.packages()`.
+
+::: {.si-algo-falla}
+### Si algo falló
+
+**No tienes permisos de administrador en tu computadora.** Es común en
+equipos institucionales o prestados. Instalar R y RStudio normalmente
+requiere permisos de administrador porque escriben archivos en carpetas del
+sistema. Si el instalador se detiene o marca un error de permisos, busca la
+opción de instalación **"solo para mi usuario"** o **"just me"** si el
+asistente la ofrece —evita la carpeta de sistema y no la necesita—; si no
+aparece esa opción, pide apoyo del área de cómputo del ITAM o instala desde
+una cuenta con permisos de administrador. `[VERIFICAR]`: si tu equipo tiene
+una política institucional que bloquea instaladores por completo, la
+solución depende de esa política específica.
+
+**macOS rechaza el instalador de R o de RStudio.** macOS tiene una función
+de seguridad llamada [Gatekeeper]{.termino-en} que bloquea, por defecto,
+instaladores de fuera de la App Store o sin cierta verificación. Si ves un
+mensaje como *"no se puede abrir porque proviene de un desarrollador no
+identificado"* o *"la app está dañada y no se puede abrir"*: haz clic
+derecho (o Control + clic) sobre el archivo del instalador y elige
+**"Abrir"** en vez de hacer doble clic; en el cuadro de diálogo que aparece,
+confirma que quieres abrirlo de todas formas. Si eso no funciona, entra a
+**Configuración del Sistema → Privacidad y seguridad** (en versiones más
+antiguas de macOS: **Preferencias del Sistema → Seguridad y privacidad**) y
+busca un aviso sobre el archivo bloqueado, con un botón para permitirlo de
+todas formas. `[VERIFICAR]`: el nombre exacto de ese menú y la redacción del
+aviso cambian entre versiones de macOS.
+
+**El ZIP se descomprime dentro de otra carpeta con el mismo nombre.**
+Algunos navegadores o herramientas de descompresión crean una carpeta
+adicional alrededor de la carpeta que ya trae el ZIP, así que terminas con
+algo como `r-para-politologos-main/r-para-politologos-main/` en vez de
+`r-para-politologos-main/` directo. La señal es que abres la carpeta y solo
+ves otra carpeta adentro, en vez de ver archivos como `.Rproj` o carpetas
+como `sesiones`. La solución es simplemente seguir entrando una carpeta más
+hasta que veas los archivos del curso directamente, y mover esa carpeta
+interior —la que sí tiene los archivos— a donde la quieras dejar de forma
+permanente.
+
+**La ruta tiene tildes, eñes o espacios.** R y algunos de sus paquetes
+—sobre todo los que trabajan con archivos geográficos, como `sf`, que vas a
+usar en la sesión 7— a veces fallan al leer o guardar archivos si la
+carpeta del proyecto está en una ruta con caracteres acentuados, con "ñ", o
+con muchos espacios y paréntesis, del estilo `Descargas/Nueva carpeta (2)`.
+Evítalo guardando la carpeta del curso en una ruta simple, por ejemplo
+directamente en tu Escritorio o en Documentos, con el nombre de carpeta que
+trae por defecto (`r-para-politologos-main` o `r-para-politologos`), sin
+renombrarla con acentos ni espacios adicionales.
+
+**El antivirus de Windows bloquea el instalador o marca R o RStudio como
+sospechosos.** Windows Defender (o cualquier antivirus de terceros que
+tengas instalado) a veces detiene la ejecución de un instalador que no
+reconoce, o lo marca en cuarentena después de la descarga. Revisa la carpeta
+de notificaciones o el historial de protección de tu antivirus: casi
+siempre hay una opción para **"permitir de todas formas"** o **"restaurar
+desde cuarentena"** el archivo específico que acabas de descargar. Si tu
+antivirus es el que administra el ITAM en equipos institucionales y no
+tienes esa opción disponible, pide apoyo al área de cómputo.
+:::
+
+## Y ahora sí
+
+Con R, RStudio, el repositorio y los paquetes listos, abre el archivo
+`sesiones/01-primer-contacto/01_script.R` desde el panel de *Files* de
+RStudio y empieza ahí. Bienvenido al laboratorio.
