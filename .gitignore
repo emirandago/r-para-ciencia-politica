@@ -37,11 +37,14 @@ _freeze/
 # ── Salidas de gráficos generadas al correr los scripts ──────────────────────
 # Si un script produce una figura, la figura se regenera corriendo el script.
 # Versionar la salida y el código que la produce invita a que se desincronicen.
+# Todas esas salidas caen en figuras/, así que basta con ignorar esa carpeta.
+#
+# OJO: aquí había un "*.png" a secas y era un error. Excluía también el logo
+# del ITAM y el banner, que NO son salidas de un script sino piezas del
+# material: sin ellos el sitio se construye con la barra de navegación y la
+# portada rotas. Se ignora la carpeta de salidas, no la extensión.
 figuras/
-*.png
 *.jpg
-!recursos/img/*.png
-!empieza-aqui_files/**
 
 # ── Datos crudos pesados ─────────────────────────────────────────────────────
 # datos/crudos/ guarda el original tal como se descargó. Cuando pesa mucho, no
