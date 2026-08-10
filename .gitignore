@@ -61,6 +61,9 @@ datos/crudos/*.mdb
 # exista aunque esté vacía.
 datos/crudos/**
 !datos/crudos/.gitkeep
+# El README que explica por qué esta carpeta está vacía en GitHub sí se
+# versiona: si no, la excepción de arriba se lo comería a él también.
+!datos/crudos/README.md
 
 # ── Credenciales ─────────────────────────────────────────────────────────────
 .env

@@ -1,27 +1,18 @@
 % ══════════════════════════════════════════════════════════════════════════════
-% PALETA DEL LABORATORIO DE R PARA CIENCIA POLÍTICA — ITAM
-% Verde Sacramento sobre blanco · cuatro tonos de la misma familia
+% ARCHIVO EN DESUSO — no lo importa nadie y no debe importarse.
 %
-% ESTE ES EL ÚNICO LUGAR NORMATIVO DONDE VIVEN LOS HEXES.
-% Si cambia un color, se cambia aquí y se propaga a mano a los otros dos
-% archivos que lo heredan:
-%   · estilo/tema_lab.R     → theme_lab() y las escalas de ggplot2
-%   · estilo/estilo.scss    → el sitio Quarto
-% Los tres tienen que decir lo mismo. Si no, las láminas, los gráficos y el
-% sitio dejan de combinar y se nota.
+% Aquí vivía la paleta original del curso, en verde Sacramento (#04773B). El
+% curso cambió al verde institucional del ITAM (#006847), y desde entonces la
+% ÚNICA fuente normativa de los colores es:
+%
+%     estilo/paleta-itam.tex
+%
+% Ese archivo es el que hace \input el preámbulo del deck, y sus hexes se
+% replican a mano en estilo/tema_lab.R (para los gráficos de ggplot2) y en
+% estilo/estilo.scss (para el sitio). Si cambia un color, se cambia en los
+% tres o el deck, los gráficos y el sitio dejan de combinar.
+%
+% Este archivo se conserva vacío de contenido a propósito: definir colores
+% aquí no tendría ningún efecto, y dejarlo con la paleta vieja invitaba a
+% editarlo por error. Se puede borrar sin consecuencias.
 % ══════════════════════════════════════════════════════════════════════════════
-
-\definecolor{verdeSacramento}{HTML}{04773B}   % acento principal
-\definecolor{verdeProfundo}{HTML}{02351B}     % títulos y texto enfático
-\definecolor{verdeClaro}{HTML}{8FD3AF}        % fondos suaves, resaltados
-\definecolor{grisTexto}{HTML}{3D3D3D}         % cuerpo de texto
-
-% ── Derivados ────────────────────────────────────────────────────────────────
-% No son colores nuevos: son diluciones de los cuatro anteriores sobre blanco.
-% Se definen aquí para que nadie escriba "verdeClaro!15" a mano en una lámina
-% y termine con quince tonos distintos repartidos por el curso.
-
-\colorlet{verdeVelo}{verdeClaro!25!white}     % fondo de bloque y de código
-\colorlet{verdeTenue}{verdeClaro!50!white}    % resaltado dentro de un bloque
-\colorlet{grisVelo}{grisTexto!8!white}        % fondo de lámina separadora
-\colorlet{grisTenue}{grisTexto!45!white}      % reglas, bordes, texto terciario

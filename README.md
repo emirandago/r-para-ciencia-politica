@@ -1,16 +1,38 @@
 # Laboratorio de R para Ciencia Política — ITAM
 
+### → **[Empieza por el sitio del curso: emirandago.github.io/r-para-politologos](https://emirandago.github.io/r-para-politologos/)**
+
+*Ahí está el curso en su forma navegable: las once sesiones en prosa, los
+botones de descarga y la guía de instalación. Este repositorio es el código
+fuente que produce ese sitio. Si llegaste buscando el material, el sitio es
+el lugar; si llegaste buscando cómo está hecho, quédate aquí.*
+
+---
+
 Material completo de un curso de once sesiones de una hora que enseña R a
 estudiantes de Ciencia Política y Relaciones Internacionales del ITAM que
 nunca han programado. Lo imparte Emiliano Miranda González por encargo del
 Departamento Académico de Ciencia Política.
 
-**La forma recomendada de consumir este material es el sitio publicado, no
-este repositorio directamente:**
-[emirandago.github.io/r-para-politologos](https://emirandago.github.io/r-para-politologos/).
-El sitio tiene navegación, botones de descarga para cada sesión y las
-páginas en prosa navegable; este repositorio es el código fuente que lo
-produce.
+## Cómo navegar este repositorio
+
+**Cada carpeta tiene su propio `README.md`**, y GitHub lo muestra en cuanto
+entras a ella. Así que se puede recorrer el curso carpeta por carpeta sin
+perderse: el índice de [`sesiones/`](sesiones/) lleva a las once, y el
+README de cada sesión dice qué es cada uno de sus siete archivos y enlaza a
+la sesión anterior, a la siguiente y a su página en el sitio.
+
+Los atajos más útiles:
+
+| Si buscas… | Ve a |
+|---|---|
+| El curso para leerlo o darlo | [el sitio publicado](https://emirandago.github.io/r-para-politologos/) |
+| Instalar R y RStudio desde cero | [Empieza aquí](https://emirandago.github.io/r-para-politologos/empieza-aqui.html) |
+| Las once sesiones y sus archivos | [`sesiones/`](sesiones/) |
+| De dónde salieron los datos y cómo se construyeron | [`datos/README.md`](datos/README.md) |
+| Los módulos que no caben en el aula | [`extras/`](extras/) |
+| Glosario, errores comunes, acordeón | [`recursos/`](recursos/) |
+| La paleta y la tipografía del curso | [`estilo/`](estilo/) |
 
 ## Para quién es
 
@@ -43,7 +65,7 @@ a ciencia política partiendo de cero.
 
 | # | Título | Pregunta que responde | Entregable de la hora |
 |---|---|---|---|
-| 1 | Tu primera hora en R | ¿Por qué un politólogo programa? | Un gráfico de barras de la elección 2024 hecho por ellos |
+| 1 | Tu primera hora en R | ¿Por qué un politólogo programa? | Un gráfico de barras de la elección 2024, hecho de cero en la sesión |
 | 2 | Los datos son tablas | ¿Cómo se ve una base de datos por dentro? | Cargar y describir una base electoral real |
 | 3 | Pedirle cosas a los datos | ¿Dónde ganó Morena por más de veinte puntos? | Una tabla filtrada que contesta una pregunta propia |
 | 4 | Agrupar, resumir, cruzar | ¿Cómo comparo estados entre sí? | Cruzar dos bases y resumir por entidad |
@@ -63,32 +85,19 @@ vistazo a inferencia causal, y una guía Stata→R.
 
 ## Estructura de carpetas
 
-```
-repo/
-├── README.md                # este archivo
-├── _quarto.yml               # configuración del sitio Quarto
-├── index.qmd                 # portada del sitio publicado
-├── empieza-aqui.qmd           # instalación paso a paso
-├── LICENSE                    # CC BY 4.0 para el material didáctico
-├── r-para-politologos.Rproj  # proyecto de RStudio — ábrelo desde aquí
-│
-├── sesiones/                  # una carpeta por sesión, siete archivos cada una:
-│   └── 01-primer-contacto/    #   guion (.qmd), láminas (.tex y .pdf),
-│       ...                    #   script con huecos, script resuelto,
-│                               #   ejercicio y solución
-│
-├── datos/
-│   ├── README.md               # catálogo: qué es cada archivo, fuente, licencia
-│   ├── limpios/                 # lo que usan las sesiones: .csv y .rds listos
-│   ├── crudos/                  # el original tal como se descargó
-│   ├── geo/                     # shapefiles y geopackages
-│   └── scripts_de_preparacion/  # cómo se pasó de crudo a limpio
-│
-├── extras/                    # módulos autoestudiables (ver arriba)
-├── recursos/                  # glosario, errores comunes, acordeón de R
-├── ia/                         # uso responsable de IA, skills, prompts
-└── estilo/                     # paleta y tipografía del curso (Beamer, ggplot2, sitio)
-```
+Cada carpeta de esta lista tiene su propio README con el detalle.
+
+| Carpeta o archivo | Qué es |
+|---|---|
+| [`r-para-politologos.Rproj`](r-para-politologos.Rproj) | El proyecto de RStudio. **Ábrelo desde aquí**: es lo que deja a R parado en la carpeta correcta |
+| [`sesiones/`](sesiones/) | Una carpeta por sesión, siempre con los mismos siete archivos: guion, láminas en `.tex` y en `.pdf`, script con huecos, script resuelto, ejercicio y solución |
+| [`datos/`](datos/) | Las bases del curso, sus scripts de preparación y el catálogo que documenta cada columna, su fuente y su licencia |
+| [`extras/`](extras/) | Los seis módulos autoestudiables |
+| [`recursos/`](recursos/) | Glosario del inglés técnico, catálogo de errores comunes, acordeón de una página y adónde seguir |
+| [`ia/`](ia/) | Uso responsable de IA en trabajo cuantitativo y las skills que acompañan a la sesión 11 |
+| [`estilo/`](estilo/) | La paleta y la tipografía del curso, compartidas por las láminas, los gráficos y el sitio |
+| [`_quarto.yml`](_quarto.yml) · [`index.qmd`](index.qmd) · [`empieza-aqui.qmd`](empieza-aqui.qmd) | La configuración y las páginas de entrada del sitio publicado |
+| [`LICENSE`](LICENSE) · [`CITATION.cff`](CITATION.cff) | La licencia CC BY 4.0 con su alcance exacto, y la cita en formato legible por máquina |
 
 Cada carpeta de sesión es descargable por separado desde el sitio publicado,
 en menos de tres clics, sin que quien la descarga necesite entender qué es

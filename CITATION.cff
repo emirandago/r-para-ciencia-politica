@@ -1,0 +1,27 @@
+cff-version: 1.2.0
+message: "Si usas este material, cítalo así."
+title: "Laboratorio de R para Ciencia Política"
+abstract: >-
+  Material completo de un curso de once sesiones de una hora que enseña R a
+  estudiantes de Ciencia Política y Relaciones Internacionales del ITAM que
+  nunca han programado y no han cursado Estadística. Incluye guiones de
+  sesión, láminas en Beamer, scripts comentados, ejercicios con solución,
+  módulos autoestudiables y bases electorales mexicanas construidas desde
+  fuente oficial con sus scripts de preparación.
+type: software
+authors:
+  - family-names: "Miranda González"
+    given-names: "Emiliano"
+    affiliation: "Instituto Tecnológico Autónomo de México, Departamento Académico de Ciencia Política"
+repository-code: "https://github.com/emirandago/r-para-politologos"
+url: "https://emirandago.github.io/r-para-politologos/"
+license: CC-BY-4.0
+keywords:
+  - R
+  - ciencia política
+  - métodos cuantitativos
+  - enseñanza
+  - datos electorales
+  - México
+  - ITAM
+date-released: 2026-08-05
