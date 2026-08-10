@@ -1,0 +1,904 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="es" xml:lang="es"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.10.18">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>Extra 1 · Funciones e iteración a profundidad – Laboratorio de R para Ciencia Política</title>
+<style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: 1.5em;}
+div.column{flex: auto;}
+@media screen {
+div.columns{gap: min(4vw, 1.5em);}
+div.column{overflow-x: auto;}
+}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../">
+<script src="../../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-6bc2510a377bfbe78f0e93c5094f7fd0.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../site_libs/bootstrap/bootstrap-d33573f5db6bc822405971e42879fa46.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No se han encontrado resultados",
+    "search-matching-documents-text": "documentos encontrados",
+    "search-copy-link-title": "Copiar el enlace en la búsqueda",
+    "search-hide-matches-text": "Ocultar resultados adicionales",
+    "search-more-match-text": "resultado adicional en este documento",
+    "search-more-matches-text": "resultados adicionales en este documento",
+    "search-clear-button-title": "Borrar",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancelar",
+    "search-submit-button-title": "Enviar",
+    "search-label": "Buscar"
+  }
+}</script>
+
+
+</head>
+
+<body class="nav-fixed quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a href="../../index.html" class="navbar-brand navbar-brand-logo">
+    <img src="../../estilo/logo_itam.png" alt="Instituto Tecnológico Autónomo de México" class="navbar-logo light-content">
+    <img src="../../estilo/logo_itam.png" alt="Instituto Tecnológico Autónomo de México" class="navbar-logo dark-content">
+    </a>
+    <a class="navbar-brand" href="../../index.html">
+    <span class="navbar-title">Laboratorio de R para Ciencia Política</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Buscar"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Navegación de palanca" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../../empieza-aqui.html"> 
+<span class="menu-text">Empieza aquí</span></a>
+  </li>  
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-sesiones" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">Sesiones</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-sesiones">    
+        <li>
+    <a class="dropdown-item" href="../../sesiones/01-primer-contacto/01_guion.html">
+ <span class="dropdown-text">Sesión 01 · Tu primera hora en R</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../sesiones/02-los-datos-son-tablas/02_guion.html">
+ <span class="dropdown-text">Sesión 02 · Los datos son tablas</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../sesiones/03-pedirle-cosas-a-los-datos/03_guion.html">
+ <span class="dropdown-text">Sesión 03 · Pedirle cosas a los datos</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../sesiones/04-agrupar-resumir-cruzar/04_guion.html">
+ <span class="dropdown-text">Sesión 04 · Agrupar, resumir, cruzar</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../sesiones/05-gramatica-de-los-graficos/05_guion.html">
+ <span class="dropdown-text">Sesión 05 · La gramática de los gráficos</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../sesiones/06-graficos-que-se-publican/06_guion.html">
+ <span class="dropdown-text">Sesión 06 · Gráficos que se publican</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../sesiones/07-el-mapa-de-mexico/07_guion.html">
+ <span class="dropdown-text">Sesión 07 · El mapa de México</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../sesiones/08-describir-sin-mentir/08_guion.html">
+ <span class="dropdown-text">Sesión 08 · Describir sin mentir</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../sesiones/09-la-regresion/09_guion.html">
+ <span class="dropdown-text">Sesión 09 · La regresión como instrumento politológico</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../sesiones/10-que-otro-pueda-repetirlo/10_guion.html">
+ <span class="dropdown-text">Sesión 10 · Que otro pueda repetirlo</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../sesiones/11-la-ia-como-copiloto/11_guion.html">
+ <span class="dropdown-text">Sesión 11 · La IA como copiloto, no como piloto</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-extras" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">Extras</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-extras">    
+        <li>
+    <a class="dropdown-item" href="../../extras/index.html">
+ <span class="dropdown-text">Todos los extras</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../extras/01-funciones-e-iteracion/01_extra.html">
+ <span class="dropdown-text">Funciones e iteración</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../extras/02-probabilidad-y-simulacion/02_extra.html">
+ <span class="dropdown-text">Probabilidad y simulación</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../extras/03-logit-y-glm/03_extra.html">
+ <span class="dropdown-text">Modelos logit y GLM</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../extras/04-panel-y-efectos-fijos/04_extra.html">
+ <span class="dropdown-text">Datos de panel y efectos fijos</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../extras/05-inferencia-causal/05_extra.html">
+ <span class="dropdown-text">Primer vistazo a inferencia causal</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../extras/06-de-stata-a-r/06_extra.html">
+ <span class="dropdown-text">Guía Stata → R</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-recursos" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">Recursos</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-recursos">    
+        <li>
+    <a class="dropdown-item" href="../../recursos/index.html">
+ <span class="dropdown-text">Todos los recursos</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../recursos/glosario.html">
+ <span class="dropdown-text">Glosario</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../recursos/errores-comunes.html">
+ <span class="dropdown-text">Errores comunes</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../recursos/para-seguir.html">
+ <span class="dropdown-text">Para seguir</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../recursos/acordeon-r.pdf">
+ <span class="dropdown-text">Acordeón de R (PDF)</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="../../ia/index.html"> 
+<span class="menu-text">IA</span></a>
+  </li>  
+</ul>
+            <ul class="navbar-nav navbar-nav-scroll ms-auto">
+  <li class="nav-item compact">
+    <a class="nav-link" href="https://github.com/emirandago/r-para-politologos"> <i class="bi bi-github" role="img" aria-label="Repositorio en GitHub">
+</i> 
+<span class="menu-text"></span></a>
+  </li>  
+</ul>
+          </div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools">
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">En esta página</h2>
+   
+  <ul>
+  <li><a href="#qué-vas-a-poder-hacer-al-salir" id="toc-qué-vas-a-poder-hacer-al-salir" class="nav-link active" data-scroll-target="#qué-vas-a-poder-hacer-al-salir">Qué vas a poder hacer al salir</a></li>
+  <li><a href="#qué-necesitas-haber-visto-antes" id="toc-qué-necesitas-haber-visto-antes" class="nav-link" data-scroll-target="#qué-necesitas-haber-visto-antes">Qué necesitas haber visto antes</a></li>
+  <li><a href="#los-archivos-del-módulo" id="toc-los-archivos-del-módulo" class="nav-link" data-scroll-target="#los-archivos-del-módulo">Los archivos del módulo</a></li>
+  <li><a href="#el-contenido-en-prosa" id="toc-el-contenido-en-prosa" class="nav-link" data-scroll-target="#el-contenido-en-prosa">El contenido, en prosa</a>
+  <ul class="collapse">
+  <li><a href="#por-qué-escribir-una-función-propia" id="toc-por-qué-escribir-una-función-propia" class="nav-link" data-scroll-target="#por-qué-escribir-una-función-propia">Por qué escribir una función propia</a></li>
+  <li><a href="#la-anatomía-de-una-función" id="toc-la-anatomía-de-una-función" class="nav-link" data-scroll-target="#la-anatomía-de-una-función">La anatomía de una función</a></li>
+  <li><a href="#argumentos-por-omisión" id="toc-argumentos-por-omisión" class="nav-link" data-scroll-target="#argumentos-por-omisión">Argumentos por omisión</a></li>
+  <li><a href="#el-alcance-qué-tan-lejos-ve-una-función" id="toc-el-alcance-qué-tan-lejos-ve-una-función" class="nav-link" data-scroll-target="#el-alcance-qué-tan-lejos-ve-una-función">El alcance: qué tan lejos ve una función</a></li>
+  <li><a href="#rep-seq-y-replicate-generar-antes-de-iterar" id="toc-rep-seq-y-replicate-generar-antes-de-iterar" class="nav-link" data-scroll-target="#rep-seq-y-replicate-generar-antes-de-iterar"><code>rep()</code>, <code>seq()</code> y <code>replicate()</code>: generar antes de iterar</a></li>
+  <li><a href="#el-bucle-for" id="toc-el-bucle-for" class="nav-link" data-scroll-target="#el-bucle-for">El bucle <code>for</code></a></li>
+  <li><a href="#la-alternativa-moderna-purrrmap_dbl" id="toc-la-alternativa-moderna-purrrmap_dbl" class="nav-link" data-scroll-target="#la-alternativa-moderna-purrrmap_dbl">La alternativa moderna: <code>purrr::map_dbl()</code></a></li>
+  <li><a href="#operaciones-de-conjuntos-intersect-union-setdiff" id="toc-operaciones-de-conjuntos-intersect-union-setdiff" class="nav-link" data-scroll-target="#operaciones-de-conjuntos-intersect-union-setdiff">Operaciones de conjuntos: <code>intersect()</code>, <code>union()</code>, <code>setdiff()</code></a></li>
+  <li><a href="#el-salto-una-función-que-recibe-un-nombre-de-columna" id="toc-el-salto-una-función-que-recibe-un-nombre-de-columna" class="nav-link" data-scroll-target="#el-salto-una-función-que-recibe-un-nombre-de-columna">El salto: una función que recibe un NOMBRE de columna</a></li>
+  <li><a href="#si-algo-falla" id="toc-si-algo-falla" class="nav-link" data-scroll-target="#si-algo-falla">Si algo falla</a></li>
+  <li><a href="#lo-que-ya-sabes-hacer" id="toc-lo-que-ya-sabes-hacer" class="nav-link" data-scroll-target="#lo-que-ya-sabes-hacer">Lo que ya sabes hacer</a></li>
+  </ul></li>
+  <li><a href="#para-seguir" id="toc-para-seguir" class="nav-link" data-scroll-target="#para-seguir">Para seguir</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Extra 1 · Funciones e iteración a profundidad</h1>
+<p class="subtitle lead">¿Qué haces cuando la misma operación se repite treinta y dos veces?</p>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<div class="gancho">
+<p>En la sesión 4 calculaste el promedio simple y el promedio ponderado de una columna. Si quisieras hacer exactamente esa misma cuenta para <code>pct_shh</code>, <code>pct_fcm</code> y <code>pct_mc</code>, tendrías que copiar el bloque tres veces y cambiarle el nombre a la columna cada vez. Cópialo una cuarta vez y ya tienes un problema: en algún punto se te va a olvidar cambiar un nombre, y R no te va a avisar. La respuesta de este módulo es escribir la operación una sola vez, con un hueco donde antes había un nombre fijo, y dejar que R repita el hueco por ti.</p>
+</div>
+<section id="qué-vas-a-poder-hacer-al-salir" class="level2">
+<h2 class="anchored" data-anchor-id="qué-vas-a-poder-hacer-al-salir">Qué vas a poder hacer al salir</h2>
+<p>Vas a escribir tus propias funciones, con argumentos que tienen un valor por omisión y con un condicional adentro. Vas a entender qué es el alcance —qué tan lejos ve una función y qué tan lejos la ve a ella el resto de tu script—. Vas a generar secuencias con <code>rep()</code>, <code>seq()</code> y <code>replicate()</code>, recorrer una lista con un bucle <code>for</code> y con <code>purrr::map_dbl()</code>, y comparar dos conjuntos de entidades con <code>intersect()</code>, <code>union()</code> y <code>setdiff()</code>. Cierras con la pieza más avanzada de todo el laboratorio: una función que recibe el <em>nombre</em> de una columna como si fuera un dato más, y la usa para producir seis mapas de México con un ciclo, no con seis bloques de código pegados uno tras otro.</p>
+<p>Lo que no vas a entender del todo, y no pasa nada, es <em>por qué</em> funciona la sintaxis <code>.data[[var]]</code> de la última sección. Se llama evaluación diferida (<span class="termino-en">tidy evaluation</span>) y es, sin exagerar, el concepto más avanzado de todo el material del laboratorio, extras incluidos. Vas a poder copiar el patrón y usarlo con confianza; entenderlo en sus tripas es material de un curso de R intermedio, no de este.</p>
+</section>
+<section id="qué-necesitas-haber-visto-antes" class="level2">
+<h2 class="anchored" data-anchor-id="qué-necesitas-haber-visto-antes">Qué necesitas haber visto antes</h2>
+<p>Las sesiones 1 a 4 (objetos, vectores, el pipe, <code>group_by()</code>/<code>summarise()</code>) y la sesión 7 (mapas con <code>sf</code>) para el último bloque. No hace falta haber visto la sesión 10 todavía: ahí se enseña apenas lo mínimo de funciones propias, y este extra es exactamente el “a fondo” que esa sesión promete y no alcanza a dar en una hora de clase.</p>
+</section>
+<section id="los-archivos-del-módulo" class="level2">
+<h2 class="anchored" data-anchor-id="los-archivos-del-módulo">Los archivos del módulo</h2>
+<div class="descargas">
+<p><a href="https://raw.githubusercontent.com/emirandago/r-para-politologos/main/extras/01-funciones-e-iteracion/01_script.R" class="btn-descarga">01_script.R — el código completo</a> <a href="https://raw.githubusercontent.com/emirandago/r-para-politologos/main/extras/01-funciones-e-iteracion/01_ejercicio.R" class="btn-descarga">01_ejercicio.R — para practicar</a> <a href="https://raw.githubusercontent.com/emirandago/r-para-politologos/main/extras/01-funciones-e-iteracion/01_solucion.R" class="btn-descarga secundario">01_solucion.R — solución comentada</a></p>
+</div>
+<p>A diferencia de las sesiones presenciales, <code>01_script.R</code> <strong>corre completo, de arriba abajo, sin huecos</strong>. Este módulo no se imparte en clase: se lee y se corre en solitario, y un archivo con huecos sin nadie a quien preguntarle no tendría ningún sentido.</p>
+</section>
+<section id="el-contenido-en-prosa" class="level2">
+<h2 class="anchored" data-anchor-id="el-contenido-en-prosa">El contenido, en prosa</h2>
+<section id="por-qué-escribir-una-función-propia" class="level3">
+<h3 class="anchored" data-anchor-id="por-qué-escribir-una-función-propia">Por qué escribir una función propia</h3>
+<p>Una función es una máquina pequeña: entra algo, R hace algo con eso adentro, y sale un resultado. Ya usaste cientos de funciones que alguien más escribió —<code>mean()</code>, <code>filter()</code>, <code>ggplot()</code>—; hoy escribes las tuyas. La razón para hacerlo casi nunca es “R no trae una función para esto”: es que tu propia operación, la que combina tres o cuatro pasos del curso en un orden particular, se repite. La regla informal que vale la pena adoptar es la de “si copiaste y pegaste el mismo bloque tres veces, cambiando solo un nombre, esa tercera vez debiste haber escrito una función”. Copiar y pegar no es gratis: cada copia es un lugar más donde un error se puede esconder, y corregirlo significa encontrar y arreglar cada copia por separado. Una función centraliza la corrección en un solo sitio.</p>
+</section>
+<section id="la-anatomía-de-una-función" class="level3">
+<h3 class="anchored" data-anchor-id="la-anatomía-de-una-función">La anatomía de una función</h3>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>calcular_ventaja <span class="ot">&lt;-</span> <span class="cf">function</span>(pct_primero, pct_segundo) {</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>  ventaja <span class="ot">&lt;-</span> pct_primero <span class="sc">-</span> pct_segundo</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(ventaja)</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<p><code>function(pct_primero, pct_segundo)</code> declara los argumentos: los huecos que alguien va a llenar cada vez que use la función. El cuerpo, entre llaves, es el trabajo. <code>return()</code> dice qué sale de la máquina; en R es opcional —si no lo escribes, la función devuelve el resultado de la última línea de todas formas—, pero escribirlo siempre deja explícito, para quien lea tu código después (incluida tu propia persona de dentro de tres meses), cuál es el punto exacto donde termina el cálculo.</p>
+</section>
+<section id="argumentos-por-omisión" class="level3">
+<h3 class="anchored" data-anchor-id="argumentos-por-omisión">Argumentos por omisión</h3>
+<p>Un argumento puede traer un valor de fábrica, que se usa si nadie especifica otro:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>clasificar_margen <span class="ot">&lt;-</span> <span class="cf">function</span>(ventaja, <span class="at">umbral =</span> <span class="dv">20</span>) {</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (ventaja <span class="sc">&gt;</span> umbral) {</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>    <span class="st">"arrasadora"</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>  } <span class="cf">else</span> <span class="cf">if</span> (ventaja <span class="sc">&gt;</span> <span class="dv">0</span>) {</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>    <span class="st">"cerrada"</span></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>  } <span class="cf">else</span> {</span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>    <span class="st">"perdida"</span></span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a><span class="fu">clasificar_margen</span>(<span class="dv">25</span>)        <span class="co"># usa el umbral de fábrica, 20</span></span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a><span class="fu">clasificar_margen</span>(<span class="dv">25</span>, <span class="dv">10</span>)    <span class="co"># sobreescribe el umbral</span></span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<p>El <code>if</code>/<code>else if</code>/<code>else</code> de adentro es un condicional: R evalúa las preguntas en orden y se detiene en la primera que resulte verdadera. Fíjate que no hay <code>return()</code> en ningún lado: R, otra vez, devuelve el resultado de la última expresión que se evaluó, que es el texto correspondiente a la rama que se cumplió.</p>
+</section>
+<section id="el-alcance-qué-tan-lejos-ve-una-función" class="level3">
+<h3 class="anchored" data-anchor-id="el-alcance-qué-tan-lejos-ve-una-función">El alcance: qué tan lejos ve una función</h3>
+<p>Una variable que creas <em>dentro</em> de una función no existe fuera de ella. Corre esto y compruébalo:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>demostrar_alcance <span class="ot">&lt;-</span> <span class="cf">function</span>(x) {</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>  resultado_interno <span class="ot">&lt;-</span> x <span class="sc">*</span> <span class="dv">2</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>  resultado_interno</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a><span class="fu">demostrar_alcance</span>(<span class="dv">21</span>)</span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>resultado_interno   <span class="co"># Error: object 'resultado_interno' not found</span></span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<p><code>resultado_interno</code> vivió y murió adentro de la función. Esto no es un capricho de diseño: es lo que te permite escribir cien funciones distintas sin que a ninguna le importe si otra, en otro lado del script, usó el mismo nombre de variable por dentro. Cada función tiene su propio cuarto y no ve lo que pasa en el cuarto de al lado —salvo los objetos que ya existían <em>antes</em> de que la función se llamara, que sí puede leer, aunque no pueda modificarlos de vuelta hacia afuera sin que tú se lo pidas explícitamente con <code>&lt;&lt;-</code>, un operador que este curso no enseña porque casi nunca es la herramienta correcta para alguien que empieza.</p>
+</section>
+<section id="rep-seq-y-replicate-generar-antes-de-iterar" class="level3">
+<h3 class="anchored" data-anchor-id="rep-seq-y-replicate-generar-antes-de-iterar"><code>rep()</code>, <code>seq()</code> y <code>replicate()</code>: generar antes de iterar</h3>
+<p>Tres funciones que generan vectores, cada una con un propósito distinto.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">rep</span>(<span class="st">"Morena"</span>, <span class="dv">5</span>)              <span class="co"># repite un valor</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="fu">rep</span>(<span class="fu">c</span>(<span class="st">"SHH"</span>, <span class="st">"FCM"</span>), <span class="at">times =</span> <span class="dv">3</span>)  <span class="co"># repite un patrón completo</span></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="fu">rep</span>(<span class="fu">c</span>(<span class="st">"SHH"</span>, <span class="st">"FCM"</span>), <span class="at">each =</span> <span class="dv">3</span>)   <span class="co"># repite cada elemento antes de pasar al siguiente</span></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a><span class="fu">seq</span>(<span class="dv">0</span>, <span class="dv">100</span>, <span class="at">by =</span> <span class="dv">10</span>)          <span class="co"># una secuencia con un salto fijo</span></span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a><span class="fu">seq</span>(<span class="dv">0</span>, <span class="dv">100</span>, <span class="at">length.out =</span> <span class="dv">5</span>)   <span class="co"># una secuencia con un número fijo de pasos</span></span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">1899</span>)                          <span class="co"># sin esto, cada corrida da otra cosa</span></span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a><span class="fu">replicate</span>(<span class="dv">4</span>, <span class="fu">mean</span>(<span class="fu">sample</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">100</span>, <span class="dv">10</span>)))  <span class="co"># repite una EXPRESIÓN completa, no un valor</span></span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<p><code>replicate()</code> es distinta de las otras dos: no repite un dato, repite una operación completa, tantas veces como le pidas, y junta los resultados en un vector. Es la puerta de entrada a la simulación del extra 2: ahí vas a usar exactamente esta función para repetir un sorteo miles de veces.</p>
+</section>
+<section id="el-bucle-for" class="level3">
+<h3 class="anchored" data-anchor-id="el-bucle-for">El bucle <code>for</code></h3>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>columnas_pct <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"pct_shh"</span>, <span class="st">"pct_fcm"</span>, <span class="st">"pct_mc"</span>)</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>promedios_for <span class="ot">&lt;-</span> <span class="fu">vector</span>(<span class="st">"double"</span>, <span class="fu">length</span>(columnas_pct))</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(promedios_for) <span class="ot">&lt;-</span> columnas_pct</span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (columna <span class="cf">in</span> columnas_pct) {</span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>  promedios_for[columna] <span class="ot">&lt;-</span> <span class="fu">mean</span>(resultados_entidad[[columna]])</span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>promedios_for</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<p><code>vector("double", length(columnas_pct))</code> crea, antes de empezar, un espacio del tamaño correcto para guardar los resultados. Esto no es una manía: un <code>for</code> que va agrandando un vector con <code>c()</code> dentro de cada vuelta funciona igual de bien con tres columnas y se vuelve perceptiblemente lento con miles de vueltas, porque R tiene que copiar el vector completo cada vez que crece. Reservar el espacio primero evita ese problema desde el principio.</p>
+<p>Dentro del bucle, <code>resultados_entidad[[columna]]</code> saca la columna cuyo nombre está guardado en la variable <code>columna</code>. Fíjate en los corchetes dobles: <code>resultados_entidad$pct_shh</code> solo funciona si escribes el nombre literal; <code>resultados_entidad[[columna]]</code> funciona con lo que sea que <code>columna</code> valga en ese momento del bucle. Esa diferencia —un nombre fijo contra un nombre que vive en una variable— es la idea que vas a volver a encontrar, mucho más desarrollada, en la sección del <code>.data[[var]]</code>.</p>
+<p><code>break</code> corta el bucle por completo antes de que termine; <code>next</code> salta nada más la vuelta actual y sigue con la siguiente. Los vas a usar poco en ciencia política aplicada —son más comunes en programación de propósito general que en análisis de datos—, pero conviene reconocerlos si te los encuentras en código ajeno.</p>
+</section>
+<section id="la-alternativa-moderna-purrrmap_dbl" class="level3">
+<h3 class="anchored" data-anchor-id="la-alternativa-moderna-purrrmap_dbl">La alternativa moderna: <code>purrr::map_dbl()</code></h3>
+<p><code>purrr</code> es el paquete de <code>tidyverse</code> para iterar sin escribir un <code>for</code> explícito. Hace, en una línea, lo mismo que el bloque de arriba en seis:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>promedios_map <span class="ot">&lt;-</span> resultados_entidad <span class="sc">|&gt;</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="fu">all_of</span>(columnas_pct)) <span class="sc">|&gt;</span></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">map_dbl</span>(mean)</span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>promedios_map</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<p><code>map_dbl()</code> recorre cada columna de la tabla, le aplica <code>mean()</code> y devuelve un vector de números (<code>_dbl</code> es por <em>double</em>, el tipo numérico decimal de R). Existen primas de la misma familia —<code>map_chr()</code> para texto, <code>map()</code> quien no promete un tipo fijo y devuelve una lista— que resuelven el mismo patrón para otros tipos de salida. La ventaja sobre el <code>for</code> no es velocidad —para este tamaño de datos son indistinguibles—: es que <code>map_dbl()</code> <strong>garantiza</strong> que la salida es un vector de números, y avisa con un error si alguna columna no lo produce. Un <code>for</code> no da esa garantía por sí solo: si algo sale mal a media vuelta, puede dejarte un resultado a medias sin ningún aviso.</p>
+</section>
+<section id="operaciones-de-conjuntos-intersect-union-setdiff" class="level3">
+<h3 class="anchored" data-anchor-id="operaciones-de-conjuntos-intersect-union-setdiff">Operaciones de conjuntos: <code>intersect()</code>, <code>union()</code>, <code>setdiff()</code></h3>
+<p>Tres funciones que comparan dos vectores como si fueran conjuntos, en el sentido de la teoría de conjuntos que ya conoces de la educación media:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>entidades_shh_alto <span class="ot">&lt;-</span> resultados_entidad <span class="sc">|&gt;</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(pct_shh <span class="sc">&gt;</span> <span class="dv">60</span>) <span class="sc">|&gt;</span></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pull</span>(entidad)</span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>entidades_participacion_alta <span class="ot">&lt;-</span> resultados_entidad <span class="sc">|&gt;</span></span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(participacion <span class="sc">&gt;</span> <span class="dv">65</span>) <span class="sc">|&gt;</span></span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pull</span>(entidad)</span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a><span class="fu">intersect</span>(entidades_shh_alto, entidades_participacion_alta)  <span class="co"># en las dos listas</span></span>
+<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a><span class="fu">union</span>(entidades_shh_alto, entidades_participacion_alta)      <span class="co"># en cualquiera de las dos</span></span>
+<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a><span class="fu">setdiff</span>(entidades_shh_alto, entidades_participacion_alta)    <span class="co"># en la primera, no en la segunda</span></span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<p><code>pull()</code> es un atajo: saca una sola columna de una tabla y la entrega como vector, igual que <code>$</code>, pero encadenable con el pipe —<code>resultados_entidad$entidad</code> no se puede meter a media cadena de <code>|&gt;</code>, <code>pull(entidad)</code> sí—. Con los datos reales de 2024, diecinueve entidades tienen más de 60% de votos para SHH y solo cinco tienen más de 65% de participación; la intersección de ambos grupos son exactamente tres: Puebla, Tlaxcala y Yucatán. <code>setdiff()</code> en el otro sentido —participación alta pero sin <code>pct_shh</code> por encima de 60— deja Ciudad de México y Coahuila. Fíjate que <code>setdiff()</code> no es simétrica: <code>setdiff(A, B)</code> y <code>setdiff(B, A)</code> casi nunca dan lo mismo, y es un error frecuente asumir que sí.</p>
+</section>
+<section id="el-salto-una-función-que-recibe-un-nombre-de-columna" class="level3">
+<h3 class="anchored" data-anchor-id="el-salto-una-función-que-recibe-un-nombre-de-columna">El salto: una función que recibe un NOMBRE de columna</h3>
+<p>Aquí es donde este extra se separa del resto del laboratorio. Hasta ahora, cada vez que quisiste graficar una columna distinta, escribiste <code>aes(fill = pct_shh)</code>, con el nombre tecleado directo. Eso funciona porque <code>ggplot2</code> sabe, por magia de diseño del paquete, buscar <code>pct_shh</code> como columna de la tabla sin que la pongas entre comillas. El problema aparece en el momento en que <strong>tú</strong> quieres que el nombre de la columna sea una variable —el argumento de una función— en vez de un texto fijo:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>mapa_por_variable <span class="ot">&lt;-</span> <span class="cf">function</span>(datos, variable, titulo) {</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(datos, <span class="fu">aes</span>(<span class="at">fill =</span> .data[[variable]])) <span class="sc">+</span></span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_sf</span>(<span class="at">color =</span> <span class="st">"white"</span>, <span class="at">linewidth =</span> <span class="fl">0.15</span>) <span class="sc">+</span></span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">scale_fill_viridis_c</span>() <span class="sc">+</span></span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">theme_lab_mapa</span>() <span class="sc">+</span></span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>    <span class="fu">labs</span>(<span class="at">title =</span> titulo, <span class="at">fill =</span> <span class="cn">NULL</span>)</span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<p><code>.data</code> es un objeto especial de <code>tidyverse</code> que representa “la tabla de datos que estoy usando en este momento”, y <code>.data[[variable]]</code> le pide la columna cuyo <em>nombre</em> está guardado en la variable <code>variable</code> —exactamente el mismo patrón de corchetes dobles del <code>for</code> de más arriba, ahora funcionando dentro de un <code>aes()</code>—. Esto se llama evaluación diferida (<span class="termino-en">tidy evaluation</span>): en vez de que <code>aes()</code> busque literalmente una columna llamada <code>variable</code>, primero mira qué dice la variable <code>variable</code>, y busca esa columna. Es el mecanismo que le permite a <code>ggplot2</code> aceptar tanto <code>aes(fill = pct_shh)</code> —el nombre tecleado directo— como <code>aes(fill = .data[[variable]])</code> —el nombre que llega indirecto, a través de un argumento de función—.</p>
+<p>Con esa función escrita una sola vez, seis mapas dejan de ser seis bloques de código pegados y se vuelven seis llamadas de una línea:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>mapa_participacion <span class="ot">&lt;-</span> <span class="fu">mapa_por_variable</span>(mapa_entidades, <span class="st">"participacion"</span>, <span class="st">"Participación (%)"</span>)</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>mapa_shh           <span class="ot">&lt;-</span> <span class="fu">mapa_por_variable</span>(mapa_entidades, <span class="st">"pct_shh"</span>,       <span class="st">"Voto SHH (%)"</span>)</span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>mapa_fcm           <span class="ot">&lt;-</span> <span class="fu">mapa_por_variable</span>(mapa_entidades, <span class="st">"pct_fcm"</span>,       <span class="st">"Voto FCM (%)"</span>)</span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>mapa_mc            <span class="ot">&lt;-</span> <span class="fu">mapa_por_variable</span>(mapa_entidades, <span class="st">"pct_mc"</span>,        <span class="st">"Voto MC (%)"</span>)</span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>(mapa_participacion <span class="sc">|</span> mapa_shh) <span class="sc">/</span> (mapa_fcm <span class="sc">|</span> mapa_mc)</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Este patrón —una función con <code>.data[[var]]</code> por dentro, llamada una vez por columna— viene, con muy pocos cambios, del curso de Aldo Gómez, que la usó para construir seis mapas de la Ciudad de México (PIB, homicidios, IDH, acceso a internet, parques, desempleo) con seis llamadas a una sola función llamada <code>map_var()</code>. Es, de los tres cursos heredados, la pieza de código más avanzada de todas, y por eso vive aquí y no en el camino crítico de las once sesiones.</p>
+</section>
+<section id="si-algo-falla" class="level3 si-algo-falla">
+<h3 class="anchored" data-anchor-id="si-algo-falla">Si algo falla</h3>
+<p><strong><code>Error in .data[[variable]] : object 'variable' not found</code></strong> Casi siempre significa que llamaste a la función sin ponerle comillas al nombre de la columna: <code>mapa_por_variable(mapa_entidades, pct_shh, "...")</code> en vez de <code>mapa_por_variable(mapa_entidades, "pct_shh", "...")</code>. Dentro de <code>.data[[ ]]</code>, el nombre de la columna tiene que llegar como texto.</p>
+<p><strong><code>Error in vector("double", length(columnas_pct)) : object 'columnas_pct' not found</code></strong> No corriste la línea donde se crea <code>columnas_pct</code> antes del <code>for</code>. R ejecuta un script de arriba abajo; si saltaste una línea, cualquier variable que esa línea creaba todavía no existe.</p>
+<p><strong>Un <code>for</code> no muestra nada en pantalla, ni siquiera al terminar</strong> Es el comportamiento normal. A diferencia de la consola, dentro de un bucle R no imprime resultados intermedios solo porque los calculó: hay que pedírselo explícitamente con <code>print()</code>, o guardar el resultado y mostrarlo después del bucle, como hace <code>promedios_for</code> en el ejemplo de esta página.</p>
+<p><strong><code>could not find function "map_dbl"</code></strong> <code>map_dbl()</code> vive en <code>purrr</code>, que <code>library(tidyverse)</code> ya carga por ti. Si este error aparece, revisa que sí corriste el bloque de paquetes al principio del script.</p>
+<p>Hay más, con su traducción y su arreglo, en <a href="../../recursos/errores-comunes.html">Errores comunes</a>.</p>
+</section>
+<section id="lo-que-ya-sabes-hacer" class="level3 ya-sabes">
+<h3 class="anchored" data-anchor-id="lo-que-ya-sabes-hacer">Lo que ya sabes hacer</h3>
+<ul>
+<li>Escribir una función propia, con un argumento por omisión y un condicional adentro, y explicar por qué el alcance protege tu código.</li>
+<li>Elegir entre un <code>for</code> y <code>purrr::map_dbl()</code> para la misma tarea, y decir con tus palabras qué garantiza uno que el otro no.</li>
+<li>Escribir una función que recibe el <em>nombre</em> de una columna como argumento, usando <code>.data[[var]]</code>, para no repetir seis veces el mismo bloque de un mapa.</li>
+</ul>
+</section>
+</section>
+<section id="para-seguir" class="level2">
+<h2 class="anchored" data-anchor-id="para-seguir">Para seguir</h2>
+<p>Si este módulo te dejó con ganas de más simulación, el <strong>extra 2</strong> usa <code>replicate()</code> —la función que aquí solo probaste una vez— como columna vertebral de todo un módulo de probabilidad. Si te interesa más la parte de mapas, la <strong>sesión 7</strong> es su origen y el mejor lugar para revisar <code>geom_sf()</code>, <code>st_crs()</code> y las escalas de color con calma.</p>
+
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copiado");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copiado");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp("https:\/\/emirandago\.github\.io\/r-para-politologos\/");
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+</div> <!-- /content -->
+<footer class="footer">
+  <div class="nav-footer">
+    <div class="nav-footer-left">
+<p>Laboratorio de R para Ciencia Política · ITAM</p>
+</div>   
+    <div class="nav-footer-center">
+      &nbsp;
+    </div>
+    <div class="nav-footer-right">
+<p>EMG · Material bajo licencia <a href="https://github.com/emirandago/r-para-politologos/blob/main/LICENSE">CC BY 4.0</a></p>
+</div>
+  </div>
+</footer>
+
+
+
+
+</body></html>

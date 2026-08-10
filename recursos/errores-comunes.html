@@ -1,0 +1,1117 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="es" xml:lang="es"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.10.18">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>Errores comunes – Laboratorio de R para Ciencia Política</title>
+<style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: 1.5em;}
+div.column{flex: auto;}
+@media screen {
+div.columns{gap: min(4vw, 1.5em);}
+div.column{overflow-x: auto;}
+}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<script src="../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-6bc2510a377bfbe78f0e93c5094f7fd0.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap-d33573f5db6bc822405971e42879fa46.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No se han encontrado resultados",
+    "search-matching-documents-text": "documentos encontrados",
+    "search-copy-link-title": "Copiar el enlace en la búsqueda",
+    "search-hide-matches-text": "Ocultar resultados adicionales",
+    "search-more-match-text": "resultado adicional en este documento",
+    "search-more-matches-text": "resultados adicionales en este documento",
+    "search-clear-button-title": "Borrar",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancelar",
+    "search-submit-button-title": "Enviar",
+    "search-label": "Buscar"
+  }
+}</script>
+
+
+</head>
+
+<body class="nav-fixed quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a href="../index.html" class="navbar-brand navbar-brand-logo">
+    <img src="../estilo/logo_itam.png" alt="Instituto Tecnológico Autónomo de México" class="navbar-logo light-content">
+    <img src="../estilo/logo_itam.png" alt="Instituto Tecnológico Autónomo de México" class="navbar-logo dark-content">
+    </a>
+    <a class="navbar-brand" href="../index.html">
+    <span class="navbar-title">Laboratorio de R para Ciencia Política</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Buscar"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Navegación de palanca" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../empieza-aqui.html"> 
+<span class="menu-text">Empieza aquí</span></a>
+  </li>  
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-sesiones" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">Sesiones</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-sesiones">    
+        <li>
+    <a class="dropdown-item" href="../sesiones/01-primer-contacto/01_guion.html">
+ <span class="dropdown-text">Sesión 01 · Tu primera hora en R</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../sesiones/02-los-datos-son-tablas/02_guion.html">
+ <span class="dropdown-text">Sesión 02 · Los datos son tablas</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../sesiones/03-pedirle-cosas-a-los-datos/03_guion.html">
+ <span class="dropdown-text">Sesión 03 · Pedirle cosas a los datos</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../sesiones/04-agrupar-resumir-cruzar/04_guion.html">
+ <span class="dropdown-text">Sesión 04 · Agrupar, resumir, cruzar</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../sesiones/05-gramatica-de-los-graficos/05_guion.html">
+ <span class="dropdown-text">Sesión 05 · La gramática de los gráficos</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../sesiones/06-graficos-que-se-publican/06_guion.html">
+ <span class="dropdown-text">Sesión 06 · Gráficos que se publican</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../sesiones/07-el-mapa-de-mexico/07_guion.html">
+ <span class="dropdown-text">Sesión 07 · El mapa de México</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../sesiones/08-describir-sin-mentir/08_guion.html">
+ <span class="dropdown-text">Sesión 08 · Describir sin mentir</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../sesiones/09-la-regresion/09_guion.html">
+ <span class="dropdown-text">Sesión 09 · La regresión como instrumento politológico</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../sesiones/10-que-otro-pueda-repetirlo/10_guion.html">
+ <span class="dropdown-text">Sesión 10 · Que otro pueda repetirlo</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../sesiones/11-la-ia-como-copiloto/11_guion.html">
+ <span class="dropdown-text">Sesión 11 · La IA como copiloto, no como piloto</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-extras" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">Extras</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-extras">    
+        <li>
+    <a class="dropdown-item" href="../extras/index.html">
+ <span class="dropdown-text">Todos los extras</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../extras/01-funciones-e-iteracion/01_extra.html">
+ <span class="dropdown-text">Funciones e iteración</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../extras/02-probabilidad-y-simulacion/02_extra.html">
+ <span class="dropdown-text">Probabilidad y simulación</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../extras/03-logit-y-glm/03_extra.html">
+ <span class="dropdown-text">Modelos logit y GLM</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../extras/04-panel-y-efectos-fijos/04_extra.html">
+ <span class="dropdown-text">Datos de panel y efectos fijos</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../extras/05-inferencia-causal/05_extra.html">
+ <span class="dropdown-text">Primer vistazo a inferencia causal</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../extras/06-de-stata-a-r/06_extra.html">
+ <span class="dropdown-text">Guía Stata → R</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-recursos" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">Recursos</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-recursos">    
+        <li>
+    <a class="dropdown-item" href="../recursos/index.html">
+ <span class="dropdown-text">Todos los recursos</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../recursos/glosario.html">
+ <span class="dropdown-text">Glosario</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../recursos/errores-comunes.html">
+ <span class="dropdown-text">Errores comunes</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../recursos/para-seguir.html">
+ <span class="dropdown-text">Para seguir</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../recursos/acordeon-r.pdf">
+ <span class="dropdown-text">Acordeón de R (PDF)</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="../ia/index.html"> 
+<span class="menu-text">IA</span></a>
+  </li>  
+</ul>
+            <ul class="navbar-nav navbar-nav-scroll ms-auto">
+  <li class="nav-item compact">
+    <a class="nav-link" href="https://github.com/emirandago/r-para-politologos"> <i class="bi bi-github" role="img" aria-label="Repositorio en GitHub">
+</i> 
+<span class="menu-text"></span></a>
+  </li>  
+</ul>
+          </div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools">
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">En esta página</h2>
+   
+  <ul>
+  <li><a href="#antes-que-nada-cómo-leer-un-mensaje-de-error" id="toc-antes-que-nada-cómo-leer-un-mensaje-de-error" class="nav-link active" data-scroll-target="#antes-que-nada-cómo-leer-un-mensaje-de-error">Antes que nada: cómo leer un mensaje de error</a></li>
+  <li><a href="#al-instalar-y-cargar-paquetes-sesión-1-2" id="toc-al-instalar-y-cargar-paquetes-sesión-1-2" class="nav-link" data-scroll-target="#al-instalar-y-cargar-paquetes-sesión-1-2">Al instalar y cargar paquetes (sesión 1-2)</a>
+  <ul class="collapse">
+  <li><a href="#there-is-no-package-called" id="toc-there-is-no-package-called" class="nav-link" data-scroll-target="#there-is-no-package-called"><code>there is no package called</code></a></li>
+  <li><a href="#could-not-find-function" id="toc-could-not-find-function" class="nav-link" data-scroll-target="#could-not-find-function"><code>could not find function</code></a></li>
+  <li><a href="#los-conflictos-de-nombres-al-cargar-dplyr" id="toc-los-conflictos-de-nombres-al-cargar-dplyr" class="nav-link" data-scroll-target="#los-conflictos-de-nombres-al-cargar-dplyr">Los conflictos de nombres al cargar <code>dplyr</code></a></li>
+  </ul></li>
+  <li><a href="#cuando-r-todavía-no-terminó-de-leerte-errores-de-sintaxis-sesión-1" id="toc-cuando-r-todavía-no-terminó-de-leerte-errores-de-sintaxis-sesión-1" class="nav-link" data-scroll-target="#cuando-r-todavía-no-terminó-de-leerte-errores-de-sintaxis-sesión-1">Cuando R todavía no terminó de leerte: errores de sintaxis (sesión 1)</a>
+  <ul class="collapse">
+  <li><a href="#el-que-parpadea-y-no-pasa-nada" id="toc-el-que-parpadea-y-no-pasa-nada" class="nav-link" data-scroll-target="#el-que-parpadea-y-no-pasa-nada">El <code>+</code> que parpadea y no pasa nada</a></li>
+  <li><a href="#unexpected-symbol" id="toc-unexpected-symbol" class="nav-link" data-scroll-target="#unexpected-symbol"><code>unexpected symbol</code></a></li>
+  <li><a href="#unexpected" id="toc-unexpected" class="nav-link" data-scroll-target="#unexpected"><code>unexpected ')'</code></a></li>
+  </ul></li>
+  <li><a href="#cuando-r-no-encuentra-lo-que-buscas-object-...-not-found" id="toc-cuando-r-no-encuentra-lo-que-buscas-object-...-not-found" class="nav-link" data-scroll-target="#cuando-r-no-encuentra-lo-que-buscas-object-...-not-found">Cuando R no encuentra lo que buscas: <code>object ... not found</code></a></li>
+  <li><a href="#cuando-abres-un-archivo-que-r-no-encuentra" id="toc-cuando-abres-un-archivo-que-r-no-encuentra" class="nav-link" data-scroll-target="#cuando-abres-un-archivo-que-r-no-encuentra">Cuando abres un archivo que R no encuentra</a></li>
+  <li><a href="#cuando-el-tipo-de-dato-no-es-el-que-creías-sesión-2-8" id="toc-cuando-el-tipo-de-dato-no-es-el-que-creías-sesión-2-8" class="nav-link" data-scroll-target="#cuando-el-tipo-de-dato-no-es-el-que-creías-sesión-2-8">Cuando el tipo de dato no es el que creías (sesión 2, 8)</a>
+  <ul class="collapse">
+  <li><a href="#argument-is-not-numeric-or-logical" id="toc-argument-is-not-numeric-or-logical" class="nav-link" data-scroll-target="#argument-is-not-numeric-or-logical"><code>argument is not numeric or logical</code></a></li>
+  <li><a href="#nas-introduced-by-coercion" id="toc-nas-introduced-by-coercion" class="nav-link" data-scroll-target="#nas-introduced-by-coercion"><code>NAs introduced by coercion</code></a></li>
+  </ul></li>
+  <li><a href="#cuando-confundes-qué-tipo-de-objeto-tienes-entre-manos" id="toc-cuando-confundes-qué-tipo-de-objeto-tienes-entre-manos" class="nav-link" data-scroll-target="#cuando-confundes-qué-tipo-de-objeto-tienes-entre-manos">Cuando confundes qué tipo de objeto tienes entre manos</a>
+  <ul class="collapse">
+  <li><a href="#object-of-type-closure-is-not-subsettable" id="toc-object-of-type-closure-is-not-subsettable" class="nav-link" data-scroll-target="#object-of-type-closure-is-not-subsettable"><code>object of type 'closure' is not subsettable</code></a></li>
+  <li><a href="#operator-is-invalid-for-atomic-vectors" id="toc-operator-is-invalid-for-atomic-vectors" class="nav-link" data-scroll-target="#operator-is-invalid-for-atomic-vectors"><code>$ operator is invalid for atomic vectors</code></a></li>
+  <li><a href="#error-in-usemethod" id="toc-error-in-usemethod" class="nav-link" data-scroll-target="#error-in-usemethod"><code>Error in UseMethod</code></a></li>
+  </ul></li>
+  <li><a href="#cuando-gráficas-con-ggplot2-sesiones-1-5-6-8" id="toc-cuando-gráficas-con-ggplot2-sesiones-1-5-6-8" class="nav-link" data-scroll-target="#cuando-gráficas-con-ggplot2-sesiones-1-5-6-8">Cuando gráficas con <code>ggplot2</code> (sesiones 1, 5, 6, 8)</a>
+  <ul class="collapse">
+  <li><a href="#el-al-principio-de-la-línea" id="toc-el-al-principio-de-la-línea" class="nav-link" data-scroll-target="#el-al-principio-de-la-línea">El <code>+</code> al principio de la línea</a></li>
+  <li><a href="#warning-ignoring-unknown-aesthetics-fill" id="toc-warning-ignoring-unknown-aesthetics-fill" class="nav-link" data-scroll-target="#warning-ignoring-unknown-aesthetics-fill"><code>Warning: Ignoring unknown aesthetics: fill</code></a></li>
+  <li><a href="#insufficient-values-in-manual-scale" id="toc-insufficient-values-in-manual-scale" class="nav-link" data-scroll-target="#insufficient-values-in-manual-scale"><code>Insufficient values in manual scale</code></a></li>
+  <li><a href="#continuous-value-supplied-to-discrete-scale-y-su-recíproco" id="toc-continuous-value-supplied-to-discrete-scale-y-su-recíproco" class="nav-link" data-scroll-target="#continuous-value-supplied-to-discrete-scale-y-su-recíproco"><code>Continuous value supplied to discrete scale</code> y su recíproco</a></li>
+  <li><a href="#el-gráfico-de-línea-sale-vacío-o-solo-puntos-sueltos-sin-conectar" id="toc-el-gráfico-de-línea-sale-vacío-o-solo-puntos-sueltos-sin-conectar" class="nav-link" data-scroll-target="#el-gráfico-de-línea-sale-vacío-o-solo-puntos-sueltos-sin-conectar">El gráfico de línea sale vacío, o solo puntos sueltos sin conectar</a></li>
+  <li><a href="#el-gráfico-sale-sin-línea-de-tendencia" id="toc-el-gráfico-sale-sin-línea-de-tendencia" class="nav-link" data-scroll-target="#el-gráfico-sale-sin-línea-de-tendencia">El gráfico sale sin línea de tendencia</a></li>
+  </ul></li>
+  <li><a href="#cuando-agrupas-o-cruzas-bases-sesiones-4-y-7" id="toc-cuando-agrupas-o-cruzas-bases-sesiones-4-y-7" class="nav-link" data-scroll-target="#cuando-agrupas-o-cruzas-bases-sesiones-4-y-7">Cuando agrupas o cruzas bases (sesiones 4 y 7)</a>
+  <ul class="collapse">
+  <li><a href="#warning-detected-an-unexpected-many-to-many-relationship" id="toc-warning-detected-an-unexpected-many-to-many-relationship" class="nav-link" data-scroll-target="#warning-detected-an-unexpected-many-to-many-relationship"><code>Warning: Detected an unexpected many-to-many relationship</code></a></li>
+  </ul></li>
+  <li><a href="#cuando-mapeas-con-sf-sesión-7" id="toc-cuando-mapeas-con-sf-sesión-7" class="nav-link" data-scroll-target="#cuando-mapeas-con-sf-sesión-7">Cuando mapeas con <code>sf</code> (sesión 7)</a>
+  <ul class="collapse">
+  <li><a href="#error-in-st_read...-cannot-open" id="toc-error-in-st_read...-cannot-open" class="nav-link" data-scroll-target="#error-in-st_read...-cannot-open"><code>Error in st_read(...) : Cannot open</code></a></li>
+  <li><a href="#el-mapa-se-ve-todo-de-un-solo-color" id="toc-el-mapa-se-ve-todo-de-un-solo-color" class="nav-link" data-scroll-target="#el-mapa-se-ve-todo-de-un-solo-color">El mapa se ve todo de un solo color</a></li>
+  </ul></li>
+  <li><a href="#cuando-modelas-sesión-9" id="toc-cuando-modelas-sesión-9" class="nav-link" data-scroll-target="#cuando-modelas-sesión-9">Cuando modelas (sesión 9)</a>
+  <ul class="collapse">
+  <li><a href="#could-not-find-function-feols" id="toc-could-not-find-function-feols" class="nav-link" data-scroll-target="#could-not-find-function-feols"><code>could not find function "feols"</code></a></li>
+  <li><a href="#object-participacion-not-found-dentro-de-una-fórmula" id="toc-object-participacion-not-found-dentro-de-una-fórmula" class="nav-link" data-scroll-target="#object-participacion-not-found-dentro-de-una-fórmula"><code>object 'participacion' not found</code> dentro de una fórmula</a></li>
+  <li><a href="#la-tabla-de-modelsummary-se-ve-distinta-a-la-de-este-documento" id="toc-la-tabla-de-modelsummary-se-ve-distinta-a-la-de-este-documento" class="nav-link" data-scroll-target="#la-tabla-de-modelsummary-se-ve-distinta-a-la-de-este-documento">La tabla de <code>modelsummary()</code> se ve distinta a la de este documento</a></li>
+  </ul></li>
+  <li><a href="#cuando-publicas-en-quarto-y-en-github-sesión-10" id="toc-cuando-publicas-en-quarto-y-en-github-sesión-10" class="nav-link" data-scroll-target="#cuando-publicas-en-quarto-y-en-github-sesión-10">Cuando publicas en Quarto y en GitHub (sesión 10)</a>
+  <ul class="collapse">
+  <li><a href="#el-yaml-marca-error-al-renderizar" id="toc-el-yaml-marca-error-al-renderizar" class="nav-link" data-scroll-target="#el-yaml-marca-error-al-renderizar">El YAML marca error al renderizar</a></li>
+  <li><a href="#la-página-de-github-pages-muestra-un-404" id="toc-la-página-de-github-pages-muestra-un-404" class="nav-link" data-scroll-target="#la-página-de-github-pages-muestra-un-404">La página de GitHub Pages muestra un 404</a></li>
+  <li><a href="#la-página-muestra-el-código-en-crudo-en-vez-del-reporte" id="toc-la-página-muestra-el-código-en-crudo-en-vez-del-reporte" class="nav-link" data-scroll-target="#la-página-muestra-el-código-en-crudo-en-vez-del-reporte">La página muestra el código en crudo en vez del reporte</a></li>
+  </ul></li>
+  <li><a href="#los-errores-que-no-dan-error" id="toc-los-errores-que-no-dan-error" class="nav-link" data-scroll-target="#los-errores-que-no-dan-error">Los errores que NO dan error</a>
+  <ul class="collapse">
+  <li><a href="#filtercodigo-1-2" id="toc-filtercodigo-1-2" class="nav-link" data-scroll-target="#filtercodigo-1-2"><code>filter(codigo == 1 | 2)</code></a></li>
+  <li><a href="#un-left_join-que-multiplica-filas" id="toc-un-left_join-que-multiplica-filas" class="nav-link" data-scroll-target="#un-left_join-que-multiplica-filas">Un <code>left_join()</code> que multiplica filas</a></li>
+  <li><a href="#una-columna-que-se-llena-de-na-después-de-un-case_when-incompleto" id="toc-una-columna-que-se-llena-de-na-después-de-un-case_when-incompleto" class="nav-link" data-scroll-target="#una-columna-que-se-llena-de-na-después-de-un-case_when-incompleto">Una columna que se llena de <code>NA</code> después de un <code>case_when()</code> incompleto</a></li>
+  <li><a href="#un-promedio-de-porcentajes-que-no-es-el-porcentaje" id="toc-un-promedio-de-porcentajes-que-no-es-el-porcentaje" class="nav-link" data-scroll-target="#un-promedio-de-porcentajes-que-no-es-el-porcentaje">Un promedio de porcentajes que no es el porcentaje</a></li>
+  </ul></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Errores comunes</h1>
+<p class="subtitle lead">Cómo leer un mensaje de error en R, y qué hacer con cada uno</p>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<div class="gancho">
+<p>Un error de R no es una falla del laboratorio: es el temario. Nadie que programe —ni quien lleva veinte años haciéndolo— escribe código que corre a la primera. La diferencia entre alguien que se queda y alguien que abandona no es que a quien se queda le truene menos código. Es que sabe leer lo que R le está diciendo. Este documento enseña eso.</p>
+</div>
+<p>Cada entrada de este catálogo trae el mensaje <strong>literal en inglés</strong> —porque así lo vas a ver casi siempre, y buscarlo así en internet es lo que funciona—, su traducción, qué lo causa de verdad y el arreglo concreto. Una nota sobre el idioma: si tu computadora está configurada en español, es posible que R ya te muestre algunos de estos mensajes traducidos de fábrica (por ejemplo, “no se pudo encontrar la función” en vez de <code>could not find function</code>). El contenido es el mismo; usa la traducción de este documento para reconocer el mensaje sin importar en qué idioma te salga.</p>
+<section id="antes-que-nada-cómo-leer-un-mensaje-de-error" class="level2">
+<h2 class="anchored" data-anchor-id="antes-que-nada-cómo-leer-un-mensaje-de-error">Antes que nada: cómo leer un mensaje de error</h2>
+<p>R te da tres piezas de información cada vez que algo truena, y las tres valen la pena aunque el mensaje se vea intimidante:</p>
+<p><strong>Dónde.</strong> Casi todo error empieza con <code>Error in algo(...) :</code>. Ese <code>algo(...)</code> es la función o la expresión que R estaba evaluando cuando se topó con el problema —no necesariamente la línea completa que escribiste, y casi nunca el motivo real del problema.</p>
+<p><strong>Qué es ruido y qué no.</strong> Después de los dos puntos viene la descripción del problema. Ignora, por ahora, cualquier mención a funciones internas que nunca escribiste tú (<code>eval</code>, <code>doTryCatch</code>, <code>withCallingHandlers</code>): son la maquinaria interna de R haciendo su trabajo, no el lugar donde tú te equivocaste. Lo que importa es la última línea con signo de <code>$</code>, <code>::</code>, o un nombre de objeto que reconoces del script.</p>
+<p><strong>Por qué el error casi siempre está arriba de donde R lo reporta.</strong> Esta es la idea más importante de todo el documento. R avisa el problema en el momento en que <strong>lo descubre</strong>, no en el momento en que <strong>se originó</strong>. Si un objeto no existe, es casi siempre porque una línea de arriba no se corrió, o se corrió con un error que pasó inadvertido. La primera pregunta ante cualquier error no es “¿qué tiene mal esta línea?”: es “¿corrí, en orden, todo lo que esta línea necesita?”. Antes de leer una sola palabra del mensaje, revisa el panel de <em>Environment</em> (arriba a la derecha en RStudio): si el objeto que buscas no está ahí, ya sabes dónde empezar a mirar.</p>
+<p>Una distinción que te va a ahorrar pánico: R usa dos palabras distintas para avisarte cosas, y no significan lo mismo. Un <strong><code>Error</code></strong> detiene la ejecución: nada de lo que sigue corrió. Un <strong><code>Warning</code></strong> (aviso) no detiene nada: R hizo lo que le pediste, pero quiere que sepas que algo en el camino no fue del todo limpio —un dato que se volvió <code>NA</code>, una relación rara en un cruce de bases—. Ignorar un <code>Warning</code> porque “no truena” es, en este curso, casi tan grave como no leer un <code>Error</code>: buena parte de la sección final de este documento son precisamente avisos, o silencios, que conviene tratar como si fueran errores.</p>
+<hr>
+</section>
+<section id="al-instalar-y-cargar-paquetes-sesión-1-2" class="level2">
+<h2 class="anchored" data-anchor-id="al-instalar-y-cargar-paquetes-sesión-1-2">Al instalar y cargar paquetes (sesión 1-2)</h2>
+<section id="there-is-no-package-called" class="level3">
+<h3 class="anchored" data-anchor-id="there-is-no-package-called"><code>there is no package called</code></h3>
+<pre><code>Error in library(tidyverse) : there is no package called 'tidyverse'</code></pre>
+<p><strong>Traducción.</strong> No existe ningún paquete con ese nombre.</p>
+<p><strong>Qué lo causa de verdad.</strong> <code>library()</code> carga un paquete que ya está instalado en tu computadora; no lo instala. Este mensaje significa, prácticamente siempre, que nunca corriste <code>install.packages("tidyverse")</code>, o que lo corriste y algo interrumpió la instalación a la mitad.</p>
+<p><strong>El arreglo.</strong> Copia <code>install.packages("tidyverse")</code> en la <strong>consola</strong> —nunca dentro de un script que otra persona vaya a correr—, espera a que termine (pueden ser varios minutos la primera vez) y vuelve a correr <code>library()</code>.</p>
+</section>
+<section id="could-not-find-function" class="level3">
+<h3 class="anchored" data-anchor-id="could-not-find-function"><code>could not find function</code></h3>
+<pre><code>Error in read_dta(...) : could not find function "read_dta"</code></pre>
+<p><strong>Traducción.</strong> No encuentro ninguna función con ese nombre.</p>
+<p><strong>Qué lo causa de verdad.</strong> Casi nunca es que la función no existe: es que existe en un paquete que no cargaste con <code>library()</code> en esta sesión. <code>R</code> olvida qué paquetes cargaste apenas cierras RStudio; tienes que volver a cargarlos cada vez que abres el proyecto. <code>read_dta()</code> vive en <code>haven</code>; <code>read_excel()</code>, en <code>readxl</code>; <code>feols()</code>, en <code>fixest</code>.</p>
+<p><strong>El arreglo.</strong> Agrega <code>library(el_paquete_correspondiente)</code> antes de la línea que falló, y corre las dos en orden. Si de plano no sabes en qué paquete vive una función, <code>??nombre_de_la_función</code> busca en la ayuda instalada, y una búsqueda como <code>"nombre_de_la_función" r package</code> casi siempre resuelve la duda en el primer resultado.</p>
+</section>
+<section id="los-conflictos-de-nombres-al-cargar-dplyr" class="level3">
+<h3 class="anchored" data-anchor-id="los-conflictos-de-nombres-al-cargar-dplyr">Los conflictos de nombres al cargar <code>dplyr</code></h3>
+<p>Cuando corres <code>library(tidyverse)</code> por primera vez en una sesión, R imprime algo parecido a esto —no es un error, es información:</p>
+<pre><code>── Conflicts ─────────────────────────────────────── tidyverse_conflicts() ──
+✖ dplyr::filter() masks stats::filter()
+✖ dplyr::lag()    masks stats::lag()</code></pre>
+<p><strong>Traducción.</strong> <code>dplyr::filter()</code> tapa a <code>stats::filter()</code>.</p>
+<p><strong>Qué significa de verdad.</strong> R tiene, instalado desde siempre, un paquete llamado <code>stats</code> con una función <code>filter()</code> propia —sirve para suavizar series de tiempo, no tiene nada que ver con filtrar una tabla—. Cuando cargas <code>dplyr</code>, su <code>filter()</code> (el que vas a usar todo el curso) toma el lugar de <code>stats::filter()</code> mientras dure la sesión. Eso es lo que quiere decir <em>masks</em> (“tapa”, “enmascara”): si escribes <code>filter()</code> a secas, R usa la versión más reciente en cargarse, que después de <code>library(tidyverse)</code> siempre es la de <code>dplyr</code>.</p>
+<p><strong>Por qué importa.</strong> Si alguna vez <strong>no</strong> cargaste <code>tidyverse</code> y usas <code>filter()</code> de todos modos —por ejemplo, porque ya lo habías cargado en otra sesión y se te olvidó que RStudio no se acuerda entre sesiones—, R usa <code>stats::filter()</code> sin avisarte que cambió de función, y el resultado es un error que en la superficie no tiene nada que ver con paquetes:</p>
+<pre><code>Error in filter(resultados, entidad == "Jalisco") :
+  object 'entidad' not found</code></pre>
+<p><code>stats::filter()</code> no sabe leer nombres de columna sueltos como hace <code>dplyr</code>; busca <code>entidad</code> como si fuera un objeto independiente en tu entorno, no lo encuentra, y trunea con un mensaje que parece de objeto faltante. <strong>El arreglo</strong> es siempre el mismo: confirma que corriste <code>library(tidyverse)</code> en esta sesión, no en una sesión pasada.</p>
+<hr>
+</section>
+</section>
+<section id="cuando-r-todavía-no-terminó-de-leerte-errores-de-sintaxis-sesión-1" class="level2">
+<h2 class="anchored" data-anchor-id="cuando-r-todavía-no-terminó-de-leerte-errores-de-sintaxis-sesión-1">Cuando R todavía no terminó de leerte: errores de sintaxis (sesión 1)</h2>
+<section id="el-que-parpadea-y-no-pasa-nada" class="level3">
+<h3 class="anchored" data-anchor-id="el-que-parpadea-y-no-pasa-nada">El <code>+</code> que parpadea y no pasa nada</h3>
+<p>En la consola, en vez de un mensaje, ves esto y el cursor no avanza:</p>
+<pre><code>&gt; resultados |&gt; filter(participacion &gt; 60
++</code></pre>
+<p><strong>No es un error.</strong> Es R diciéndote, sin palabras, “todavía no terminas de escribir la instrucción y estoy esperando”. Casi siempre falta cerrar un paréntesis, una comilla o un corchete que abriste antes.</p>
+<p><strong>El arreglo.</strong> Aprieta <code>Esc</code> para cancelar, y revisa la línea contando paréntesis: cada <code>(</code> necesita su <code>)</code>. RStudio resalta en gris el paréntesis pareja cuando pones el cursor junto a uno; úsalo para contar.</p>
+</section>
+<section id="unexpected-symbol" class="level3">
+<h3 class="anchored" data-anchor-id="unexpected-symbol"><code>unexpected symbol</code></h3>
+<pre><code>&gt; x &lt;- 5 y &lt;- 10
+Error: unexpected symbol in "x &lt;- 5 y"</code></pre>
+<p><strong>Traducción.</strong> Símbolo inesperado.</p>
+<p><strong>Qué lo causa de verdad.</strong> R terminó de leer una instrucción completa (<code>x &lt;- 5</code>) y, en la misma línea, encontró el principio de otra (<code>y</code>) sin nada que las separe —ni un salto de línea, ni un <code>;</code>—. R no sabe qué hacer con dos instrucciones pegadas así.</p>
+<p><strong>El arreglo.</strong> Separa las dos instrucciones en dos líneas. Esto pasa mucho al copiar código de una página web o de un PDF, donde un salto de línea se perdió en el camino.</p>
+</section>
+<section id="unexpected" class="level3">
+<h3 class="anchored" data-anchor-id="unexpected"><code>unexpected ')'</code></h3>
+<pre><code>&gt; mean(resultados$participacion))
+Error: unexpected ')' in "mean(resultados$participacion))"</code></pre>
+<p><strong>Traducción.</strong> Cierre de paréntesis inesperado.</p>
+<p><strong>Qué lo causa de verdad.</strong> Sobra un paréntesis de cierre: hay más <code>)</code> que <code>(</code> en la expresión. Es el error opuesto y complementario al <code>+</code> colgado —ahí faltaba un paréntesis; aquí sobra uno.</p>
+<p><strong>El arreglo.</strong> Cuenta los paréntesis de la expresión completa, de afuera hacia adentro, y quita el que sobra.</p>
+<hr>
+</section>
+</section>
+<section id="cuando-r-no-encuentra-lo-que-buscas-object-...-not-found" class="level2">
+<h2 class="anchored" data-anchor-id="cuando-r-no-encuentra-lo-que-buscas-object-...-not-found">Cuando R no encuentra lo que buscas: <code>object ... not found</code></h2>
+<p>Este es, con diferencia, el error más frecuente de todo el curso, y tiene cuatro causas distintas que producen exactamente el mismo mensaje. Diagnosticar cuál de las cuatro te tocó es más importante que memorizar el arreglo de ninguna.</p>
+<pre><code>Error: object 'resultados' not found</code></pre>
+<p><strong>Traducción.</strong> No encuentro ningún objeto con ese nombre.</p>
+<p><strong>Causa 1 — no corriste la línea de arriba.</strong> Es la más común, sobre todo cuando saltas líneas al aprender. Revisa el panel <em>Environment</em>: si el objeto no aparece ahí, no existe todavía para R, sin importar que la línea que lo crea esté justo arriba de la que falló, en el script.</p>
+<p><strong>Causa 2 — lo escribiste con una letra distinta.</strong> R distingue mayúsculas de minúsculas: <code>Resultados</code> y <code>resultados</code> son dos objetos diferentes para él, no el mismo con un descuido de tipeo perdonado. Lo mismo con acentos y con guiones bajos de más o de menos.</p>
+<p><strong>Causa 3 — te faltaron las comillas.</strong></p>
+<pre><code>Error: object 'Jalisco' not found</code></pre>
+<p>Esto pasa cuando escribes <code>filter(entidad == Jalisco)</code> en vez de <code>filter(entidad == "Jalisco")</code>. Sin comillas, R interpreta <code>Jalisco</code> como el nombre de un objeto que debería existir en tu entorno —no como el texto “Jalisco”—, no lo encuentra, y truena. Dentro de <code>filter()</code> y de cualquier comparación, todo valor de texto lleva comillas.</p>
+<p><strong>Causa 4 — <code>mutate()</code> (o <code>case_when()</code> dentro de él) no modificó tu tabla, porque nunca reasignaste el resultado.</strong></p>
+<pre><code>resultados |&gt; mutate(ventaja = pct_shh - pct_segundo)
+ventaja
+Error: object 'ventaja' not found</code></pre>
+<p>En R, casi ninguna función modifica un objeto por sí sola: <code>mutate()</code> calcula la columna nueva y la muestra en pantalla, pero <code>resultados</code> se queda exactamente igual que antes a menos que reasignes el resultado con la flecha:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>resultados <span class="ot">&lt;-</span> resultados <span class="sc">|&gt;</span> <span class="fu">mutate</span>(<span class="at">ventaja =</span> pct_shh <span class="sc">-</span> pct_segundo)</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Si ves este error después de un <code>mutate()</code> que “sí corrió” sin marcar nada en rojo, la pregunta no es qué falló en el cálculo: es si la línea de arriba tenía la flecha de asignación al principio.</p>
+<hr>
+</section>
+<section id="cuando-abres-un-archivo-que-r-no-encuentra" class="level2">
+<h2 class="anchored" data-anchor-id="cuando-abres-un-archivo-que-r-no-encuentra">Cuando abres un archivo que R no encuentra</h2>
+<pre><code>Error in file(file, "rt") : cannot open the connection
+In addition: Warning message:
+In file(file, "rt") :
+  cannot open file 'datos/limpios/presidencial_2024_entidad.csv': No such file or directory</code></pre>
+<p><strong>Traducción.</strong> No se puede abrir la conexión / no se puede abrir el archivo: no existe ese archivo o ese directorio.</p>
+<p>Con <code>readr::read_csv()</code> —la función que vas a usar casi siempre en este curso— el mensaje es más corto y más claro, porque <code>readr</code> no delega en el sistema de conexiones de R base:</p>
+<pre><code>Error: 'datos/limpios/presidencial_2024_entidad.csv' does not exist in current working directory ('/Users/tu-nombre/Documents/otra-carpeta').</code></pre>
+<p>Fíjate que esa segunda línea te dice, literalmente, dónde está parado R en ese momento —y casi seguro no es donde tú crees.</p>
+<p><strong>Qué lo causa de verdad, casi siempre.</strong> No es que el archivo no exista: es que R está buscando a partir de una carpeta distinta de la que tú tienes en la cabeza. Esto pasa por tres razones, de más a menos común:</p>
+<ol type="1">
+<li>Abriste RStudio desde el ícono del programa y no desde el archivo <code>.Rproj</code> —con doble clic sobre el ícono de la aplicación en vez de sobre el archivo del proyecto—, así que R nunca quedó parado en la carpeta del repositorio.</li>
+<li>Cerraste RStudio, lo volviste a abrir, y el proyecto no se restauró solo.</li>
+<li>El nombre del archivo tiene una letra, un acento o una mayúscula distinta de la que escribiste en el código.</li>
+</ol>
+<p><strong>El arreglo.</strong> Corre <code>here::here()</code> sola, sin argumentos, en la consola. Te va a devolver la ruta completa donde R está parado ahora mismo; si esa ruta no termina en el nombre de la carpeta del repositorio, cierra RStudio por completo y ábrelo otra vez con doble clic sobre el archivo <code>.Rproj</code>, no sobre el ícono de la aplicación. Después, revisa el nombre exacto del archivo en <code>datos/README.md</code>.</p>
+<p>Esta misma familia de error aparece con <code>source()</code> —cuando un script intenta cargar <code>estilo/tema_lab.R</code> y no está parado donde debería— y con <code>ggsave()</code> —cuando intentas guardar una figura en una carpeta que todavía no existe—:</p>
+<pre><code>Error in ggsave("figuras/mapa.pdf", ...) :
+  cannot open file 'figuras/mapa.pdf': No such file or directory</code></pre>
+<p>Ahí el arreglo no es <code>here()</code>: es crear la carpeta primero, con <code>dir.create("figuras", showWarnings = FALSE)</code>, antes de guardar nada dentro de ella.</p>
+<hr>
+</section>
+<section id="cuando-el-tipo-de-dato-no-es-el-que-creías-sesión-2-8" class="level2">
+<h2 class="anchored" data-anchor-id="cuando-el-tipo-de-dato-no-es-el-que-creías-sesión-2-8">Cuando el tipo de dato no es el que creías (sesión 2, 8)</h2>
+<section id="argument-is-not-numeric-or-logical" class="level3">
+<h3 class="anchored" data-anchor-id="argument-is-not-numeric-or-logical"><code>argument is not numeric or logical</code></h3>
+<pre><code>Warning message:
+In mean.default(municipios$entidad) :
+  argument is not numeric or logical: returning NA</code></pre>
+<p><strong>Traducción.</strong> El argumento no es numérico ni lógico: se devuelve <code>NA</code>.</p>
+<p><strong>Qué lo causa de verdad.</strong> Le pediste una operación aritmética —<code>mean()</code>, <code>sum()</code>, <code>sd()</code>— a una columna de texto o de otro tipo que no admite promedios. No es un <code>Error</code>: es un <code>Warning</code>, así que R sigue corriendo y te entrega un <code>NA</code> en vez de un número, lo cual puede ser tan engañoso como un error si no te fijas.</p>
+<p><strong>El arreglo.</strong> Corre <code>glimpse()</code> sobre la tabla antes de resumir cualquier columna, y confirma que el tipo sea <code>&lt;dbl&gt;</code> o <code>&lt;int&gt;</code>, no <code>&lt;chr&gt;</code>. Si la columna debería ser numérica y no lo es —por ejemplo, porque el archivo original traía separadores de miles—, conviértela explícitamente antes de resumir. Lo cual lleva directo al siguiente error.</p>
+</section>
+<section id="nas-introduced-by-coercion" class="level3">
+<h3 class="anchored" data-anchor-id="nas-introduced-by-coercion"><code>NAs introduced by coercion</code></h3>
+<pre><code>&gt; as.numeric(c("39,700", "10,400", "1,200,000"))
+Warning message:
+NAs introduced by coercion
+[1] NA NA NA</code></pre>
+<p><strong>Traducción.</strong> Se introdujeron valores <code>NA</code> al forzar el tipo de dato.</p>
+<p><strong>Qué lo causa de verdad.</strong> <code>as.numeric()</code> intenta leer cada valor de texto como un número, y donde no puede —una coma de miles, una letra, un espacio— devuelve <code>NA</code> en vez de tronar. La lista nominal de un municipio escrita como <code>"39,700"</code> no es un número para R: la coma la vuelve texto no interpretable.</p>
+<p><strong>El arreglo.</strong> Nunca conviertas a número sin revisar primero por qué el texto no se ve como un número. Si el problema es la coma de miles, quítala antes de convertir: <code>as.numeric(gsub(",", "", columna))</code>. Después de convertir, siempre corre <code>sum(is.na(columna_nueva))</code> para confirmar que no se te perdió nada en el camino.</p>
+<hr>
+</section>
+</section>
+<section id="cuando-confundes-qué-tipo-de-objeto-tienes-entre-manos" class="level2">
+<h2 class="anchored" data-anchor-id="cuando-confundes-qué-tipo-de-objeto-tienes-entre-manos">Cuando confundes qué tipo de objeto tienes entre manos</h2>
+<p>Estos tres errores parecen avanzados, y en cierto sentido lo son: rara vez aparecen en el código que se escribe en clase. Pero son exactamente los que salen cuando el error de verdad —un objeto que no es lo que creías que era— ocurrió varias líneas antes, y vale la pena reconocerlos para no perder media hora buscando en el lugar equivocado.</p>
+<section id="object-of-type-closure-is-not-subsettable" class="level3">
+<h3 class="anchored" data-anchor-id="object-of-type-closure-is-not-subsettable"><code>object of type 'closure' is not subsettable</code></h3>
+<pre><code>&gt; pct_ponderado[1]
+Error in pct_ponderado[1] : object of type 'closure' is not subsettable</code></pre>
+<p><strong>Traducción.</strong> No se puede indexar (sacar un pedazo de) un objeto de tipo <em>closure</em>. En este contexto, “closure” es el nombre técnico que R le da a una <strong>función</strong>.</p>
+<p><strong>Qué lo causa de verdad.</strong> Estás tratando una función como si fuera un vector o una tabla —con corchetes <code>[ ]</code>—, casi siempre porque olvidaste los paréntesis que la invocan. <code>pct_ponderado</code> (la función que armaste en la sesión 10) es una receta, no un resultado; <code>pct_ponderado[1]</code> le pide a R el primer elemento de una receta, y una receta no tiene elementos para sacar.</p>
+<p><strong>El arreglo.</strong> Revisa si te faltaron los paréntesis y los argumentos: <code>pct_ponderado(votos, total)</code> ejecuta la función; <code>pct_ponderado</code> sola, sin paréntesis, es solo el nombre de la receta.</p>
+</section>
+<section id="operator-is-invalid-for-atomic-vectors" class="level3">
+<h3 class="anchored" data-anchor-id="operator-is-invalid-for-atomic-vectors"><code>$ operator is invalid for atomic vectors</code></h3>
+<pre><code>&gt; entidades &lt;- resultados$entidad
+&gt; entidades$entidad
+Error in entidades$entidad : $ operator is invalid for atomic vectors</code></pre>
+<p><strong>Traducción.</strong> El operador <code>$</code> no es válido para vectores atómicos.</p>
+<p><strong>Qué lo causa de verdad.</strong> El operador <code>$</code> sirve para sacar una columna de algo que tiene columnas —un <code>tibble</code>, una lista—. <code>resultados$entidad</code> extrae una sola columna de la tabla <code>resultados</code>, y lo que sale de esa extracción ya no es una tabla: es un vector simple de texto (un “vector atómico”). Volver a usar <code>$</code> sobre ese vector, como si todavía tuviera columnas, es el error.</p>
+<p><strong>El arreglo.</strong> Recuerda qué te devolvió el último <code>$</code>: si acabas de sacar una columna, lo que tienes ahora es un vector, no una tabla, y los vectores se indexan con corchetes (<code>entidades[1]</code>), no con <code>$</code>.</p>
+</section>
+<section id="error-in-usemethod" class="level3">
+<h3 class="anchored" data-anchor-id="error-in-usemethod"><code>Error in UseMethod</code></h3>
+<pre><code>&gt; coef(municipios)
+Error in UseMethod("coef") :
+  no applicable method for 'coef' applied to an object of class "c('tbl_df', 'tbl', 'data.frame')"</code></pre>
+<p><strong>Traducción.</strong> No hay ningún método aplicable para <code>coef</code> en un objeto de esa clase.</p>
+<p><strong>Qué lo causa de verdad.</strong> Varias funciones de R —<code>coef()</code>, <code>summary()</code>, <code>plot()</code>— no hacen una sola cosa: se comportan distinto según qué tipo de objeto les des (una tabla, un modelo de regresión, un objeto <code>sf</code>). A eso se le llama, técnicamente, un método <code>UseMethod</code>. Este error aparece cuando le pasas a una de esas funciones un objeto para el que no existe ningún comportamiento definido —aquí, pedirle los coeficientes a una tabla de datos en vez de al modelo que ajustaste con esa tabla—. Nótese que la clase exacta que aparece entre comillas en el mensaje depende del objeto que hayas pasado; lo estable es el patrón <code>no applicable method for '...' applied to an object of class ...</code>.</p>
+<p><strong>El arreglo.</strong> Revisa qué objeto le estás pasando a la función. El caso más común en este curso: quisiste escribir <code>coef(modelo)</code> —donde <code>modelo</code> es lo que devolvió <code>lm()</code> o <code>feols()</code>— y por descuido escribiste el nombre de la tabla de datos en su lugar.</p>
+<hr>
+</section>
+</section>
+<section id="cuando-gráficas-con-ggplot2-sesiones-1-5-6-8" class="level2">
+<h2 class="anchored" data-anchor-id="cuando-gráficas-con-ggplot2-sesiones-1-5-6-8">Cuando gráficas con <code>ggplot2</code> (sesiones 1, 5, 6, 8)</h2>
+<section id="el-al-principio-de-la-línea" class="level3">
+<h3 class="anchored" data-anchor-id="el-al-principio-de-la-línea">El <code>+</code> al principio de la línea</h3>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(resultados, <span class="fu">aes</span>(<span class="at">x =</span> entidad, <span class="at">y =</span> participacion))</span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>  <span class="sc">+</span> <span class="fu">geom_col</span>(<span class="at">fill =</span> <span class="st">"#006847"</span>)</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<pre><code>Error in +geom_col(fill = "#006847") : invalid argument to unary operator</code></pre>
+<p><strong>Traducción.</strong> Argumento inválido para un operador unario.</p>
+<p><strong>Qué lo causa de verdad.</strong> En <code>ggplot2</code>, el <code>+</code> tiene que quedar al <strong>final</strong> de la línea anterior, nunca al principio de la siguiente. Si lo pones al principio de la línea de abajo, R lee la primera línea como una instrucción completa y ya cerrada —dibuja el <code>ggplot()</code> vacío, sin capas— y después lee <code>+ geom_col(...)</code> como una instrucción nueva y separada: un signo de más <strong>unario</strong>, aplicado a un solo objeto, como si escribieras <code>+5</code>. Un <code>geom_col()</code> no es un número al que se le pueda aplicar un signo de más suelto, y de ahí sale el error.</p>
+<p><strong>El arreglo.</strong> Revisa que cada <code>+</code> quede pegado al final de la línea de arriba, nunca al principio de la de abajo:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(resultados, <span class="fu">aes</span>(<span class="at">x =</span> entidad, <span class="at">y =</span> participacion)) <span class="sc">+</span></span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_col</span>(<span class="at">fill =</span> <span class="st">"#006847"</span>)</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="warning-ignoring-unknown-aesthetics-fill" class="level3">
+<h3 class="anchored" data-anchor-id="warning-ignoring-unknown-aesthetics-fill"><code>Warning: Ignoring unknown aesthetics: fill</code></h3>
+<pre><code>Warning message:
+In geom_line(aes(fill = entidad)) : Ignoring unknown aesthetics: fill</code></pre>
+<p><strong>Traducción.</strong> Se ignora un mapeo estético desconocido: <code>fill</code>.</p>
+<p><strong>Qué lo causa de verdad.</strong> Mapeaste <code>fill</code> (relleno) en un geom que no tiene una región que rellenar, solo un trazo —típicamente <code>geom_line()</code> o <code>geom_point()</code>—. El argumento correcto para esos geoms es <code>colour</code>, no <code>fill</code>. El error simétrico y opuesto pasa en <code>geom_col()</code>, que sí tiene relleno: ahí <code>fill</code> es el correcto y <code>colour</code> solo pintaría el borde.</p>
+<p><strong>El arreglo.</strong> Cambia <code>fill</code> por <code>colour</code> en geoms de trazo (línea, punto); usa <code>fill</code> en geoms de área (columnas, mapas).</p>
+</section>
+<section id="insufficient-values-in-manual-scale" class="level3">
+<h3 class="anchored" data-anchor-id="insufficient-values-in-manual-scale"><code>Insufficient values in manual scale</code></h3>
+<pre><code>Error in `scale_fill_manual()`:
+! Insufficient values in manual scale. 3 needed but only 2 provided.</code></pre>
+<p><strong>Traducción.</strong> Faltan valores en la escala manual: se necesitan 3 pero solo se dieron 2.</p>
+<p><strong>Qué lo causa de verdad.</strong> Le diste a <code>scale_fill_manual()</code> (o <code>scale_fill_brewer()</code>) menos colores de los que tiene categorías tu variable.</p>
+<p><strong>El arreglo.</strong> Cuenta cuántos valores únicos tiene la columna que mapeaste a <code>fill</code> —<code>dplyr::n_distinct(datos$columna)</code>— y asegúrate de pasar exactamente esa cantidad de colores, o cambia a una escala que no te obligue a contar a mano, como <code>scale_fill_viridis_d()</code>.</p>
+</section>
+<section id="continuous-value-supplied-to-discrete-scale-y-su-recíproco" class="level3">
+<h3 class="anchored" data-anchor-id="continuous-value-supplied-to-discrete-scale-y-su-recíproco"><code>Continuous value supplied to discrete scale</code> y su recíproco</h3>
+<pre><code>Error: Continuous value supplied to discrete scale</code></pre>
+<p><strong>Traducción.</strong> Se le dio un valor continuo a una escala discreta.</p>
+<p><strong>Qué lo causa de verdad.</strong> Mapeaste una variable numérica con decimales —<code>participacion</code>— a una escala pensada para categorías, como <code>scale_fill_manual()</code> o <code>scale_fill_brewer()</code>.</p>
+<p>El error recíproco es igual de real y va en la dirección contraria:</p>
+<pre><code>Error: Discrete value supplied to continuous scale</code></pre>
+<p>Aquí mapeaste una variable de categorías —el nombre de una entidad— a una escala pensada para números, como <code>scale_fill_gradient()</code>.</p>
+<p><strong>El arreglo.</strong> En el primer caso, cambia a una escala continua (<code>scale_fill_gradient()</code>, <code>scale_fill_gradient2()</code>, <code>scale_fill_viridis_c()</code>); en el segundo, a una escala discreta (<code>scale_fill_manual()</code>, <code>scale_fill_viridis_d()</code>). El texto exacto de estos dos mensajes puede variar un poco entre versiones de <code>ggplot2</code>; la causa y el arreglo no cambian.</p>
+</section>
+<section id="el-gráfico-de-línea-sale-vacío-o-solo-puntos-sueltos-sin-conectar" class="level3">
+<h3 class="anchored" data-anchor-id="el-gráfico-de-línea-sale-vacío-o-solo-puntos-sueltos-sin-conectar">El gráfico de línea sale vacío, o solo puntos sueltos sin conectar</h3>
+<p>No hay ningún mensaje en rojo ni en amarillo: el gráfico simplemente se ve mal. Esto pasa cuando el eje x es una categoría —el nombre de una entidad— y cada valor aparece una sola vez en los datos: <code>ggplot2</code> agrupa por categoría de forma automática, y un grupo de un solo punto no tiene nada consigo mismo que conectar.</p>
+<p><strong>El arreglo.</strong> Agrega <code>group = 1</code> dentro de <code>aes()</code>, para decirle a <code>ggplot2</code> que trate todos los puntos como una sola serie: <code>aes(x = entidad, y = participacion, group = 1)</code>.</p>
+</section>
+<section id="el-gráfico-sale-sin-línea-de-tendencia" class="level3">
+<h3 class="anchored" data-anchor-id="el-gráfico-sale-sin-línea-de-tendencia">El gráfico sale sin línea de tendencia</h3>
+<p>Otro caso sin mensaje visible: pediste <code>geom_smooth()</code> y la línea recta que esperabas no aparece, o el gráfico tarda varios segundos en dibujarse.</p>
+<p><strong>El arreglo.</strong> Revisa que escribiste <code>geom_smooth(method = "lm")</code> y no solo <code>geom_smooth()</code>. Sin el argumento <code>method</code>, <code>ggplot2</code> puede elegir un suavizado curvo (<code>loess</code>) en vez de una recta, y con más de mil puntos ese suavizado es lento de calcular.</p>
+<hr>
+</section>
+</section>
+<section id="cuando-agrupas-o-cruzas-bases-sesiones-4-y-7" class="level2">
+<h2 class="anchored" data-anchor-id="cuando-agrupas-o-cruzas-bases-sesiones-4-y-7">Cuando agrupas o cruzas bases (sesiones 4 y 7)</h2>
+<section id="warning-detected-an-unexpected-many-to-many-relationship" class="level3">
+<h3 class="anchored" data-anchor-id="warning-detected-an-unexpected-many-to-many-relationship"><code>Warning: Detected an unexpected many-to-many relationship</code></h3>
+<pre><code>Warning message:
+In left_join(municipios, puente, by = "nombre_municipio") :
+  Detected an unexpected many-to-many relationship between `x` and `y`.</code></pre>
+<p><strong>Traducción.</strong> Se detectó una relación de muchos a muchos, no anunciada, entre las dos tablas.</p>
+<p><strong>Qué lo causa de verdad.</strong> Cruzaste dos tablas usando una columna que <strong>no</strong> identifica una sola fila de cada lado —un nombre de municipio, por ejemplo, que se repite en varias entidades del país—. <code>left_join()</code> no se detiene: empareja cada fila de un lado con <strong>todas</strong> las que coincidan del otro, y el número de filas de tu resultado crece donde debería haberse quedado igual.</p>
+<p><strong>El arreglo.</strong> Nunca ignores este aviso. Cuenta cuántas veces se repite cada valor de la columna de cruce en ambos lados —<code>count(base, columna, sort = TRUE)</code>— y, si hay repetidos, cruza por una clave que sí sea única (casi siempre, un código numérico oficial en vez de un nombre de texto).</p>
+<p>Ver la sección “Los errores que no dan error”, más abajo, para el caso completo con datos reales de este curso.</p>
+<hr>
+</section>
+</section>
+<section id="cuando-mapeas-con-sf-sesión-7" class="level2">
+<h2 class="anchored" data-anchor-id="cuando-mapeas-con-sf-sesión-7">Cuando mapeas con <code>sf</code> (sesión 7)</h2>
+<section id="error-in-st_read...-cannot-open" class="level3">
+<h3 class="anchored" data-anchor-id="error-in-st_read...-cannot-open"><code>Error in st_read(...) : Cannot open</code></h3>
+<pre><code>Error in CPL_read_ogr(...) : Cannot open "municipios/00mun.shp"; The file
+doesn't seem to exist.</code></pre>
+<p><strong>Traducción.</strong> No se puede abrir; el archivo no parece existir.</p>
+<p><strong>Qué lo causa de verdad, casi siempre.</strong> Un shapefile no es un solo archivo: son varios (<code>.shp</code>, <code>.dbf</code>, <code>.shx</code>, <code>.prj</code>, y a veces <code>.cpg</code>) que tienen que viajar juntos, en la misma carpeta, con el mismo nombre. Si copiaste o descargaste solo el <code>.shp</code>, <code>st_read()</code> puede fallar aunque el archivo que nombraste sí exista, porque le faltan sus archivos compañeros.</p>
+<p><strong>El arreglo.</strong> Confirma que los cuatro (o cinco) archivos del shapefile están juntos en la misma carpeta. Si te falta alguno, vuelve a descargar el conjunto completo; no hay forma de reconstruir un shapefile con piezas faltantes.</p>
+</section>
+<section id="el-mapa-se-ve-todo-de-un-solo-color" class="level3">
+<h3 class="anchored" data-anchor-id="el-mapa-se-ve-todo-de-un-solo-color">El mapa se ve todo de un solo color</h3>
+<p>Sin mensaje de error. Pediste un mapa coroplético y salió parejo, sin variación.</p>
+<p><strong>Qué lo causa de verdad, casi siempre.</strong> Una de dos cosas: la columna que pusiste en <code>fill =</code> quedó <strong>fuera</strong> de <code>aes()</code> por descuido (y entonces es un color fijo, no un mapeo), o la columna se llenó de <code>NA</code> después de un <code>left_join()</code> que no encontró pareja para muchas filas.</p>
+<p><strong>El arreglo.</strong> Revisa primero que <code>fill = tu_columna</code> esté dentro de <code>aes()</code>. Si ya está ahí, corre <code>sum(is.na(mapa$tu_columna))</code>: si el número es alto, el problema no es de <code>ggplot2</code>, es del cruce que hiciste antes.</p>
+<hr>
+</section>
+</section>
+<section id="cuando-modelas-sesión-9" class="level2">
+<h2 class="anchored" data-anchor-id="cuando-modelas-sesión-9">Cuando modelas (sesión 9)</h2>
+<section id="could-not-find-function-feols" class="level3">
+<h3 class="anchored" data-anchor-id="could-not-find-function-feols"><code>could not find function "feols"</code></h3>
+<pre><code>Error in feols(ventaja_shh ~ participacion, data = municipios) :
+  could not find function "feols"</code></pre>
+<p>Es el mismo error de “cuando cargas paquetes”, aplicado a este caso puntual: falta <code>library(fixest)</code>, aunque ya hayas cargado <code>tidyverse</code>. <code>fixest</code> no es parte del metapaquete <code>tidyverse</code> y siempre se carga aparte.</p>
+</section>
+<section id="object-participacion-not-found-dentro-de-una-fórmula" class="level3">
+<h3 class="anchored" data-anchor-id="object-participacion-not-found-dentro-de-una-fórmula"><code>object 'participacion' not found</code> dentro de una fórmula</h3>
+<pre><code>Error in eval(predvars, data, env) : object 'participacion' not found</code></pre>
+<p><strong>Traducción.</strong> No se encuentra el objeto <code>participacion</code>.</p>
+<p><strong>Qué lo causa de verdad.</strong> Escribiste la fórmula de <code>lm()</code> o <code>feols()</code> sin el argumento <code>data =</code>. Sin decirle en qué tabla buscar las columnas, R intenta encontrar <code>participacion</code> como un objeto suelto en tu entorno, no como una columna de <code>municipios</code>, y no lo encuentra.</p>
+<p><strong>El arreglo.</strong> Revisa que tu llamada tenga <code>data = municipios</code> (o el nombre de tu tabla) explícito.</p>
+</section>
+<section id="la-tabla-de-modelsummary-se-ve-distinta-a-la-de-este-documento" class="level3">
+<h3 class="anchored" data-anchor-id="la-tabla-de-modelsummary-se-ve-distinta-a-la-de-este-documento">La tabla de <code>modelsummary()</code> se ve distinta a la de este documento</h3>
+<p>No es un error ni un aviso: es un cambio de versión del paquete. Desde <code>modelsummary</code> 2.0, el motor que arma la tabla por defecto es <code>tinytable</code>, ya no <code>kableExtra</code>. Si tu tabla se ve distinta a la de un tutorial viejo, corre <code>packageVersion("modelsummary")</code> para confirmar cuál tienes instalada, y no asumas que algo está roto.</p>
+<hr>
+</section>
+</section>
+<section id="cuando-publicas-en-quarto-y-en-github-sesión-10" class="level2">
+<h2 class="anchored" data-anchor-id="cuando-publicas-en-quarto-y-en-github-sesión-10">Cuando publicas en Quarto y en GitHub (sesión 10)</h2>
+<section id="el-yaml-marca-error-al-renderizar" class="level3">
+<h3 class="anchored" data-anchor-id="el-yaml-marca-error-al-renderizar">El YAML marca error al renderizar</h3>
+<p>Quarto se queja de la primera parte de tu documento, entre las dos líneas de tres guiones (<code>---</code>), antes de correr una sola línea de código.</p>
+<p><strong>Qué lo causa de verdad.</strong> El formato YAML es sensible a los espacios: nunca uses la tecla <code>Tab</code>, solo espacios, y mantén exactamente la misma indentación en cada nivel. La causa más común es una línea que quedó con un espacio de más o de menos respecto a la de arriba.</p>
+</section>
+<section id="la-página-de-github-pages-muestra-un-404" class="level3">
+<h3 class="anchored" data-anchor-id="la-página-de-github-pages-muestra-un-404">La página de GitHub Pages muestra un 404</h3>
+<p>Casi nunca es un error real: la primera vez que activas GitHub Pages, GitHub tarda uno o dos minutos en construir el sitio. Espera un momento y refresca. Si el 404 persiste después de varios minutos, revisa que el archivo que subiste se llame exactamente <code>index.html</code> —GitHub Pages busca ese nombre exacto en la raíz del repositorio— y no, por ejemplo, <code>mi_reporte.html</code>.</p>
+</section>
+<section id="la-página-muestra-el-código-en-crudo-en-vez-del-reporte" class="level3">
+<h3 class="anchored" data-anchor-id="la-página-muestra-el-código-en-crudo-en-vez-del-reporte">La página muestra el código en crudo en vez del reporte</h3>
+<p>Subiste el archivo <code>.qmd</code> sin procesar, en vez del <code>.html</code> que produjo el botón <em>Render</em>. Renderiza primero, y sube el resultado.</p>
+<hr>
+</section>
+</section>
+<section id="los-errores-que-no-dan-error" class="level2">
+<h2 class="anchored" data-anchor-id="los-errores-que-no-dan-error">Los errores que NO dan error</h2>
+<p>Esta es, en varios sentidos, la sección más importante del documento. Todo lo de arriba se anuncia solo, con letras rojas o amarillas. Lo que sigue no: R hace exactamente lo que le pediste, produce un resultado con apariencia perfectamente normal, y el error vive enteramente en la cabeza de quien lo interpreta. Ninguno de estos cuatro casos truena. Los cuatro pueden arruinar un trabajo final si nadie los nota.</p>
+<section id="filtercodigo-1-2" class="level3">
+<h3 class="anchored" data-anchor-id="filtercodigo-1-2"><code>filter(codigo == 1 | 2)</code></h3>
+<p>Si una columna guarda un código —1 para una coalición, 2 para otra— y escribes esto pensando que te vas a quedar con ambas:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a>resultados <span class="sc">|&gt;</span> <span class="fu">filter</span>(codigo <span class="sc">==</span> <span class="dv">1</span> <span class="sc">|</span> <span class="dv">2</span>)</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<p>R no avisa nada. Evalúa <code>codigo == 1</code> primero; después, por separado, evalúa el <code>2</code> suelto, y cualquier número distinto de cero se interpreta como lógico verdadero. El resultado del <code>|</code> completo es <code>TRUE</code> en <strong>todas</strong> las filas, así que el filtro no filtra nada: devuelve la tabla entera, y todo se ve razonable hasta que alguien cuenta las filas y no cuadran.</p>
+<p><strong>La forma correcta</strong> es <code>%in%</code>, que sí pregunta “¿está en esta lista?”:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a>resultados <span class="sc">|&gt;</span> <span class="fu">filter</span>(codigo <span class="sc">%in%</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>))</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="un-left_join-que-multiplica-filas" class="level3">
+<h3 class="anchored" data-anchor-id="un-left_join-que-multiplica-filas">Un <code>left_join()</code> que multiplica filas</h3>
+<p>Cruzar dos bases por una columna que no identifica una sola fila de cada lado —casi siempre, un nombre de texto en vez de una clave numérica— no truena. R sí devuelve una tabla, con todas sus columnas en su lugar, y solo un <code>Warning</code> de relación <em>many-to-many</em> (visto arriba) delata que algo cambió.</p>
+<p>El caso real de este curso: cruzar una base electoral municipal con un puente de claves usando el <strong>nombre</strong> del municipio. México tiene 89 nombres de municipio que se repiten en más de una entidad —“Benito Juárez” es municipio en siete estados distintos, “Emiliano Zapata” en seis—. Un municipio con un nombre repetido hace pareja con <strong>todas</strong> las filas que comparten ese nombre del otro lado, y el número de filas del resultado crece donde debía quedarse igual. La corrección es cruzar por una clave numérica —la clave de INEGI, no el nombre— que sí identifica una sola fila de cada lado.</p>
+<p><strong>Cómo detectarlo aunque no truene:</strong> compara <code>nrow()</code> de tu resultado contra <code>nrow()</code> de la tabla original antes del cruce. Si crecieron, algo se multiplicó.</p>
+</section>
+<section id="una-columna-que-se-llena-de-na-después-de-un-case_when-incompleto" class="level3">
+<h3 class="anchored" data-anchor-id="una-columna-que-se-llena-de-na-después-de-un-case_when-incompleto">Una columna que se llena de <code>NA</code> después de un <code>case_when()</code> incompleto</h3>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a>resultados <span class="sc">|&gt;</span></span>
+<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">region =</span> <span class="fu">case_when</span>(</span>
+<span id="cb33-3"><a href="#cb33-3" aria-hidden="true" tabindex="-1"></a>    entidad <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"Sonora"</span>, <span class="st">"Chihuahua"</span>) <span class="sc">~</span> <span class="st">"Norte"</span>,</span>
+<span id="cb33-4"><a href="#cb33-4" aria-hidden="true" tabindex="-1"></a>    entidad <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"Oaxaca"</span>, <span class="st">"Chiapas"</span>)   <span class="sc">~</span> <span class="st">"Sur"</span></span>
+<span id="cb33-5"><a href="#cb33-5" aria-hidden="true" tabindex="-1"></a>    <span class="co"># y así con el resto de las entidades...</span></span>
+<span id="cb33-6"><a href="#cb33-6" aria-hidden="true" tabindex="-1"></a>  ))</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Si alguna entidad no quedó dentro de ningún caso del <code>case_when()</code>, R no avisa: le asigna <code>NA</code> en silencio, sin marcar nada en rojo ni en amarillo. El resultado se ve como una tabla completa hasta que alguien intenta agrupar por <code>region</code> y una fracción de las filas desaparece de todos los resúmenes sin explicación aparente.</p>
+<p><strong>Cómo detectarlo:</strong> después de cualquier <code>case_when()</code>, corre <code>resultados |&gt; filter(is.na(region))</code> para ver cuáles filas quedaron fuera, y agrégalas al caso que les corresponde.</p>
+</section>
+<section id="un-promedio-de-porcentajes-que-no-es-el-porcentaje" class="level3">
+<h3 class="anchored" data-anchor-id="un-promedio-de-porcentajes-que-no-es-el-porcentaje">Un promedio de porcentajes que no es el porcentaje</h3>
+<p>Esta trampa no es de sintaxis: es aritmética, y por eso es la más difícil de cazar. Calcular el promedio simple de 32 porcentajes estatales —uno por entidad— y llamarlo “la cifra nacional” es un error real, pero R lo calcula sin quejarse, porque <code>mean()</code> hizo exactamente lo que se le pidió.</p>
+<p>El problema es que un promedio simple le da el mismo peso a Colima, con poco más de medio millón de personas en su lista nominal, que al Estado de México, con más de doce millones. La cifra nacional correcta no es el promedio de 32 números: es el cociente de los votos totales de la coalición entre los votos totales emitidos en todo el país —una <strong>media ponderada</strong>, no una media simple. Las dos cuentas se parecen, ambas producen un número entre 0 y 100, y solo una de las dos es la que casi siempre hace falta.</p>
+<p><strong>Cómo detectarlo:</strong> desconfía de cualquier promedio calculado sobre unidades de tamaño muy distinto (municipios, entidades, países) hasta que confirmes si la pregunta pedía un promedio simple entre unidades o una cifra agregada ponderada por su tamaño. La sesión 4 de este laboratorio construye la diferencia con datos reales de la elección de 2024, con la función <code>pct_ponderado()</code> que puedes usar de plantilla.</p>
+<hr>
+<p>Si un error de este documento no te resuelve el problema, la siguiente parada es copiar el mensaje —completo, en inglés, con comillas incluidas— en un buscador. Casi cualquier error de R común ya lo tropezó alguien más antes que tú, y lo más probable es que la respuesta esté en Stack Overflow o en la documentación del paquete. Si el vocabulario en sí es lo que te detiene, el <a href="../recursos/glosario.html">glosario</a> de este mismo laboratorio traduce los términos técnicos que aparecen una y otra vez en estos mensajes.</p>
+
+
+</section>
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copiado");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copiado");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp("https:\/\/emirandago\.github\.io\/r-para-politologos\/");
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+</div> <!-- /content -->
+<footer class="footer">
+  <div class="nav-footer">
+    <div class="nav-footer-left">
+<p>Laboratorio de R para Ciencia Política · ITAM</p>
+</div>   
+    <div class="nav-footer-center">
+      &nbsp;
+    </div>
+    <div class="nav-footer-right">
+<p>EMG · Material bajo licencia <a href="https://github.com/emirandago/r-para-politologos/blob/main/LICENSE">CC BY 4.0</a></p>
+</div>
+  </div>
+</footer>
+
+
+
+
+</body></html>

@@ -1,0 +1,854 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="es" xml:lang="es"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.10.18">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>Empieza aquí – Laboratorio de R para Ciencia Política</title>
+<style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: 1.5em;}
+div.column{flex: auto;}
+@media screen {
+div.columns{gap: min(4vw, 1.5em);}
+div.column{overflow-x: auto;}
+}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<script src="site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-6bc2510a377bfbe78f0e93c5094f7fd0.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap-d33573f5db6bc822405971e42879fa46.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No se han encontrado resultados",
+    "search-matching-documents-text": "documentos encontrados",
+    "search-copy-link-title": "Copiar el enlace en la búsqueda",
+    "search-hide-matches-text": "Ocultar resultados adicionales",
+    "search-more-match-text": "resultado adicional en este documento",
+    "search-more-matches-text": "resultados adicionales en este documento",
+    "search-clear-button-title": "Borrar",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancelar",
+    "search-submit-button-title": "Enviar",
+    "search-label": "Buscar"
+  }
+}</script>
+
+
+</head>
+
+<body class="nav-fixed quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a href="./index.html" class="navbar-brand navbar-brand-logo">
+    <img src="./estilo/logo_itam.png" alt="Instituto Tecnológico Autónomo de México" class="navbar-logo light-content">
+    <img src="./estilo/logo_itam.png" alt="Instituto Tecnológico Autónomo de México" class="navbar-logo dark-content">
+    </a>
+    <a class="navbar-brand" href="./index.html">
+    <span class="navbar-title">Laboratorio de R para Ciencia Política</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Buscar"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Navegación de palanca" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link active" href="./empieza-aqui.html" aria-current="page"> 
+<span class="menu-text">Empieza aquí</span></a>
+  </li>  
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-sesiones" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">Sesiones</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-sesiones">    
+        <li>
+    <a class="dropdown-item" href="./sesiones/01-primer-contacto/01_guion.html">
+ <span class="dropdown-text">Sesión 01 · Tu primera hora en R</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./sesiones/02-los-datos-son-tablas/02_guion.html">
+ <span class="dropdown-text">Sesión 02 · Los datos son tablas</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./sesiones/03-pedirle-cosas-a-los-datos/03_guion.html">
+ <span class="dropdown-text">Sesión 03 · Pedirle cosas a los datos</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./sesiones/04-agrupar-resumir-cruzar/04_guion.html">
+ <span class="dropdown-text">Sesión 04 · Agrupar, resumir, cruzar</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./sesiones/05-gramatica-de-los-graficos/05_guion.html">
+ <span class="dropdown-text">Sesión 05 · La gramática de los gráficos</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./sesiones/06-graficos-que-se-publican/06_guion.html">
+ <span class="dropdown-text">Sesión 06 · Gráficos que se publican</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./sesiones/07-el-mapa-de-mexico/07_guion.html">
+ <span class="dropdown-text">Sesión 07 · El mapa de México</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./sesiones/08-describir-sin-mentir/08_guion.html">
+ <span class="dropdown-text">Sesión 08 · Describir sin mentir</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./sesiones/09-la-regresion/09_guion.html">
+ <span class="dropdown-text">Sesión 09 · La regresión como instrumento politológico</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./sesiones/10-que-otro-pueda-repetirlo/10_guion.html">
+ <span class="dropdown-text">Sesión 10 · Que otro pueda repetirlo</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./sesiones/11-la-ia-como-copiloto/11_guion.html">
+ <span class="dropdown-text">Sesión 11 · La IA como copiloto, no como piloto</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-extras" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">Extras</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-extras">    
+        <li>
+    <a class="dropdown-item" href="./extras/index.html">
+ <span class="dropdown-text">Todos los extras</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./extras/01-funciones-e-iteracion/01_extra.html">
+ <span class="dropdown-text">Funciones e iteración</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./extras/02-probabilidad-y-simulacion/02_extra.html">
+ <span class="dropdown-text">Probabilidad y simulación</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./extras/03-logit-y-glm/03_extra.html">
+ <span class="dropdown-text">Modelos logit y GLM</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./extras/04-panel-y-efectos-fijos/04_extra.html">
+ <span class="dropdown-text">Datos de panel y efectos fijos</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./extras/05-inferencia-causal/05_extra.html">
+ <span class="dropdown-text">Primer vistazo a inferencia causal</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./extras/06-de-stata-a-r/06_extra.html">
+ <span class="dropdown-text">Guía Stata → R</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-recursos" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">Recursos</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-recursos">    
+        <li>
+    <a class="dropdown-item" href="./recursos/index.html">
+ <span class="dropdown-text">Todos los recursos</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./recursos/glosario.html">
+ <span class="dropdown-text">Glosario</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./recursos/errores-comunes.html">
+ <span class="dropdown-text">Errores comunes</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./recursos/para-seguir.html">
+ <span class="dropdown-text">Para seguir</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./recursos/acordeon-r.pdf">
+ <span class="dropdown-text">Acordeón de R (PDF)</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="./ia/index.html"> 
+<span class="menu-text">IA</span></a>
+  </li>  
+</ul>
+            <ul class="navbar-nav navbar-nav-scroll ms-auto">
+  <li class="nav-item compact">
+    <a class="nav-link" href="https://github.com/emirandago/r-para-politologos"> <i class="bi bi-github" role="img" aria-label="Repositorio en GitHub">
+</i> 
+<span class="menu-text"></span></a>
+  </li>  
+</ul>
+          </div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools">
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">En esta página</h2>
+   
+  <ul>
+  <li><a href="#dos-programas-no-uno" id="toc-dos-programas-no-uno" class="nav-link active" data-scroll-target="#dos-programas-no-uno">Dos programas, no uno</a></li>
+  <li><a href="#paso-1-instalar-r" id="toc-paso-1-instalar-r" class="nav-link" data-scroll-target="#paso-1-instalar-r">Paso 1 — Instalar R</a>
+  <ul class="collapse">
+  <li><a href="#en-windows" id="toc-en-windows" class="nav-link" data-scroll-target="#en-windows">En Windows</a></li>
+  <li><a href="#en-macos" id="toc-en-macos" class="nav-link" data-scroll-target="#en-macos">En macOS</a></li>
+  <li><a href="#qué-es-un-cran-mirror-y-cuál-elegir" id="toc-qué-es-un-cran-mirror-y-cuál-elegir" class="nav-link" data-scroll-target="#qué-es-un-cran-mirror-y-cuál-elegir">Qué es un CRAN mirror y cuál elegir</a></li>
+  </ul></li>
+  <li><a href="#paso-2-instalar-rstudio" id="toc-paso-2-instalar-rstudio" class="nav-link" data-scroll-target="#paso-2-instalar-rstudio">Paso 2 — Instalar RStudio</a></li>
+  <li><a href="#paso-3-cómo-se-ve-la-ventana-la-primera-vez" id="toc-paso-3-cómo-se-ve-la-ventana-la-primera-vez" class="nav-link" data-scroll-target="#paso-3-cómo-se-ve-la-ventana-la-primera-vez">Paso 3 — Cómo se ve la ventana la primera vez</a></li>
+  <li><a href="#paso-4-descargar-el-repositorio-del-curso-sin-usar-git" id="toc-paso-4-descargar-el-repositorio-del-curso-sin-usar-git" class="nav-link" data-scroll-target="#paso-4-descargar-el-repositorio-del-curso-sin-usar-git">Paso 4 — Descargar el repositorio del curso, sin usar git</a></li>
+  <li><a href="#paso-5-abrir-el-proyecto" id="toc-paso-5-abrir-el-proyecto" class="nav-link" data-scroll-target="#paso-5-abrir-el-proyecto">Paso 5 — Abrir el proyecto</a></li>
+  <li><a href="#paso-6-instalar-los-paquetes-del-curso" id="toc-paso-6-instalar-los-paquetes-del-curso" class="nav-link" data-scroll-target="#paso-6-instalar-los-paquetes-del-curso">Paso 6 — Instalar los paquetes del curso</a></li>
+  <li><a href="#paso-7-verificar-que-todo-quedó-bien" id="toc-paso-7-verificar-que-todo-quedó-bien" class="nav-link" data-scroll-target="#paso-7-verificar-que-todo-quedó-bien">Paso 7 — Verificar que todo quedó bien</a>
+  <ul class="collapse">
+  <li><a href="#si-algo-falló" id="toc-si-algo-falló" class="nav-link" data-scroll-target="#si-algo-falló">Si algo falló</a></li>
+  </ul></li>
+  <li><a href="#y-ahora-sí" id="toc-y-ahora-sí" class="nav-link" data-scroll-target="#y-ahora-sí">Y ahora sí</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Empieza aquí</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<div class="gancho">
+<p>Esta página asume que nunca has instalado nada de esto. Sigue los pasos en orden, de arriba hacia abajo, sin saltarte ninguno. Son quince minutos la primera vez y nunca los vuelves a necesitar.</p>
+</div>
+<section id="dos-programas-no-uno" class="level2">
+<h2 class="anchored" data-anchor-id="dos-programas-no-uno">Dos programas, no uno</h2>
+<p>Vas a instalar dos cosas distintas y es importante que entiendas por qué son dos y no una:</p>
+<p><strong>R</strong> es el lenguaje: el motor que de verdad hace los cálculos, lee los datos y produce los gráficos. No tiene ventanas bonitas ni menús; por sí solo es una consola sencilla.</p>
+<p><strong>RStudio</strong> es el <span class="termino-en">IDE</span> (<em>integrated development environment</em>, entorno de desarrollo integrado): el programa con ventanas, pestañas y botones donde vas a escribir y correr código de R todos los días. RStudio no funciona sin R —es una capa que se pone encima—, así que <strong>siempre se instala primero R y después RStudio</strong>, nunca al revés.</p>
+<p>Es la misma relación que hay entre un motor y el tablero de un coche: el motor es el que mueve el coche, pero tú manejas desde el tablero.</p>
+</section>
+<section id="paso-1-instalar-r" class="level2">
+<h2 class="anchored" data-anchor-id="paso-1-instalar-r">Paso 1 — Instalar R</h2>
+<section id="en-windows" class="level3">
+<h3 class="anchored" data-anchor-id="en-windows">En Windows</h3>
+<ol type="1">
+<li>Ve a <a href="https://cran.r-project.org/">cran.r-project.org</a>.</li>
+<li>Busca el enlace <strong>“Download R for Windows”</strong> y dale clic.</li>
+<li>En la página siguiente, busca el enlace que dice algo como <strong>“install R for the first time”</strong> o <strong>“base”</strong> y entra ahí.</li>
+<li>Vas a ver un botón grande que dice <strong>“Download R”</strong> seguido de la versión más reciente. Dale clic y espera a que baje el instalador (un archivo <code>.exe</code>).</li>
+<li>Abre el archivo descargado y sigue el asistente de instalación dejando todas las opciones en su valor por defecto. Si Windows te pregunta si quieres permitir que la aplicación haga cambios, acepta.</li>
+</ol>
+<p><code>[VERIFICAR]</code>: el texto exacto de los enlaces de la página de CRAN cambia de cuando en cuando; si no encuentras alguno con el nombre exacto de arriba, busca la opción que diga “Windows” y “base” o “primera instalación”: es la correcta.</p>
+</section>
+<section id="en-macos" class="level3">
+<h3 class="anchored" data-anchor-id="en-macos">En macOS</h3>
+<ol type="1">
+<li>Ve a <a href="https://cran.r-project.org/">cran.r-project.org</a>.</li>
+<li>Busca el enlace <strong>“Download R for macOS”</strong> y dale clic.</li>
+<li>Vas a ver varios archivos <code>.pkg</code>. Necesitas el que corresponde al procesador de tu Mac: si es una Mac reciente (2020 en adelante, chip Apple, familia M), usa el paquete marcado <strong>“arm64”</strong>; si es una Mac más antigua con procesador Intel, usa el marcado <strong>“x86_64”</strong>. Si no sabes cuál tienes, en el menú de la manzana ve a <em>Acerca de esta Mac</em> y ahí dice el chip.</li>
+<li>Descarga el <code>.pkg</code> correcto y ábrelo. Sigue el instalador dejando las opciones por defecto.</li>
+</ol>
+<p><code>[VERIFICAR]</code>: los nombres exactos de los archivos en la página de descarga de CRAN cambian con cada versión de R; el criterio de “arm64 si tu Mac es reciente, x86_64 si es antigua” es el que se mantiene estable.</p>
+</section>
+<section id="qué-es-un-cran-mirror-y-cuál-elegir" class="level3">
+<h3 class="anchored" data-anchor-id="qué-es-un-cran-mirror-y-cuál-elegir">Qué es un CRAN mirror y cuál elegir</h3>
+<p><span class="termino-en">CRAN</span> (<em>Comprehensive R Archive Network</em>) es la red oficial donde vive R y todos sus paquetes. Como la usan millones de personas, no está en un solo servidor: está copiada —“espejada”— en decenas de servidores alrededor del mundo, y a cada copia se le llama un <span class="termino-en">mirror</span> (espejo). Si en algún momento del proceso te piden elegir uno, la opción más simple es <strong>0-Cloud</strong> (<a href="https://cloud.r-project.org/">cloud.r-project.org</a>), que reparte la carga automáticamente y te conecta con un servidor cercano sin que tengas que adivinar cuál país elegir. Si no aparece esa opción, cualquier mirror que diga México o Estados Unidos funciona igual de bien: la diferencia es velocidad de descarga, no funcionalidad.</p>
+<p><code>[VERIFICAR]</code>: si la página actual de CRAN te pide elegir mirror antes de descargar o si te manda directo al instalador sin preguntarte, es un detalle que cambia con el tiempo; en cualquier caso, la recomendación de usar 0-Cloud cuando aparezca la opción sigue siendo válida.</p>
+</section>
+</section>
+<section id="paso-2-instalar-rstudio" class="level2">
+<h2 class="anchored" data-anchor-id="paso-2-instalar-rstudio">Paso 2 — Instalar RStudio</h2>
+<ol type="1">
+<li>Ve a <a href="https://posit.co/download/rstudio-desktop/">posit.co/download/rstudio-desktop/</a>.</li>
+<li>Busca la sección de descarga para tu sistema operativo (<strong>RStudio Desktop</strong>, la versión gratuita de código abierto, no la de paga) y dale clic al botón de descarga correspondiente a Windows o a macOS.</li>
+<li>Abre el instalador descargado y sigue el asistente dejando las opciones por defecto.</li>
+</ol>
+<p><code>[VERIFICAR]</code>: el número de versión exacto de RStudio cambia con frecuencia; usa siempre la versión más reciente que ofrezca la página, no busques una versión específica.</p>
+</section>
+<section id="paso-3-cómo-se-ve-la-ventana-la-primera-vez" class="level2">
+<h2 class="anchored" data-anchor-id="paso-3-cómo-se-ve-la-ventana-la-primera-vez">Paso 3 — Cómo se ve la ventana la primera vez</h2>
+<p>Cuando abres RStudio por primera vez, sin haber abierto ningún archivo, vas a ver la pantalla dividida en tres zonas:</p>
+<ul>
+<li><strong>Consola</strong> (ocupa todo el lado izquierdo): aquí es donde R contesta. Es donde vas a escribir código para probar cosas rápido; lo que escribes ahí se ejecuta al momento y no se guarda en ningún archivo.</li>
+<li><strong>Environment / History</strong>, arriba a la derecha: la pestaña <em>Environment</em> (entorno) muestra los objetos que has creado durante la sesión —bases de datos, números, vectores—; la pestaña <em>History</em> (historial) guarda cada línea de código que has corrido.</li>
+<li><strong>Files / Plots / Packages / Help / Viewer</strong>, abajo a la derecha: cinco pestañas que muestran, respectivamente, los archivos de tu carpeta de trabajo, los gráficos que produces, los paquetes instalados, la documentación de ayuda, y una vista previa de documentos renderizados.</li>
+</ul>
+<p>Cuando abras o crees un archivo de script (extensión <code>.R</code>), va a aparecer una cuarta zona arriba a la izquierda —el editor de código— y la consola se recorre hacia abajo. Ese editor es donde vas a escribir y guardar el código del curso; la consola queda para probar cosas sueltas.</p>
+</section>
+<section id="paso-4-descargar-el-repositorio-del-curso-sin-usar-git" class="level2">
+<h2 class="anchored" data-anchor-id="paso-4-descargar-el-repositorio-del-curso-sin-usar-git">Paso 4 — Descargar el repositorio del curso, sin usar git</h2>
+<p>No necesitas saber qué es <code>git</code> ni tener una cuenta de GitHub para conseguir el material del curso.</p>
+<ol type="1">
+<li>Entra a la página del repositorio: <a href="https://github.com/emirandago/r-para-politologos">github.com/emirandago/r-para-politologos</a>.</li>
+<li>Busca el botón verde que dice <strong>“Code”</strong> (cerca de la parte superior de la lista de archivos) y dale clic.</li>
+<li>En el menú que se abre, elige <strong>“Download ZIP”</strong>. El navegador va a descargar un archivo llamado algo como <code>r-para-politologos-main.zip</code>, normalmente a tu carpeta de Descargas.</li>
+<li>Descomprime ese archivo:
+<ul>
+<li>En <strong>Windows</strong>: clic derecho sobre el archivo → <strong>“Extraer todo…”</strong> → elige dónde guardarlo (recomendado: el Escritorio o Documentos) → <strong>“Extraer”</strong>.</li>
+<li>En <strong>macOS</strong>: doble clic sobre el archivo. Se descomprime solo, en la misma carpeta donde estaba el ZIP.</li>
+</ul></li>
+<li>Verifica que la carpeta resultante contenga directamente los archivos del curso —debes ver, entre otros, un archivo llamado <code>r-para-politologos.Rproj</code> y carpetas como <code>sesiones</code> y <code>datos</code>—. Si en vez de eso ves una sola carpeta con el mismo nombre adentro, entra a esa carpeta interior: ahí están los archivos de verdad (ver la sección “si algo falló” más abajo).</li>
+<li>Mueve esa carpeta a un lugar estable de tu computadora —el Escritorio o Documentos son buenas opciones— y no la borres ni la muevas de ahí mientras dure el curso: el proyecto de RStudio recuerda su ubicación.</li>
+</ol>
+</section>
+<section id="paso-5-abrir-el-proyecto" class="level2">
+<h2 class="anchored" data-anchor-id="paso-5-abrir-el-proyecto">Paso 5 — Abrir el proyecto</h2>
+<p>Dentro de la carpeta que acabas de descomprimir, busca el archivo <strong><code>r-para-politologos.Rproj</code></strong> (el icono es un cubo azul con una “R”) y dale doble clic. Eso abre RStudio ya “parado” en la carpeta correcta del curso: es la única forma correcta de empezar a trabajar, y a partir de la sesión 1 vas a entender exactamente por qué importa.</p>
+</section>
+<section id="paso-6-instalar-los-paquetes-del-curso" class="level2">
+<h2 class="anchored" data-anchor-id="paso-6-instalar-los-paquetes-del-curso">Paso 6 — Instalar los paquetes del curso</h2>
+<p>Un paquete es una caja de herramientas que alguien más escribió y regaló, y que R no trae de fábrica. Con RStudio abierto y el proyecto cargado, copia la siguiente línea, pégala en la <strong>Consola</strong> (el panel donde R contesta) y presiona Enter. Se corre una sola vez en toda tu vida con esta computadora:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="fu">c</span>(<span class="st">"tidyverse"</span>, <span class="st">"here"</span>, <span class="st">"janitor"</span>, <span class="st">"sf"</span>, <span class="st">"viridis"</span>, <span class="st">"modelsummary"</span>, <span class="st">"fixest"</span>))</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Va a tardar varios minutos y vas a ver mucho texto correr en la consola: es normal. Algunos paquetes, en particular <code>sf</code>, pueden pedir herramientas adicionales del sistema operativo la primera vez; si eso ocurre, sigue las instrucciones que aparezcan en pantalla.</p>
+</section>
+<section id="paso-7-verificar-que-todo-quedó-bien" class="level2">
+<h2 class="anchored" data-anchor-id="paso-7-verificar-que-todo-quedó-bien">Paso 7 — Verificar que todo quedó bien</h2>
+<p>Copia y pega esto en la consola y presiona Enter:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(here)</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(janitor)</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(sf)</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(viridis)</span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(modelsummary)</span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(fixest)</span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a><span class="fu">message</span>(<span class="st">"Todo cargó sin errores: ya puedes empezar la sesión 1."</span>)</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Si ves el mensaje <strong>“Todo cargó sin errores: ya puedes empezar la sesión 1.”</strong>, terminaste: tu instalación está lista. Si en vez de eso ves un error en rojo, casi siempre dice <code>there is no package called...</code> seguido del nombre de un paquete: significa que ese paquete no se instaló bien. Vuelve al Paso 6 y corre de nuevo la línea de <code>install.packages()</code>.</p>
+<section id="si-algo-falló" class="level3 si-algo-falla">
+<h3 class="anchored" data-anchor-id="si-algo-falló">Si algo falló</h3>
+<p><strong>No tienes permisos de administrador en tu computadora.</strong> Es común en equipos institucionales o prestados. Instalar R y RStudio normalmente requiere permisos de administrador porque escriben archivos en carpetas del sistema. Si el instalador se detiene o marca un error de permisos, busca la opción de instalación <strong>“solo para mi usuario”</strong> o <strong>“just me”</strong> si el asistente la ofrece —evita la carpeta de sistema y no la necesita—; si no aparece esa opción, pide apoyo del área de cómputo del ITAM o instala desde una cuenta con permisos de administrador. <code>[VERIFICAR]</code>: si tu equipo tiene una política institucional que bloquea instaladores por completo, la solución depende de esa política específica.</p>
+<p><strong>macOS rechaza el instalador de R o de RStudio.</strong> macOS tiene una función de seguridad llamada <span class="termino-en">Gatekeeper</span> que bloquea, por defecto, instaladores de fuera de la App Store o sin cierta verificación. Si ves un mensaje como <em>“no se puede abrir porque proviene de un desarrollador no identificado”</em> o <em>“la app está dañada y no se puede abrir”</em>: haz clic derecho (o Control + clic) sobre el archivo del instalador y elige <strong>“Abrir”</strong> en vez de hacer doble clic; en el cuadro de diálogo que aparece, confirma que quieres abrirlo de todas formas. Si eso no funciona, entra a <strong>Configuración del Sistema → Privacidad y seguridad</strong> (en versiones más antiguas de macOS: <strong>Preferencias del Sistema → Seguridad y privacidad</strong>) y busca un aviso sobre el archivo bloqueado, con un botón para permitirlo de todas formas. <code>[VERIFICAR]</code>: el nombre exacto de ese menú y la redacción del aviso cambian entre versiones de macOS.</p>
+<p><strong>El ZIP se descomprime dentro de otra carpeta con el mismo nombre.</strong> Algunos navegadores o herramientas de descompresión crean una carpeta adicional alrededor de la carpeta que ya trae el ZIP, así que terminas con algo como <code>r-para-politologos-main/r-para-politologos-main/</code> en vez de <code>r-para-politologos-main/</code> directo. La señal es que abres la carpeta y solo ves otra carpeta adentro, en vez de ver archivos como <code>.Rproj</code> o carpetas como <code>sesiones</code>. La solución es simplemente seguir entrando una carpeta más hasta que veas los archivos del curso directamente, y mover esa carpeta interior —la que sí tiene los archivos— a donde la quieras dejar de forma permanente.</p>
+<p><strong>La ruta tiene tildes, eñes o espacios.</strong> R y algunos de sus paquetes —sobre todo los que trabajan con archivos geográficos, como <code>sf</code>, que vas a usar en la sesión 7— a veces fallan al leer o guardar archivos si la carpeta del proyecto está en una ruta con caracteres acentuados, con “ñ”, o con muchos espacios y paréntesis, del estilo <code>Descargas/Nueva carpeta (2)</code>. Evítalo guardando la carpeta del curso en una ruta simple, por ejemplo directamente en tu Escritorio o en Documentos, con el nombre de carpeta que trae por defecto (<code>r-para-politologos-main</code> o <code>r-para-politologos</code>), sin renombrarla con acentos ni espacios adicionales.</p>
+<p><strong>El antivirus de Windows bloquea el instalador o marca R o RStudio como sospechosos.</strong> Windows Defender (o cualquier antivirus de terceros que tengas instalado) a veces detiene la ejecución de un instalador que no reconoce, o lo marca en cuarentena después de la descarga. Revisa la carpeta de notificaciones o el historial de protección de tu antivirus: casi siempre hay una opción para <strong>“permitir de todas formas”</strong> o <strong>“restaurar desde cuarentena”</strong> el archivo específico que acabas de descargar. Si tu antivirus es el que administra el ITAM en equipos institucionales y no tienes esa opción disponible, pide apoyo al área de cómputo.</p>
+</section>
+</section>
+<section id="y-ahora-sí" class="level2">
+<h2 class="anchored" data-anchor-id="y-ahora-sí">Y ahora sí</h2>
+<p>Con R, RStudio, el repositorio y los paquetes listos, abre el archivo <code>sesiones/01-primer-contacto/01_script.R</code> desde el panel de <em>Files</em> de RStudio y empieza ahí. Bienvenido al laboratorio.</p>
+
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copiado");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copiado");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp("https:\/\/emirandago\.github\.io\/r-para-politologos\/");
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+</div> <!-- /content -->
+<footer class="footer">
+  <div class="nav-footer">
+    <div class="nav-footer-left">
+<p>Laboratorio de R para Ciencia Política · ITAM</p>
+</div>   
+    <div class="nav-footer-center">
+      &nbsp;
+    </div>
+    <div class="nav-footer-right">
+<p>EMG · Material bajo licencia <a href="https://github.com/emirandago/r-para-politologos/blob/main/LICENSE">CC BY 4.0</a></p>
+</div>
+  </div>
+</footer>
+
+
+
+
+</body></html>

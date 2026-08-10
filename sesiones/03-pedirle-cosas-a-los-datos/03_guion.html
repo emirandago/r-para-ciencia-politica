@@ -1,0 +1,763 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="es" xml:lang="es"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.10.18">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>Sesión 3 · Pedirle cosas a los datos – Laboratorio de R para Ciencia Política</title>
+<style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: 1.5em;}
+div.column{flex: auto;}
+@media screen {
+div.columns{gap: min(4vw, 1.5em);}
+div.column{overflow-x: auto;}
+}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+</style>
+
+
+<script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../">
+<script src="../../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-6bc2510a377bfbe78f0e93c5094f7fd0.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../site_libs/bootstrap/bootstrap-d33573f5db6bc822405971e42879fa46.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No se han encontrado resultados",
+    "search-matching-documents-text": "documentos encontrados",
+    "search-copy-link-title": "Copiar el enlace en la búsqueda",
+    "search-hide-matches-text": "Ocultar resultados adicionales",
+    "search-more-match-text": "resultado adicional en este documento",
+    "search-more-matches-text": "resultados adicionales en este documento",
+    "search-clear-button-title": "Borrar",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancelar",
+    "search-submit-button-title": "Enviar",
+    "search-label": "Buscar"
+  }
+}</script>
+
+
+</head>
+
+<body class="nav-fixed quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a href="../../index.html" class="navbar-brand navbar-brand-logo">
+    <img src="../../estilo/logo_itam.png" alt="Instituto Tecnológico Autónomo de México" class="navbar-logo light-content">
+    <img src="../../estilo/logo_itam.png" alt="Instituto Tecnológico Autónomo de México" class="navbar-logo dark-content">
+    </a>
+    <a class="navbar-brand" href="../../index.html">
+    <span class="navbar-title">Laboratorio de R para Ciencia Política</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Buscar"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Navegación de palanca" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../../empieza-aqui.html"> 
+<span class="menu-text">Empieza aquí</span></a>
+  </li>  
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-sesiones" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">Sesiones</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-sesiones">    
+        <li>
+    <a class="dropdown-item" href="../../sesiones/01-primer-contacto/01_guion.html">
+ <span class="dropdown-text">Sesión 01 · Tu primera hora en R</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../sesiones/02-los-datos-son-tablas/02_guion.html">
+ <span class="dropdown-text">Sesión 02 · Los datos son tablas</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../sesiones/03-pedirle-cosas-a-los-datos/03_guion.html">
+ <span class="dropdown-text">Sesión 03 · Pedirle cosas a los datos</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../sesiones/04-agrupar-resumir-cruzar/04_guion.html">
+ <span class="dropdown-text">Sesión 04 · Agrupar, resumir, cruzar</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../sesiones/05-gramatica-de-los-graficos/05_guion.html">
+ <span class="dropdown-text">Sesión 05 · La gramática de los gráficos</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../sesiones/06-graficos-que-se-publican/06_guion.html">
+ <span class="dropdown-text">Sesión 06 · Gráficos que se publican</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../sesiones/07-el-mapa-de-mexico/07_guion.html">
+ <span class="dropdown-text">Sesión 07 · El mapa de México</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../sesiones/08-describir-sin-mentir/08_guion.html">
+ <span class="dropdown-text">Sesión 08 · Describir sin mentir</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../sesiones/09-la-regresion/09_guion.html">
+ <span class="dropdown-text">Sesión 09 · La regresión como instrumento politológico</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../sesiones/10-que-otro-pueda-repetirlo/10_guion.html">
+ <span class="dropdown-text">Sesión 10 · Que otro pueda repetirlo</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../sesiones/11-la-ia-como-copiloto/11_guion.html">
+ <span class="dropdown-text">Sesión 11 · La IA como copiloto, no como piloto</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-extras" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">Extras</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-extras">    
+        <li>
+    <a class="dropdown-item" href="../../extras/index.html">
+ <span class="dropdown-text">Todos los extras</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../extras/01-funciones-e-iteracion/01_extra.html">
+ <span class="dropdown-text">Funciones e iteración</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../extras/02-probabilidad-y-simulacion/02_extra.html">
+ <span class="dropdown-text">Probabilidad y simulación</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../extras/03-logit-y-glm/03_extra.html">
+ <span class="dropdown-text">Modelos logit y GLM</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../extras/04-panel-y-efectos-fijos/04_extra.html">
+ <span class="dropdown-text">Datos de panel y efectos fijos</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../extras/05-inferencia-causal/05_extra.html">
+ <span class="dropdown-text">Primer vistazo a inferencia causal</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../extras/06-de-stata-a-r/06_extra.html">
+ <span class="dropdown-text">Guía Stata → R</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-recursos" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">Recursos</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-recursos">    
+        <li>
+    <a class="dropdown-item" href="../../recursos/index.html">
+ <span class="dropdown-text">Todos los recursos</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../recursos/glosario.html">
+ <span class="dropdown-text">Glosario</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../recursos/errores-comunes.html">
+ <span class="dropdown-text">Errores comunes</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../recursos/para-seguir.html">
+ <span class="dropdown-text">Para seguir</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../recursos/acordeon-r.pdf">
+ <span class="dropdown-text">Acordeón de R (PDF)</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="../../ia/index.html"> 
+<span class="menu-text">IA</span></a>
+  </li>  
+</ul>
+            <ul class="navbar-nav navbar-nav-scroll ms-auto">
+  <li class="nav-item compact">
+    <a class="nav-link" href="https://github.com/emirandago/r-para-politologos"> <i class="bi bi-github" role="img" aria-label="Repositorio en GitHub">
+</i> 
+<span class="menu-text"></span></a>
+  </li>  
+</ul>
+          </div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools">
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">En esta página</h2>
+   
+  <ul>
+  <li><a href="#qué-vas-a-poder-hacer-al-salir" id="toc-qué-vas-a-poder-hacer-al-salir" class="nav-link active" data-scroll-target="#qué-vas-a-poder-hacer-al-salir">Qué vas a poder hacer al salir</a></li>
+  <li><a href="#antes-de-venir" id="toc-antes-de-venir" class="nav-link" data-scroll-target="#antes-de-venir">Antes de venir</a></li>
+  <li><a href="#los-archivos-de-la-sesión" id="toc-los-archivos-de-la-sesión" class="nav-link" data-scroll-target="#los-archivos-de-la-sesión">Los archivos de la sesión</a></li>
+  <li><a href="#el-contenido-en-prosa" id="toc-el-contenido-en-prosa" class="nav-link" data-scroll-target="#el-contenido-en-prosa">El contenido, en prosa</a>
+  <ul class="collapse">
+  <li><a href="#por-qué-no-usamos-corchetes" id="toc-por-qué-no-usamos-corchetes" class="nav-link" data-scroll-target="#por-qué-no-usamos-corchetes">Por qué no usamos corchetes</a></li>
+  <li><a href="#filter-de-una-sensación-a-una-tabla" id="toc-filter-de-una-sensación-a-una-tabla" class="nav-link" data-scroll-target="#filter-de-una-sensación-a-una-tabla">filter(): de una sensación a una tabla</a></li>
+  <li><a href="#la-trampa-que-no-truena" id="toc-la-trampa-que-no-truena" class="nav-link" data-scroll-target="#la-trampa-que-no-truena">La trampa que no truena</a></li>
+  <li><a href="#select-arrange-y-mutate-terminar-de-armar-la-pregunta" id="toc-select-arrange-y-mutate-terminar-de-armar-la-pregunta" class="nav-link" data-scroll-target="#select-arrange-y-mutate-terminar-de-armar-la-pregunta">select(), arrange() y mutate(): terminar de armar la pregunta</a></li>
+  <li><a href="#si-algo-falla" id="toc-si-algo-falla" class="nav-link" data-scroll-target="#si-algo-falla">Si algo falla</a></li>
+  <li><a href="#lo-que-ya-sabes-hacer" id="toc-lo-que-ya-sabes-hacer" class="nav-link" data-scroll-target="#lo-que-ya-sabes-hacer">Lo que ya sabes hacer</a></li>
+  </ul></li>
+  <li><a href="#la-semana-que-viene" id="toc-la-semana-que-viene" class="nav-link" data-scroll-target="#la-semana-que-viene">La semana que viene</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Sesión 3 · Pedirle cosas a los datos</h1>
+<p class="subtitle lead">¿Dónde ganó Morena por más de veinte puntos?</p>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<div class="gancho">
+<p>Una base de 2,475 municipios no se lee: se interroga. Nadie recorre esa tabla con el dedo buscando dónde ganó Morena por más de veinte puntos, ni debería. Lo que se hace es preguntárselo —en una línea— y dejar que la máquina conteste con una tabla más chica que sí cabe en la cabeza. Hoy aprendemos a preguntar, que es la mitad del oficio.</p>
+</div>
+<section id="qué-vas-a-poder-hacer-al-salir" class="level2">
+<h2 class="anchored" data-anchor-id="qué-vas-a-poder-hacer-al-salir">Qué vas a poder hacer al salir</h2>
+<p>Al terminar la sesión vas a saber pedirle cosas a una base de datos sin usar corchetes: quedarte con las filas que cumplen una condición con <code>filter()</code>, elegir las columnas que te importan con <code>select()</code>, ordenar con <code>arrange()</code> y crear columnas nuevas con <code>mutate()</code>, encadenando los cuatro verbos con el pipe <code>|&gt;</code>. Vas a reconocer, y evitar, el error más peligroso de todo el curso: un filtro que no truena y devuelve una tabla equivocada sin avisar.</p>
+<p>Lo que no vas a hacer todavía es comparar entidades entre sí de verdad —eso es resumir grupos de filas en una cifra, y llega la próxima sesión— ni cruzar dos bases distintas. Hoy trabajas siempre sobre una sola tabla a la vez. El entregable de la hora es una tabla filtrada que conteste una pregunta que tú mismo escribiste, no una de este guion.</p>
+</section>
+<section id="antes-de-venir" class="level2">
+<h2 class="anchored" data-anchor-id="antes-de-venir">Antes de venir</h2>
+<p>Haber corrido la sesión 2: usamos <code>read_csv()</code> y <code>glimpse()</code> sin volver a explicarlos, y damos por hecho que sabes qué es una fila, qué es una columna y por qué un <code>NA</code> merece desconfianza.</p>
+</section>
+<section id="los-archivos-de-la-sesión" class="level2">
+<h2 class="anchored" data-anchor-id="los-archivos-de-la-sesión">Los archivos de la sesión</h2>
+<div class="descargas">
+<p><a href="https://raw.githubusercontent.com/emirandago/r-para-politologos/main/sesiones/03-pedirle-cosas-a-los-datos/03_script.R" class="btn-descarga">03_script.R — el guion de clase</a> <a href="https://raw.githubusercontent.com/emirandago/r-para-politologos/main/sesiones/03-pedirle-cosas-a-los-datos/03_ejercicio.R" class="btn-descarga">03_ejercicio.R — para llevar</a> <a href="https://raw.githubusercontent.com/emirandago/r-para-politologos/main/sesiones/03-pedirle-cosas-a-los-datos/03_slides.pdf" class="btn-descarga secundario">03_slides.pdf — las láminas</a> <a href="https://raw.githubusercontent.com/emirandago/r-para-politologos/main/sesiones/03-pedirle-cosas-a-los-datos/03_script_completo.R" class="btn-descarga secundario">03_script_completo.R — resuelto</a> <a href="https://raw.githubusercontent.com/emirandago/r-para-politologos/main/sesiones/03-pedirle-cosas-a-los-datos/03_solucion.R" class="btn-descarga secundario">03_solucion.R — solución del ejercicio</a></p>
+</div>
+<p>El archivo <code>03_script.R</code> tiene huecos y <strong>no corre de corrido</strong>: está hecho para llenarse en clase. Los dos archivos grises se publican al terminar la sesión.</p>
+</section>
+<section id="el-contenido-en-prosa" class="level2">
+<h2 class="anchored" data-anchor-id="el-contenido-en-prosa">El contenido, en prosa</h2>
+<section id="por-qué-no-usamos-corchetes" class="level3">
+<h3 class="anchored" data-anchor-id="por-qué-no-usamos-corchetes">Por qué no usamos corchetes</h3>
+<p>Antes de que existiera <code>dplyr</code>, filtrar una tabla en R se veía así: el nombre de la base repetido tres veces, corchetes anidados, una coma que separa la condición de las columnas que quieres conservar. Funciona, pero cuesta leerlo y cuesta más todavía detectar dónde se rompió cuando algo truena. El <span class="termino-en">pipe</span> <code>|&gt;</code> —que se lee “y luego”— y los verbos de <code>dplyr</code> resuelven exactamente ese problema: cada paso de la operación queda en su propia línea, con un nombre que dice lo que hace. En este laboratorio nunca vas a usar <code>%&gt;%</code>, el pipe anterior a 2021; si lo ves en un tutorial viejo o en código que te pase alguien más, es el mismo símbolo, con otra letra.</p>
+</section>
+<section id="filter-de-una-sensación-a-una-tabla" class="level3">
+<h3 class="anchored" data-anchor-id="filter-de-una-sensación-a-una-tabla">filter(): de una sensación a una tabla</h3>
+<p><code>filter()</code> se queda con las filas que cumplen una condición: una entidad con un nombre exacto, una columna mayor a cierto número, dos condiciones combinadas con <code>&amp;</code> o con <code>|</code>. Es aquí donde ocurre el momento central de la sesión: convertir “siento que Morena arrasó en el sur” en <code>filter(ventaja &gt; 20)</code> es exactamente el salto de una intuición política a una pregunta empírica. La intuición no desaparece —sigue siendo el origen de la pregunta—, pero ahora vive en una línea que cualquiera puede correr, revisar y, si hace falta, refutar con otro número.</p>
+</section>
+<section id="la-trampa-que-no-truena" class="level3">
+<h3 class="anchored" data-anchor-id="la-trampa-que-no-truena">La trampa que no truena</h3>
+<p>Hay un error que no aparece en rojo y por eso es el más peligroso del curso. Si una columna guarda un código —digamos, 1 para una coalición y 2 para otra— y alguien escribe <code>filter(codigo == 1 | 2)</code> pensando que así se queda con ambas, R no avisa de nada: calcula la comparación con 1, y después le hace un OR con el número 2 suelto, que R convierte en <code>TRUE</code> porque cualquier número distinto de cero se interpreta como verdadero. El resultado es <code>TRUE</code> en todas las filas, así que el filtro devuelve la tabla completa, sin ningún mensaje de que algo salió mal. La forma correcta es <code>%in%</code>: <code>filter(codigo %in% c(1, 2))</code> pregunta “¿está en esta lista?” y no tiene esa trampa. Un descuido parecido, aunque menos silencioso, es escribir <code>=</code> en vez de <code>==</code> dentro de <code>filter()</code>; ese sí interrumpe la ejecución con un error.</p>
+</section>
+<section id="select-arrange-y-mutate-terminar-de-armar-la-pregunta" class="level3">
+<h3 class="anchored" data-anchor-id="select-arrange-y-mutate-terminar-de-armar-la-pregunta">select(), arrange() y mutate(): terminar de armar la pregunta</h3>
+<p><code>select()</code> elige columnas por nombre, por exclusión con <code>-</code>, o por patrón con atajos como <code>starts_with()</code>. <code>rename()</code> cambia un nombre sin tocar los datos, y <code>distinct()</code> sirve para confirmar cuántos valores únicos hay en una columna —una manera barata de detectar un archivo mal cargado antes de seguir trabajando con él. <code>arrange()</code> ordena, y con <code>desc()</code> invierte el orden; <code>slice_max()</code> hace en una sola línea lo que antes tomaba dos: quedarte con las N filas de arriba en alguna variable. <code>mutate()</code> crea columnas nuevas a partir de las que ya existen —en la sesión armamos así la ventaja de Morena sobre el segundo lugar, usando <code>pmax()</code> para quedarnos con el mayor de dos números, fila por fila. Filtrar esa columna nueva sobre los 2,475 municipios del país, en vez de sobre las 32 entidades, es la misma idea vectorizada de la sesión 1, otra vez, a otra escala.</p>
+</section>
+<section id="si-algo-falla" class="level3 si-algo-falla">
+<h3 class="anchored" data-anchor-id="si-algo-falla">Si algo falla</h3>
+<p><strong><code>Error: object 'entidad' not found</code>, aunque <code>entidad</code> sí es una columna</strong> Si esto pasa al llamar <code>filter()</code>, casi siempre es que no cargaste <code>library(tidyverse)</code>: sin él, R usa el <code>filter()</code> de un paquete distinto, que no sabe leer nombres de columna sueltos y busca <code>entidad</code> como si fuera un objeto independiente. Corre <code>library(tidyverse)</code> y vuelve a intentar.</p>
+<p><strong><code>Error: object 'Jalisco' not found</code></strong> Te faltaron las comillas. <code>filter(entidad == Jalisco)</code> le pide a R que busque un objeto llamado <code>Jalisco</code>; lo que querías era el texto <code>"Jalisco"</code>. Dentro de <code>filter()</code>, todo valor de texto lleva comillas.</p>
+<p><strong><code>Error: object 'ventaja' not found</code>, después de haber corrido <code>mutate()</code></strong> <code>mutate()</code> nunca modifica tu tabla por sí solo: si no reasignas el resultado con <code>resultados &lt;- resultados |&gt; mutate(...)</code>, la columna nueva se imprimió en la consola y se perdió. Revisa que la línea de arriba tenga la flecha.</p>
+<p>Hay más, con su traducción y su arreglo, en <a href="../../recursos/errores-comunes.html">Errores comunes</a>.</p>
+</section>
+<section id="lo-que-ya-sabes-hacer" class="level3 ya-sabes">
+<h3 class="anchored" data-anchor-id="lo-que-ya-sabes-hacer">Lo que ya sabes hacer</h3>
+<ul>
+<li>Cambiar los corchetes de base R por un pipe legible: filter(), select(), arrange() y mutate().</li>
+<li>Reconocer la trampa filter(var == 1 | 2) y usar %in% en su lugar.</li>
+<li>Convertir una intuición política propia en una tabla que la pone a prueba.</li>
+</ul>
+</section>
+</section>
+<section id="la-semana-que-viene" class="level2">
+<h2 class="anchored" data-anchor-id="la-semana-que-viene">La semana que viene</h2>
+<p><strong>Agrupar, resumir, cruzar.</strong> Vamos a comparar entidades entre sí de verdad —no fila por fila, sino resumidas en una cifra— y a cruzar dos bases por una clave que no siempre coincide.</p>
+
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copiado");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copiado");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp("https:\/\/emirandago\.github\.io\/r-para-politologos\/");
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+</div> <!-- /content -->
+<footer class="footer">
+  <div class="nav-footer">
+    <div class="nav-footer-left">
+<p>Laboratorio de R para Ciencia Política · ITAM</p>
+</div>   
+    <div class="nav-footer-center">
+      &nbsp;
+    </div>
+    <div class="nav-footer-right">
+<p>EMG · Material bajo licencia <a href="https://github.com/emirandago/r-para-politologos/blob/main/LICENSE">CC BY 4.0</a></p>
+</div>
+  </div>
+</footer>
+
+
+
+
+</body></html>

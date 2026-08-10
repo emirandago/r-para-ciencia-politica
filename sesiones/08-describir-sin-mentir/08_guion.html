@@ -1,0 +1,773 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="es" xml:lang="es"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.10.18">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>Sesión 8 · Describir sin mentir – Laboratorio de R para Ciencia Política</title>
+<style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: 1.5em;}
+div.column{flex: auto;}
+@media screen {
+div.columns{gap: min(4vw, 1.5em);}
+div.column{overflow-x: auto;}
+}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+</style>
+
+
+<script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../">
+<script src="../../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-6bc2510a377bfbe78f0e93c5094f7fd0.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../site_libs/bootstrap/bootstrap-d33573f5db6bc822405971e42879fa46.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No se han encontrado resultados",
+    "search-matching-documents-text": "documentos encontrados",
+    "search-copy-link-title": "Copiar el enlace en la búsqueda",
+    "search-hide-matches-text": "Ocultar resultados adicionales",
+    "search-more-match-text": "resultado adicional en este documento",
+    "search-more-matches-text": "resultados adicionales en este documento",
+    "search-clear-button-title": "Borrar",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancelar",
+    "search-submit-button-title": "Enviar",
+    "search-label": "Buscar"
+  }
+}</script>
+
+
+</head>
+
+<body class="nav-fixed quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a href="../../index.html" class="navbar-brand navbar-brand-logo">
+    <img src="../../estilo/logo_itam.png" alt="Instituto Tecnológico Autónomo de México" class="navbar-logo light-content">
+    <img src="../../estilo/logo_itam.png" alt="Instituto Tecnológico Autónomo de México" class="navbar-logo dark-content">
+    </a>
+    <a class="navbar-brand" href="../../index.html">
+    <span class="navbar-title">Laboratorio de R para Ciencia Política</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Buscar"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Navegación de palanca" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../../empieza-aqui.html"> 
+<span class="menu-text">Empieza aquí</span></a>
+  </li>  
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-sesiones" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">Sesiones</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-sesiones">    
+        <li>
+    <a class="dropdown-item" href="../../sesiones/01-primer-contacto/01_guion.html">
+ <span class="dropdown-text">Sesión 01 · Tu primera hora en R</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../sesiones/02-los-datos-son-tablas/02_guion.html">
+ <span class="dropdown-text">Sesión 02 · Los datos son tablas</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../sesiones/03-pedirle-cosas-a-los-datos/03_guion.html">
+ <span class="dropdown-text">Sesión 03 · Pedirle cosas a los datos</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../sesiones/04-agrupar-resumir-cruzar/04_guion.html">
+ <span class="dropdown-text">Sesión 04 · Agrupar, resumir, cruzar</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../sesiones/05-gramatica-de-los-graficos/05_guion.html">
+ <span class="dropdown-text">Sesión 05 · La gramática de los gráficos</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../sesiones/06-graficos-que-se-publican/06_guion.html">
+ <span class="dropdown-text">Sesión 06 · Gráficos que se publican</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../sesiones/07-el-mapa-de-mexico/07_guion.html">
+ <span class="dropdown-text">Sesión 07 · El mapa de México</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../sesiones/08-describir-sin-mentir/08_guion.html">
+ <span class="dropdown-text">Sesión 08 · Describir sin mentir</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../sesiones/09-la-regresion/09_guion.html">
+ <span class="dropdown-text">Sesión 09 · La regresión como instrumento politológico</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../sesiones/10-que-otro-pueda-repetirlo/10_guion.html">
+ <span class="dropdown-text">Sesión 10 · Que otro pueda repetirlo</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../sesiones/11-la-ia-como-copiloto/11_guion.html">
+ <span class="dropdown-text">Sesión 11 · La IA como copiloto, no como piloto</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-extras" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">Extras</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-extras">    
+        <li>
+    <a class="dropdown-item" href="../../extras/index.html">
+ <span class="dropdown-text">Todos los extras</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../extras/01-funciones-e-iteracion/01_extra.html">
+ <span class="dropdown-text">Funciones e iteración</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../extras/02-probabilidad-y-simulacion/02_extra.html">
+ <span class="dropdown-text">Probabilidad y simulación</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../extras/03-logit-y-glm/03_extra.html">
+ <span class="dropdown-text">Modelos logit y GLM</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../extras/04-panel-y-efectos-fijos/04_extra.html">
+ <span class="dropdown-text">Datos de panel y efectos fijos</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../extras/05-inferencia-causal/05_extra.html">
+ <span class="dropdown-text">Primer vistazo a inferencia causal</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../extras/06-de-stata-a-r/06_extra.html">
+ <span class="dropdown-text">Guía Stata → R</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-recursos" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">Recursos</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-recursos">    
+        <li>
+    <a class="dropdown-item" href="../../recursos/index.html">
+ <span class="dropdown-text">Todos los recursos</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../recursos/glosario.html">
+ <span class="dropdown-text">Glosario</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../recursos/errores-comunes.html">
+ <span class="dropdown-text">Errores comunes</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../recursos/para-seguir.html">
+ <span class="dropdown-text">Para seguir</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../recursos/acordeon-r.pdf">
+ <span class="dropdown-text">Acordeón de R (PDF)</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="../../ia/index.html"> 
+<span class="menu-text">IA</span></a>
+  </li>  
+</ul>
+            <ul class="navbar-nav navbar-nav-scroll ms-auto">
+  <li class="nav-item compact">
+    <a class="nav-link" href="https://github.com/emirandago/r-para-politologos"> <i class="bi bi-github" role="img" aria-label="Repositorio en GitHub">
+</i> 
+<span class="menu-text"></span></a>
+  </li>  
+</ul>
+          </div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools">
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">En esta página</h2>
+   
+  <ul>
+  <li><a href="#qué-vas-a-poder-hacer-al-salir" id="toc-qué-vas-a-poder-hacer-al-salir" class="nav-link active" data-scroll-target="#qué-vas-a-poder-hacer-al-salir">Qué vas a poder hacer al salir</a></li>
+  <li><a href="#antes-de-venir" id="toc-antes-de-venir" class="nav-link" data-scroll-target="#antes-de-venir">Antes de venir</a></li>
+  <li><a href="#los-archivos-de-la-sesión" id="toc-los-archivos-de-la-sesión" class="nav-link" data-scroll-target="#los-archivos-de-la-sesión">Los archivos de la sesión</a></li>
+  <li><a href="#el-contenido-en-prosa" id="toc-el-contenido-en-prosa" class="nav-link" data-scroll-target="#el-contenido-en-prosa">El contenido, en prosa</a>
+  <ul class="collapse">
+  <li><a href="#un-número-que-resume-y-su-primera-traición" id="toc-un-número-que-resume-y-su-primera-traición" class="nav-link" data-scroll-target="#un-número-que-resume-y-su-primera-traición">Un número que resume, y su primera traición</a></li>
+  <li><a href="#qué-tan-repartidos-están-la-desviación-estándar-sin-fórmula" id="toc-qué-tan-repartidos-están-la-desviación-estándar-sin-fórmula" class="nav-link" data-scroll-target="#qué-tan-repartidos-están-la-desviación-estándar-sin-fórmula">Qué tan repartidos están: la desviación estándar, sin fórmula</a></li>
+  <li><a href="#el-cuarteto-que-le-quita-la-confianza-a-un-número" id="toc-el-cuarteto-que-le-quita-la-confianza-a-un-número" class="nav-link" data-scroll-target="#el-cuarteto-que-le-quita-la-confianza-a-un-número">El cuarteto que le quita la confianza a un número</a></li>
+  <li><a href="#van-juntas-la-correlación-sin-fórmula" id="toc-van-juntas-la-correlación-sin-fórmula" class="nav-link" data-scroll-target="#van-juntas-la-correlación-sin-fórmula">“Van juntas”: la correlación, sin fórmula</a></li>
+  <li><a href="#cuando-pocos-casos-deciden-el-resultado" id="toc-cuando-pocos-casos-deciden-el-resultado" class="nav-link" data-scroll-target="#cuando-pocos-casos-deciden-el-resultado">Cuando pocos casos deciden el resultado</a></li>
+  <li><a href="#si-algo-falla" id="toc-si-algo-falla" class="nav-link" data-scroll-target="#si-algo-falla">Si algo falla</a></li>
+  <li><a href="#lo-que-ya-sabes-hacer" id="toc-lo-que-ya-sabes-hacer" class="nav-link" data-scroll-target="#lo-que-ya-sabes-hacer">Lo que ya sabes hacer</a></li>
+  </ul></li>
+  <li><a href="#la-semana-que-viene" id="toc-la-semana-que-viene" class="nav-link" data-scroll-target="#la-semana-que-viene">La semana que viene</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Sesión 8 · Describir sin mentir</h1>
+<p class="subtitle lead">¿Qué significa que dos cosas «van juntas»?</p>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<div class="gancho">
+<p>Ya sabes calcular un promedio: lo hiciste en la sesión 1, con la participación de las 32 entidades, y ya viste que un promedio de porcentajes puede engañar. Hoy vas más lejos. Vas a calcular un número que resume qué tan repartidos están los datos, vas a conocer cuatro conjuntos de datos que destruyen la confianza ciega en cualquier número resumen, y vas a contestar, por fin, si la participación y el voto por un bloque político “van juntos”.</p>
+</div>
+<section id="qué-vas-a-poder-hacer-al-salir" class="level2">
+<h2 class="anchored" data-anchor-id="qué-vas-a-poder-hacer-al-salir">Qué vas a poder hacer al salir</h2>
+<p>Vas a poder calcular media, mediana y desviación estándar de una variable y explicar, sin fórmula, qué significa cada una. Vas a poder mirar el cuarteto de Anscombe y explicar por qué un número resumen —por correcto que esté calculado— nunca sustituye a un gráfico. Y vas a poder construir un diagrama de dispersión con una línea de tendencia, calcular la correlación entre dos variables y escribir, en prosa, qué dice ese número y qué no dice.</p>
+<p>Lo que no vas a ver hoy: <code>lm()</code>, tablas de regresión ni el vocabulario de significancia estadística. Eso llega en la sesión 9. Hoy la correlación se queda en su forma más honesta: un número entre -1 y 1 que describe qué tan recta es una nube de puntos, nada más.</p>
+</section>
+<section id="antes-de-venir" class="level2">
+<h2 class="anchored" data-anchor-id="antes-de-venir">Antes de venir</h2>
+<p>Necesitas haber corrido la sesión 3 (el pipe <code>|&gt;</code>, <code>filter()</code>, <code>mutate()</code>) y la sesión 6 (<code>theme_lab()</code>, la fuente del tema visual del curso). No hace falta la sesión 7: hoy se trabaja con las mismas bases de la elección de 2024, pero en formato tabla, no en el mapa.</p>
+</section>
+<section id="los-archivos-de-la-sesión" class="level2">
+<h2 class="anchored" data-anchor-id="los-archivos-de-la-sesión">Los archivos de la sesión</h2>
+<div class="descargas">
+<p><a href="https://raw.githubusercontent.com/emirandago/r-para-politologos/main/sesiones/08-describir-sin-mentir/08_script.R" class="btn-descarga">08_script.R — el guion de clase</a> <a href="https://raw.githubusercontent.com/emirandago/r-para-politologos/main/sesiones/08-describir-sin-mentir/08_ejercicio.R" class="btn-descarga">08_ejercicio.R — para llevar</a> <a href="https://raw.githubusercontent.com/emirandago/r-para-politologos/main/sesiones/08-describir-sin-mentir/08_slides.pdf" class="btn-descarga secundario">08_slides.pdf — las láminas</a> <a href="https://raw.githubusercontent.com/emirandago/r-para-politologos/main/sesiones/08-describir-sin-mentir/08_script_completo.R" class="btn-descarga secundario">08_script_completo.R — resuelto</a> <a href="https://raw.githubusercontent.com/emirandago/r-para-politologos/main/sesiones/08-describir-sin-mentir/08_solucion.R" class="btn-descarga secundario">08_solucion.R — solución del ejercicio</a></p>
+</div>
+<p>El archivo <code>08_script.R</code> tiene huecos y <strong>no corre de corrido</strong>: está hecho para llenarse en clase. Los dos archivos grises se publican al terminar la sesión.</p>
+</section>
+<section id="el-contenido-en-prosa" class="level2">
+<h2 class="anchored" data-anchor-id="el-contenido-en-prosa">El contenido, en prosa</h2>
+<section id="un-número-que-resume-y-su-primera-traición" class="level3">
+<h3 class="anchored" data-anchor-id="un-número-que-resume-y-su-primera-traición">Un número que resume, y su primera traición</h3>
+<p>Con <code>mean()</code>, que ya conoces desde la sesión 1, y <code>median()</code>, que hoy conoces por primera vez, hay dos maneras estándar de contestar “¿cuál es el valor típico de esta variable?”. Casi siempre coinciden más o menos. Con la lista nominal de los 2,475 municipios del país —cuánta gente podía votar en cada uno— no coinciden ni de lejos: la media ronda las 39,700 personas y la mediana apenas roza las 10,400.</p>
+<p>La media es, sin fórmula, el punto de equilibrio de la variable: el sitio donde quedaría el apoyo de un subibaja si pusieras cada municipio sobre una regla, en el lugar que le toca según su lista nominal. El problema de un subibaja es que alguien muy pesado en un extremo lo puede inclinar por completo, y aquí ese peso lo ponen un puñado de municipios —Tijuana, Iztapalapa, Ecatepec de Morelos— con más de un millón de personas en su lista nominal cada uno, entre 2,475 municipios. La mediana no se deja mover así: ordena los 2,475 municipios de menor a mayor y se queda con el de en medio, sin importarle qué tan extremo es el extremo, solo cuántos municipios hay de cada lado. Más de ocho de cada diez municipios del país tienen una lista nominal por debajo de la media: la media describe un punto de equilibrio que casi ningún municipio ocupa. Vas a formalizar esto con un nombre —sesgo, o distribución “asimétrica”— en tu curso de Estadística; aquí, hoy, lo viste moverse con datos reales.</p>
+</section>
+<section id="qué-tan-repartidos-están-la-desviación-estándar-sin-fórmula" class="level3">
+<h3 class="anchored" data-anchor-id="qué-tan-repartidos-están-la-desviación-estándar-sin-fórmula">Qué tan repartidos están: la desviación estándar, sin fórmula</h3>
+<p>Media y mediana dicen dónde está el centro de una variable. Falta la otra mitad de la pregunta: ¿qué tan apretados o qué tan repartidos están los datos alrededor de ese centro? La función <code>sd()</code> —de <em>standard deviation</em>, desviación estándar— responde eso sin necesidad de una sola sumatoria: es, en términos generales, una distancia típica al promedio. Entre más apretados estén los datos alrededor de su media, más chica es esa distancia; entre más desperdigados, más grande.</p>
+<p>La participación municipal tiene una desviación estándar de poco más de 11 puntos porcentuales, sobre una escala que solo puede ir de 0 a 100: la mayoría de los municipios se agolpa cerca del promedio. La lista nominal, en cambio, tiene una desviación estándar —más de 117,000— que es <em>mayor</em> que su propia media. Eso solo le pasa a variables muy desiguales, con una cola larga de casos extremos, y es la misma historia de Tijuana, Iztapalapa y Ecatepec contada con otro número. Vas a formalizar la desviación estándar con una fórmula en tu curso de Estadística; aquí la viste moverse y decidir, con un solo número, si conviene confiar en la media o desconfiar de ella.</p>
+</section>
+<section id="el-cuarteto-que-le-quita-la-confianza-a-un-número" class="level3">
+<h3 class="anchored" data-anchor-id="el-cuarteto-que-le-quita-la-confianza-a-un-número">El cuarteto que le quita la confianza a un número</h3>
+<p>Aquí es donde la sesión da su vuelta central. El estadístico Francis Anscombe construyó en 1973 cuatro conjuntos de datos —los llamó I, II, III y IV— con la misma media, la misma desviación estándar en cada variable y, según vas a comprobar en la siguiente sección, hasta la misma correlación y la misma línea de tendencia. Si solo miraras esos números resumen, dirías que los cuatro conjuntos son la misma variable medida cuatro veces. Entonces se grafican, sin correr una sola regresión, y resultan ser radicalmente distintos entre sí: uno es más o menos una recta con ruido, justo lo que los números resumen prometían; otro es una curva perfecta que ninguna recta debería resumir; otro es una recta casi perfecta arruinada por un solo dato atípico; el último ni siquiera tiene una relación real, es una nube vertical más un punto solitario que decide, él solo, toda la pendiente.</p>
+<p>Ese es el salto de la sesión: de “confío en un número porque lo calculé bien” a “un número resumen puede ser aritméticamente correcto y aun así esconder una historia completamente distinta”. La única defensa contra ese riesgo es mirar antes de resumir, y es la razón por la que esta sesión deja la correlación para el final, después de haber visto el cuarteto, y no antes.</p>
+</section>
+<section id="van-juntas-la-correlación-sin-fórmula" class="level3">
+<h3 class="anchored" data-anchor-id="van-juntas-la-correlación-sin-fórmula">“Van juntas”: la correlación, sin fórmula</h3>
+<p>Con la lección de Anscombe ya aprendida, llega la pregunta que dejó pendiente el ejercicio de la sesión 1: ¿las entidades donde más gente sale a votar son las mismas donde le fue mejor a Sigamos Haciendo Historia? “Van juntas” quiere decir algo preciso y modesto: cuando una variable sube, la otra <em>tiende</em> a subir —o a bajar— también. La función <code>cor()</code> le pone un número a ese “tiende”, entre -1 y 1: cerca de 1 significa que cuando una sube la otra casi siempre sube con ella; cerca de -1, que casi siempre baja; cerca de 0, que no hay ningún patrón en línea recta entre las dos. <code>geom_smooth(method = "lm")</code> traza, sin que haya que correr una regresión aparte, la línea que mejor resume hacia dónde va la nube de puntos.</p>
+<p>A nivel municipio, con 2,473 casos válidos, la correlación entre participación y voto por SHH da apenas -0.12: casi nada, y si acaso una relación levísima en la dirección contraria a la que la intuición de “más participación, más apoyo al bloque que gobierna” hubiera adivinado. Ese es, literalmente, el diagrama de dispersión que la sesión 1 prometió que se contestaría de verdad hasta hoy, y con eso queda cumplida la promesa.</p>
+<p>Dos advertencias quedan firmes para el resto del curso. Primera: un número de correlación nunca dice qué causa qué. Segunda, y es la que conecta directamente con el cuarteto de Anscombe: la correlación solo mide qué tan recta es una relación, y hay relaciones fuertes y reales que la correlación no ve porque no son rectas —el conjunto II de Anscombe es precisamente esa advertencia hecha gráfico—.</p>
+</section>
+<section id="cuando-pocos-casos-deciden-el-resultado" class="level3">
+<h3 class="anchored" data-anchor-id="cuando-pocos-casos-deciden-el-resultado">Cuando pocos casos deciden el resultado</h3>
+<p>La misma correlación calculada por entidad (32 casos) en vez de por municipio (2,473 casos) da 0.06: otra vez cercana a cero, pero con el signo invertido. Ni siquiera la dirección del número se sostiene entre las dos unidades de análisis, porque ambas están tan cerca de cero que agrupar los casos de otra forma las puede empujar para el lado contrario. Adrián Lucardi cuenta, en su curso de métodos, un caso análogo sobre ataques de tiburones y una elección de Estados Unidos de 1916 [VERIFICAR la referencia exacta]: con apenas 21 observaciones, un solo criterio de codificación cambiaba el resultado completo del análisis. La moraleja cabe en una frase: entre menos casos tengas, o entre más se pueda discutir cómo agruparlos, más cuidado hay que tener antes de creerte un número.</p>
+</section>
+<section id="si-algo-falla" class="level3 si-algo-falla">
+<h3 class="anchored" data-anchor-id="si-algo-falla">Si algo falla</h3>
+<p><strong><code>cor(municipios$participacion, municipios$pct_shh)</code> te da <code>NA</code></strong> No es un error de R: dos municipios de Oaxaca no tuvieron ninguna casilla instalada en 2024 y su <code>pct_shh</code> quedó en <code>NA</code> (<code>datos/README.md</code> lo documenta). <code>cor()</code> no ignora los <code>NA</code> por su cuenta; hay que pasarle <code>use = "complete.obs"</code>.</p>
+<p><strong><code>Error in mean(municipios$lista_nominal) : object 'municipios' not found</code></strong> No corriste la línea donde se creó el objeto <code>municipios</code> con <code>read_csv()</code>, o el proyecto no está abierto y <code>here()</code> no encuentra el archivo. Corre <code>here()</code> sola y revisa que la ruta termine en <code>/r-para-politologos</code>.</p>
+<p><strong>El gráfico sale sin línea de tendencia</strong> Revisa que escribiste <code>geom_smooth(method = "lm")</code> y no solo <code>geom_smooth()</code>: sin el argumento <code>method</code>, <code>ggplot2</code> a veces elige un suavizado curvo (<code>loess</code>) en vez de una recta, y con más de mil puntos como los de hoy ese suavizado puede tardar varios segundos en calcularse.</p>
+<p>Hay más, con su traducción y su arreglo, en <a href="../../recursos/errores-comunes.html">Errores comunes</a>.</p>
+</section>
+<section id="lo-que-ya-sabes-hacer" class="level3 ya-sabes">
+<h3 class="anchored" data-anchor-id="lo-que-ya-sabes-hacer">Lo que ya sabes hacer</h3>
+<ul>
+<li>Calcular media, mediana y desviación estándar de una variable, y explicar cada una sin una sola fórmula.</li>
+<li>Explicar, con el cuarteto de Anscombe, por qué un número resumen nunca sustituye a un gráfico.</li>
+<li>Construir un diagrama de dispersión con línea de tendencia, calcular una correlación y escribir en prosa qué dice ese número y qué no dice.</li>
+</ul>
+</section>
+</section>
+<section id="la-semana-que-viene" class="level2">
+<h2 class="anchored" data-anchor-id="la-semana-que-viene">La semana que viene</h2>
+<p><strong>La regresión como instrumento politológico.</strong> La línea de tendencia de hoy se calculó sola, adentro de <code>geom_smooth()</code>, sin que vieras cómo. La sesión 9 abre esa caja: vas a correr <code>lm()</code> y <code>feols()</code>, interpretar coeficientes con sentido sustantivo y entender, de una vez por todas, por qué correlación no es lo mismo que causalidad.</p>
+
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copiado");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copiado");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp("https:\/\/emirandago\.github\.io\/r-para-politologos\/");
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+</div> <!-- /content -->
+<footer class="footer">
+  <div class="nav-footer">
+    <div class="nav-footer-left">
+<p>Laboratorio de R para Ciencia Política · ITAM</p>
+</div>   
+    <div class="nav-footer-center">
+      &nbsp;
+    </div>
+    <div class="nav-footer-right">
+<p>EMG · Material bajo licencia <a href="https://github.com/emirandago/r-para-politologos/blob/main/LICENSE">CC BY 4.0</a></p>
+</div>
+  </div>
+</footer>
+
+
+
+
+</body></html>

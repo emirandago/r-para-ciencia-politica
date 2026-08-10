@@ -1,0 +1,824 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="es" xml:lang="es"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.10.18">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>Extra 2 · Probabilidad y simulación – Laboratorio de R para Ciencia Política</title>
+<style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: 1.5em;}
+div.column{flex: auto;}
+@media screen {
+div.columns{gap: min(4vw, 1.5em);}
+div.column{overflow-x: auto;}
+}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../">
+<script src="../../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-6bc2510a377bfbe78f0e93c5094f7fd0.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../site_libs/bootstrap/bootstrap-d33573f5db6bc822405971e42879fa46.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No se han encontrado resultados",
+    "search-matching-documents-text": "documentos encontrados",
+    "search-copy-link-title": "Copiar el enlace en la búsqueda",
+    "search-hide-matches-text": "Ocultar resultados adicionales",
+    "search-more-match-text": "resultado adicional en este documento",
+    "search-more-matches-text": "resultados adicionales en este documento",
+    "search-clear-button-title": "Borrar",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancelar",
+    "search-submit-button-title": "Enviar",
+    "search-label": "Buscar"
+  }
+}</script>
+
+
+</head>
+
+<body class="nav-fixed quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a href="../../index.html" class="navbar-brand navbar-brand-logo">
+    <img src="../../estilo/logo_itam.png" alt="Instituto Tecnológico Autónomo de México" class="navbar-logo light-content">
+    <img src="../../estilo/logo_itam.png" alt="Instituto Tecnológico Autónomo de México" class="navbar-logo dark-content">
+    </a>
+    <a class="navbar-brand" href="../../index.html">
+    <span class="navbar-title">Laboratorio de R para Ciencia Política</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Buscar"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Navegación de palanca" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../../empieza-aqui.html"> 
+<span class="menu-text">Empieza aquí</span></a>
+  </li>  
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-sesiones" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">Sesiones</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-sesiones">    
+        <li>
+    <a class="dropdown-item" href="../../sesiones/01-primer-contacto/01_guion.html">
+ <span class="dropdown-text">Sesión 01 · Tu primera hora en R</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../sesiones/02-los-datos-son-tablas/02_guion.html">
+ <span class="dropdown-text">Sesión 02 · Los datos son tablas</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../sesiones/03-pedirle-cosas-a-los-datos/03_guion.html">
+ <span class="dropdown-text">Sesión 03 · Pedirle cosas a los datos</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../sesiones/04-agrupar-resumir-cruzar/04_guion.html">
+ <span class="dropdown-text">Sesión 04 · Agrupar, resumir, cruzar</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../sesiones/05-gramatica-de-los-graficos/05_guion.html">
+ <span class="dropdown-text">Sesión 05 · La gramática de los gráficos</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../sesiones/06-graficos-que-se-publican/06_guion.html">
+ <span class="dropdown-text">Sesión 06 · Gráficos que se publican</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../sesiones/07-el-mapa-de-mexico/07_guion.html">
+ <span class="dropdown-text">Sesión 07 · El mapa de México</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../sesiones/08-describir-sin-mentir/08_guion.html">
+ <span class="dropdown-text">Sesión 08 · Describir sin mentir</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../sesiones/09-la-regresion/09_guion.html">
+ <span class="dropdown-text">Sesión 09 · La regresión como instrumento politológico</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../sesiones/10-que-otro-pueda-repetirlo/10_guion.html">
+ <span class="dropdown-text">Sesión 10 · Que otro pueda repetirlo</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../sesiones/11-la-ia-como-copiloto/11_guion.html">
+ <span class="dropdown-text">Sesión 11 · La IA como copiloto, no como piloto</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-extras" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">Extras</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-extras">    
+        <li>
+    <a class="dropdown-item" href="../../extras/index.html">
+ <span class="dropdown-text">Todos los extras</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../extras/01-funciones-e-iteracion/01_extra.html">
+ <span class="dropdown-text">Funciones e iteración</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../extras/02-probabilidad-y-simulacion/02_extra.html">
+ <span class="dropdown-text">Probabilidad y simulación</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../extras/03-logit-y-glm/03_extra.html">
+ <span class="dropdown-text">Modelos logit y GLM</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../extras/04-panel-y-efectos-fijos/04_extra.html">
+ <span class="dropdown-text">Datos de panel y efectos fijos</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../extras/05-inferencia-causal/05_extra.html">
+ <span class="dropdown-text">Primer vistazo a inferencia causal</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../extras/06-de-stata-a-r/06_extra.html">
+ <span class="dropdown-text">Guía Stata → R</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-recursos" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">Recursos</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-recursos">    
+        <li>
+    <a class="dropdown-item" href="../../recursos/index.html">
+ <span class="dropdown-text">Todos los recursos</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../recursos/glosario.html">
+ <span class="dropdown-text">Glosario</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../recursos/errores-comunes.html">
+ <span class="dropdown-text">Errores comunes</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../recursos/para-seguir.html">
+ <span class="dropdown-text">Para seguir</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../recursos/acordeon-r.pdf">
+ <span class="dropdown-text">Acordeón de R (PDF)</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="../../ia/index.html"> 
+<span class="menu-text">IA</span></a>
+  </li>  
+</ul>
+            <ul class="navbar-nav navbar-nav-scroll ms-auto">
+  <li class="nav-item compact">
+    <a class="nav-link" href="https://github.com/emirandago/r-para-politologos"> <i class="bi bi-github" role="img" aria-label="Repositorio en GitHub">
+</i> 
+<span class="menu-text"></span></a>
+  </li>  
+</ul>
+          </div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools">
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">En esta página</h2>
+   
+  <ul>
+  <li><a href="#qué-vas-a-poder-hacer-al-salir" id="toc-qué-vas-a-poder-hacer-al-salir" class="nav-link active" data-scroll-target="#qué-vas-a-poder-hacer-al-salir">Qué vas a poder hacer al salir</a></li>
+  <li><a href="#qué-necesitas-haber-visto-antes" id="toc-qué-necesitas-haber-visto-antes" class="nav-link" data-scroll-target="#qué-necesitas-haber-visto-antes">Qué necesitas haber visto antes</a></li>
+  <li><a href="#los-archivos-del-módulo" id="toc-los-archivos-del-módulo" class="nav-link" data-scroll-target="#los-archivos-del-módulo">Los archivos del módulo</a></li>
+  <li><a href="#el-contenido-en-prosa" id="toc-el-contenido-en-prosa" class="nav-link" data-scroll-target="#el-contenido-en-prosa">El contenido, en prosa</a>
+  <ul class="collapse">
+  <li><a href="#set.seed-por-qué-el-azar-de-r-no-es-azar-de-verdad" id="toc-set.seed-por-qué-el-azar-de-r-no-es-azar-de-verdad" class="nav-link" data-scroll-target="#set.seed-por-qué-el-azar-de-r-no-es-azar-de-verdad"><code>set.seed()</code>: por qué el azar de R no es azar de verdad</a></li>
+  <li><a href="#sample-sortear-sin-fórmula" id="toc-sample-sortear-sin-fórmula" class="nav-link" data-scroll-target="#sample-sortear-sin-fórmula"><code>sample()</code>: sortear sin fórmula</a></li>
+  <li><a href="#runif-números-continuos-todos-igual-de-probables" id="toc-runif-números-continuos-todos-igual-de-probables" class="nav-link" data-scroll-target="#runif-números-continuos-todos-igual-de-probables"><code>runif()</code>: números continuos, todos igual de probables</a></li>
+  <li><a href="#rbinom-decisiones-binarias-una-por-una" id="toc-rbinom-decisiones-binarias-una-por-una" class="nav-link" data-scroll-target="#rbinom-decisiones-binarias-una-por-una"><code>rbinom()</code>: decisiones binarias, una por una</a></li>
+  <li><a href="#rnorm-la-campana-cuando-aplica" id="toc-rnorm-la-campana-cuando-aplica" class="nav-link" data-scroll-target="#rnorm-la-campana-cuando-aplica"><code>rnorm()</code>: la campana, cuando aplica</a></li>
+  <li><a href="#rpois-contar-eventos-raros" id="toc-rpois-contar-eventos-raros" class="nav-link" data-scroll-target="#rpois-contar-eventos-raros"><code>rpois()</code>: contar eventos raros</a></li>
+  <li><a href="#replicate-repetir-el-sorteo-no-solo-hacerlo-una-vez" id="toc-replicate-repetir-el-sorteo-no-solo-hacerlo-una-vez" class="nav-link" data-scroll-target="#replicate-repetir-el-sorteo-no-solo-hacerlo-una-vez"><code>replicate()</code>: repetir el sorteo, no solo hacerlo una vez</a></li>
+  <li><a href="#si-algo-falla" id="toc-si-algo-falla" class="nav-link" data-scroll-target="#si-algo-falla">Si algo falla</a></li>
+  <li><a href="#lo-que-ya-sabes-hacer" id="toc-lo-que-ya-sabes-hacer" class="nav-link" data-scroll-target="#lo-que-ya-sabes-hacer">Lo que ya sabes hacer</a></li>
+  </ul></li>
+  <li><a href="#para-seguir" id="toc-para-seguir" class="nav-link" data-scroll-target="#para-seguir">Para seguir</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Extra 2 · Probabilidad y simulación</h1>
+<p class="subtitle lead">¿Qué tanto cambiaría el resultado si volvieras a tirar los dados?</p>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<div class="gancho">
+<p>Una encuesta dice que un candidato tiene 42% de intención de voto. Si levantaras la encuesta otra vez, con otras mil personas elegidas al azar, ¿saldría también 42%? Casi seguro que no —saldría 39, o 44, o 41.6—. La pregunta de qué tanto varía un número que depende del azar es, en el fondo, la pregunta que hace toda la estadística inferencial que vas a cursar más adelante. Aquí no la vas a formalizar: la vas a <strong>ver moverse</strong>, repitiendo sorteos con la computadora miles de veces en lugar de una sola.</p>
+</div>
+<section id="qué-vas-a-poder-hacer-al-salir" class="level2">
+<h2 class="anchored" data-anchor-id="qué-vas-a-poder-hacer-al-salir">Qué vas a poder hacer al salir</h2>
+<p>Vas a fijar la semilla del generador aleatorio de R con <code>set.seed()</code> para que cualquier sorteo que hagas sea exactamente reproducible. Vas a sortear municipios con <code>sample()</code>, con y sin reemplazo. Vas a generar números al azar con cuatro distribuciones —<code>runif()</code>, <code>rbinom()</code>, <code>rnorm()</code>, <code>rpois()</code>— y vas a entender para qué tipo de pregunta sirve cada una, sin una sola fórmula de densidad de probabilidad. Y vas a usar <code>replicate()</code> —la conociste de pasada en el extra 1— para repetir un sorteo miles de veces y ver, con tus propios ojos, cómo se comporta la variación que produce el azar.</p>
+<p>Una advertencia honesta, antes de empezar: este módulo se detiene justo antes de la inferencia estadística formal. No vas a calcular un p-valor, ni un intervalo de confianza, ni el poder de una prueba. Esas palabras las vas a aprender bien, con su aparato completo, en Estadística I y Estadística II. Aquí, si alguna vez llegaras a necesitar un p-valor para algo, la regla es: nómbralo, di que se formaliza más adelante, y no lo uses como herramienta de decisión. Lo que sí es legítimamente tuyo desde hoy es la simulación misma: la capacidad de construir, con código, un mundo de mentiras controlado —donde tú decides las reglas del azar— para entender mejor el mundo de verdad.</p>
+</section>
+<section id="qué-necesitas-haber-visto-antes" class="level2">
+<h2 class="anchored" data-anchor-id="qué-necesitas-haber-visto-antes">Qué necesitas haber visto antes</h2>
+<p>Las sesiones 1 y 2 (objetos, vectores, la mención de <code>set.seed()</code> que ahí quedó pendiente) y, si puedes, el <strong>extra 1</strong>: ahí conociste <code>replicate()</code> por primera vez y aquí la vas a usar en serio.</p>
+</section>
+<section id="los-archivos-del-módulo" class="level2">
+<h2 class="anchored" data-anchor-id="los-archivos-del-módulo">Los archivos del módulo</h2>
+<div class="descargas">
+<p><a href="https://raw.githubusercontent.com/emirandago/r-para-politologos/main/extras/02-probabilidad-y-simulacion/02_script.R" class="btn-descarga">02_script.R — el código completo</a> <a href="https://raw.githubusercontent.com/emirandago/r-para-politologos/main/extras/02-probabilidad-y-simulacion/02_ejercicio.R" class="btn-descarga">02_ejercicio.R — para practicar</a> <a href="https://raw.githubusercontent.com/emirandago/r-para-politologos/main/extras/02-probabilidad-y-simulacion/02_solucion.R" class="btn-descarga secundario">02_solucion.R — solución comentada</a></p>
+</div>
+<p><code>02_script.R</code> corre completo, de arriba abajo, sin huecos.</p>
+</section>
+<section id="el-contenido-en-prosa" class="level2">
+<h2 class="anchored" data-anchor-id="el-contenido-en-prosa">El contenido, en prosa</h2>
+<section id="set.seed-por-qué-el-azar-de-r-no-es-azar-de-verdad" class="level3">
+<h3 class="anchored" data-anchor-id="set.seed-por-qué-el-azar-de-r-no-es-azar-de-verdad"><code>set.seed()</code>: por qué el azar de R no es azar de verdad</h3>
+<p>Lo que R llama “números aleatorios” es, en realidad, una secuencia perfectamente determinista que se ve como si fuera azarosa. <code>set.seed(n)</code> le dice a R en qué punto exacto de esa secuencia empezar. Fijar la semilla con un número —cualquiera, no importa cuál— tiene una sola consecuencia, pero es enorme: <strong>todo el mundo que corra tu código, con la misma versión de R, obtiene exactamente los mismos “números al azar” que tú</strong>. Sin <code>set.seed()</code>, cada corrida da un resultado distinto y nadie —ni siquiera tú mismo mañana— puede reproducir lo que viste hoy. Ningún curso heredado en este laboratorio usó <code>set.seed()</code> ni una sola vez; aquí se corrige desde la primera línea.</p>
+</section>
+<section id="sample-sortear-sin-fórmula" class="level3">
+<h3 class="anchored" data-anchor-id="sample-sortear-sin-fórmula"><code>sample()</code>: sortear sin fórmula</h3>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sample</span>(municipios_oaxaca, <span class="at">size =</span> <span class="dv">5</span>, <span class="at">replace =</span> <span class="cn">FALSE</span>)</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<p><code>sample()</code> saca elementos al azar de un vector. <code>replace = FALSE</code> —el valor de fábrica— es un sorteo “sin devolver la bolita a la urna”: una vez que salió un municipio, no puede volver a salir. <code>replace = TRUE</code> sí permite repeticiones, y es lo que necesitas cuando simulas algo que puede repetirse de verdad —lanzar una moneda muchas veces, por ejemplo, donde “águila” puede salir dos veces seguidas—. Adrián Lucardi, en su curso de posgrado, le pide a cada persona del grupo que sortee con su propia clave del ITAM como semilla, para que cada quien reciba “su” país o su estado sin que dos personas trabajen con el mismo caso por accidente. Es un uso de <code>sample()</code> completamente ajeno a la estadística inferencial: es, simplemente, un sorteo justo y verificable.</p>
+</section>
+<section id="runif-números-continuos-todos-igual-de-probables" class="level3">
+<h3 class="anchored" data-anchor-id="runif-números-continuos-todos-igual-de-probables"><code>runif()</code>: números continuos, todos igual de probables</h3>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">runif</span>(<span class="dv">5</span>, <span class="at">min =</span> <span class="dv">0</span>, <span class="at">max =</span> <span class="dv">100</span>)</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<p>La distribución uniforme es la más simple de las cuatro: cualquier número entre el mínimo y el máximo tiene exactamente la misma probabilidad de salir. Sirve para simular ruido sin ningún patrón —ni una zona más probable que otra— y es la base sobre la que están construidas las otras tres distribuciones de esta página, aunque R te las da ya resueltas.</p>
+</section>
+<section id="rbinom-decisiones-binarias-una-por-una" class="level3">
+<h3 class="anchored" data-anchor-id="rbinom-decisiones-binarias-una-por-una"><code>rbinom()</code>: decisiones binarias, una por una</h3>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">rbinom</span>(<span class="at">n =</span> <span class="dv">38773</span>, <span class="at">size =</span> <span class="dv">1</span>, <span class="at">prob =</span> <span class="fl">0.65231</span>)</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<p><code>rbinom()</code> simula resultados de tipo sí/no —vota o no vota, gana o pierde—, repetidos <code>n</code> veces, cada uno con la misma probabilidad <code>prob</code> de dar “sí”. <code>size = 1</code> significa “una moneda por persona”; si en cambio pusieras <code>size = 10</code>, cada resultado sería la cuenta de cuántos “sí” salieron en diez volados, no en uno. El ejemplo de arriba simula, persona por persona, la decisión de votar o no votar en Asientos, Aguascalientes —un municipio real de 38,773 personas en la lista nominal, donde en 2024 participó 65.231% del padrón—, <strong>como si</strong> cada quien decidiera de forma independiente, con la misma probabilidad. Súmalo y divide entre 38,773: te va a dar un número cerca de 65.231%, no exacto —cada corrida sin <code>set.seed()</code> varía un poco—. Esa distancia entre “cerca” y “exacto” ya es, sin que lo hayas buscado, la primera pista de por qué la estadística inferencial existe: el mundo real casi nunca se comporta como monedas perfectamente independientes —hay familias que votan juntas, cuadras que comparten opinión—, y la participación real de Asientos es UN dato, no un promedio de mil sorteos.</p>
+</section>
+<section id="rnorm-la-campana-cuando-aplica" class="level3">
+<h3 class="anchored" data-anchor-id="rnorm-la-campana-cuando-aplica"><code>rnorm()</code>: la campana, cuando aplica</h3>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">rnorm</span>(<span class="at">n =</span> <span class="dv">2475</span>, <span class="at">mean =</span> <span class="fl">63.12</span>, <span class="at">sd =</span> <span class="fl">11.72</span>)</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<p>La distribución normal —la “campana”— sirve para variables continuas que se acumulan alrededor de un centro y se van haciendo más raras conforme te alejas de él, de forma simétrica. <code>mean</code> es el centro, <code>sd</code> qué tan apretada o dispersa es la campana —la misma <code>sd()</code> que ya calculaste en la sesión 8—. La participación municipal real de 2024 tiene una media de 63.12% y una desviación estándar de 11.72 puntos; generar 2,475 números con <code>rnorm()</code> y esos mismos dos parámetros produce una variable que <strong>se parece</strong> a la participación real —una campana centrada casi en el mismo sitio— pero no es idéntica: la real tiene un sesgo hacia la izquierda —hay más municipios con participación muy baja que muy alta, comparado con una campana perfecta— que <code>rnorm()</code>, por construcción, no puede replicar. Superponer las dos —la real y la simulada— en un mismo histograma es la manera más honesta de mostrar en qué se parece un modelo a los datos y en qué no.</p>
+</section>
+<section id="rpois-contar-eventos-raros" class="level3">
+<h3 class="anchored" data-anchor-id="rpois-contar-eventos-raros"><code>rpois()</code>: contar eventos raros</h3>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">rpois</span>(<span class="at">n =</span> <span class="dv">12</span>, <span class="at">lambda =</span> <span class="dv">4</span>)</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<p>La distribución de Poisson simula CONTEOS de eventos —no decisiones binarias, no medidas continuas—: cuántas quejas llegan, cuántos incidentes se reportan, cuántas iniciativas se presentan. <code>lambda</code> es el promedio esperado de eventos por periodo. El ejemplo de arriba simula doce meses de un OPLE hipotético que recibe, en promedio, 4 quejas por prácticas indebidas al mes —un número inventado, para el ejemplo, igual que los <code>votos_ficticios</code> de la sesión 1—: algunos meses van a salir 2, otros 7, casi nunca exactamente 4, y eso es exactamente lo que Poisson predice: la variación alrededor del promedio crece junto con el promedio mismo.</p>
+</section>
+<section id="replicate-repetir-el-sorteo-no-solo-hacerlo-una-vez" class="level3">
+<h3 class="anchored" data-anchor-id="replicate-repetir-el-sorteo-no-solo-hacerlo-una-vez"><code>replicate()</code>: repetir el sorteo, no solo hacerlo una vez</h3>
+<p>Aquí es donde las piezas se juntan. Una sola muestra de municipios te da un promedio de participación. ¿Qué tan distinto sería ese promedio si hubieras sorteado otro grupo de municipios?</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>promedios_simulados <span class="ot">&lt;-</span> <span class="fu">replicate</span>(</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>  <span class="dv">1000</span>,</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mean</span>(<span class="fu">sample</span>(municipios<span class="sc">$</span>participacion, <span class="at">size =</span> <span class="dv">100</span>, <span class="at">replace =</span> <span class="cn">FALSE</span>))</span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Esto saca, mil veces, una muestra de 100 municipios al azar —sin <code>set.seed()</code> esto varía cada vez que lo corres; con <code>set.seed()</code>, siempre va a dar los mismos mil promedios— y guarda el promedio de participación de cada una de las mil muestras. Grafica <code>promedios_simulados</code> en un histograma y vas a ver, con tus propios ojos, una campana: la mayoría de los mil sorteos da un promedio cercano al promedio real de los 2,475 municipios, y unos pocos sorteos —los que por azar sacaron demasiados municipios extremos— se alejan más. Esa campana <strong>es</strong> la intuición completa detrás de conceptos que vas a nombrar formalmente en Estadística —variación de un estimador, qué tan confiable es un número que viene de una muestra—. Aquí, hoy, no le vas a poner un nombre técnico ni la vas a usar para decidir nada: nada más la viste aparecer.</p>
+</section>
+<section id="si-algo-falla" class="level3 si-algo-falla">
+<h3 class="anchored" data-anchor-id="si-algo-falla">Si algo falla</h3>
+<p><strong><code>Error in rbinom(...) : NA/NaN argument</code></strong> Casi siempre <code>prob</code> quedó fuera del rango 0 a 1 —por ejemplo, si le pasaste un porcentaje como <code>65.231</code> en vez de <code>0.65231</code>—. Las cuatro funciones de esta página esperan probabilidades como proporciones, no como porcentajes.</p>
+<p><strong>Cada vez que corro el mismo bloque me sale un resultado distinto</strong> Es lo esperado si no pusiste <code>set.seed()</code> justo antes. Agrega <code>set.seed(2026)</code> —o cualquier número que prefieras— en la línea anterior y vuelve a correr las dos líneas juntas, siempre en ese orden.</p>
+<p><strong><code>Error: object 'municipios' not found</code></strong> No corriste el bloque de carga de datos al principio del script. Súbete al inicio del archivo y corre todo de arriba abajo, sin saltarte bloques.</p>
+<p><strong>El histograma sale con una sola barra enorme</strong> Casi siempre es que graficaste el vector equivocado —por ejemplo, <code>municipios$participacion</code> completo en vez de <code>promedios_simulados</code>—. Revisa qué variable le pasaste a <code>geom_histogram()</code>.</p>
+<p>Hay más, con su traducción y su arreglo, en <a href="../../recursos/errores-comunes.html">Errores comunes</a>.</p>
+</section>
+<section id="lo-que-ya-sabes-hacer" class="level3 ya-sabes">
+<h3 class="anchored" data-anchor-id="lo-que-ya-sabes-hacer">Lo que ya sabes hacer</h3>
+<ul>
+<li>Fijar una semilla con <code>set.seed()</code> para que cualquier sorteo sea exactamente reproducible por alguien más.</li>
+<li>Elegir, según el tipo de pregunta, entre <code>sample()</code>, <code>runif()</code>, <code>rbinom()</code>, <code>rnorm()</code> y <code>rpois()</code>, y explicar por qué cada una no sirve para las otras tres preguntas.</li>
+<li>Repetir un sorteo miles de veces con <code>replicate()</code> y leer, en un histograma, cómo varía un promedio calculado sobre una muestra.</li>
+</ul>
+</section>
+</section>
+<section id="para-seguir" class="level2">
+<h2 class="anchored" data-anchor-id="para-seguir">Para seguir</h2>
+<p>La <strong>sesión 9</strong> —regresión— y el <strong>extra 3</strong> —logit— son los lugares donde vas a ver, por primera vez con nombre propio, algunos de los conceptos que aquí quedaron sin formalizar: qué tan confiable es un coeficiente, y qué significa un asterisco junto a un número. Cuando llegues ahí, vale la pena volver un momento a este módulo y notar que ya habías visto el fenómeno moverse, aunque no supieras cómo se llamaba.</p>
+
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copiado");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copiado");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp("https:\/\/emirandago\.github\.io\/r-para-politologos\/");
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+</div> <!-- /content -->
+<footer class="footer">
+  <div class="nav-footer">
+    <div class="nav-footer-left">
+<p>Laboratorio de R para Ciencia Política · ITAM</p>
+</div>   
+    <div class="nav-footer-center">
+      &nbsp;
+    </div>
+    <div class="nav-footer-right">
+<p>EMG · Material bajo licencia <a href="https://github.com/emirandago/r-para-politologos/blob/main/LICENSE">CC BY 4.0</a></p>
+</div>
+  </div>
+</footer>
+
+
+
+
+</body></html>
