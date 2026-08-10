@@ -1,7 +1,7 @@
 # Sesión 3 · Pedirle cosas a los datos
 
 La forma cómoda de leer esto es la página del curso:
-[sesión 3 en el sitio](https://emirandago.github.io/r-para-politologos/sesiones/03-pedirle-cosas-a-los-datos/03_guion.html).
+[sesión 3 en el sitio](https://emirandago.github.io/r-para-ciencia-politica/sesiones/03-pedirle-cosas-a-los-datos/03_guion.html).
 
 **Pregunta:** ¿Dónde ganó Morena por más de veinte puntos?
 

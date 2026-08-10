@@ -1,7 +1,7 @@
 # Sesión 2 · Los datos son tablas
 
 La forma cómoda de leer esto es la página del curso:
-[sesión 2 en el sitio](https://emirandago.github.io/r-para-politologos/sesiones/02-los-datos-son-tablas/02_guion.html).
+[sesión 2 en el sitio](https://emirandago.github.io/r-para-ciencia-politica/sesiones/02-los-datos-son-tablas/02_guion.html).
 
 **Pregunta:** ¿Cómo se ve una base de datos por dentro?
 

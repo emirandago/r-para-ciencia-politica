@@ -2,7 +2,7 @@
 
 Uso responsable de inteligencia artificial en el trabajo cuantitativo del
 laboratorio. La página equivalente en el sitio es
-[ia/index.qmd](https://emirandago.github.io/r-para-politologos/ia/index.html).
+[ia/index.qmd](https://emirandago.github.io/r-para-ciencia-politica/ia/index.html).
 
 ## Estado real de esta carpeta
 

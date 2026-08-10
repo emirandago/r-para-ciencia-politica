@@ -2,7 +2,7 @@
 
 Material de consulta que acompaña a las once sesiones: no se lee de
 corrido, se abre cuando hace falta. La forma cómoda de leerlo es el sitio:
-[todos los recursos](https://emirandago.github.io/r-para-politologos/recursos/index.html).
+[todos los recursos](https://emirandago.github.io/r-para-ciencia-politica/recursos/index.html).
 
 | Archivo | Qué es | Para qué sirve |
 |---|---|---|

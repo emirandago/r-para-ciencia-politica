@@ -9,7 +9,7 @@
 #
 # Qué necesitas antes de empezar:
 #   Tener R y RStudio instalados y haber abierto el archivo
-#   r-para-politologos.Rproj. Si no lo hiciste, ve a la página
+#   r-para-ciencia-politica.Rproj. Si no lo hiciste, ve a la página
 #   "Empieza aquí" del sitio: son diez minutos y se hacen una sola vez.
 #
 # Datos: INE, cómputos distritales de la elección presidencial de 2024,
@@ -55,12 +55,15 @@ library(here)        # para no pelearnos nunca con las rutas de archivo
 # a partir de ahí.
 #
 # Esa carpeta se llama, en inglés, working directory: el directorio de trabajo.
-# Como abrimos el proyecto r-para-politologos.Rproj, R quedó parado en la
+# Como abrimos el proyecto r-para-ciencia-politica.Rproj, R quedó parado en la
 # carpeta del proyecto. Compruébalo:
 
 here()
 
-# Debe imprimir la ruta que termina en /r-para-politologos.
+# Debe imprimir una ruta que termina en la carpeta del curso: puede decir
+# /r-para-ciencia-politica o /r-para-ciencia-politica-main, segun como la
+# hayas descargado. Lo que importa es que sea la carpeta del curso y no
+# tu escritorio ni la carpeta de descargas.
 # Si termina en otra cosa, cierra todo y vuelve a abrir el .Rproj.
 #
 # A partir de ahora nunca vas a escribir una ruta completa como

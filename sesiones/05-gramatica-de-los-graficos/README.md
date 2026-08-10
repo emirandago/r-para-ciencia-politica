@@ -1,7 +1,7 @@
 # Sesión 5 · La gramática de los gráficos
 
 La forma cómoda de leer esto es la página del curso:
-[sesión 5 en el sitio](https://emirandago.github.io/r-para-politologos/sesiones/05-gramatica-de-los-graficos/05_guion.html).
+[sesión 5 en el sitio](https://emirandago.github.io/r-para-ciencia-politica/sesiones/05-gramatica-de-los-graficos/05_guion.html).
 
 **Pregunta:** ¿Por qué unos gráficos convencen y otros no?
 

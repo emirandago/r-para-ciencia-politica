@@ -1,7 +1,7 @@
 # Sesión 9 · La regresión como instrumento politológico
 
 La forma cómoda de leer esto es la página del curso:
-[sesión 9 en el sitio](https://emirandago.github.io/r-para-politologos/sesiones/09-la-regresion/09_guion.html).
+[sesión 9 en el sitio](https://emirandago.github.io/r-para-ciencia-politica/sesiones/09-la-regresion/09_guion.html).
 
 **Pregunta:** ¿Cuánto explica X a Y?
 

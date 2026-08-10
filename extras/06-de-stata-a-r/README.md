@@ -1,7 +1,7 @@
 # Extra 6 · Guía de Stata a R
 
 La forma cómoda de leer esto es la página del curso:
-[extra 6 en el sitio](https://emirandago.github.io/r-para-politologos/extras/06-de-stata-a-r/06_extra.html).
+[extra 6 en el sitio](https://emirandago.github.io/r-para-ciencia-politica/extras/06-de-stata-a-r/06_extra.html).
 
 **Pregunta:** ¿Por qué traducir un comando de Stata palabra por palabra no
 siempre funciona?

@@ -35,11 +35,11 @@ leer una base con `dplyr`.
 ## Los archivos de la sesión
 
 ::: {.descargas}
-[05_script.R — el guion de clase](https://raw.githubusercontent.com/emirandago/r-para-politologos/main/sesiones/05-gramatica-de-los-graficos/05_script.R){.btn-descarga}
-[05_ejercicio.R — para llevar](https://raw.githubusercontent.com/emirandago/r-para-politologos/main/sesiones/05-gramatica-de-los-graficos/05_ejercicio.R){.btn-descarga}
-[05_slides.pdf — las láminas](https://raw.githubusercontent.com/emirandago/r-para-politologos/main/sesiones/05-gramatica-de-los-graficos/05_slides.pdf){.btn-descarga .secundario}
-[05_script_completo.R — resuelto](https://raw.githubusercontent.com/emirandago/r-para-politologos/main/sesiones/05-gramatica-de-los-graficos/05_script_completo.R){.btn-descarga .secundario}
-[05_solucion.R — solución del ejercicio](https://raw.githubusercontent.com/emirandago/r-para-politologos/main/sesiones/05-gramatica-de-los-graficos/05_solucion.R){.btn-descarga .secundario}
+[05_script.R — el guion de clase](https://raw.githubusercontent.com/emirandago/r-para-ciencia-politica/main/sesiones/05-gramatica-de-los-graficos/05_script.R){.btn-descarga}
+[05_ejercicio.R — para llevar](https://raw.githubusercontent.com/emirandago/r-para-ciencia-politica/main/sesiones/05-gramatica-de-los-graficos/05_ejercicio.R){.btn-descarga}
+[05_slides.pdf — las láminas](https://raw.githubusercontent.com/emirandago/r-para-ciencia-politica/main/sesiones/05-gramatica-de-los-graficos/05_slides.pdf){.btn-descarga .secundario}
+[05_script_completo.R — resuelto](https://raw.githubusercontent.com/emirandago/r-para-ciencia-politica/main/sesiones/05-gramatica-de-los-graficos/05_script_completo.R){.btn-descarga .secundario}
+[05_solucion.R — solución del ejercicio](https://raw.githubusercontent.com/emirandago/r-para-ciencia-politica/main/sesiones/05-gramatica-de-los-graficos/05_solucion.R){.btn-descarga .secundario}
 :::
 
 El archivo `05_script.R` tiene huecos y **no corre de corrido**: está hecho para

@@ -36,11 +36,11 @@ objetos y usar `here()` para las rutas. Hoy no lo volvemos a explicar.
 ## Los archivos de la sesión
 
 ::: {.descargas}
-[02_script.R — el guion de clase](https://raw.githubusercontent.com/emirandago/r-para-politologos/main/sesiones/02-los-datos-son-tablas/02_script.R){.btn-descarga}
-[02_ejercicio.R — para llevar](https://raw.githubusercontent.com/emirandago/r-para-politologos/main/sesiones/02-los-datos-son-tablas/02_ejercicio.R){.btn-descarga}
-[02_slides.pdf — las láminas](https://raw.githubusercontent.com/emirandago/r-para-politologos/main/sesiones/02-los-datos-son-tablas/02_slides.pdf){.btn-descarga .secundario}
-[02_script_completo.R — resuelto](https://raw.githubusercontent.com/emirandago/r-para-politologos/main/sesiones/02-los-datos-son-tablas/02_script_completo.R){.btn-descarga .secundario}
-[02_solucion.R — solución del ejercicio](https://raw.githubusercontent.com/emirandago/r-para-politologos/main/sesiones/02-los-datos-son-tablas/02_solucion.R){.btn-descarga .secundario}
+[02_script.R — el guion de clase](https://raw.githubusercontent.com/emirandago/r-para-ciencia-politica/main/sesiones/02-los-datos-son-tablas/02_script.R){.btn-descarga}
+[02_ejercicio.R — para llevar](https://raw.githubusercontent.com/emirandago/r-para-ciencia-politica/main/sesiones/02-los-datos-son-tablas/02_ejercicio.R){.btn-descarga}
+[02_slides.pdf — las láminas](https://raw.githubusercontent.com/emirandago/r-para-ciencia-politica/main/sesiones/02-los-datos-son-tablas/02_slides.pdf){.btn-descarga .secundario}
+[02_script_completo.R — resuelto](https://raw.githubusercontent.com/emirandago/r-para-ciencia-politica/main/sesiones/02-los-datos-son-tablas/02_script_completo.R){.btn-descarga .secundario}
+[02_solucion.R — solución del ejercicio](https://raw.githubusercontent.com/emirandago/r-para-ciencia-politica/main/sesiones/02-los-datos-son-tablas/02_solucion.R){.btn-descarga .secundario}
 :::
 
 El archivo `02_script.R` tiene huecos y **no corre de corrido**: está hecho
@@ -126,7 +126,7 @@ corre `library(haven)` antes de usarla. Lo mismo pasa con `read_excel()` y
 **`Error: 'datos/limpios/puente_claves_ine_inegi.csv' does not exist`**
 R está parado en otra carpeta, o el nombre del archivo tiene una letra
 distinta. Corre `here()` para confirmar que la ruta termina en
-`/r-para-politologos`, y revisa el nombre exacto en `datos/README.md`.
+`/r-para-ciencia-politica`, y revisa el nombre exacto en `datos/README.md`.
 
 **`Error: object 'municipios' not found`**
 No corriste la línea que crea ese objeto, o lo escribiste con una letra

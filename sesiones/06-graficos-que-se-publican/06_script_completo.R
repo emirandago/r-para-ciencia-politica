@@ -49,9 +49,9 @@ library(patchwork)
 source(here("estilo", "tema_lab.R"))
 
 # Si esto marca "cannot open file ... tema_lab.R", casi siempre es que no
-# abriste el proyecto r-para-politologos.Rproj y R no está parado donde
+# abriste el proyecto r-para-ciencia-politica.Rproj y R no está parado donde
 # cree que está. Corre here() sola en la consola y revisa que la ruta
-# termine en /r-para-politologos.
+# termine en /r-para-ciencia-politica.
 
 
 # ---- 1. Los datos de hoy ----

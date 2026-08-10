@@ -1,7 +1,7 @@
 # Sesión 1 · Tu primera hora en R
 
 La forma cómoda de leer esto es la página del curso:
-[sesión 1 en el sitio](https://emirandago.github.io/r-para-politologos/sesiones/01-primer-contacto/01_guion.html).
+[sesión 1 en el sitio](https://emirandago.github.io/r-para-ciencia-politica/sesiones/01-primer-contacto/01_guion.html).
 
 **Pregunta:** ¿Por qué un politólogo programa?
 

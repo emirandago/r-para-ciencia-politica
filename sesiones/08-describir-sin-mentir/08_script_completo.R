@@ -38,9 +38,9 @@ library(here)
 source(here("estilo", "tema_lab.R"))
 
 # Si esto marca "cannot open file ... tema_lab.R", no abriste el proyecto
-# r-para-politologos.Rproj y R no está parado donde cree que está. Corre
+# r-para-ciencia-politica.Rproj y R no está parado donde cree que está. Corre
 # here() sola en la consola y revisa que la ruta termine en
-# /r-para-politologos.
+# /r-para-ciencia-politica.
 
 
 # ---- 1. Dos maneras de resumir una variable ----

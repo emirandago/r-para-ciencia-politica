@@ -1,7 +1,7 @@
 # Sesión 6 · Gráficos que se publican
 
 La forma cómoda de leer esto es la página del curso:
-[sesión 6 en el sitio](https://emirandago.github.io/r-para-politologos/sesiones/06-graficos-que-se-publican/06_guion.html).
+[sesión 6 en el sitio](https://emirandago.github.io/r-para-ciencia-politica/sesiones/06-graficos-que-se-publican/06_guion.html).
 
 **Pregunta:** ¿Cómo hago una figura de paper?
 

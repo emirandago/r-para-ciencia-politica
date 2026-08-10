@@ -42,9 +42,9 @@ la **sesión 9**.
 ## Los archivos del módulo
 
 ::: {.descargas}
-[05_script.R — el código completo](https://raw.githubusercontent.com/emirandago/r-para-politologos/main/extras/05-inferencia-causal/05_script.R){.btn-descarga}
-[05_ejercicio.R — para practicar](https://raw.githubusercontent.com/emirandago/r-para-politologos/main/extras/05-inferencia-causal/05_ejercicio.R){.btn-descarga}
-[05_solucion.R — solución comentada](https://raw.githubusercontent.com/emirandago/r-para-politologos/main/extras/05-inferencia-causal/05_solucion.R){.btn-descarga .secundario}
+[05_script.R — el código completo](https://raw.githubusercontent.com/emirandago/r-para-ciencia-politica/main/extras/05-inferencia-causal/05_script.R){.btn-descarga}
+[05_ejercicio.R — para practicar](https://raw.githubusercontent.com/emirandago/r-para-ciencia-politica/main/extras/05-inferencia-causal/05_ejercicio.R){.btn-descarga}
+[05_solucion.R — solución comentada](https://raw.githubusercontent.com/emirandago/r-para-ciencia-politica/main/extras/05-inferencia-causal/05_solucion.R){.btn-descarga .secundario}
 :::
 
 `05_script.R` corre completo, de arriba abajo, sin huecos.

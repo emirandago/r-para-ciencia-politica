@@ -1,7 +1,7 @@
 # Sesión 8 · Describir sin mentir
 
 La forma cómoda de leer esto es la página del curso:
-[sesión 8 en el sitio](https://emirandago.github.io/r-para-politologos/sesiones/08-describir-sin-mentir/08_guion.html).
+[sesión 8 en el sitio](https://emirandago.github.io/r-para-ciencia-politica/sesiones/08-describir-sin-mentir/08_guion.html).
 
 **Pregunta:** ¿Qué significa que dos cosas «van juntas»?
 

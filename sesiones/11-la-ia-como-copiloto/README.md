@@ -1,7 +1,7 @@
 # Sesión 11 · La IA como copiloto, no como piloto
 
 La forma cómoda de leer esto es la página del curso:
-[sesión 11 en el sitio](https://emirandago.github.io/r-para-politologos/sesiones/11-la-ia-como-copiloto/11_guion.html).
+[sesión 11 en el sitio](https://emirandago.github.io/r-para-ciencia-politica/sesiones/11-la-ia-como-copiloto/11_guion.html).
 
 **Pregunta:** ¿Cómo uso la IA sin dejar de aprender?
 

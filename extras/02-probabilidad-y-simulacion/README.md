@@ -1,7 +1,7 @@
 # Extra 2 · Probabilidad y simulación
 
 La forma cómoda de leer esto es la página del curso:
-[extra 2 en el sitio](https://emirandago.github.io/r-para-politologos/extras/02-probabilidad-y-simulacion/02_extra.html).
+[extra 2 en el sitio](https://emirandago.github.io/r-para-ciencia-politica/extras/02-probabilidad-y-simulacion/02_extra.html).
 
 **Pregunta:** ¿Qué tanto cambiaría el resultado si volvieras a tirar los
 dados?

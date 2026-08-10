@@ -1,7 +1,7 @@
 # Extra 3 · Modelos logit y GLM
 
 La forma cómoda de leer esto es la página del curso:
-[extra 3 en el sitio](https://emirandago.github.io/r-para-politologos/extras/03-logit-y-glm/03_extra.html).
+[extra 3 en el sitio](https://emirandago.github.io/r-para-ciencia-politica/extras/03-logit-y-glm/03_extra.html).
 
 **Pregunta:** ¿Qué pasa cuando lo que quieres explicar es sí o no?
 

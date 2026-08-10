@@ -123,11 +123,11 @@ No necesitas saber qué es `git` ni tener una cuenta de GitHub para conseguir
 el material del curso.
 
 1. Entra a la página del repositorio:
-   [github.com/emirandago/r-para-politologos](https://github.com/emirandago/r-para-politologos).
+   [github.com/emirandago/r-para-ciencia-politica](https://github.com/emirandago/r-para-ciencia-politica).
 2. Busca el botón verde que dice **"Code"** (cerca de la parte superior de
    la lista de archivos) y dale clic.
 3. En el menú que se abre, elige **"Download ZIP"**. El navegador va a
-   descargar un archivo llamado algo como `r-para-politologos-main.zip`,
+   descargar un archivo llamado algo como `r-para-ciencia-politica-main.zip`,
    normalmente a tu carpeta de Descargas.
 4. Descomprime ese archivo:
    - En **Windows**: clic derecho sobre el archivo → **"Extraer todo..."**
@@ -137,7 +137,7 @@ el material del curso.
      misma carpeta donde estaba el ZIP.
 5. Verifica que la carpeta resultante contenga directamente los archivos del
    curso —debes ver, entre otros, un archivo llamado
-   `r-para-politologos.Rproj` y carpetas como `sesiones` y `datos`—. Si en
+   `r-para-ciencia-politica.Rproj` y carpetas como `sesiones` y `datos`—. Si en
    vez de eso ves una sola carpeta con el mismo nombre adentro, entra a esa
    carpeta interior: ahí están los archivos de verdad (ver la sección "si
    algo falló" más abajo).
@@ -148,7 +148,7 @@ el material del curso.
 ## Paso 5 — Abrir el proyecto
 
 Dentro de la carpeta que acabas de descomprimir, busca el archivo
-**`r-para-politologos.Rproj`** (el icono es un cubo azul con una "R") y dale
+**`r-para-ciencia-politica.Rproj`** (el icono es un cubo azul con una "R") y dale
 doble clic. Eso abre RStudio ya "parado" en la carpeta correcta del curso:
 es la única forma correcta de empezar a trabajar, y a partir de la sesión 1
 vas a entender exactamente por qué importa.
@@ -222,8 +222,8 @@ aviso cambian entre versiones de macOS.
 **El ZIP se descomprime dentro de otra carpeta con el mismo nombre.**
 Algunos navegadores o herramientas de descompresión crean una carpeta
 adicional alrededor de la carpeta que ya trae el ZIP, así que terminas con
-algo como `r-para-politologos-main/r-para-politologos-main/` en vez de
-`r-para-politologos-main/` directo. La señal es que abres la carpeta y solo
+algo como `r-para-ciencia-politica-main/r-para-ciencia-politica-main/` en vez de
+`r-para-ciencia-politica-main/` directo. La señal es que abres la carpeta y solo
 ves otra carpeta adentro, en vez de ver archivos como `.Rproj` o carpetas
 como `sesiones`. La solución es simplemente seguir entrando una carpeta más
 hasta que veas los archivos del curso directamente, y mover esa carpeta
@@ -237,7 +237,7 @@ carpeta del proyecto está en una ruta con caracteres acentuados, con "ñ", o
 con muchos espacios y paréntesis, del estilo `Descargas/Nueva carpeta (2)`.
 Evítalo guardando la carpeta del curso en una ruta simple, por ejemplo
 directamente en tu Escritorio o en Documentos, con el nombre de carpeta que
-trae por defecto (`r-para-politologos-main` o `r-para-politologos`), sin
+trae por defecto (`r-para-ciencia-politica-main` o `r-para-ciencia-politica`), sin
 renombrarla con acentos ni espacios adicionales.
 
 **El antivirus de Windows bloquea el instalador o marca R o RStudio como

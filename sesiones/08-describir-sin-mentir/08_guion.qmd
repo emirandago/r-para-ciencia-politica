@@ -36,11 +36,11 @@ falta la sesión 7: hoy se trabaja con las mismas bases de la elección de
 ## Los archivos de la sesión
 
 ::: {.descargas}
-[08_script.R — el guion de clase](https://raw.githubusercontent.com/emirandago/r-para-politologos/main/sesiones/08-describir-sin-mentir/08_script.R){.btn-descarga}
-[08_ejercicio.R — para llevar](https://raw.githubusercontent.com/emirandago/r-para-politologos/main/sesiones/08-describir-sin-mentir/08_ejercicio.R){.btn-descarga}
-[08_slides.pdf — las láminas](https://raw.githubusercontent.com/emirandago/r-para-politologos/main/sesiones/08-describir-sin-mentir/08_slides.pdf){.btn-descarga .secundario}
-[08_script_completo.R — resuelto](https://raw.githubusercontent.com/emirandago/r-para-politologos/main/sesiones/08-describir-sin-mentir/08_script_completo.R){.btn-descarga .secundario}
-[08_solucion.R — solución del ejercicio](https://raw.githubusercontent.com/emirandago/r-para-politologos/main/sesiones/08-describir-sin-mentir/08_solucion.R){.btn-descarga .secundario}
+[08_script.R — el guion de clase](https://raw.githubusercontent.com/emirandago/r-para-ciencia-politica/main/sesiones/08-describir-sin-mentir/08_script.R){.btn-descarga}
+[08_ejercicio.R — para llevar](https://raw.githubusercontent.com/emirandago/r-para-ciencia-politica/main/sesiones/08-describir-sin-mentir/08_ejercicio.R){.btn-descarga}
+[08_slides.pdf — las láminas](https://raw.githubusercontent.com/emirandago/r-para-ciencia-politica/main/sesiones/08-describir-sin-mentir/08_slides.pdf){.btn-descarga .secundario}
+[08_script_completo.R — resuelto](https://raw.githubusercontent.com/emirandago/r-para-ciencia-politica/main/sesiones/08-describir-sin-mentir/08_script_completo.R){.btn-descarga .secundario}
+[08_solucion.R — solución del ejercicio](https://raw.githubusercontent.com/emirandago/r-para-ciencia-politica/main/sesiones/08-describir-sin-mentir/08_solucion.R){.btn-descarga .secundario}
 :::
 
 El archivo `08_script.R` tiene huecos y **no corre de corrido**: está hecho
@@ -171,7 +171,7 @@ documenta). `cor()` no ignora los `NA` por su cuenta; hay que pasarle
 **`Error in mean(municipios$lista_nominal) : object 'municipios' not found`**
 No corriste la línea donde se creó el objeto `municipios` con `read_csv()`,
 o el proyecto no está abierto y `here()` no encuentra el archivo. Corre
-`here()` sola y revisa que la ruta termine en `/r-para-politologos`.
+`here()` sola y revisa que la ruta termine en `/r-para-ciencia-politica`.
 
 **El gráfico sale sin línea de tendencia**
 Revisa que escribiste `geom_smooth(method = "lm")` y no solo

@@ -32,9 +32,9 @@ como referencia. Se aprovecha más si ya viste las sesiones 2 a 4 (importar,
 ## Los archivos del módulo
 
 ::: {.descargas}
-[06_script.R — el código completo](https://raw.githubusercontent.com/emirandago/r-para-politologos/main/extras/06-de-stata-a-r/06_script.R){.btn-descarga}
-[06_ejercicio.R — para practicar](https://raw.githubusercontent.com/emirandago/r-para-politologos/main/extras/06-de-stata-a-r/06_ejercicio.R){.btn-descarga}
-[06_solucion.R — solución comentada](https://raw.githubusercontent.com/emirandago/r-para-politologos/main/extras/06-de-stata-a-r/06_solucion.R){.btn-descarga .secundario}
+[06_script.R — el código completo](https://raw.githubusercontent.com/emirandago/r-para-ciencia-politica/main/extras/06-de-stata-a-r/06_script.R){.btn-descarga}
+[06_ejercicio.R — para practicar](https://raw.githubusercontent.com/emirandago/r-para-ciencia-politica/main/extras/06-de-stata-a-r/06_ejercicio.R){.btn-descarga}
+[06_solucion.R — solución comentada](https://raw.githubusercontent.com/emirandago/r-para-ciencia-politica/main/extras/06-de-stata-a-r/06_solucion.R){.btn-descarga .secundario}
 :::
 
 `06_script.R` corre completo, de arriba abajo, sin huecos.

@@ -1,7 +1,7 @@
 # Extra 1 · Funciones e iteración a profundidad
 
 La forma cómoda de leer esto es la página del curso:
-[extra 1 en el sitio](https://emirandago.github.io/r-para-politologos/extras/01-funciones-e-iteracion/01_extra.html).
+[extra 1 en el sitio](https://emirandago.github.io/r-para-ciencia-politica/extras/01-funciones-e-iteracion/01_extra.html).
 
 **Pregunta:** ¿Qué haces cuando la misma operación se repite treinta y dos
 veces?

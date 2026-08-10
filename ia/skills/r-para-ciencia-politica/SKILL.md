@@ -1,5 +1,5 @@
 ---
-name: r-para-politologos
+name: r-para-ciencia-politica
 description: >-
   Guía la escritura, revisión y depuración de código R con el criterio del
   Laboratorio de R para Ciencia Política del ITAM. ACTÍVALA SIEMPRE que

@@ -13,8 +13,8 @@ authors:
   - family-names: "Miranda González"
     given-names: "Emiliano"
     affiliation: "Instituto Tecnológico Autónomo de México, Departamento Académico de Ciencia Política"
-repository-code: "https://github.com/emirandago/r-para-politologos"
-url: "https://emirandago.github.io/r-para-politologos/"
+repository-code: "https://github.com/emirandago/r-para-ciencia-politica"
+url: "https://emirandago.github.io/r-para-ciencia-politica/"
 license: CC-BY-4.0
 keywords:
   - R

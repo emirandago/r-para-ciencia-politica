@@ -45,9 +45,9 @@ por primera vez y aquí la vas a usar en serio.
 ## Los archivos del módulo
 
 ::: {.descargas}
-[02_script.R — el código completo](https://raw.githubusercontent.com/emirandago/r-para-politologos/main/extras/02-probabilidad-y-simulacion/02_script.R){.btn-descarga}
-[02_ejercicio.R — para practicar](https://raw.githubusercontent.com/emirandago/r-para-politologos/main/extras/02-probabilidad-y-simulacion/02_ejercicio.R){.btn-descarga}
-[02_solucion.R — solución comentada](https://raw.githubusercontent.com/emirandago/r-para-politologos/main/extras/02-probabilidad-y-simulacion/02_solucion.R){.btn-descarga .secundario}
+[02_script.R — el código completo](https://raw.githubusercontent.com/emirandago/r-para-ciencia-politica/main/extras/02-probabilidad-y-simulacion/02_script.R){.btn-descarga}
+[02_ejercicio.R — para practicar](https://raw.githubusercontent.com/emirandago/r-para-ciencia-politica/main/extras/02-probabilidad-y-simulacion/02_ejercicio.R){.btn-descarga}
+[02_solucion.R — solución comentada](https://raw.githubusercontent.com/emirandago/r-para-ciencia-politica/main/extras/02-probabilidad-y-simulacion/02_solucion.R){.btn-descarga .secundario}
 :::
 
 `02_script.R` corre completo, de arriba abajo, sin huecos.

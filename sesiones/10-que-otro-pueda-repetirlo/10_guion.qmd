@@ -48,11 +48,11 @@ explicar esas piezas otra vez.
 ## Los archivos de la sesión
 
 ::: {.descargas}
-[10_script.R — el guion de clase](https://raw.githubusercontent.com/emirandago/r-para-politologos/main/sesiones/10-que-otro-pueda-repetirlo/10_script.R){.btn-descarga}
-[10_ejercicio.R — para llevar](https://raw.githubusercontent.com/emirandago/r-para-politologos/main/sesiones/10-que-otro-pueda-repetirlo/10_ejercicio.R){.btn-descarga}
-[10_slides.pdf — las láminas](https://raw.githubusercontent.com/emirandago/r-para-politologos/main/sesiones/10-que-otro-pueda-repetirlo/10_slides.pdf){.btn-descarga .secundario}
-[10_script_completo.R — resuelto](https://raw.githubusercontent.com/emirandago/r-para-politologos/main/sesiones/10-que-otro-pueda-repetirlo/10_script_completo.R){.btn-descarga .secundario}
-[10_solucion.R — solución del ejercicio](https://raw.githubusercontent.com/emirandago/r-para-politologos/main/sesiones/10-que-otro-pueda-repetirlo/10_solucion.R){.btn-descarga .secundario}
+[10_script.R — el guion de clase](https://raw.githubusercontent.com/emirandago/r-para-ciencia-politica/main/sesiones/10-que-otro-pueda-repetirlo/10_script.R){.btn-descarga}
+[10_ejercicio.R — para llevar](https://raw.githubusercontent.com/emirandago/r-para-ciencia-politica/main/sesiones/10-que-otro-pueda-repetirlo/10_ejercicio.R){.btn-descarga}
+[10_slides.pdf — las láminas](https://raw.githubusercontent.com/emirandago/r-para-ciencia-politica/main/sesiones/10-que-otro-pueda-repetirlo/10_slides.pdf){.btn-descarga .secundario}
+[10_script_completo.R — resuelto](https://raw.githubusercontent.com/emirandago/r-para-ciencia-politica/main/sesiones/10-que-otro-pueda-repetirlo/10_script_completo.R){.btn-descarga .secundario}
+[10_solucion.R — solución del ejercicio](https://raw.githubusercontent.com/emirandago/r-para-ciencia-politica/main/sesiones/10-que-otro-pueda-repetirlo/10_solucion.R){.btn-descarga .secundario}
 :::
 
 El archivo `10_script.R` tiene huecos y **no corre de corrido**: está hecho

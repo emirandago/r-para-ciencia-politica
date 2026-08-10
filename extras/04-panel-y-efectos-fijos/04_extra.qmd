@@ -41,9 +41,9 @@ sesión 9 (`feols()`, `modelsummary()`).
 ## Los archivos del módulo
 
 ::: {.descargas}
-[04_script.R — el código completo](https://raw.githubusercontent.com/emirandago/r-para-politologos/main/extras/04-panel-y-efectos-fijos/04_script.R){.btn-descarga}
-[04_ejercicio.R — para practicar](https://raw.githubusercontent.com/emirandago/r-para-politologos/main/extras/04-panel-y-efectos-fijos/04_ejercicio.R){.btn-descarga}
-[04_solucion.R — solución comentada](https://raw.githubusercontent.com/emirandago/r-para-politologos/main/extras/04-panel-y-efectos-fijos/04_solucion.R){.btn-descarga .secundario}
+[04_script.R — el código completo](https://raw.githubusercontent.com/emirandago/r-para-ciencia-politica/main/extras/04-panel-y-efectos-fijos/04_script.R){.btn-descarga}
+[04_ejercicio.R — para practicar](https://raw.githubusercontent.com/emirandago/r-para-ciencia-politica/main/extras/04-panel-y-efectos-fijos/04_ejercicio.R){.btn-descarga}
+[04_solucion.R — solución comentada](https://raw.githubusercontent.com/emirandago/r-para-ciencia-politica/main/extras/04-panel-y-efectos-fijos/04_solucion.R){.btn-descarga .secundario}
 :::
 
 `04_script.R` corre completo, de arriba abajo, sin huecos.

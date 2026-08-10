@@ -39,11 +39,11 @@ necesario.
 ## Los archivos de la sesión
 
 ::: {.descargas}
-[04_script.R — el guion de clase](https://raw.githubusercontent.com/emirandago/r-para-politologos/main/sesiones/04-agrupar-resumir-cruzar/04_script.R){.btn-descarga}
-[04_ejercicio.R — para llevar](https://raw.githubusercontent.com/emirandago/r-para-politologos/main/sesiones/04-agrupar-resumir-cruzar/04_ejercicio.R){.btn-descarga}
-[04_slides.pdf — las láminas](https://raw.githubusercontent.com/emirandago/r-para-politologos/main/sesiones/04-agrupar-resumir-cruzar/04_slides.pdf){.btn-descarga .secundario}
-[04_script_completo.R — resuelto](https://raw.githubusercontent.com/emirandago/r-para-politologos/main/sesiones/04-agrupar-resumir-cruzar/04_script_completo.R){.btn-descarga .secundario}
-[04_solucion.R — solución del ejercicio](https://raw.githubusercontent.com/emirandago/r-para-politologos/main/sesiones/04-agrupar-resumir-cruzar/04_solucion.R){.btn-descarga .secundario}
+[04_script.R — el guion de clase](https://raw.githubusercontent.com/emirandago/r-para-ciencia-politica/main/sesiones/04-agrupar-resumir-cruzar/04_script.R){.btn-descarga}
+[04_ejercicio.R — para llevar](https://raw.githubusercontent.com/emirandago/r-para-ciencia-politica/main/sesiones/04-agrupar-resumir-cruzar/04_ejercicio.R){.btn-descarga}
+[04_slides.pdf — las láminas](https://raw.githubusercontent.com/emirandago/r-para-ciencia-politica/main/sesiones/04-agrupar-resumir-cruzar/04_slides.pdf){.btn-descarga .secundario}
+[04_script_completo.R — resuelto](https://raw.githubusercontent.com/emirandago/r-para-ciencia-politica/main/sesiones/04-agrupar-resumir-cruzar/04_script_completo.R){.btn-descarga .secundario}
+[04_solucion.R — solución del ejercicio](https://raw.githubusercontent.com/emirandago/r-para-ciencia-politica/main/sesiones/04-agrupar-resumir-cruzar/04_solucion.R){.btn-descarga .secundario}
 :::
 
 El archivo `04_script.R` tiene huecos y **no corre de corrido**: está hecho

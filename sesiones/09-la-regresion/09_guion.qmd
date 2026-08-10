@@ -36,11 +36,11 @@ entre participación y la ventaja de la coalición que calculaste entonces.
 ## Los archivos de la sesión
 
 ::: {.descargas}
-[09_script.R — el guion de clase](https://raw.githubusercontent.com/emirandago/r-para-politologos/main/sesiones/09-la-regresion/09_script.R){.btn-descarga}
-[09_ejercicio.R — para llevar](https://raw.githubusercontent.com/emirandago/r-para-politologos/main/sesiones/09-la-regresion/09_ejercicio.R){.btn-descarga}
-[09_slides.pdf — las láminas](https://raw.githubusercontent.com/emirandago/r-para-politologos/main/sesiones/09-la-regresion/09_slides.pdf){.btn-descarga .secundario}
-[09_script_completo.R — resuelto](https://raw.githubusercontent.com/emirandago/r-para-politologos/main/sesiones/09-la-regresion/09_script_completo.R){.btn-descarga .secundario}
-[09_solucion.R — solución del ejercicio](https://raw.githubusercontent.com/emirandago/r-para-politologos/main/sesiones/09-la-regresion/09_solucion.R){.btn-descarga .secundario}
+[09_script.R — el guion de clase](https://raw.githubusercontent.com/emirandago/r-para-ciencia-politica/main/sesiones/09-la-regresion/09_script.R){.btn-descarga}
+[09_ejercicio.R — para llevar](https://raw.githubusercontent.com/emirandago/r-para-ciencia-politica/main/sesiones/09-la-regresion/09_ejercicio.R){.btn-descarga}
+[09_slides.pdf — las láminas](https://raw.githubusercontent.com/emirandago/r-para-ciencia-politica/main/sesiones/09-la-regresion/09_slides.pdf){.btn-descarga .secundario}
+[09_script_completo.R — resuelto](https://raw.githubusercontent.com/emirandago/r-para-ciencia-politica/main/sesiones/09-la-regresion/09_script_completo.R){.btn-descarga .secundario}
+[09_solucion.R — solución del ejercicio](https://raw.githubusercontent.com/emirandago/r-para-ciencia-politica/main/sesiones/09-la-regresion/09_solucion.R){.btn-descarga .secundario}
 :::
 
 El archivo `09_script.R` tiene huecos y **no corre de corrido**: está hecho

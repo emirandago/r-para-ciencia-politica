@@ -38,11 +38,11 @@ primera vez que de verdad te hace falta.
 ## Los archivos de la sesión
 
 ::: {.descargas}
-[06_script.R — el guion de clase](https://raw.githubusercontent.com/emirandago/r-para-politologos/main/sesiones/06-graficos-que-se-publican/06_script.R){.btn-descarga}
-[06_ejercicio.R — para llevar](https://raw.githubusercontent.com/emirandago/r-para-politologos/main/sesiones/06-graficos-que-se-publican/06_ejercicio.R){.btn-descarga}
-[06_slides.pdf — las láminas](https://raw.githubusercontent.com/emirandago/r-para-politologos/main/sesiones/06-graficos-que-se-publican/06_slides.pdf){.btn-descarga .secundario}
-[06_script_completo.R — resuelto](https://raw.githubusercontent.com/emirandago/r-para-politologos/main/sesiones/06-graficos-que-se-publican/06_script_completo.R){.btn-descarga .secundario}
-[06_solucion.R — solución del ejercicio](https://raw.githubusercontent.com/emirandago/r-para-politologos/main/sesiones/06-graficos-que-se-publican/06_solucion.R){.btn-descarga .secundario}
+[06_script.R — el guion de clase](https://raw.githubusercontent.com/emirandago/r-para-ciencia-politica/main/sesiones/06-graficos-que-se-publican/06_script.R){.btn-descarga}
+[06_ejercicio.R — para llevar](https://raw.githubusercontent.com/emirandago/r-para-ciencia-politica/main/sesiones/06-graficos-que-se-publican/06_ejercicio.R){.btn-descarga}
+[06_slides.pdf — las láminas](https://raw.githubusercontent.com/emirandago/r-para-ciencia-politica/main/sesiones/06-graficos-que-se-publican/06_slides.pdf){.btn-descarga .secundario}
+[06_script_completo.R — resuelto](https://raw.githubusercontent.com/emirandago/r-para-ciencia-politica/main/sesiones/06-graficos-que-se-publican/06_script_completo.R){.btn-descarga .secundario}
+[06_solucion.R — solución del ejercicio](https://raw.githubusercontent.com/emirandago/r-para-ciencia-politica/main/sesiones/06-graficos-que-se-publican/06_solucion.R){.btn-descarga .secundario}
 :::
 
 El archivo `06_script.R` tiene huecos y **no corre de corrido**: está hecho
@@ -136,8 +136,9 @@ Press, 2018).
 
 **`Error in source(...) : cannot open file '.../estilo/tema_lab.R'`**
 R no está parado en la carpeta del proyecto. Cierra RStudio, ábrelo de nuevo
-con doble clic sobre `r-para-politologos.Rproj` y corre `here()` para
-confirmar que la ruta termina en `/r-para-politologos`.
+con doble clic sobre `r-para-ciencia-politica.Rproj` y corre `here()` para
+confirmar que la ruta termina en la carpeta del curso, con o sin `-main` al
+final.
 
 **`Error in ggsave(...) : cannot open file '.../figuras/...' : No such file or directory`**
 La carpeta `figuras` todavía no existe dentro de la carpeta de la sesión.

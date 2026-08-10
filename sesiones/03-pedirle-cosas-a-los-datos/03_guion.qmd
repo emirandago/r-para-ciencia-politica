@@ -35,11 +35,11 @@ y por qué un `NA` merece desconfianza.
 ## Los archivos de la sesión
 
 ::: {.descargas}
-[03_script.R — el guion de clase](https://raw.githubusercontent.com/emirandago/r-para-politologos/main/sesiones/03-pedirle-cosas-a-los-datos/03_script.R){.btn-descarga}
-[03_ejercicio.R — para llevar](https://raw.githubusercontent.com/emirandago/r-para-politologos/main/sesiones/03-pedirle-cosas-a-los-datos/03_ejercicio.R){.btn-descarga}
-[03_slides.pdf — las láminas](https://raw.githubusercontent.com/emirandago/r-para-politologos/main/sesiones/03-pedirle-cosas-a-los-datos/03_slides.pdf){.btn-descarga .secundario}
-[03_script_completo.R — resuelto](https://raw.githubusercontent.com/emirandago/r-para-politologos/main/sesiones/03-pedirle-cosas-a-los-datos/03_script_completo.R){.btn-descarga .secundario}
-[03_solucion.R — solución del ejercicio](https://raw.githubusercontent.com/emirandago/r-para-politologos/main/sesiones/03-pedirle-cosas-a-los-datos/03_solucion.R){.btn-descarga .secundario}
+[03_script.R — el guion de clase](https://raw.githubusercontent.com/emirandago/r-para-ciencia-politica/main/sesiones/03-pedirle-cosas-a-los-datos/03_script.R){.btn-descarga}
+[03_ejercicio.R — para llevar](https://raw.githubusercontent.com/emirandago/r-para-ciencia-politica/main/sesiones/03-pedirle-cosas-a-los-datos/03_ejercicio.R){.btn-descarga}
+[03_slides.pdf — las láminas](https://raw.githubusercontent.com/emirandago/r-para-ciencia-politica/main/sesiones/03-pedirle-cosas-a-los-datos/03_slides.pdf){.btn-descarga .secundario}
+[03_script_completo.R — resuelto](https://raw.githubusercontent.com/emirandago/r-para-ciencia-politica/main/sesiones/03-pedirle-cosas-a-los-datos/03_script_completo.R){.btn-descarga .secundario}
+[03_solucion.R — solución del ejercicio](https://raw.githubusercontent.com/emirandago/r-para-ciencia-politica/main/sesiones/03-pedirle-cosas-a-los-datos/03_solucion.R){.btn-descarga .secundario}
 :::
 
 El archivo `03_script.R` tiene huecos y **no corre de corrido**: está hecho

@@ -53,13 +53,13 @@ library(here)
 # ---- 0. ¿Dónde está parado R? ----
 
 # Si esto truena, ninguno de los scripts que siguen va a poder
-# encontrar los datos: abre r-para-politologos.Rproj desde RStudio
+# encontrar los datos: abre r-para-ciencia-politica.Rproj desde RStudio
 # (Archivo > Abrir proyecto) y vuelve a correr este script.
 
-if (!file.exists(here("r-para-politologos.Rproj"))) {
+if (!file.exists(here("r-para-ciencia-politica.Rproj"))) {
   stop(
     "here::here() no está parado en la raíz del proyecto (se esperaba\n",
-    "encontrar r-para-politologos.Rproj ahí). Ruta actual: ", here(),
+    "encontrar r-para-ciencia-politica.Rproj ahí). Ruta actual: ", here(),
     "\nAbre el .Rproj desde RStudio y vuelve a correr este script."
   )
 }

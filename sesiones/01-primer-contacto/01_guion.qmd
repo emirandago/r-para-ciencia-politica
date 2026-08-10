@@ -41,11 +41,11 @@ no vamos a hacer es detener a catorce personas para instalar el programa de una.
 ## Los archivos de la sesión
 
 ::: {.descargas}
-[01_script.R — el guion de clase](https://raw.githubusercontent.com/emirandago/r-para-politologos/main/sesiones/01-primer-contacto/01_script.R){.btn-descarga}
-[01_ejercicio.R — para llevar](https://raw.githubusercontent.com/emirandago/r-para-politologos/main/sesiones/01-primer-contacto/01_ejercicio.R){.btn-descarga}
-[01_slides.pdf — las láminas](https://raw.githubusercontent.com/emirandago/r-para-politologos/main/sesiones/01-primer-contacto/01_slides.pdf){.btn-descarga .secundario}
-[01_script_completo.R — resuelto](https://raw.githubusercontent.com/emirandago/r-para-politologos/main/sesiones/01-primer-contacto/01_script_completo.R){.btn-descarga .secundario}
-[01_solucion.R — solución del ejercicio](https://raw.githubusercontent.com/emirandago/r-para-politologos/main/sesiones/01-primer-contacto/01_solucion.R){.btn-descarga .secundario}
+[01_script.R — el guion de clase](https://raw.githubusercontent.com/emirandago/r-para-ciencia-politica/main/sesiones/01-primer-contacto/01_script.R){.btn-descarga}
+[01_ejercicio.R — para llevar](https://raw.githubusercontent.com/emirandago/r-para-ciencia-politica/main/sesiones/01-primer-contacto/01_ejercicio.R){.btn-descarga}
+[01_slides.pdf — las láminas](https://raw.githubusercontent.com/emirandago/r-para-ciencia-politica/main/sesiones/01-primer-contacto/01_slides.pdf){.btn-descarga .secundario}
+[01_script_completo.R — resuelto](https://raw.githubusercontent.com/emirandago/r-para-ciencia-politica/main/sesiones/01-primer-contacto/01_script_completo.R){.btn-descarga .secundario}
+[01_solucion.R — solución del ejercicio](https://raw.githubusercontent.com/emirandago/r-para-ciencia-politica/main/sesiones/01-primer-contacto/01_solucion.R){.btn-descarga .secundario}
 :::
 
 El archivo `01_script.R` tiene huecos y **no corre de corrido**: está hecho para
@@ -151,8 +151,11 @@ diferentes para él.
 
 **`Error: 'datos/limpios/presidencial_2024_entidad.csv' does not exist`**
 R está parado en otra carpeta. Cierra RStudio por completo, vuelve a abrirlo con
-doble clic sobre `r-para-politologos.Rproj` —no desde el ícono de RStudio— y corre
-`here()` para confirmar que la ruta termina en `/r-para-politologos`.
+doble clic sobre `r-para-ciencia-politica.Rproj` —no desde el ícono de RStudio— y corre
+`here()` para confirmar que la ruta termina en la carpeta del curso. Puede
+decir `/r-para-ciencia-politica` o `/r-para-ciencia-politica-main` —el `-main`
+se lo agrega GitHub cuando descargas el ZIP—: las dos están bien. Lo que no
+debe pasar es que termine en tu escritorio o en tu carpeta de descargas.
 
 **La consola muestra un `+` y no pasa nada**
 Esto no es un error: R está esperando a que termines la instrucción. Te faltó

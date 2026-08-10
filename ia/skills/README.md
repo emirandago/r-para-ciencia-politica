@@ -10,9 +10,9 @@ contexto. Quien quiera verlas llega por aquí, no por el sitio publicado.
 
 | Ruta | Qué es |
 |---|---|
-| [`r-para-politologos/SKILL.md`](r-para-politologos/SKILL.md) | La única skill que existe hasta ahora. Guía a un asistente de IA para escribir, revisar y depurar código R con el criterio pedagógico de este laboratorio: stack 2026, anti-patrones prohibidos, lenguaje incluyente, verificación antes que invención, y la reconciliación de claves electorales INE-INEGI. |
-| [`r-para-politologos/references/anti-patrones-y-stack.md`](r-para-politologos/references/anti-patrones-y-stack.md) | Tabla larga de anti-patrones y del stack canónico del curso, para cuando el resumen de `SKILL.md` no alcanza. |
-| [`r-para-politologos/references/datos-electorales-mx.md`](r-para-politologos/references/datos-electorales-mx.md) | Referencia sobre la reconciliación de claves de municipio entre INE e INEGI, con la tabla puente `emagar/mxDistritos`. |
+| [`r-para-ciencia-politica/SKILL.md`](r-para-ciencia-politica/SKILL.md) | La única skill que existe hasta ahora. Guía a un asistente de IA para escribir, revisar y depurar código R con el criterio pedagógico de este laboratorio: stack 2026, anti-patrones prohibidos, lenguaje incluyente, verificación antes que invención, y la reconciliación de claves electorales INE-INEGI. |
+| [`r-para-ciencia-politica/references/anti-patrones-y-stack.md`](r-para-ciencia-politica/references/anti-patrones-y-stack.md) | Tabla larga de anti-patrones y del stack canónico del curso, para cuando el resumen de `SKILL.md` no alcanza. |
+| [`r-para-ciencia-politica/references/datos-electorales-mx.md`](r-para-ciencia-politica/references/datos-electorales-mx.md) | Referencia sobre la reconciliación de claves de municipio entre INE e INEGI, con la tabla puente `emagar/mxDistritos`. |
 
 ## Cómo se usa
 
@@ -26,5 +26,5 @@ falta el detalle largo.
 
 El §9 de la arquitectura del proyecto (`INSTRUCCIONES_PROYECTO_Lab_R.md`)
 prevé varias skills además de esta, construidas junto con la sesión 11.
-Hoy solo existe `r-para-politologos`. Este README se actualiza según se
+Hoy solo existe `r-para-ciencia-politica`. Este README se actualiza según se
 agreguen las demás.

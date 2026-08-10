@@ -44,7 +44,7 @@ library(here)
 
 here()
 
-# Debe terminar en /r-para-politologos.
+# Debe terminar en /r-para-ciencia-politica.
 
 
 # ---- 2. Los datos que ya conoces ----

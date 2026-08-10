@@ -1,7 +1,7 @@
 # Extra 4 · Datos de panel y efectos fijos
 
 La forma cómoda de leer esto es la página del curso:
-[extra 4 en el sitio](https://emirandago.github.io/r-para-politologos/extras/04-panel-y-efectos-fijos/04_extra.html).
+[extra 4 en el sitio](https://emirandago.github.io/r-para-ciencia-politica/extras/04-panel-y-efectos-fijos/04_extra.html).
 
 **Pregunta:** ¿Comparamos municipios entre sí, o un municipio consigo
 mismo?

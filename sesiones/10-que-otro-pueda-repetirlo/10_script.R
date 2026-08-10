@@ -64,7 +64,7 @@ library(here)
 
 here()
 
-# Debe terminar en /r-para-politologos. Si no, cierra todo y vuelve a abrir
+# Debe terminar en /r-para-ciencia-politica. Si no, cierra todo y vuelve a abrir
 # el .Rproj: nada de lo que sigue funciona si R no está parado ahí.
 
 

@@ -37,11 +37,11 @@ las escalas de color con criterio y `ggsave()`.
 ## Los archivos de la sesión
 
 ::: {.descargas}
-[07_script.R — el guion de clase](https://raw.githubusercontent.com/emirandago/r-para-politologos/main/sesiones/07-el-mapa-de-mexico/07_script.R){.btn-descarga}
-[07_ejercicio.R — para llevar](https://raw.githubusercontent.com/emirandago/r-para-politologos/main/sesiones/07-el-mapa-de-mexico/07_ejercicio.R){.btn-descarga}
-[07_slides.pdf — las láminas](https://raw.githubusercontent.com/emirandago/r-para-politologos/main/sesiones/07-el-mapa-de-mexico/07_slides.pdf){.btn-descarga .secundario}
-[07_script_completo.R — resuelto](https://raw.githubusercontent.com/emirandago/r-para-politologos/main/sesiones/07-el-mapa-de-mexico/07_script_completo.R){.btn-descarga .secundario}
-[07_solucion.R — solución del ejercicio](https://raw.githubusercontent.com/emirandago/r-para-politologos/main/sesiones/07-el-mapa-de-mexico/07_solucion.R){.btn-descarga .secundario}
+[07_script.R — el guion de clase](https://raw.githubusercontent.com/emirandago/r-para-ciencia-politica/main/sesiones/07-el-mapa-de-mexico/07_script.R){.btn-descarga}
+[07_ejercicio.R — para llevar](https://raw.githubusercontent.com/emirandago/r-para-ciencia-politica/main/sesiones/07-el-mapa-de-mexico/07_ejercicio.R){.btn-descarga}
+[07_slides.pdf — las láminas](https://raw.githubusercontent.com/emirandago/r-para-ciencia-politica/main/sesiones/07-el-mapa-de-mexico/07_slides.pdf){.btn-descarga .secundario}
+[07_script_completo.R — resuelto](https://raw.githubusercontent.com/emirandago/r-para-ciencia-politica/main/sesiones/07-el-mapa-de-mexico/07_script_completo.R){.btn-descarga .secundario}
+[07_solucion.R — solución del ejercicio](https://raw.githubusercontent.com/emirandago/r-para-ciencia-politica/main/sesiones/07-el-mapa-de-mexico/07_solucion.R){.btn-descarga .secundario}
 :::
 
 El archivo `07_script.R` tiene huecos y **no corre de corrido**: está hecho

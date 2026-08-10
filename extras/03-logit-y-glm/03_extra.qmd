@@ -44,9 +44,9 @@ viste el extra 2, la palabra "probabilidad" ya no te es nueva.
 ## Los archivos del módulo
 
 ::: {.descargas}
-[03_script.R — el código completo](https://raw.githubusercontent.com/emirandago/r-para-politologos/main/extras/03-logit-y-glm/03_script.R){.btn-descarga}
-[03_ejercicio.R — para practicar](https://raw.githubusercontent.com/emirandago/r-para-politologos/main/extras/03-logit-y-glm/03_ejercicio.R){.btn-descarga}
-[03_solucion.R — solución comentada](https://raw.githubusercontent.com/emirandago/r-para-politologos/main/extras/03-logit-y-glm/03_solucion.R){.btn-descarga .secundario}
+[03_script.R — el código completo](https://raw.githubusercontent.com/emirandago/r-para-ciencia-politica/main/extras/03-logit-y-glm/03_script.R){.btn-descarga}
+[03_ejercicio.R — para practicar](https://raw.githubusercontent.com/emirandago/r-para-ciencia-politica/main/extras/03-logit-y-glm/03_ejercicio.R){.btn-descarga}
+[03_solucion.R — solución comentada](https://raw.githubusercontent.com/emirandago/r-para-ciencia-politica/main/extras/03-logit-y-glm/03_solucion.R){.btn-descarga .secundario}
 :::
 
 `03_script.R` corre completo, de arriba abajo, sin huecos.

@@ -39,8 +39,8 @@ execute:
 website:
   title: "Laboratorio de R para Ciencia Política"
   description: "Once sesiones de R para politólogos del ITAM que nunca han programado."
-  site-url: "https://emirandago.github.io/r-para-politologos/"
-  repo-url: "https://github.com/emirandago/r-para-politologos"
+  site-url: "https://emirandago.github.io/r-para-ciencia-politica/"
+  repo-url: "https://github.com/emirandago/r-para-ciencia-politica"
   search: true
 
   navbar:
@@ -132,7 +132,7 @@ website:
       # El botón de GitHub: para quien sí sabe qué es un repositorio y
       # quiere ver el código fuente completo, no solo descargar una sesión.
       - icon: github
-        href: "https://github.com/emirandago/r-para-politologos"
+        href: "https://github.com/emirandago/r-para-ciencia-politica"
         aria-label: "Repositorio en GitHub"
 
   # Pie discreto, igual que el del deck: la referencia del curso a la
@@ -143,7 +143,7 @@ website:
   # relativa quedaba rota en las 28 páginas. Verificado recorriendo el _site.
   page-footer:
     left: "Laboratorio de R para Ciencia Política · ITAM"
-    right: "EMG · Material bajo licencia [CC BY 4.0](https://github.com/emirandago/r-para-politologos/blob/main/LICENSE)"
+    right: "EMG · Material bajo licencia [CC BY 4.0](https://github.com/emirandago/r-para-ciencia-politica/blob/main/LICENSE)"
     border: false
 
 format:

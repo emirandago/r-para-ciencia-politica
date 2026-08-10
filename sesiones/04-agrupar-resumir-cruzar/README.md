@@ -1,7 +1,7 @@
 # Sesión 4 · Agrupar, resumir, cruzar
 
 La forma cómoda de leer esto es la página del curso:
-[sesión 4 en el sitio](https://emirandago.github.io/r-para-politologos/sesiones/04-agrupar-resumir-cruzar/04_guion.html).
+[sesión 4 en el sitio](https://emirandago.github.io/r-para-ciencia-politica/sesiones/04-agrupar-resumir-cruzar/04_guion.html).
 
 **Pregunta:** ¿Cómo comparo estados entre sí?
 

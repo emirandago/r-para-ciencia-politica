@@ -43,9 +43,9 @@ dar en una hora de clase.
 ## Los archivos del módulo
 
 ::: {.descargas}
-[01_script.R — el código completo](https://raw.githubusercontent.com/emirandago/r-para-politologos/main/extras/01-funciones-e-iteracion/01_script.R){.btn-descarga}
-[01_ejercicio.R — para practicar](https://raw.githubusercontent.com/emirandago/r-para-politologos/main/extras/01-funciones-e-iteracion/01_ejercicio.R){.btn-descarga}
-[01_solucion.R — solución comentada](https://raw.githubusercontent.com/emirandago/r-para-politologos/main/extras/01-funciones-e-iteracion/01_solucion.R){.btn-descarga .secundario}
+[01_script.R — el código completo](https://raw.githubusercontent.com/emirandago/r-para-ciencia-politica/main/extras/01-funciones-e-iteracion/01_script.R){.btn-descarga}
+[01_ejercicio.R — para practicar](https://raw.githubusercontent.com/emirandago/r-para-ciencia-politica/main/extras/01-funciones-e-iteracion/01_ejercicio.R){.btn-descarga}
+[01_solucion.R — solución comentada](https://raw.githubusercontent.com/emirandago/r-para-ciencia-politica/main/extras/01-funciones-e-iteracion/01_solucion.R){.btn-descarga .secundario}
 :::
 
 A diferencia de las sesiones presenciales, `01_script.R` **corre completo, de

@@ -1,7 +1,7 @@
 # Sesión 10 · Que otro pueda repetirlo
 
 La forma cómoda de leer esto es la página del curso:
-[sesión 10 en el sitio](https://emirandago.github.io/r-para-politologos/sesiones/10-que-otro-pueda-repetirlo/10_guion.html).
+[sesión 10 en el sitio](https://emirandago.github.io/r-para-ciencia-politica/sesiones/10-que-otro-pueda-repetirlo/10_guion.html).
 
 **Pregunta:** ¿Cómo entrego trabajo serio?
 

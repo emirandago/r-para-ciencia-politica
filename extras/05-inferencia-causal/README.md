@@ -1,7 +1,7 @@
 # Extra 5 · Primer vistazo a inferencia causal
 
 La forma cómoda de leer esto es la página del curso:
-[extra 5 en el sitio](https://emirandago.github.io/r-para-politologos/extras/05-inferencia-causal/05_extra.html).
+[extra 5 en el sitio](https://emirandago.github.io/r-para-ciencia-politica/extras/05-inferencia-causal/05_extra.html).
 
 **Pregunta:** ¿Qué le falta a un antes-y-después para volverse una
 comparación honesta?
