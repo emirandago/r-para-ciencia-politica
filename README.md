@@ -1,135 +1,155 @@
-# Laboratorio de R para Ciencia Política — ITAM
+<div align="center">
 
-### → **[Empieza por el sitio del curso: emirandago.github.io/r-para-politologos](https://emirandago.github.io/r-para-politologos/)**
+<img src="estilo/banner.png" alt="Laboratorio de R para Ciencia Política — ITAM" width="100%">
 
-*Ahí está el curso en su forma navegable: las once sesiones en prosa, los
-botones de descarga y la guía de instalación. Este repositorio es el código
-fuente que produce ese sitio. Si llegaste buscando el material, el sitio es
-el lugar; si llegaste buscando cómo está hecho, quédate aquí.*
+<br>
+
+### [**→ Entra al sitio del curso ←**](https://emirandago.github.io/r-para-politologos/)
+
+**Ahí está todo, ordenado y fácil de leer.**
+Esta página que estás viendo es el almacén; el sitio es la puerta.
+
+<br>
+
+</div>
 
 ---
 
-Material completo de un curso de once sesiones de una hora que enseña R a
-estudiantes de Ciencia Política y Relaciones Internacionales del ITAM que
-nunca han programado. Lo imparte Emiliano Miranda González por encargo del
-Departamento Académico de Ciencia Política.
+## ¿Qué es esto?
 
-## Cómo navegar este repositorio
+Un curso de **once sesiones de una hora** para aprender R sin haber programado
+nunca. Se da a la hora de la comida, en el ITAM, y va dirigido a estudiantes de
+Ciencia Política y Relaciones Internacionales de los primeros semestres.
 
-**Cada carpeta tiene su propio `README.md`**, y GitHub lo muestra en cuanto
-entras a ella. Así que se puede recorrer el curso carpeta por carpeta sin
-perderse: el índice de [`sesiones/`](sesiones/) lleva a las once, y el
-README de cada sesión dice qué es cada uno de sus siete archivos y enlaza a
-la sesión anterior, a la siguiente y a su página en el sitio.
+No necesitas saber estadística. No necesitas que se te den las matemáticas. No
+necesitas haber tocado una línea de código en tu vida. Lo único que hace falta
+es traer curiosidad por la política mexicana, que es de lo que van todos los
+ejemplos.
 
-Los atajos más útiles:
+## ¿Qué vas a poder hacer?
 
-| Si buscas… | Ve a |
-|---|---|
-| El curso para leerlo o darlo | [el sitio publicado](https://emirandago.github.io/r-para-politologos/) |
-| Instalar R y RStudio desde cero | [Empieza aquí](https://emirandago.github.io/r-para-politologos/empieza-aqui.html) |
-| Las once sesiones y sus archivos | [`sesiones/`](sesiones/) |
-| De dónde salieron los datos y cómo se construyeron | [`datos/README.md`](datos/README.md) |
-| Los módulos que no caben en el aula | [`extras/`](extras/) |
-| Glosario, errores comunes, acordeón | [`recursos/`](recursos/) |
-| La paleta y la tipografía del curso | [`estilo/`](estilo/) |
+Al final de las once horas vas a poder contestar esta pregunta tú, con datos
+oficiales del INE:
 
-## Para quién es
+> **¿Los municipios donde Morena arrasó en 2024 son los mismos donde ganaron
+> las candidaturas morenistas a ministra en la elección judicial de 2025?**
 
-Para estudiantes de primeros semestres que no han tomado Estadística I ni
-Estadística II, que no saben qué es un directorio de trabajo ni han usado
-GitHub, y que quieren dejar de tenerle miedo a los datos. También es
-material reutilizable para cualquier profesor que quiera enseñar R aplicado
-a ciencia política partiendo de cero.
+Dos mapas de México, una regresión, y una respuesta que puedes defender frente
+a alguien que opine distinto. En la sesión 1 vas a hacer tu primera gráfica de
+barras sin entender todavía cómo funciona, y va a salir bien. Esa es la idea.
 
-## Cómo empezar, en tres pasos
+## Empieza en tres pasos
 
-1. **Instala R y después RStudio.** Sigue la página
-   [Empieza aquí](https://emirandago.github.io/r-para-politologos/empieza-aqui.html)
-   del sitio publicado: instalación paso a paso sin suponer conocimiento
-   previo, para Windows y para macOS por separado.
-2. **Descarga este repositorio sin usar `git`.** Botón verde **"Code"** →
-   **"Download ZIP"**, arriba de la lista de archivos de esta página.
-   Descomprime el ZIP y abre el archivo `r-para-politologos.Rproj`.
-3. **Instala los paquetes del curso con una sola instrucción**, corrida una
-   vez en la consola de RStudio:
+**1. Instala R y luego RStudio.** Son dos programas distintos y hacen falta los
+dos, en ese orden. Toma diez minutos y se hace una sola vez en la vida. El paso
+a paso, con capturas y separado para Windows y para Mac, está en
+[**Empieza aquí**](https://emirandago.github.io/r-para-politologos/empieza-aqui.html).
 
-   ```r
-   install.packages(c("tidyverse", "here", "janitor", "sf", "viridis", "modelsummary", "fixest"))
-   ```
+**2. Descarga el material.** Botón verde **Code** aquí arriba →
+**Download ZIP**. Descomprime la carpeta y abre el archivo
+`r-para-politologos.Rproj` haciendo doble clic: eso abre RStudio ya acomodado
+en el lugar correcto.
 
-   Los detalles completos, con qué hacer si algo de esto falla, están en la
-   página [Empieza aquí](https://emirandago.github.io/r-para-politologos/empieza-aqui.html).
+**3. Instala los paquetes del curso.** Copia esta línea, pégala en la consola
+de RStudio y aprieta Enter. Tarda unos minutos y también se hace una sola vez:
+
+```r
+install.packages(c("tidyverse", "here", "janitor", "sf", "viridis", "modelsummary", "fixest"))
+```
+
+Si algo de esto falla, la página [Empieza aquí](https://emirandago.github.io/r-para-politologos/empieza-aqui.html)
+tiene los cinco problemas más comunes con su solución.
 
 ## Las once sesiones
 
-| # | Título | Pregunta que responde | Entregable de la hora |
+Cada título lleva a su página en el sitio, donde está el contenido explicado y
+los archivos para descargar.
+
+| | Sesión | La pregunta de esa hora | Lo que te llevas |
 |---|---|---|---|
-| 1 | Tu primera hora en R | ¿Por qué un politólogo programa? | Un gráfico de barras de la elección 2024, hecho de cero en la sesión |
-| 2 | Los datos son tablas | ¿Cómo se ve una base de datos por dentro? | Cargar y describir una base electoral real |
-| 3 | Pedirle cosas a los datos | ¿Dónde ganó Morena por más de veinte puntos? | Una tabla filtrada que contesta una pregunta propia |
-| 4 | Agrupar, resumir, cruzar | ¿Cómo comparo estados entre sí? | Cruzar dos bases y resumir por entidad |
-| 5 | La gramática de los gráficos | ¿Por qué unos gráficos convencen y otros no? | Un gráfico con título, fuente y paleta defendible |
-| 6 | Gráficos que se publican | ¿Cómo hago una figura de paper? | Una figura en PDF lista para un trabajo final |
-| 7 | El mapa de México | ¿Cómo se ve el voto en el territorio? | Un mapa coroplético de resultados 2024 |
-| 8 | Describir sin mentir | ¿Qué significa que dos cosas "van juntas"? | Un scatter con línea de tendencia e interpretación escrita |
-| 9 | La regresión como instrumento politológico | ¿Cuánto explica X a Y? | Una tabla de regresión con lectura en prosa |
-| 10 | Que otro pueda repetirlo | ¿Cómo entrego trabajo serio? | Un reporte reproducible propio, publicado |
-| 11 | La IA como copiloto, no como piloto | ¿Cómo uso Claude sin dejar de aprender? | El proyecto Morena × ministras, hecho en pareja con la IA |
+| 1 | [Tu primera hora en R](https://emirandago.github.io/r-para-politologos/sesiones/01-primer-contacto/01_guion.html) | ¿Por qué un politólogo programa? | Tu primera gráfica de la elección de 2024 |
+| 2 | [Los datos son tablas](https://emirandago.github.io/r-para-politologos/sesiones/02-los-datos-son-tablas/02_guion.html) | ¿Cómo se ve una base de datos por dentro? | Saber qué es, exactamente, una fila |
+| 3 | [Pedirle cosas a los datos](https://emirandago.github.io/r-para-politologos/sesiones/03-pedirle-cosas-a-los-datos/03_guion.html) | ¿Dónde ganó Morena por más de veinte puntos? | Una tabla que contesta una pregunta tuya |
+| 4 | [Agrupar, resumir, cruzar](https://emirandago.github.io/r-para-politologos/sesiones/04-agrupar-resumir-cruzar/04_guion.html) | ¿Cómo comparo estados entre sí? | Unir dos bases que no quieren unirse |
+| 5 | [La gramática de los gráficos](https://emirandago.github.io/r-para-politologos/sesiones/05-gramatica-de-los-graficos/05_guion.html) | ¿Por qué unos gráficos convencen y otros no? | Un gráfico con paleta defendible |
+| 6 | [Gráficos que se publican](https://emirandago.github.io/r-para-politologos/sesiones/06-graficos-que-se-publican/06_guion.html) | ¿Cómo hago una figura de paper? | Una figura lista para un trabajo final |
+| 7 | [El mapa de México](https://emirandago.github.io/r-para-politologos/sesiones/07-el-mapa-de-mexico/07_guion.html) | ¿Cómo se ve el voto en el territorio? | Un mapa de los 2,475 municipios |
+| 8 | [Describir sin mentir](https://emirandago.github.io/r-para-politologos/sesiones/08-describir-sin-mentir/08_guion.html) | ¿Qué significa que dos cosas «van juntas»? | Saber cuándo un promedio engaña |
+| 9 | [La regresión](https://emirandago.github.io/r-para-politologos/sesiones/09-la-regresion/09_guion.html) | ¿Cuánto explica X a Y? | Leer un coeficiente en voz alta |
+| 10 | [Que otro pueda repetirlo](https://emirandago.github.io/r-para-politologos/sesiones/10-que-otro-pueda-repetirlo/10_guion.html) | ¿Cómo entrego trabajo serio? | Tu propio reporte, publicado en internet |
+| 11 | [La IA como copiloto](https://emirandago.github.io/r-para-politologos/sesiones/11-la-ia-como-copiloto/11_guion.html) | ¿Cómo uso la IA sin dejar de aprender? | El proyecto final, y criterio para verificar |
 
-Once horas no alcanzan para cubrir todo lo que vale la pena enseñar. La
-carpeta [`extras/`](extras/) reúne módulos autoestudiables, completos y con
-el mismo estándar de calidad, sobre funciones e iteración, probabilidad y
-simulación, modelos logit y GLM, datos de panel y efectos fijos, un primer
-vistazo a inferencia causal, y una guía Stata→R.
+## Qué hay en cada carpeta
 
-## Estructura de carpetas
+Todas las carpetas tienen adentro su propia explicación: entra a cualquiera y
+vas a encontrar una nota que dice qué es cada archivo.
 
-Cada carpeta de esta lista tiene su propio README con el detalle.
-
-| Carpeta o archivo | Qué es |
+| Carpeta | Qué guarda y para qué te sirve |
 |---|---|
-| [`r-para-politologos.Rproj`](r-para-politologos.Rproj) | El proyecto de RStudio. **Ábrelo desde aquí**: es lo que deja a R parado en la carpeta correcta |
-| [`sesiones/`](sesiones/) | Una carpeta por sesión, siempre con los mismos siete archivos: guion, láminas en `.tex` y en `.pdf`, script con huecos, script resuelto, ejercicio y solución |
-| [`datos/`](datos/) | Las bases del curso, sus scripts de preparación y el catálogo que documenta cada columna, su fuente y su licencia |
-| [`extras/`](extras/) | Los seis módulos autoestudiables |
-| [`recursos/`](recursos/) | Glosario del inglés técnico, catálogo de errores comunes, acordeón de una página y adónde seguir |
-| [`ia/`](ia/) | Uso responsable de IA en trabajo cuantitativo y las skills que acompañan a la sesión 11 |
-| [`estilo/`](estilo/) | La paleta y la tipografía del curso, compartidas por las láminas, los gráficos y el sitio |
-| [`_quarto.yml`](_quarto.yml) · [`index.qmd`](index.qmd) · [`empieza-aqui.qmd`](empieza-aqui.qmd) | La configuración y las páginas de entrada del sitio publicado |
-| [`LICENSE`](LICENSE) · [`CITATION.cff`](CITATION.cff) | La licencia CC BY 4.0 con su alcance exacto, y la cita en formato legible por máquina |
+| [**sesiones/**](sesiones/) | Las once sesiones. Cada una trae siempre los mismos siete archivos: las diapositivas en PDF, el guion de la clase, el script para llenar en vivo, el mismo script ya resuelto, el ejercicio para llevar y su solución |
+| [**datos/**](datos/) | Las bases con las que vas a trabajar, todas de fuente oficial. Aquí también está escrito de dónde salió cada una, qué significa cada columna y con qué código se construyeron |
+| [**extras/**](extras/) | Seis módulos para estudiar por tu cuenta si te quedaste con ganas: funciones, simulación, modelos logit, datos de panel, inferencia causal y una guía para quien viene de Stata |
+| [**recursos/**](recursos/) | El acordeón de una página, el glosario de las palabras en inglés y —el más útil de todos— el catálogo de errores comunes, con lo que significa cada uno y cómo se arregla |
+| [**ia/**](ia/) | Cómo usar la inteligencia artificial en trabajo cuantitativo sin dejar de aprender, que es de lo que trata la última sesión |
+| [**estilo/**](estilo/) | Los colores y las tipografías del curso. Esto es para quien quiera reusar el material, no para tomar la clase |
 
-Cada carpeta de sesión es descargable por separado desde el sitio publicado,
-en menos de tres clics, sin que quien la descarga necesite entender qué es
-un repositorio.
+## Sobre los archivos de cada sesión
 
-## Cómo se cita este material
+Dos cosas que confunden al principio y conviene saber de entrada.
 
-Ver [`LICENSE`](LICENSE) para el texto completo de la licencia CC BY 4.0 y
-su alcance exacto (qué cubre y qué no, como los datos de terceros). La cita
-sugerida es:
+El archivo que dice `script.R` **tiene huecos y no corre de corrido**. No está
+roto: está hecho así a propósito, para llenarse durante la clase. El que dice
+`script_completo.R` es ese mismo con todo resuelto, y se publica al terminar la
+sesión.
 
-> Miranda González, Emiliano (2026). *Laboratorio de R para Ciencia
-> Política*. Instituto Tecnológico Autónomo de México, Departamento
-> Académico de Ciencia Política.
-> https://github.com/emirandago/r-para-politologos. Licencia CC BY 4.0.
+El `ejercicio.R` tiene tres niveles: uno de calentamiento que sale rápido, uno
+de verdad donde se aprende, y uno para si te sobra tiempo. Nadie los revisa y
+no valen puntos. Su solución también se publica después.
+
+## Si nunca has usado GitHub
+
+No hace falta. En serio: puedes tomar el curso completo sin entender nada de
+esta página. Lo único que necesitas es el botón verde **Code → Download ZIP**
+de aquí arriba, o mejor todavía, los botones de descarga que están en cada
+sesión del [sitio del curso](https://emirandago.github.io/r-para-politologos/),
+que bajan un archivo a la vez sin complicaciones.
+
+GitHub es simplemente el lugar donde vive el material para que esté disponible
+para cualquiera. En la sesión 10 vas a aprender a usarlo, si te interesa, y va
+a tener mucho más sentido entonces.
+
+## Para quien quiera reusar este material
+
+El curso es público y se puede adoptar, adaptar y dar en otra parte. Todo el
+material está bajo licencia [CC BY 4.0](LICENSE): se puede copiar, modificar y
+usar con cualquier fin, incluso comercial, con la única condición de dar
+crédito. Los datos de terceros conservan sus propias condiciones, detalladas en
+[`datos/README.md`](datos/README.md).
+
+El sitio se construye con [Quarto](https://quarto.org) y se publica solo con
+GitHub Actions. Las láminas son Beamer; el preámbulo, la paleta y el tema de
+ggplot2 están en [`estilo/`](estilo/), documentados. La cita sugerida está en
+[`CITATION.cff`](CITATION.cff), y GitHub la formatea con el botón «Cite this
+repository» de la barra lateral.
 
 ## Agradecimientos
 
-Este curso no parte de cero. Reúne y actualiza al stack de R de 2026 el
-contenido de tres cursos que se impartieron antes en el ITAM: el curso de
-**Paula Cortina** (nueve sesiones, de la progresión aritmética a los mapas),
-el curso de **Aldo Gómez** (ocho clases, con versión para alumnos y versión
-completa, y trabajo detallado con datos electorales y shapefiles de la
-Ciudad de México), y el curso de **Álvaro Pérez**
-([`Introduccion_a_R`](https://github.com/AlvaroPLZ/Introduccion_a_R), ocho
-clases publicadas sobre datos ordenados, relaciones entre bases, iteración,
-funciones, probabilidad y simulación). Ninguna de las tres herencias
-desaparece: su contenido está repartido entre `sesiones/` y `extras/`.
+Este curso no parte de cero. Reúne y actualiza al R de 2026 el contenido de
+tres cursos que se dieron antes en el ITAM: el de **Paula Cortina**, el de
+**Aldo Gómez** y el de **Álvaro Pérez**
+([Introduccion_a_R](https://github.com/AlvaroPLZ/Introduccion_a_R)). Nada de lo
+que enseñaron desaparece: está repartido entre `sesiones/` y `extras/`.
 
-Como referencia general en español para quien quiera profundizar más allá
-de este laboratorio, el curso reconoce a *AnalizaR Datos Políticos*, de
-**Andrés Cruz** y **Francisco Urdinez**
-([arcruz0.github.io/libroadp](https://arcruz0.github.io/libroadp/)): el
-libro de referencia más completo de R aplicado a ciencia política que existe
-en español.
+Como referencia general en español, el curso reconoce a *AnalizaR Datos
+Políticos*, de **Andrés Cruz** y **Francisco Urdinez**
+([arcruz0.github.io/libroadp](https://arcruz0.github.io/libroadp/)), el libro
+más completo que existe de R aplicado a ciencia política en nuestro idioma.
+
+<div align="center">
+
+---
+
+**[Laboratorio de R para Ciencia Política](https://emirandago.github.io/r-para-politologos/)**
+Emiliano Miranda González · ITAM · Departamento Académico de Ciencia Política
+
+</div>

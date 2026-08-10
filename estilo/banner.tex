@@ -1,0 +1,37 @@
+\documentclass[10pt]{standalone}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{lmodern}
+\usepackage{tgheros}
+\usepackage{tgpagella}
+\usepackage{xcolor}
+\usepackage{graphicx}
+\usepackage{tikz}
+\input{estilo/paleta-itam.tex}
+
+\begin{document}
+\begin{tikzpicture}[x=1mm, y=1mm]
+  % Fondo verde institucional
+  \fill[verdeITAM] (0,0) rectangle (240,62);
+  % Filete claro inferior, el único adorno
+  \fill[verdeClaro] (0,0) rectangle (240,1.6);
+
+  % Título, con serifa, como los títulos de las láminas
+  \node[anchor=west, align=left, inner sep=0pt] at (16,40)
+    {\fontfamily{qpl}\selectfont\color{white}\fontsize{26}{30}\selectfont
+     Laboratorio de R para Ciencia Política};
+
+  % Bajada, sin serifa, como el cuerpo de las láminas
+  \node[anchor=west, align=left, inner sep=0pt] at (16,25)
+    {\fontfamily{qhv}\selectfont\color{verdeClaro}\fontsize{12}{16}\selectfont
+     Once sesiones de una hora para aprender R desde cero};
+
+  \node[anchor=west, align=left, inner sep=0pt] at (16,14)
+    {\fontfamily{qhv}\selectfont\color{white}\fontsize{9}{12}\selectfont
+     ITAM \textbullet\ Departamento Académico de Ciencia Política};
+
+  % Logo del ITAM, blanco sobre el verde
+  \node[anchor=east, inner sep=0pt] at (224,31)
+    {\includegraphics[height=13mm]{estilo/logo_itam.png}};
+\end{tikzpicture}
+\end{document}

@@ -2,6 +2,8 @@
 title: "Laboratorio de R para Ciencia Política"
 ---
 
+![](estilo/banner.png){fig-alt="Laboratorio de R para Ciencia Política — ITAM" width=100%}
+
 ::: {.gancho}
 Este laboratorio existe para que aprendas a convertir una intuición política
 en una pregunta que se puede contestar con datos. No es un curso de
