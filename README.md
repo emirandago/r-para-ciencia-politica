@@ -108,7 +108,7 @@ no valen puntos. Su solución también se publica después.
 
 ## Si nunca has usado GitHub
 
-No hace falta. En serio: puedes tomar el curso completo sin entender nada de
+No hace falta. Puedes tomar el curso completo sin entender nada de
 esta página. Lo único que necesitas es el botón verde **Code → Download ZIP**
 de aquí arriba, o mejor todavía, los botones de descarga que están en cada
 sesión del [sitio del curso](https://emirandago.github.io/r-para-ciencia-politica/),
