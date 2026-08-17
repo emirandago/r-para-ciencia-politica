@@ -45,7 +45,7 @@ ul.task-list li input[type="checkbox"] {
 <link href="../../site_libs/quarto-html/quarto-syntax-highlighting-6bc2510a377bfbe78f0e93c5094f7fd0.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../../site_libs/bootstrap/bootstrap-d33573f5db6bc822405971e42879fa46.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="../../site_libs/bootstrap/bootstrap-c7bc2abbc169fc4338995c254d030fcd.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -222,7 +222,7 @@ ul.task-list li input[type="checkbox"] {
 </ul>
             <ul class="navbar-nav navbar-nav-scroll ms-auto">
   <li class="nav-item compact">
-    <a class="nav-link" href="https://github.com/emirandago/r-para-politologos"> <i class="bi bi-github" role="img" aria-label="Repositorio en GitHub">
+    <a class="nav-link" href="https://github.com/emirandago/r-para-ciencia-politica"> <i class="bi bi-github" role="img" aria-label="Repositorio en GitHub">
 </i> 
 <span class="menu-text"></span></a>
   </li>  
@@ -299,7 +299,7 @@ ul.task-list li input[type="checkbox"] {
 <section id="los-archivos-de-la-sesión" class="level2">
 <h2 class="anchored" data-anchor-id="los-archivos-de-la-sesión">Los archivos de la sesión</h2>
 <div class="descargas">
-<p><a href="https://raw.githubusercontent.com/emirandago/r-para-politologos/main/sesiones/01-primer-contacto/01_script.R" class="btn-descarga">01_script.R — el guion de clase</a> <a href="https://raw.githubusercontent.com/emirandago/r-para-politologos/main/sesiones/01-primer-contacto/01_ejercicio.R" class="btn-descarga">01_ejercicio.R — para llevar</a> <a href="https://raw.githubusercontent.com/emirandago/r-para-politologos/main/sesiones/01-primer-contacto/01_slides.pdf" class="btn-descarga secundario">01_slides.pdf — las láminas</a> <a href="https://raw.githubusercontent.com/emirandago/r-para-politologos/main/sesiones/01-primer-contacto/01_script_completo.R" class="btn-descarga secundario">01_script_completo.R — resuelto</a> <a href="https://raw.githubusercontent.com/emirandago/r-para-politologos/main/sesiones/01-primer-contacto/01_solucion.R" class="btn-descarga secundario">01_solucion.R — solución del ejercicio</a></p>
+<p><a href="https://raw.githubusercontent.com/emirandago/r-para-ciencia-politica/main/sesiones/01-primer-contacto/01_script.R" class="btn-descarga">01_script.R — el guion de clase</a> <a href="https://raw.githubusercontent.com/emirandago/r-para-ciencia-politica/main/sesiones/01-primer-contacto/01_ejercicio.R" class="btn-descarga">01_ejercicio.R — para llevar</a> <a href="https://raw.githubusercontent.com/emirandago/r-para-ciencia-politica/main/sesiones/01-primer-contacto/01_slides.pdf" class="btn-descarga secundario">01_slides.pdf — las láminas</a> <a href="https://raw.githubusercontent.com/emirandago/r-para-ciencia-politica/main/sesiones/01-primer-contacto/01_script_completo.R" class="btn-descarga secundario">01_script_completo.R — resuelto</a> <a href="https://raw.githubusercontent.com/emirandago/r-para-ciencia-politica/main/sesiones/01-primer-contacto/01_solucion.R" class="btn-descarga secundario">01_solucion.R — solución del ejercicio</a></p>
 </div>
 <p>El archivo <code>01_script.R</code> tiene huecos y <strong>no corre de corrido</strong>: está hecho para llenarse en clase. Eso no es un defecto, es el diseño. Los dos archivos grises se publican al terminar la sesión.</p>
 </section>
@@ -337,7 +337,7 @@ ul.task-list li input[type="checkbox"] {
 <h3 class="anchored" data-anchor-id="si-algo-falla">Si algo falla</h3>
 <p><strong><code>Error in library(tidyverse) : there is no package called 'tidyverse'</code></strong> No instalaste el paquete. Copia <code>install.packages("tidyverse")</code> a la consola, córrelo una vez —tarda varios minutos— y vuelve al script. Esta instrucción va en la consola y nunca dentro del script.</p>
 <p><strong><code>Error: object 'resultados' not found</code></strong> No encuentro nada que se llame así. Casi siempre es una de dos cosas: no corriste la línea de arriba donde se creó el objeto, o lo escribiste con una letra distinta. R distingue mayúsculas de minúsculas, y <code>Resultados</code> y <code>resultados</code> son dos cosas diferentes para él.</p>
-<p><strong><code>Error: 'datos/limpios/presidencial_2024_entidad.csv' does not exist</code></strong> R está parado en otra carpeta. Cierra RStudio por completo, vuelve a abrirlo con doble clic sobre <code>r-para-politologos.Rproj</code> —no desde el ícono de RStudio— y corre <code>here()</code> para confirmar que la ruta termina en <code>/r-para-politologos</code>.</p>
+<p><strong><code>Error: 'datos/limpios/presidencial_2024_entidad.csv' does not exist</code></strong> R está parado en otra carpeta. Este es el error más frustrante del primer día porque el mensaje no dice la causa real. Cierra RStudio por completo y vuelve a abrirlo haciendo <strong>doble clic sobre <code>r-para-ciencia-politica.Rproj</code></strong> —no desde el icono de RStudio—, y corre <code>here()</code> para confirmar. Si el problema sigue, revisa que no haya <strong>otro archivo <code>.Rproj</code> en una carpeta de arriba</strong>: cuando hay dos proyectos anidados, <code>here()</code> se ancla en el que esté abierto, y todas las rutas del curso quedan mal a la vez. La forma rápida de diagnosticar todo esto es correr <code>source("verificar_setup.R")</code> en la consola: revisa cinco cosas y te dice cuál falla y cómo arreglarla.</p>
 <p><strong>La consola muestra un <code>+</code> y no pasa nada</strong> Esto no es un error: R está esperando a que termines la instrucción. Te faltó cerrar un paréntesis o una comilla. Aprieta <code>Esc</code> para cancelar y revisa la línea.</p>
 <p>Hay más, con su traducción y su arreglo, en <a href="../../recursos/errores-comunes.html">Errores comunes</a>.</p>
 </section>
@@ -431,7 +431,7 @@ ul.task-list li input[type="checkbox"] {
     }
       var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
       var mailtoRegex = new RegExp(/^mailto:/);
-        var filterRegex = new RegExp("https:\/\/emirandago\.github\.io\/r-para-politologos\/");
+        var filterRegex = new RegExp("https:\/\/emirandago\.github\.io\/r-para-ciencia-politica\/");
       var isInternal = (href) => {
           return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
       }
@@ -768,7 +768,7 @@ ul.task-list li input[type="checkbox"] {
       &nbsp;
     </div>
     <div class="nav-footer-right">
-<p>EMG · Material bajo licencia <a href="https://github.com/emirandago/r-para-politologos/blob/main/LICENSE">CC BY 4.0</a></p>
+<p>EMG · Material bajo licencia <a href="https://github.com/emirandago/r-para-ciencia-politica/blob/main/LICENSE">CC BY 4.0</a></p>
 </div>
   </div>
 </footer>

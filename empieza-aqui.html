@@ -80,7 +80,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <link href="site_libs/quarto-html/quarto-syntax-highlighting-6bc2510a377bfbe78f0e93c5094f7fd0.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap-d33573f5db6bc822405971e42879fa46.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="site_libs/bootstrap/bootstrap-c7bc2abbc169fc4338995c254d030fcd.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -257,7 +257,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </ul>
             <ul class="navbar-nav navbar-nav-scroll ms-auto">
   <li class="nav-item compact">
-    <a class="nav-link" href="https://github.com/emirandago/r-para-politologos"> <i class="bi bi-github" role="img" aria-label="Repositorio en GitHub">
+    <a class="nav-link" href="https://github.com/emirandago/r-para-ciencia-politica"> <i class="bi bi-github" role="img" aria-label="Repositorio en GitHub">
 </i> 
 <span class="menu-text"></span></a>
   </li>  
@@ -381,21 +381,21 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h2 class="anchored" data-anchor-id="paso-4-descargar-el-repositorio-del-curso-sin-usar-git">Paso 4 — Descargar el repositorio del curso, sin usar git</h2>
 <p>No necesitas saber qué es <code>git</code> ni tener una cuenta de GitHub para conseguir el material del curso.</p>
 <ol type="1">
-<li>Entra a la página del repositorio: <a href="https://github.com/emirandago/r-para-politologos">github.com/emirandago/r-para-politologos</a>.</li>
+<li>Entra a la página del repositorio: <a href="https://github.com/emirandago/r-para-ciencia-politica">github.com/emirandago/r-para-ciencia-politica</a>.</li>
 <li>Busca el botón verde que dice <strong>“Code”</strong> (cerca de la parte superior de la lista de archivos) y dale clic.</li>
-<li>En el menú que se abre, elige <strong>“Download ZIP”</strong>. El navegador va a descargar un archivo llamado algo como <code>r-para-politologos-main.zip</code>, normalmente a tu carpeta de Descargas.</li>
+<li>En el menú que se abre, elige <strong>“Download ZIP”</strong>. El navegador va a descargar un archivo llamado algo como <code>r-para-ciencia-politica-main.zip</code>, normalmente a tu carpeta de Descargas.</li>
 <li>Descomprime ese archivo:
 <ul>
 <li>En <strong>Windows</strong>: clic derecho sobre el archivo → <strong>“Extraer todo…”</strong> → elige dónde guardarlo (recomendado: el Escritorio o Documentos) → <strong>“Extraer”</strong>.</li>
 <li>En <strong>macOS</strong>: doble clic sobre el archivo. Se descomprime solo, en la misma carpeta donde estaba el ZIP.</li>
 </ul></li>
-<li>Verifica que la carpeta resultante contenga directamente los archivos del curso —debes ver, entre otros, un archivo llamado <code>r-para-politologos.Rproj</code> y carpetas como <code>sesiones</code> y <code>datos</code>—. Si en vez de eso ves una sola carpeta con el mismo nombre adentro, entra a esa carpeta interior: ahí están los archivos de verdad (ver la sección “si algo falló” más abajo).</li>
+<li>Verifica que la carpeta resultante contenga directamente los archivos del curso —debes ver, entre otros, un archivo llamado <code>r-para-ciencia-politica.Rproj</code> y carpetas como <code>sesiones</code> y <code>datos</code>—. Si en vez de eso ves una sola carpeta con el mismo nombre adentro, entra a esa carpeta interior: ahí están los archivos de verdad (ver la sección “si algo falló” más abajo).</li>
 <li>Mueve esa carpeta a un lugar estable de tu computadora —el Escritorio o Documentos son buenas opciones— y no la borres ni la muevas de ahí mientras dure el curso: el proyecto de RStudio recuerda su ubicación.</li>
 </ol>
 </section>
 <section id="paso-5-abrir-el-proyecto" class="level2">
 <h2 class="anchored" data-anchor-id="paso-5-abrir-el-proyecto">Paso 5 — Abrir el proyecto</h2>
-<p>Dentro de la carpeta que acabas de descomprimir, busca el archivo <strong><code>r-para-politologos.Rproj</code></strong> (el icono es un cubo azul con una “R”) y dale doble clic. Eso abre RStudio ya “parado” en la carpeta correcta del curso: es la única forma correcta de empezar a trabajar, y a partir de la sesión 1 vas a entender exactamente por qué importa.</p>
+<p>Dentro de la carpeta que acabas de descomprimir, busca el archivo <strong><code>r-para-ciencia-politica.Rproj</code></strong> (el icono es un cubo azul con una “R”) y dale doble clic. Eso abre RStudio ya “parado” en la carpeta correcta del curso: es la única forma correcta de empezar a trabajar, y a partir de la sesión 1 vas a entender exactamente por qué importa.</p>
 </section>
 <section id="paso-6-instalar-los-paquetes-del-curso" class="level2">
 <h2 class="anchored" data-anchor-id="paso-6-instalar-los-paquetes-del-curso">Paso 6 — Instalar los paquetes del curso</h2>
@@ -420,8 +420,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h3 class="anchored" data-anchor-id="si-algo-falló">Si algo falló</h3>
 <p><strong>No tienes permisos de administrador en tu computadora.</strong> Es común en equipos institucionales o prestados. Instalar R y RStudio normalmente requiere permisos de administrador porque escriben archivos en carpetas del sistema. Si el instalador se detiene o marca un error de permisos, busca la opción de instalación <strong>“solo para mi usuario”</strong> o <strong>“just me”</strong> si el asistente la ofrece —evita la carpeta de sistema y no la necesita—; si no aparece esa opción, pide apoyo del área de cómputo del ITAM o instala desde una cuenta con permisos de administrador. <code>[VERIFICAR]</code>: si tu equipo tiene una política institucional que bloquea instaladores por completo, la solución depende de esa política específica.</p>
 <p><strong>macOS rechaza el instalador de R o de RStudio.</strong> macOS tiene una función de seguridad llamada <span class="termino-en">Gatekeeper</span> que bloquea, por defecto, instaladores de fuera de la App Store o sin cierta verificación. Si ves un mensaje como <em>“no se puede abrir porque proviene de un desarrollador no identificado”</em> o <em>“la app está dañada y no se puede abrir”</em>: haz clic derecho (o Control + clic) sobre el archivo del instalador y elige <strong>“Abrir”</strong> en vez de hacer doble clic; en el cuadro de diálogo que aparece, confirma que quieres abrirlo de todas formas. Si eso no funciona, entra a <strong>Configuración del Sistema → Privacidad y seguridad</strong> (en versiones más antiguas de macOS: <strong>Preferencias del Sistema → Seguridad y privacidad</strong>) y busca un aviso sobre el archivo bloqueado, con un botón para permitirlo de todas formas. <code>[VERIFICAR]</code>: el nombre exacto de ese menú y la redacción del aviso cambian entre versiones de macOS.</p>
-<p><strong>El ZIP se descomprime dentro de otra carpeta con el mismo nombre.</strong> Algunos navegadores o herramientas de descompresión crean una carpeta adicional alrededor de la carpeta que ya trae el ZIP, así que terminas con algo como <code>r-para-politologos-main/r-para-politologos-main/</code> en vez de <code>r-para-politologos-main/</code> directo. La señal es que abres la carpeta y solo ves otra carpeta adentro, en vez de ver archivos como <code>.Rproj</code> o carpetas como <code>sesiones</code>. La solución es simplemente seguir entrando una carpeta más hasta que veas los archivos del curso directamente, y mover esa carpeta interior —la que sí tiene los archivos— a donde la quieras dejar de forma permanente.</p>
-<p><strong>La ruta tiene tildes, eñes o espacios.</strong> R y algunos de sus paquetes —sobre todo los que trabajan con archivos geográficos, como <code>sf</code>, que vas a usar en la sesión 7— a veces fallan al leer o guardar archivos si la carpeta del proyecto está en una ruta con caracteres acentuados, con “ñ”, o con muchos espacios y paréntesis, del estilo <code>Descargas/Nueva carpeta (2)</code>. Evítalo guardando la carpeta del curso en una ruta simple, por ejemplo directamente en tu Escritorio o en Documentos, con el nombre de carpeta que trae por defecto (<code>r-para-politologos-main</code> o <code>r-para-politologos</code>), sin renombrarla con acentos ni espacios adicionales.</p>
+<p><strong>El ZIP se descomprime dentro de otra carpeta con el mismo nombre.</strong> Algunos navegadores o herramientas de descompresión crean una carpeta adicional alrededor de la carpeta que ya trae el ZIP, así que terminas con algo como <code>r-para-ciencia-politica-main/r-para-ciencia-politica-main/</code> en vez de <code>r-para-ciencia-politica-main/</code> directo. La señal es que abres la carpeta y solo ves otra carpeta adentro, en vez de ver archivos como <code>.Rproj</code> o carpetas como <code>sesiones</code>. La solución es simplemente seguir entrando una carpeta más hasta que veas los archivos del curso directamente, y mover esa carpeta interior —la que sí tiene los archivos— a donde la quieras dejar de forma permanente.</p>
+<p><strong>La ruta tiene tildes, eñes o espacios.</strong> R y algunos de sus paquetes —sobre todo los que trabajan con archivos geográficos, como <code>sf</code>, que vas a usar en la sesión 7— a veces fallan al leer o guardar archivos si la carpeta del proyecto está en una ruta con caracteres acentuados, con “ñ”, o con muchos espacios y paréntesis, del estilo <code>Descargas/Nueva carpeta (2)</code>. Evítalo guardando la carpeta del curso en una ruta simple, por ejemplo directamente en tu Escritorio o en Documentos, con el nombre de carpeta que trae por defecto (<code>r-para-ciencia-politica-main</code> o <code>r-para-ciencia-politica</code>), sin renombrarla con acentos ni espacios adicionales.</p>
 <p><strong>El antivirus de Windows bloquea el instalador o marca R o RStudio como sospechosos.</strong> Windows Defender (o cualquier antivirus de terceros que tengas instalado) a veces detiene la ejecución de un instalador que no reconoce, o lo marca en cuarentena después de la descarga. Revisa la carpeta de notificaciones o el historial de protección de tu antivirus: casi siempre hay una opción para <strong>“permitir de todas formas”</strong> o <strong>“restaurar desde cuarentena”</strong> el archivo específico que acabas de descargar. Si tu antivirus es el que administra el ITAM en equipos institucionales y no tienes esa opción disponible, pide apoyo al área de cómputo.</p>
 </section>
 </section>
@@ -506,7 +506,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     }
       var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
       var mailtoRegex = new RegExp(/^mailto:/);
-        var filterRegex = new RegExp("https:\/\/emirandago\.github\.io\/r-para-politologos\/");
+        var filterRegex = new RegExp("https:\/\/emirandago\.github\.io\/r-para-ciencia-politica\/");
       var isInternal = (href) => {
           return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
       }
@@ -843,7 +843,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       &nbsp;
     </div>
     <div class="nav-footer-right">
-<p>EMG · Material bajo licencia <a href="https://github.com/emirandago/r-para-politologos/blob/main/LICENSE">CC BY 4.0</a></p>
+<p>EMG · Material bajo licencia <a href="https://github.com/emirandago/r-para-ciencia-politica/blob/main/LICENSE">CC BY 4.0</a></p>
 </div>
   </div>
 </footer>
