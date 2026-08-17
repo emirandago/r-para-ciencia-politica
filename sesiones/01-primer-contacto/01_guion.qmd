@@ -150,12 +150,15 @@ R distingue mayúsculas de minúsculas, y `Resultados` y `resultados` son dos co
 diferentes para él.
 
 **`Error: 'datos/limpios/presidencial_2024_entidad.csv' does not exist`**
-R está parado en otra carpeta. Cierra RStudio por completo, vuelve a abrirlo con
-doble clic sobre `r-para-ciencia-politica.Rproj` —no desde el ícono de RStudio— y corre
-`here()` para confirmar que la ruta termina en la carpeta del curso. Puede
-decir `/r-para-ciencia-politica` o `/r-para-ciencia-politica-main` —el `-main`
-se lo agrega GitHub cuando descargas el ZIP—: las dos están bien. Lo que no
-debe pasar es que termine en tu escritorio o en tu carpeta de descargas.
+R está parado en otra carpeta. Este es el error más frustrante del primer día
+porque el mensaje no dice la causa real. Cierra RStudio por completo y vuelve a
+abrirlo haciendo **doble clic sobre `r-para-ciencia-politica.Rproj`** —no desde
+el icono de RStudio—, y corre `here()` para confirmar. Si el problema sigue,
+revisa que no haya **otro archivo `.Rproj` en una carpeta de arriba**: cuando hay
+dos proyectos anidados, `here()` se ancla en el que esté abierto, y todas las
+rutas del curso quedan mal a la vez. La forma rápida de diagnosticar todo esto
+es correr `source("verificar_setup.R")` en la consola: revisa cinco cosas y te
+dice cuál falla y cómo arreglarla.
 
 **La consola muestra un `+` y no pasa nada**
 Esto no es un error: R está esperando a que termines la instrucción. Te faltó
